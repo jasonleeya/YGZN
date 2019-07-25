@@ -1,0 +1,33 @@
+<view class="index">
+  <!-- 头部 -->
+<search/>
+
+  <scroll-view scroll-y class="scroll-body">
+  <view class='scroll-wrapper'>
+    <!-- 销售额 -->
+    <view class="sales theme-bgc shadow-warp">
+      <view class="sales-today-title">{{salesData[0].title}}</view>
+      <view class="sales-today-money">{{salesData[0].money}}</view>
+      <view class="sales-items">
+        <view class="sales-item" wx:for="{{salesData}}" wx:key wx:if="{{index!==0}}">
+          <view class="item-money">{{item.money}}</view>
+          <view class="item-title">{{item.title}}</view>
+        </view>
+      </view>
+    </view>
+
+    <!-- 项目列表 -->
+    <view class="project-list">
+
+      <view class=" project-item bg-{{item.color}} " wx:for="{{projectData}}" wx:key>
+        <view class="project-title">{{item.title}}</view>
+        <view class="project-title-en">{{item.titleEn}}</view>
+        <view class="project-icon iconfont iconcaigouoff"></view>
+      </view>
+
+
+    </view>
+</view>
+  </scroll-view>
+
+</view>

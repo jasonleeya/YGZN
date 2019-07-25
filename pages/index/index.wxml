@@ -1,0 +1,35 @@
+<!-- 点击开单时，动态添加blur,页面虚化 -->
+<view class="{{showOrderPage===true?'blur':''}}">
+  <home wx:if="{{curTab==='home'}}" />
+  <function wx:if="{{curTab==='function'}}" />
+  <message wx:if="{{curTab==='message'}}" />
+  <mine wx:if="{{curTab==='mine'}}" />
+</view>
+
+<order wx:if="{{showOrderPage===true}}" />
+ 
+<!-- 点击开单时，动态添加blur,tabs虚化 -->
+<view class="cu-bar tabbar foot bg-white {{showOrderPage===true?'blur':''}}">
+    <view class="action {{curTab==='home'?'theme-color':'text-gray'}}" bindtap="NavChange" data-link="home" >
+      <view class="cuIcon-homefill"></view> 首页
+    </view>
+    <view class="action  {{curTab==='function'?'theme-color':'text-gray'}}" bindtap="NavChange" data-link="function">
+      <view class="cuIcon-similar"></view> 功能
+    </view>
+    <view class="action text-gray add-action  {{curTab==='order'?'theme-color':'text-gray'}}" bindtap="NavChange" data-link="order">
+      <view class="cu-btn cuIcon-add theme-bgc shadow"></view>
+      开单
+    </view>
+    <view class="action  {{curTab==='message'?'theme-color':'text-gray'}}" bindtap="NavChange" data-link="message">
+      <view class="cuIcon-cart">
+        <view class="cu-tag badge" wx:if="{{messageCount!==0}}">{{messageCount}}</view>
+      </view>
+      消息
+    </view>
+    <view class="action  {{curTab==='mine'?'theme-color':'text-gray'}}" bindtap="NavChange"  data-link="mine">
+      <view class="cuIcon-my">
+        <view class="cu-tag badge"></view>
+      </view>
+      我的
+    </view>
+  </view>

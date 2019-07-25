@@ -1,0 +1,16 @@
+{
+  "pages": [
+    "pages/index/index",
+    "pages/purchase/newPurchase/newPurchase",
+    "pages/purchase/addGoods/addGoods"
+  ],
+  "window": {
+    "backgroundTextStyle": "light",
+    "navigationBarBackgroundColor": "#317EFE",
+    "navigationBarTitleText": "企业助手",
+    "navigationStyle": "default",
+    "navigationBarTextStyle": "white"
+  },
+  "usingComponents": {},
+  "sitemapLocation": "sitemap.json"
+}

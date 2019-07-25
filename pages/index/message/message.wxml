@@ -1,0 +1,51 @@
+<scroll-view class='message-scroll' scroll-y>
+
+<!-- 置顶列表 -->
+<view class="cu-list menu-avatar">
+    <view  class="cu-item message-item-set-top  {{modalName=='move-box-'+ item.id?'move-cur':''}}" wx:for="{{topList}}" wx:key bindtouchstart="ListTouchStart" bindtouchmove="ListTouchMove" bindtouchend="ListTouchEnd" data-target="move-box-{{item.id}}">
+   <view class='message-type-icon bg-gradual-{{module.getColor(item.type-1)}}'>{{item.icon}}</view>
+      <view class='message-content'>
+        <text class='message-title'>{{item.title}}</text>
+        <text class='mesage-status bg-{{item.status===0?"red":"grey"}} light'>{{item.status===0?'未读':'已读'}}</text>
+        <view class='message-ellipsis text-gray'>{{item.content}}</view>
+      </view>
+      <view class='message-recive-time'>{{item.time}}</view>
+
+      <view class="move">
+        <view class="bg-grey"  bindtap='CancelTop' data-cancel-top-index="{{index}}">取消置顶</view>
+          <view class="bg-orange" wx:if="{{item.status===0}}" bindtap="SetRead" data-top='true'  data-set-read-index="{{index}}">标为已读</view>
+        <view class="bg-red" bindtap='Delete' data-top='true' data-delete-index="{{index}}">删除</view>
+      </view>
+    </view>
+
+<!-- 普通列表 -->
+  <view class="cu-item message-item{{item.setTop?'-set-top':''}}  {{modalName=='move-box-'+ item.id?'move-cur':''}}" wx:for="{{messageList}}" wx:key bindtouchstart="ListTouchStart" bindtouchmove="ListTouchMove" bindtouchend="ListTouchEnd" data-target="move-box-{{item.id}}">
+   <view class='message-type-icon bg-gradual-{{module.getColor(item.type-1)}}'>{{item.icon}}</view>
+      <view class='message-content'>
+        <text class='message-title'>{{item.title}}</text>
+        <text class='mesage-status bg-{{item.status===0?"red":"grey"}} light'>{{item.status===0?'未读':'已读'}}</text>
+        <view class='message-ellipsis text-gray'>{{item.content}}</view>
+      </view>
+      <view class='message-recive-time'>{{item.time}}</view>
+
+      <view class="move">
+        <view class="bg-grey" bindtap='SetTop'  data-set-top-index="{{index}}">置顶</view>
+          <view class="bg-orange" wx:if="{{item.status===0}}" bindtap="SetRead" data-top='false' data-set-read-index="{{index}}">标为已读</view>
+        <view class="bg-red" bindtap='Delete' data-top='false' data-delete-index="{{index}}">删除</view>
+      </view>
+    </view>
+
+  </view>
+
+
+
+</scroll-view>
+
+<!-- 动态获取颜色 -->
+<wxs module="module">
+  var colors = ["orange", "blue", "red", "green", "purple", "pink"];
+  var getColor = function(index) {
+    return colors[index%6]
+  }
+  module.exports.getColor = getColor;
+</wxs>

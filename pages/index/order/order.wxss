@@ -1,0 +1,50 @@
+.order {
+  width: 100vw;
+  height: 100vh;
+  position: fixed;
+  top: 0;
+  z-index: 9999;
+  background-color: rgba(255, 255, 255, 0.5);
+}
+
+.close-order {
+  position: absolute;
+  bottom: 50rpx;
+  margin-left: calc(50vw - 35rpx);
+  width: 70rpx;
+  height: 70rpx;
+  line-height: 70rpx;
+  text-align: center;
+  border-radius: 35rpx;
+  font-size: 40rpx;
+}
+.order-list{
+  position: absolute;
+  bottom: 100px;
+  width: 100vw;
+  height: 500px;
+  display: flex;
+  flex-wrap: wrap-reverse;
+  align-content: flex-start;
+  transform: translateY(300px) scale(0.1);
+}
+.order-item{
+width: 25vw;
+height: 25vw;
+}
+
+.order-icon{
+  width: 100rpx;
+  height: 100rpx;
+  border-radius: 50rpx;
+  text-align: center;
+  line-height: 100rpx;
+  color: #fff;
+  font-size: 40rpx;
+  margin: 0 auto;
+  margin-bottom: 20rpx;
+}
+.order-name{
+  color: #000;
+  text-align: center;
+}

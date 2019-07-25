@@ -1,0 +1,18 @@
+<view class="order">
+  <view class='order-list' animation="{{listAni}}">
+    <view class='order-item' wx:for="{{orderList}}" wx:key>
+      <view class='order-icon cuIcon-news shadow bg-gradual-{{module.getColor(index)}}'></view>
+      <view class='order-name'>{{item.name}}</view>
+    </view>
+  </view>
+
+  <view class='close-order theme-bgc iconfont iconadd' animation="{{btnAni}}" bindtap='CloseOrder'></view>
+</view>
+
+<wxs module="module">
+  var colors = ["orange", "blue", "red", "green", "purple", "pink"];
+  var getColor = function(index) {
+    return colors[index%6]
+  }
+  module.exports.getColor = getColor;
+</wxs>

@@ -1,0 +1,67 @@
+<view class="info-list shadow">
+  <view class="info-item">
+    <view class="info-name">采购单号</view>
+    <view class="info-content">SPARK20197110001</view>
+  </view>
+
+  <view class="info-item">
+    <view class="info-name">供应商</view>
+    <view class="info-content text-gray">请选择供应商/或添加供应商</view>
+    <view class="cuIcon-right"></view>
+  </view>
+
+  <view class="info-item">
+    <view class="info-name">采购员</view>
+    <view class="info-content text-gray">请选择采购员</view>
+    <view class="cuIcon-right"></view>
+  </view>
+
+  <view class="info-item">
+    <view class="info-name">收货人</view>
+    <view class="info-content">
+      <input placeholder="依高智能" placeholder-class="placeholder"></input>
+    </view>
+    <view class="cuIcon-right"></view>
+  </view>
+
+  <view class="info-item">
+    <view class="info-name">联系电话</view>
+    <view class="info-content">
+      <input type="number" placeholder="18888888888" placeholder-class="placeholder"></input>
+    </view>
+    <view class="cuIcon-right"></view>
+  </view>
+
+  <view class="info-item">
+    <view class="info-name">收货地址</view>
+    <view class="info-content">
+   北京/东城区/建设路100号
+    </view>
+    <view class="cuIcon-right"></view>
+  </view>
+
+  <view class="info-item">
+    <view class="info-name">收货日期</view>
+    <view class="info-content">
+  <picker mode="date" value="{{date}}" start="2015-09-01" end="2020-09-01" bindchange="bindDateChange">
+    <view class="picker">
+     {{date}}
+    </view>
+  </picker>
+    </view>
+    <view class="cuIcon-right"></view>
+  </view>
+</view>
+<view class="title add-goods">添加商品</view>
+<!-- 搜索 -->
+<search/>
+<!-- 购物车 -->
+<cart/>
+
+<view class="title remake">备注</view>
+ <textarea class="remake-textarea" placeholder="请填写备注信息"  />
+
+<view class="operating-options">
+<view class="save-order bg-orange">保存订单</view>
+<view class="comfirm-order bg-red">确认订单</view>
+</view>

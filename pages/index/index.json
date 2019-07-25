@@ -1,0 +1,9 @@
+{
+  "usingComponents": {
+    "home": "/pages/index/home/home",
+    "function": "/pages/index/function/function",
+    "order": "/pages/index/order/order",
+    "message": "/pages/index/message/message",
+    "mine": "/pages/index/mine/mine"
+  }
+}

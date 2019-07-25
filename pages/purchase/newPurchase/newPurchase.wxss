@@ -1,0 +1,65 @@
+.info-item {
+  height: 88rpx;
+  background-color: #fff;
+  position: relative;
+  display: flex;
+  align-items: center;
+}
+
+.info-item::after {
+  content: '';
+  display: block;
+  width: 100vw;
+  height: 1px;
+  background-color: #eee;
+  position: absolute;
+  bottom: 0;
+  left: 30rpx;
+}
+
+.info-name {
+  width: 25vw;
+  padding-left: 30rpx;
+}
+
+.info-content {
+  flex: 1;
+}
+
+.cuIcon-right {
+  margin-right: 30rpx;
+}
+
+.placeholder {
+  color: #000;
+}
+
+.title {
+  margin-left: 30rpx;
+  height: 100rpx;
+  line-height: 100rpx;
+}
+
+.remake-textarea {
+  width: 100vw;
+  height: 200rpx;
+  padding: 30rpx;
+  margin-bottom: 100rpx;
+  background-color: #fff;
+}
+
+.operating-options {
+  display: flex;
+  height: 100rpx;
+  align-items: center;
+  position: fixed;
+  bottom: 0;
+  width: 100%;
+}
+
+.save-order, .comfirm-order {
+  flex: 1;
+  text-align: center;
+  height: 100rpx;
+  line-height: 100rpx;
+}

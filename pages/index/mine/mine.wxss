@@ -1,0 +1,117 @@
+.mine-header {
+  width: 100vw;
+  height: 30vw;
+  position: relative;
+}
+
+.header-bg {
+  width: 100vw;
+  height: 30vw;
+}
+
+.header-content {
+  position: absolute;
+  top: 0;
+  width: 100vw;
+  height: calc(30vw - 60rpx);
+  display: flex;
+  align-items: center;
+  padding: 0 5vw;
+}
+
+.user-avatar {
+  width: 100rpx;
+  height: 100rpx;
+  border-radius: 50rpx;
+}
+
+.user-info {
+  flex: 1;
+  color: #fff;
+  padding-left: 20rpx;
+}
+
+.user-name {
+  font-size: 34rpx;
+  height: 60rpx;
+  line-height: 60rpx;
+}
+
+.user-id {
+  font-size: 30rpx;
+  font-weight: lighter;
+}
+
+.toggle-account {
+  height: 36rpx;
+  padding: 0 10rpx;
+  line-height: 36rpx;
+  font-size: 20rpx;
+  border-radius: 18rpx;
+}
+
+.todo-list {
+  width: 90vw;
+  height: 30vw;
+  background-color: #fff;
+  z-index: 99;
+  position: relative;
+  top: -60rpx;
+  margin: 0 auto -60rpx;
+  border-radius: 20rpx;
+}
+
+.todo-list-title {
+  height: 60rpx;
+  line-height: 60rpx;
+  padding-left: 20rpx;
+}
+
+.todo-item-wrapper {
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+  height: calc(30vw - 60rpx);
+}
+
+todo-item {
+  text-align: center;
+}
+
+.todo-icon {
+  width: 60rpx;
+  height: 60rpx;
+  border-radius: 30rpx;
+  text-align: center;
+  line-height: 60rpx;
+  font-size: 36rpx;
+  color: #fff;
+  padding-left: 5rpx;
+  margin: auto;
+}
+
+.todo-name, .todo-count {
+  font-size: 20rpx;
+}
+
+.option {
+  margin: 30rpx 0;
+}
+
+.option-item {
+  background-color: #fff;
+  display: flex;
+  height: 88rpx;
+  line-height: 88rpx;
+  padding: 0 40rpx;
+}
+
+.option-icon {
+  font-size: 36rpx;
+  margin-right: 10rpx;
+  font-weight: bold;
+}
+
+.option-name {
+  flex: 1;
+}

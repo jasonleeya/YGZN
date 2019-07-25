@@ -1,0 +1,42 @@
+<!-- 购物车组件 -->
+<view class="cart shadow">
+  <view class="cart-header solid-bottom">
+    <view class="cart-title">所选商品</view>
+    <view class="total-amount">
+      <text class="text-gray">合计金额:</text>
+      <text class="text-red">{{totalAmount}}</text>
+    </view>
+  </view>
+
+  <view class="goods-list cu-list">
+  <view wx:if="{{goodsList.length===0}}" class="no-goods">你还没用添加商品，赶紧去添加吧~</view>
+    <view class="goods-item cu-item solid-bottom  {{modalName=='move-box-'+ index?'move-cur':''}}" wx:for="{{goodsList}}" wx:key bindtouchstart="ListTouchStart" bindtouchmove="ListTouchMove" bindtouchend="ListTouchEnd" data-target="move-box-{{index}}">
+      <view class="goods-pic">
+        <image src="{{item.pic}}"></image>
+      </view>
+      <view class="goods-info">
+        <view class="goods-name">
+          {{item.name}}
+        </view>
+        <view class="goods-type text-gray">
+          {{item.type}}
+        </view>
+        <view class="goods-price text-red">
+          ￥{{item.price}}
+        </view>
+      </view>
+      <view class="choosed-amount">
+        <view class="choosed-amount-wrapper solid">
+          <view class="plus-amount bg-gray" bindtap="plusGoods" data-index="{{index}}">+</view>
+          <view class="amount solid">{{item.choosedAmount}}</view>
+          <view class="minus-amount bg-gray" bindtap="minusGoods" data-index="{{index}}">-</view>
+        </view>
+      </view>
+
+      <view class="move">
+        <view class="bg-red" bindtap='delete' data-delete-index="{{index}}">删除</view>
+      </view>
+
+    </view>
+  </view>
+</view>

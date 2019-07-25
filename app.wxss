@@ -1,0 +1,12 @@
+@import "colorui/main.wxss";
+@import "colorui/icon.wxss";
+@import "imgs/iconfont/iconfont.wxss";
+
+.theme-bgc{
+  background-color:  #317EFE;
+  color: white;
+}
+
+.theme-color{
+  color:  #317EFE
+}
