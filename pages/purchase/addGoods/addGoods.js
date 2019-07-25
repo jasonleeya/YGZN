@@ -5,7 +5,55 @@ Page({
    * 页面的初始数据
    */
   data: {
-
+    goodsList: [{
+      name: '三菱/通用型螺纹车刀片',
+      type: ' MMT22R050APBU VP10MF',
+      price: '666.00',
+      pic: 'http://img4.imgtn.bdimg.com/it/u=2022307077,2423689529&fm=15&gp=0.jpg',
+      stocks: 10
+    }, {
+      name: '三菱/通用型螺纹车刀片',
+      type: ' MMT22R050APBU VP10MFVP10MFVP10MF',
+      price: '666.00',
+      pic: 'http://img4.imgtn.bdimg.com/it/u=2022307077,2423689529&fm=15&gp=0.jpg',
+      stocks: 10
+    }, {
+      name: '三菱/通用型螺纹车刀片',
+      type: ' MMT22R050APBU VP10MFVP10MFVP10MF',
+      price: '666.00',
+      pic: 'http://img4.imgtn.bdimg.com/it/u=2022307077,2423689529&fm=15&gp=0.jpg',
+      stocks: 10
+    }, {
+      name: '三菱/通用型螺纹车刀片',
+      type: ' MMT22R050APBU VP10MFVP10MFVP10MF',
+      price: '666.00',
+      pic: 'http://img4.imgtn.bdimg.com/it/u=2022307077,2423689529&fm=15&gp=0.jpg',
+      stocks: 10
+      }, {
+        name: '三菱/通用型螺纹车刀片',
+        type: ' MMT22R050APBU VP10MFVP10MFVP10MF',
+        price: '666.00',
+        pic: 'http://img4.imgtn.bdimg.com/it/u=2022307077,2423689529&fm=15&gp=0.jpg',
+        stocks: 10
+      }, {
+        name: '三菱/通用型螺纹车刀片',
+        type: ' MMT22R050APBU VP10MFVP10MFVP10MF',
+        price: '666.00',
+        pic: 'http://img4.imgtn.bdimg.com/it/u=2022307077,2423689529&fm=15&gp=0.jpg',
+        stocks: 10
+      }, {
+        name: '三菱/通用型螺纹车刀片',
+        type: ' MMT22R050APBU VP10MFVP10MFVP10MF',
+        price: '666.00',
+        pic: 'http://img4.imgtn.bdimg.com/it/u=2022307077,2423689529&fm=15&gp=0.jpg',
+        stocks: 10
+      }, {
+        name: '三菱/通用型螺纹车刀片',
+        type: ' MMT22R050APBU VP10MFVP10MFVP10MF',
+        price: '666.00',
+        pic: 'http://img4.imgtn.bdimg.com/it/u=2022307077,2423689529&fm=15&gp=0.jpg',
+        stocks: 10
+      },]
   },
 
   /**

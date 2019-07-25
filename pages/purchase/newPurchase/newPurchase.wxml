@@ -1,3 +1,4 @@
+<scroll-view scroll-y>
 <view class="info-list shadow">
   <view class="info-item">
     <view class="info-name">采购单号</view>
@@ -64,4 +65,4 @@
 <view class="operating-options">
 <view class="save-order bg-orange">保存订单</view>
 <view class="comfirm-order bg-red">确认订单</view>
-</view>
+</view></scroll-view>

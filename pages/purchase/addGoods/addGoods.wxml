@@ -1,2 +1,50 @@
-<!--pages/purchase/addGoods/addGoods.wxml-->
-<text>1111</text>
+<search/>
+<scroll-view scroll-y>
+  <view class="goods-list">
+    <view class="goods-item solid-bottom" wx:for="{{goodsList}}" wx:key>
+      <view class="goods-pic">
+        <image src="{{item.pic}}"></image>
+      </view>
+      <view class="goods-info">
+        <view class="goods-name">{{item.name}}</view>
+        <view class="goods-type text-gray">{{item.type}}</view>
+        <view class="goods-stocks text-green">库存：{{item.stocks}}（片）</view>
+      </view>
+
+      <view class="add-goods cuIcon-add shadow bg-blue"></view>
+    </view>
+  </view>
+</scroll-view>
+<view class="confirm-order solid-top">
+  <text>合计金额：<text class="total-amount text-red">￥6660.00</text></text>
+  <view class="confirm-btn bg-gradual-orange">确认（4）</view>
+</view>
+
+
+
+<view class="pop-up-shadow">
+  <view class="input-group">
+    <view class="input-group-title">通用型螺纹车刀片</view>
+    <view class="input-wrapper bg-gray solid">
+      <view class="input-name">数量:</view>
+      <input type="number" placeholder="10"></input>
+    </view>
+
+    <view class="input-wrapper bg-gray solid">
+      <view class="input-name">不含税价:</view>
+      <input type="number" placeholder="478.00"></input>
+    </view>
+    <view class="input-wrapper bg-gray solid">
+      <view class="input-name">税率:</view>
+      <input type="number" placeholder="13%"></input>
+    </view>
+    <view class="input-wrapper bg-gray solid">
+      <view class="input-name">含税价:</view>
+      <input type="number" placeholder="505.45"></input>
+    </view>
+    <view class="operation-btn solid-top">
+      <view class="btn-cancel solid-right">取消</view>
+      <view class="btn-confirm text-blue light">确定</view>
+    </view>
+  </view>
+</view>

@@ -1,5 +1,5 @@
 <!-- 搜索组件 -->
-    <view class="search shadow">
+    <view class="search shadow solid-bottom">
     <view class="search-toggle bg-gray">全局搜索</view>
     <view class="search-input bg-gray">
       <text class="iconfont iconsousuo"></text>

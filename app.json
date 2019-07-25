@@ -1,8 +1,9 @@
 {
   "pages": [
+    "pages/purchase/addGoods/addGoods",
     "pages/index/index",
-    "pages/purchase/newPurchase/newPurchase",
-    "pages/purchase/addGoods/addGoods"
+    "pages/purchase/newPurchase/newPurchase"
+    
   ],
   "window": {
     "backgroundTextStyle": "light",
