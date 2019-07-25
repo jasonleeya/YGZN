@@ -55,7 +55,7 @@
 </view>
 <view class="title add-goods">添加商品</view>
 <!-- 搜索 -->
-<search/>
+<search link="/pages/purchase/addGoods/addGoods"/>
 <!-- 购物车 -->
 <cart/>
 

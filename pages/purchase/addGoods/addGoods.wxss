@@ -74,31 +74,31 @@
 }
 
 .input-group {
-  width: 60vw;
+  width: 70vw;
   background-color: #fff;
   border-radius: 20rpx;
   position: absolute;
   left: 50%;
   top: 50%;
-  transform: translate(-50%,-50%);
+  transform: translate(-50%,-70%);
 }
 .input-wrapper{
     display: flex;
     align-items: center;
     margin: 0 40rpx 30rpx;
-    height: 60rpx;
-    line-height: 60rpx;
+    height: 80rpx;
+    line-height: 80rpx;
     padding: 0 20rpx;
 }
 .input-wrapper input{
   flex: 1;
-  margin-top: 5rpx;
-  text-align: end
+  text-align: right
 }
 .input-group-title{
   text-align: center;
   height: 80rpx;
   line-height: 80rpx;
+  margin-right: 20rpx;
 }
 
 .operation-btn{

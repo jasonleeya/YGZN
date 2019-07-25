@@ -4,7 +4,9 @@ Component({
    * 组件的属性列表
    */
   properties: {
-
+    link:{
+      type:String,
+    }
   },
   options: {
     addGlobalClass: true,
@@ -20,6 +22,10 @@ Component({
    * 组件的方法列表
    */
   methods: {
-
+    toSearch(){
+      wx.redirectTo({
+        url: this.properties.link,
+      })
+    }
   }
 })

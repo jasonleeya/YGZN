@@ -8,10 +8,10 @@
       <view class="goods-info">
         <view class="goods-name">{{item.name}}</view>
         <view class="goods-type text-gray">{{item.type}}</view>
-        <view class="goods-stocks text-green">库存：{{item.stocks}}（片）</view>
+        <view class="goods-stocks text-green">库存：{{item.stock}}（片）</view>
       </view>
 
-      <view class="add-goods cuIcon-add shadow bg-blue"></view>
+      <view class="add-goods cuIcon-add shadow bg-blue" bindtap='showPop' data-index="{{index}}"></view>
     </view>
   </view>
 </scroll-view>
@@ -22,29 +22,29 @@
 
 
 
-<view class="pop-up-shadow">
+<view class="pop-up-shadow" wx:if="{{isShowPop}}">
   <view class="input-group">
     <view class="input-group-title">通用型螺纹车刀片</view>
     <view class="input-wrapper bg-gray solid">
       <view class="input-name">数量:</view>
-      <input type="number" placeholder="10"></input>
+      <input type="number" bindinput='stockInput' value="{{popData.stock}}"></input>
     </view>
 
     <view class="input-wrapper bg-gray solid">
       <view class="input-name">不含税价:</view>
-      <input type="number" placeholder="478.00"></input>
+      <input type="digit" bindinput='noTaxPriceInput' bindblur='noTaxPriceBlur' value="{{popData.noTaxPrice}}"></input>
     </view>
     <view class="input-wrapper bg-gray solid">
       <view class="input-name">税率:</view>
-      <input type="number" placeholder="13%"></input>
+      <input type="digit" bindfocus='taxRateFocus'  bindblur='taxRateBlur'  value='{{popData.taxRate}}%'></input>
     </view>
     <view class="input-wrapper bg-gray solid">
       <view class="input-name">含税价:</view>
-      <input type="number" placeholder="505.45"></input>
+      <input type="digit"  bindinput='containTaxPriceInput' bindblur='containTaxPriceBlur' value="{{popData.containTaxPrice}}"></input>
     </view>
     <view class="operation-btn solid-top">
-      <view class="btn-cancel solid-right">取消</view>
-      <view class="btn-confirm text-blue light">确定</view>
+      <view class="btn-cancel solid-right" bindtap='addCancel'>取消</view>
+      <view class="btn-confirm text-blue light" bindtap='addConfirm'>确定</view>
     </view>
   </view>
 </view>
