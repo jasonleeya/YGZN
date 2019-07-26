@@ -20,7 +20,7 @@
           <view class='iconfont {{contentItem.icon}}'></view>
         </view>
         <view class='content-item-name'>{{contentItem.value}}</view>
-        <view class='content-item-badge bg-{{module.getColor(contentIndex)}} light'>{{contentItem.number}}</view>
+        <view  wx:if="{{contentItem.number}}" class='content-item-badge bg-{{module.getColor(contentIndex)}}  light'>{{contentItem.number}}</view>
       </navigator>
 
     </view>

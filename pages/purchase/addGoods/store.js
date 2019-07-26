@@ -1,15 +1,17 @@
-export default{
-  data:{
+export default {
+  data: {
     goodsList: [{
-      name: '三菱/通用型螺纹车刀片',
+      id: '0',
+      name: '三菱/通用型螺纹车刀片1',
       type: ' MMT22R050APBU VP10MF',
       pic: 'http://img4.imgtn.bdimg.com/it/u=2022307077,2423689529&fm=15&gp=0.jpg',
       stock: 10,
-      noTaxPrice: '666.00',
+      noTaxPrice: '100.00',
       taxRate: 13,
-      containTaxPrice: 606.45
+      containTaxPrice: 133
     }, {
-      name: '三菱/通用型螺纹车刀片1',
+      id: '1',
+      name: '三菱/通用型螺纹车刀片2',
       type: ' MMT22R050APBU VP10MF',
       pic: 'http://img4.imgtn.bdimg.com/it/u=2022307077,2423689529&fm=15&gp=0.jpg',
       stock: 1,
@@ -17,7 +19,8 @@ export default{
       taxRate: 13,
       containTaxPrice: 606.45
     }, {
-      name: '三菱/通用型螺纹车刀片2',
+      id: '2',
+      name: '三菱/通用型螺纹车刀片3',
       type: ' MMT22R050APBU VP10MF',
       pic: 'http://img4.imgtn.bdimg.com/it/u=2022307077,2423689529&fm=15&gp=0.jpg',
       stock: 2,
@@ -25,7 +28,8 @@ export default{
       taxRate: 13,
       containTaxPrice: 606.45
     }, {
-      name: '三菱/通用型螺纹车刀片3',
+      id: '3',
+      name: '三菱/通用型螺纹车刀片4',
       type: ' MMT22R050APBU VP10MF',
       pic: 'http://img4.imgtn.bdimg.com/it/u=2022307077,2423689529&fm=15&gp=0.jpg',
       stock: 3,
@@ -33,13 +37,14 @@ export default{
       taxRate: 13,
       containTaxPrice: 606.45
     }, {
-      name: '三菱/通用型螺纹车刀片4',
+      id: '4',
+      name: '三菱/通用型螺纹车刀片5',
       type: ' MMT22R050APBU VP10MF',
       pic: 'http://img4.imgtn.bdimg.com/it/u=2022307077,2423689529&fm=15&gp=0.jpg',
       stock: 4,
       noTaxPrice: '666.00',
       taxRate: 13,
       containTaxPrice: 606.45
-    },]
+    }, ]
   }
 }

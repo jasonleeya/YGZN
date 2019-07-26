@@ -4,7 +4,7 @@
     <view class="cart-title">所选商品</view>
     <view class="total-amount">
       <text class="text-gray">合计金额:</text>
-      <text class="text-red">{{totalAmount}}</text>
+      <text class="text-red">{{totalPrice}}</text>
     </view>
   </view>
 
@@ -22,21 +22,20 @@
           {{item.type}}
         </view>
         <view class="goods-price text-red">
-          ￥{{item.price}}
+          ￥{{item.containTaxPrice}}
         </view>
       </view>
       <view class="choosed-amount">
         <view class="choosed-amount-wrapper solid">
-          <view class="plus-amount bg-gray" bindtap="plusGoods" data-index="{{index}}">+</view>
-          <view class="amount solid">{{item.choosedAmount}}</view>
-          <view class="minus-amount bg-gray" bindtap="minusGoods" data-index="{{index}}">-</view>
+          <view class="plus-amount bg-gray" bindtap="plusGoods" data-index="{{index}}" data-id="{{item.id}}">+</view>
+          <view class="amount solid">{{item.amount}}</view>
+          <view class="minus-amount bg-gray" bindtap="minusGoods" data-index="{{index}}" data-id="{{item.id}}">-</view>
         </view>
       </view>
 
       <view class="move">
-        <view class="bg-red" bindtap='delete' data-delete-index="{{index}}">删除</view>
+        <view class="bg-red" bindtap='slideToDelete' data-delet-index="{{index}}" data-delete-id="{{item.id}}">删除</view>
       </view>
-
     </view>
   </view>
 </view>

@@ -36,7 +36,6 @@ Component({
         value: "新增采购",
         icon: "iconcaigouoff",
         link: '/pages/purchase/newPurchase/newPurchase',
-        number: 1
       }, {
         value: "采购订单确认",
         icon: "iconcaigouoff",

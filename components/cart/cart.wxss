@@ -44,7 +44,7 @@
   font-size: 24rpx;
 }
 
-.goods-name {
+.goods-type {
   overflow: hidden;
   text-overflow: ellipsis;
   white-space: nowrap;
@@ -76,6 +76,7 @@
   height: 50rpx;
   width: 80rpx;
   padding: 0 20rpx;
+  text-align: center
 }
 
 .cu-list>.cu-item {

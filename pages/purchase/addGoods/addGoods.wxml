@@ -16,8 +16,8 @@
   </view>
 </scroll-view>
 <view class="confirm-order solid-top">
-  <text>合计金额：<text class="total-amount text-red">￥6660.00</text></text>
-  <view class="confirm-btn bg-gradual-orange">确认（4）</view>
+  <text>合计金额：<text class="total-amount text-red">￥{{totalPrice}}</text></text>
+  <view class="confirm-btn bg-gradual-orange" bindtap="confirmOrder">确认（{{totalAmount}}）</view>
 </view>
 
 
@@ -27,7 +27,7 @@
     <view class="input-group-title">通用型螺纹车刀片</view>
     <view class="input-wrapper bg-gray solid">
       <view class="input-name">数量:</view>
-      <input type="number" bindinput='stockInput' value="{{popData.stock}}"></input>
+      <input type="number" bindinput='amountInput' value="{{popData.amount}}"></input>
     </view>
 
     <view class="input-wrapper bg-gray solid">
@@ -42,6 +42,12 @@
       <view class="input-name">含税价:</view>
       <input type="digit"  bindinput='containTaxPriceInput' bindblur='containTaxPriceBlur' value="{{popData.containTaxPrice}}"></input>
     </view>
+
+      <view class="input-wrapper bg-gray solid">
+      <view class="input-name">总价:</view>
+      <input type="digit" disabled  bindinput='totalPriceInput' bindblur='totalPriceeBlur' value="{{popData.totalPrice}}"></input>
+    </view>
+
     <view class="operation-btn solid-top">
       <view class="btn-cancel solid-right" bindtap='addCancel'>取消</view>
       <view class="btn-confirm text-blue light" bindtap='addConfirm'>确定</view>

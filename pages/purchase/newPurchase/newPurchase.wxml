@@ -57,12 +57,12 @@
 <!-- 搜索 -->
 <search link="/pages/purchase/addGoods/addGoods"/>
 <!-- 购物车 -->
-<cart/>
+<cart goodsList="{{goodsList}}" />
 
 <view class="title remake">备注</view>
  <textarea class="remake-textarea" placeholder="请填写备注信息"  />
 
 <view class="operating-options">
 <view class="save-order bg-orange">保存订单</view>
-<view class="comfirm-order bg-red">确认订单</view>
+<view class="comfirm-order bg-red" bindtap="confirmOrder">确认订单</view>
 </view></scroll-view>

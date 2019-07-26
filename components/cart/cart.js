@@ -1,10 +1,13 @@
-// components/cart/cart.js
-Component({
+import create from '../../utils/create'
+create({
   /**
    * 组件的属性列表
    */
   properties: {
-
+    goodsList: {
+      type: Array,
+      value: []
+    },
   },
   options: {
     addGlobalClass: true,
@@ -13,47 +16,10 @@ Component({
    * 组件的初始数据
    */
   data: {
-    totalAmount: 0,
-    goodsList: [{
-      name: '三菱/通用型螺纹车刀片',
-      type: ' MMT22R050APBU VP10MF',
-      price: '666.00',
-      pic: 'http://img4.imgtn.bdimg.com/it/u=2022307077,2423689529&fm=15&gp=0.jpg',
-      choosedAmount: 10
-    }, {
-      name: '三菱/通用型螺纹车刀片',
-      type: ' MMT22R050APBU VP10MFVP10MFVP10MF',
-      price: '666.00',
-      pic: 'http://img4.imgtn.bdimg.com/it/u=2022307077,2423689529&fm=15&gp=0.jpg',
-      choosedAmount: 10
-    }, {
-      name: '三菱/通用型螺纹车刀片',
-      type: ' MMT22R050APBU VP10MFVP10MFVP10MF',
-      price: '666.00',
-      pic: 'http://img4.imgtn.bdimg.com/it/u=2022307077,2423689529&fm=15&gp=0.jpg',
-      choosedAmount: 10
-    }, {
-      name: '三菱/通用型螺纹车刀片',
-      type: ' MMT22R050APBU VP10MFVP10MFVP10MF',
-      price: '666.00',
-      pic: 'http://img4.imgtn.bdimg.com/it/u=2022307077,2423689529&fm=15&gp=0.jpg',
-      choosedAmount: 10
-    }, {
-      name: '三菱/通用型螺纹车刀片',
-      type: ' MMT22R050APBU VP10MFVP10MFVP10MF',
-      price: '666.00',
-      pic: 'http://img4.imgtn.bdimg.com/it/u=2022307077,2423689529&fm=15&gp=0.jpg',
-      choosedAmount: 10
-    }, ]
+    totalPrice: 0,
   },
   ready() {
-    var total = 0
-    this.data.goodsList.forEach(item => {
-      total += item.price * item.choosedAmount
-    })
-    this.setData({
-      totalAmount: total
-    })
+    this.computeTotalPrice()
   },
   /**
    * 组件的方法列表
@@ -61,21 +27,85 @@ Component({
   methods: {
     // 添加商品
     plusGoods(e) {
+      var id = e.target.dataset.id
       var index = e.target.dataset.index
-      this.setData({
-        totalAmount: this.data.totalAmount + parseInt(this.data.goodsList[index].price),
-        ["goodsList[" + index + "].choosedAmount"]: this.data.goodsList[index].choosedAmount + 1
+      var cartList = this.store.data.newPurchase.cartList
+      cartList.forEach(item => { //更改store中的amount
+        if (item.id === id) {
+          item.amount += 1
+        }
+        item.totalPrice=item.amount*parseFloat(item.containTaxPrice)
       })
+      this.setData({
+        ["goodsList[" + index + "].amount"]: this.data.goodsList[index].amount + 1
+      })
+      this.computeTotalPrice()
+
     },
+
     // 减少商品
     minusGoods(e) {
-      var index = e.target.dataset.index
-      if (this.data.goodsList[index].choosedAmount > 0) {
+      var id = e.target.dataset.id
+      var minusIndex = e.target.dataset.index
+      var cartList = this.store.data.newPurchase.cartList
+      if (this.data.goodsList[minusIndex].amount > 0) {
+        cartList.forEach(item => { //更改store中的amount
+          if (item.id === id) {
+            item.amount -= 1
+          }
+          item.totalPrice = item.amount * parseFloat(item.containTaxPrice)
+        })
         this.setData({
-          totalAmount: this.data.totalAmount - parseInt(this.data.goodsList[index].price),
-          ["goodsList[" + index + "].choosedAmount"]: this.data.goodsList[index].choosedAmount - 1
+          ["goodsList[" + minusIndex + "].amount"]: this.data.goodsList[minusIndex].amount - 1
+        })
+        this.computeTotalPrice()
+      }
+
+      if (this.data.goodsList[minusIndex].amount === 0){
+        var newList = this.data.goodsList
+        newList.splice(minusIndex, 1)
+        this.setData({
+          goodsList: newList
+        })
+
+        cartList.forEach((item,index)=>{
+          if (item.id === id) {
+            cartList.splice(index,1)
+          }
         })
       }
+    },
+    /**
+     * 重新计算总价
+     */
+    computeTotalPrice() {
+      var totalPrice = 0
+      this.store.data.newPurchase.cartList.forEach(item => {
+        totalPrice += parseFloat(item.amount * item.containTaxPrice)
+        
+      })
+      totalPrice = parseFloat(totalPrice.toFixed(2))
+      this.setData({
+        totalPrice: totalPrice
+      })
+      this.store.data.newPurchase.totalPrice = totalPrice
+    },
+    // 左滑删除商品
+    slideToDelete(e) {
+      var deleteIndex = e.target.dataset.deleteIndex
+      var id = e.target.dataset.deleteId
+      var newList = this.data.goodsList
+      var cartList = this.store.data.newPurchase.cartList
+      newList.splice(deleteIndex, 1)
+      this.setData({
+        goodsList: newList
+      })
+     cartList.forEach((item, index) => {
+        if (item.id = id) {
+          cartList.splice(index, 1)
+        }
+      })
+      this.computeTotalPrice()
     },
     // ListTouch触摸开始
     ListTouchStart(e) {
@@ -108,19 +138,6 @@ Component({
       }
       this.setData({
         ListTouchDirection: null
-      })
-    },
-    // 左滑删除商品
-    delete(e) {
-      var deleteIndex = e.target.dataset.deleteIndex;
-      var newList = this.data.goodsList
-      this.setData({
-        totalAmount: this.data.totalAmount - parseInt(this.data.goodsList[deleteIndex].price) * this.data.goodsList[deleteIndex].choosedAmount
-      })
-      newList.splice(deleteIndex, 1)
-      this.setData({
-        goodsList: newList,
-
       })
     }
   }

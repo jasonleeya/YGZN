@@ -1,11 +1,9 @@
-import purchase from './pages/purchase/store.js'
 import addGoods from './pages/purchase/addGoods/store.js'
 import newPurchase from './pages/purchase/newPurchase/store.js'
 export default {
   data: {
     messageCount:5,  //未读消息数
     showOrderpage:false, //是否显示开单层
-    purchase: purchase.data,
     addGoods: addGoods.data,
     newPurchase: newPurchase.data
     
