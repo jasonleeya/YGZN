@@ -57,7 +57,7 @@
 <!-- 搜索 -->
 <search link="/pages/purchase/addGoods/addGoods"/>
 <!-- 购物车 -->
-<cart goodsList="{{goodsList}}" />
+<cart goodsList="{{goodsList}}" totalPrice="{{totalPrice}}" bind:changeData="getChangedData"/>
 
 <view class="title remake">备注</view>
  <textarea class="remake-textarea" placeholder="请填写备注信息"  />

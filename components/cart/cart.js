@@ -8,6 +8,10 @@ create({
       type: Array,
       value: []
     },
+    totalPrice: {
+      type: Number,
+      value: 0
+    }
   },
   options: {
     addGlobalClass: true,
@@ -15,9 +19,7 @@ create({
   /**
    * 组件的初始数据
    */
-  data: {
-    totalPrice: 0,
-  },
+  data: {},
   ready() {
     this.computeTotalPriceTotalAmount()
   },
@@ -29,14 +31,6 @@ create({
     plusGoods(e) {
       var id = e.target.dataset.id
       var index = e.target.dataset.index
-      var cartList = this.store.data.newPurchase.cartList
-      cartList.forEach(item => { //更改store中的amount
-        if (item.id === id) {
-          item.amount += 1     
-        }
-        item.totalPrice=item.amount*parseFloat(item.containTaxPrice)
-      })
-
       this.setData({
         ["goodsList[" + index + "].amount"]: this.data.goodsList[index].amount + 1
       })
@@ -48,31 +42,21 @@ create({
     minusGoods(e) {
       var id = e.target.dataset.id
       var minusIndex = e.target.dataset.index
-      var cartList = this.store.data.newPurchase.cartList
       if (this.data.goodsList[minusIndex].amount > 0) {
-        cartList.forEach(item => { //更改store中的amount
-          if (item.id === id) {
-            item.amount -= 1
-          }
-          item.totalPrice = item.amount * parseFloat(item.containTaxPrice)
-        })
+
         this.setData({
           ["goodsList[" + minusIndex + "].amount"]: this.data.goodsList[minusIndex].amount - 1
         })
         this.computeTotalPriceTotalAmount()
       }
 
-      if (this.data.goodsList[minusIndex].amount === 0){ //商品数量减少到0删除项
+      if (this.data.goodsList[minusIndex].amount === 0) { //商品数量减少到0删除项
         var newList = this.data.goodsList
         newList.splice(minusIndex, 1)
         this.setData({
           goodsList: newList
         })
-        cartList.forEach((item,index)=>{ //删除store中的项
-          if (item.id === id) {
-            cartList.splice(index,1)
-          }
-        })
+
       }
     },
     /**
@@ -80,8 +64,8 @@ create({
      */
     computeTotalPriceTotalAmount() {
       var totalPrice = 0
-      var totalAmount=0
-      this.store.data.newPurchase.cartList.forEach(item => {
+      var totalAmount = 0
+      this.data.goodsList.forEach(item => {
         totalPrice += parseFloat(item.amount * item.containTaxPrice)
         totalAmount += parseInt(item.amount)
       })
@@ -89,24 +73,23 @@ create({
       this.setData({
         totalPrice: totalPrice
       })
-      this.store.data.newPurchase.totalPrice = totalPrice
-      this.store.data.newPurchase.totalAmount = totalAmount
+      //向父组件传递改变的数据
+      this.triggerEvent("changeData", {
+        goodsList: this.data.goodsList,
+        totalPrice: this.data.totalPrice,
+        totalAmount: totalAmount
+      })
     },
     // 左滑删除商品
     slideToDelete(e) {
       var deleteIndex = e.target.dataset.deleteIndex
       var id = e.target.dataset.deleteId
       var newList = this.data.goodsList
-      var cartList = this.store.data.newPurchase.cartList
-      newList.splice(deleteIndex, 1) 
+      newList.splice(deleteIndex, 1)
       this.setData({
         goodsList: newList
       })
-     cartList.forEach((item, index) => {
-        if (item.id = id) {
-          cartList.splice(index, 1)
-        }
-      })
+
       this.computeTotalPriceTotalAmount()
     },
     // ListTouch触摸开始
