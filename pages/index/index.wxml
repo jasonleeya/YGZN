@@ -1,4 +1,5 @@
-<!-- 点击开单时，动态添加blur,页面虚化 -->
+<!-- 首页包含的是底部tab和五个页面组件 -->
+<!-- 点击开单时，动态添加blur class,页面虚化 -->
 <view class="{{showOrderPage===true?'blur':''}}">
   <home wx:if="{{curTab==='home'}}" />
   <function wx:if="{{curTab==='function'}}" />
@@ -8,7 +9,7 @@
 
 <order wx:if="{{showOrderPage===true}}" />
  
-<!-- 点击开单时，动态添加blur,tabs虚化 -->
+<!-- 点击开单时，动态添加blur class,tabs虚化 -->
 <view class="cu-bar tabbar foot bg-white {{showOrderPage===true?'blur':''}}">
     <view class="action {{curTab==='home'?'theme-color':'text-gray'}}" bindtap="NavChange" data-link="home" >
       <view class="cuIcon-homefill"></view> 首页

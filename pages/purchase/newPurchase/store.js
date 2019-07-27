@@ -1,6 +1,7 @@
 export default {
 data:{
-  cartList:[],
-  totalPrice:0
+  cartList:[], //购物车列表
+  totalPrice:0, //总价
+  totalAmount:0 //总量
 }
 }

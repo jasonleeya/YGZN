@@ -1,7 +1,7 @@
 <view class="vertical-box">
   <!-- 左边导航 -->
   <scroll-view class="vertical-nav nav" scroll-y scroll-with-animation scroll-top="{{verticalNavTop}}">
-    <view class="cu-item {{item.id==curTab?'theme-color cur':''}}" wx:for="{{list}}" wx:key bindtap='TabSelect' data-id="{{item.id}}">
+    <view class="cu-item {{item.id===activeTab?'theme-color cur':''}}" wx:for="{{list}}" wx:key bindtap='TabSelect' data-id="{{item.id}}">
       {{item.name}}
     </view>
   </scroll-view>
@@ -12,7 +12,9 @@
       <!-- 内容区头部 -->
       <view class='content-header'>
         <view class='content-title'>{{item.name}}</view>
-        <view class="content-subtitle">{{item.subTitle}}<text class="cuIcon-right"></text></view>
+        <navigator class="content-subtitle" url="{{item.subtitleLink}}" hover-class="nav-hover">{{item.subTitle}}
+          <text class="cuIcon-right"></text>
+        </navigator>
       </view>
       <!-- 内容项 -->
       <navigator url="{{contentItem.link}}" open-type="navigate" hover-class="nav-hover" class='content-item' wx:for="{{item.items}}" wx:for-item="contentItem" wx:for-index="contentIndex" wx:key>
@@ -20,7 +22,7 @@
           <view class='iconfont {{contentItem.icon}}'></view>
         </view>
         <view class='content-item-name'>{{contentItem.value}}</view>
-        <view  wx:if="{{contentItem.number}}" class='content-item-badge bg-{{module.getColor(contentIndex)}}  light'>{{contentItem.number}}</view>
+        <view wx:if="{{contentItem.number}}" class='content-item-badge bg-{{module.getColor(contentIndex)}}  light'>{{contentItem.number}}</view>
       </navigator>
 
     </view>
@@ -31,7 +33,7 @@
 <wxs module="module">
   var colors = ["orange", "blue", "red", "green", "purple", "pink"];
   var getColor = function(index) {
-    return colors[index%6]
+    return colors[index % 6]
   }
   module.exports.getColor = getColor;
 </wxs>

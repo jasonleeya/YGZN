@@ -19,31 +19,32 @@ create({
     totalPrice: 0,
   },
   ready() {
-    this.computeTotalPrice()
+    this.computeTotalPriceTotalAmount()
   },
   /**
    * 组件的方法列表
    */
   methods: {
-    // 添加商品
+    // 添加商品数量
     plusGoods(e) {
       var id = e.target.dataset.id
       var index = e.target.dataset.index
       var cartList = this.store.data.newPurchase.cartList
       cartList.forEach(item => { //更改store中的amount
         if (item.id === id) {
-          item.amount += 1
+          item.amount += 1     
         }
         item.totalPrice=item.amount*parseFloat(item.containTaxPrice)
       })
+
       this.setData({
         ["goodsList[" + index + "].amount"]: this.data.goodsList[index].amount + 1
       })
-      this.computeTotalPrice()
+      this.computeTotalPriceTotalAmount()
 
     },
 
-    // 减少商品
+    // 减少商品数量
     minusGoods(e) {
       var id = e.target.dataset.id
       var minusIndex = e.target.dataset.index
@@ -58,17 +59,16 @@ create({
         this.setData({
           ["goodsList[" + minusIndex + "].amount"]: this.data.goodsList[minusIndex].amount - 1
         })
-        this.computeTotalPrice()
+        this.computeTotalPriceTotalAmount()
       }
 
-      if (this.data.goodsList[minusIndex].amount === 0){
+      if (this.data.goodsList[minusIndex].amount === 0){ //商品数量减少到0删除项
         var newList = this.data.goodsList
         newList.splice(minusIndex, 1)
         this.setData({
           goodsList: newList
         })
-
-        cartList.forEach((item,index)=>{
+        cartList.forEach((item,index)=>{ //删除store中的项
           if (item.id === id) {
             cartList.splice(index,1)
           }
@@ -76,19 +76,21 @@ create({
       }
     },
     /**
-     * 重新计算总价
+     * 重新计算总价和总量并保存到store中
      */
-    computeTotalPrice() {
+    computeTotalPriceTotalAmount() {
       var totalPrice = 0
+      var totalAmount=0
       this.store.data.newPurchase.cartList.forEach(item => {
         totalPrice += parseFloat(item.amount * item.containTaxPrice)
-        
+        totalAmount += parseInt(item.amount)
       })
       totalPrice = parseFloat(totalPrice.toFixed(2))
       this.setData({
         totalPrice: totalPrice
       })
       this.store.data.newPurchase.totalPrice = totalPrice
+      this.store.data.newPurchase.totalAmount = totalAmount
     },
     // 左滑删除商品
     slideToDelete(e) {
@@ -96,7 +98,7 @@ create({
       var id = e.target.dataset.deleteId
       var newList = this.data.goodsList
       var cartList = this.store.data.newPurchase.cartList
-      newList.splice(deleteIndex, 1)
+      newList.splice(deleteIndex, 1) 
       this.setData({
         goodsList: newList
       })
@@ -105,7 +107,7 @@ create({
           cartList.splice(index, 1)
         }
       })
-      this.computeTotalPrice()
+      this.computeTotalPriceTotalAmount()
     },
     // ListTouch触摸开始
     ListTouchStart(e) {

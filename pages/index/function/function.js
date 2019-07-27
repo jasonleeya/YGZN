@@ -24,13 +24,13 @@ Component({
    * 组件的初始数据
    */
   data: {
-    curTab: 0, //当前左边激活tab
+    activeTab: 0, //当前左边激活tab
     curContent: null, //当前右边内容部分
     verticalNavTop: 0, //左边导航距顶部距离
     list: [{
       name: "采购管理",
       subTitle: '全部订单',
-      subtitleLink: '',
+      subtitleLink: '/pages/purchase/purchaseOrders/purchaseOrders',
       id: 0,
       items: [{
         value: "新增采购",
@@ -251,7 +251,7 @@ Component({
   methods: {
     TabSelect(e) {
       this.setData({
-        curTab: e.currentTarget.dataset.id,
+        activeTab: e.currentTarget.dataset.id,
         curContent: e.currentTarget.dataset.id,
         verticalNavTop: (e.currentTarget.dataset.id - 1) * 50
       })
@@ -283,7 +283,7 @@ Component({
         if (scrollTop > list[i].top - i * 10 && scrollTop < list[i].bottom + i * 10) {
           that.setData({
             verticalNavTop: (list[i].id - 1) * 50,
-            curTab: list[i].id
+            activeTab: list[i].id
           })
           return false
         }

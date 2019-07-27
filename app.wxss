@@ -1,12 +1,16 @@
 @import "colorui/main.wxss";
 @import "colorui/icon.wxss";
 @import "imgs/iconfont/iconfont.wxss";
-
+/* 主题色背景 */
 .theme-bgc{
   background-color:  #317EFE;
   color: white;
 }
-
+/* 主题色字体 */
 .theme-color{
   color:  #317EFE
+}
+/* navigator hover背景色*/
+.nav-hover{
+  background-color: #fff;
 }
