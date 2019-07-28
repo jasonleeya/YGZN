@@ -34,36 +34,36 @@ Component({
       id: 0,
       items: [{
         value: "新增采购",
-        icon: "iconcaigouoff",
+        icon: "iconcart",
         link: '/pages/purchase/newPurchase/newPurchase',
       }, {
         value: "采购订单确认",
-        icon: "iconcaigouoff",
+        icon: "iconcart",
         link: "",
         number: 3
       }, {
         value: "采购待付款",
-        icon: "iconcaigouoff",
+        icon: "iconcart",
         link: "",
         number: 10
       }, {
         value: "采购待发货",
-        icon: "iconcaigouoff",
+        icon: "iconcart",
         link: "",
         number: 100
       }, {
         value: "采购待入库",
-        icon: "iconcaigouoff",
+        icon: "iconcart",
         link: "",
         number: 23
       }, {
         value: "采购已完成",
-        icon: "iconcaigouoff",
+        icon: "iconcart",
         link: "",
         number: 100
       }, {
         value: "采购未完成",
-        icon: "iconcaigouoff",
+        icon: "iconcart",
         link: "",
         number: 23
       }],
@@ -72,27 +72,27 @@ Component({
       id: 1,
       items: [{
         value: "新增采购",
-        icon: "iconcaigouoff",
+        icon: "iconcart",
         link: "",
         number: 31
       }, {
         value: "新增采购",
-        icon: "iconcaigouoff",
+        icon: "iconcart",
         link: "",
         number: 4
       }, {
         value: "新增采购",
-        icon: "iconcaigouoff",
+        icon: "iconcart",
         link: "",
         number: 64
       }, {
         value: "新增采购",
-        icon: "iconcaigouoff",
+        icon: "iconcart",
         link: "",
         number: 13
       }, {
         value: "新增采购",
-        icon: "iconcaigouoff",
+        icon: "iconcart",
         link: "",
         number: 45
       }]
@@ -101,27 +101,27 @@ Component({
       id: 2,
       items: [{
         value: "新增采购",
-        icon: "iconcaigouoff",
+        icon: "iconcart",
         link: "",
         number: 14
       }, {
         value: "新增采购",
-        icon: "iconcaigouoff",
+        icon: "iconcart",
         link: "",
         number: 64
       }, {
         value: "新增采购",
-        icon: "iconcaigouoff",
+        icon: "iconcart",
         link: "",
         number: 27
       }, {
         value: "新增采购",
-        icon: "iconcaigouoff",
+        icon: "iconcart",
         link: "",
         number: 96
       }, {
         value: "新增采购",
-        icon: "iconcaigouoff",
+        icon: "iconcart",
         link: "",
         number: 234
       }]
@@ -130,27 +130,27 @@ Component({
       id: 3,
       items: [{
         value: "新增采购",
-        icon: "iconcaigouoff",
+        icon: "iconcart",
         link: "",
         number: 31
       }, {
         value: "新增采购",
-        icon: "iconcaigouoff",
+        icon: "iconcart",
         link: "",
         number: 34
       }, {
         value: "新增采购",
-        icon: "iconcaigouoff",
+        icon: "iconcart",
         link: "",
         number: 22
       }, {
         value: "新增采购",
-        icon: "iconcaigouoff",
+        icon: "iconcart",
         link: "",
         number: 23
       }, {
         value: "新增采购",
-        icon: "iconcaigouoff",
+        icon: "iconcart",
         link: "",
         number: 56
       }]
@@ -159,27 +159,27 @@ Component({
       id: 4,
       items: [{
         value: "新增采购",
-        icon: "iconcaigouoff",
+        icon: "iconcart",
         link: "",
         number: 32
       }, {
         value: "新增采购",
-        icon: "iconcaigouoff",
+        icon: "iconcart",
         link: "",
         number: 12
       }, {
         value: "新增采购",
-        icon: "iconcaigouoff",
+        icon: "iconcart",
         link: "",
         number: 73
       }, {
         value: "新增采购",
-        icon: "iconcaigouoff",
+        icon: "iconcart",
         link: "",
         number: 22
       }, {
         value: "新增采购",
-        icon: "iconcaigouoff",
+        icon: "iconcart",
         link: "",
         number: 33
       }]
@@ -188,27 +188,27 @@ Component({
       id: 5,
       items: [{
         value: "新增采购",
-        icon: "iconcaigouoff",
+        icon: "iconcart",
         link: "",
         number: 11
       }, {
         value: "新增采购",
-        icon: "iconcaigouoff",
+        icon: "iconcart",
         link: "",
         number: 86
       }, {
         value: "新增采购",
-        icon: "iconcaigouoff",
+        icon: "iconcart",
         link: "",
         number: 6
       }, {
         value: "新增采购",
-        icon: "iconcaigouoff",
+        icon: "iconcart",
         link: "",
         number: 3
       }, {
         value: "新增采购",
-        icon: "iconcaigouoff",
+        icon: "iconcart",
         link: "",
         number: 62
       }]
@@ -217,27 +217,27 @@ Component({
       id: 6,
       items: [{
         value: "新增采购",
-        icon: "iconcaigouoff",
+        icon: "iconcart",
         link: "",
         number: 12
       }, {
         value: "新增采购",
-        icon: "iconcaigouoff",
+        icon: "iconcart",
         link: "",
         number: 56
       }, {
         value: "新增采购",
-        icon: "iconcaigouoff",
+        icon: "iconcart",
         link: "",
         number: 78
       }, {
         value: "新增采购",
-        icon: "iconcaigouoff",
+        icon: "iconcart",
         link: "",
         number: 29
       }, {
         value: "新增采购",
-        icon: "iconcaigouoff",
+        icon: "iconcart",
         link: "",
         number: 48
       }]

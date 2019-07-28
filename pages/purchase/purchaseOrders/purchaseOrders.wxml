@@ -1,2 +1,55 @@
-<!--pages/purchase/purchaseOrders/purchaseOrders.wxml-->
-<text>pages/purchase/purchaseOrders/purchaseOrders.wxml</text>
+<view class="header">
+  <view class="search">
+    <input class="search-input bg-gray" type="text" placeholder="请输入订单号、备注、供应商、业务员搜索"> </input>
+    <view class="iconfont iconsearch text-gray"></view>
+  </view>
+  <view class="sort-methods solid">
+    <text class="sort-method {{selectingMothod===index?'theme-color':''}}" bindtap="chooseSortMethod" wx:for="{{sortMethodsList}}" wx:key data-index="{{index}}"><text class="sort-name">{{item.name}}  </text>
+    <text class="iconfont icondown"></text>
+    </text>
+  </view>
+  <!-- 时间范围选择 -->
+  <view class="drop-down solid" wx:if="{{selectingMothod===0}}">
+    <view class="sort-options ">
+      <view wx:for="{{sortMethodsList[selectingMothod].options}}" bindtap="chooseTimeRange" wx:key class="bg-gray sort-option {{sortMethodsList[selectingMothod].activeOption===index?'theme-bgc':''}}" data-index="{{index}}">{{item}}</view>
+    </view>
+
+    <picker mode="date" wx:if="{{customTimeRange.isShow}}" class="date-picker solid bg-gray" value="{{customTimeRange.date}}" start="2015-09-01" end="2017-09-01" bindchange="bindDateChange">
+      <view class="picker">
+        <text class="cuIcon-calendar"></text> {{customTimeRange.date}}至今
+      </view>
+    </picker>
+  </view>
+
+  <!-- 订单状态选择 -->
+  <view class="drop-down solid" wx:if="{{selectingMothod===1}}">
+    <view class="sort-options ">
+      <view wx:for="{{sortMethodsList[selectingMothod].options}}" bindtap="chooseOrderStatus" wx:key class="bg-gray sort-option {{sortMethodsList[selectingMothod].activeOption===index?'theme-bgc':''}}" data-index="{{index}}">{{item}}</view>
+    </view>
+  </view>
+
+  <!-- 收款状态选择 -->
+  <view class="drop-down solid" wx:if="{{selectingMothod===2}}">
+    <view class="sort-options ">
+      <view wx:for="{{sortMethodsList[selectingMothod].options}}" bindtap="chooseReceiptStatus" wx:key class="bg-gray sort-option {{sortMethodsList[selectingMothod].activeOption===index?'theme-bgc':''}}" data-index="{{index}}">{{item}}</view>
+    </view>
+  </view>
+
+  <!-- 业务人员选择 -->
+  <view class="drop-down solid" wx:if="{{selectingMothod===3}}">
+    <view class="sort-options ">
+      <view bindtap="choosePerson" class="bg-gray sort-option {{chooseAllPerson===true?'theme-bgc':''}}" data-id="all">全部业务人员</view>
+
+      <view wx:for="{{sortMethodsList[selectingMothod].options}}" bindtap="choosePerson" wx:key class="bg-gray sort-option {{sortMethodsList[selectingMothod].activeOption===item.id?'theme-bgc':''}}" data-id="{{item.id}}">{{item.name}}</view>
+    </view>
+    <view class="person-change-page solid-top">
+      <text class="pre-page cuIcon-back" bindtap="prePage"> 上一页</text>
+      <text class="cur-page">第{{personList.curPage}}页/共{{personList.personList}}页</text>
+      <text class="next-page" bindtap="nextPage">下一页<text class="cuIcon-right"></text></text>
+    </view>
+  </view>
+  <view class="mask" bindtap="closeHeader" hidden="{{selectingMothod===null}}"></view>
+</view>
+
+<view class="content">1111111</view>
+ 

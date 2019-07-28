@@ -5,7 +5,7 @@ create(store,{
    * 页面的初始数据
    */
   data: {
-    curTab:"mine",
+    curTab:"function",
     messageCount: store.data.messageCount,
   },
 

@@ -2,11 +2,11 @@
     <view class="search shadow solid-bottom">
     <view class="search-toggle bg-gray">全局搜索</view>
     <view class="search-input bg-gray" bindtap='toSearch'>
-      <text class="iconfont iconsousuo"></text>
+      <text class="iconfont iconsearch"></text>
       <input class="" placeholder="请输入搜索关键词" />
     </view>
     <view class="scan">
-      <text class=" iconfont iconsaoma text-blue"></text>
+      <text class=" iconfont iconscan text-blue"></text>
     </view>
     </view>
  

@@ -3,7 +3,7 @@
 @import "imgs/iconfont/iconfont.wxss";
 /* 主题色背景 */
 .theme-bgc{
-  background-color:  #317EFE;
+  background-color:  #317EFE!important;
   color: white;
 }
 /* 主题色字体 */
