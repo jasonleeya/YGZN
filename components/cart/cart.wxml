@@ -9,10 +9,10 @@
   </view>
 
   <view class="goods-list cu-list">
-  <view wx:if="{{goodsList.length===0}}" class="no-goods">你还没用添加商品，赶紧去添加吧~</view>
+  <navigator  wx:if="{{goodsList.length===0}}" class="no-goods" url="{{goodsListUrl}}">你还没用添加商品，赶紧去添加吧~</navigator>
     <view class="goods-item cu-item solid-bottom  {{modalName=='move-box-'+ index?'move-cur':''}}" wx:for="{{goodsList}}" wx:key bindtouchstart="ListTouchStart" bindtouchmove="ListTouchMove" bindtouchend="ListTouchEnd" data-target="move-box-{{index}}">
       <view class="goods-pic">
-        <image src="{{item.pic}}"></image>
+        <image src="{{item.pic}}" class="solid"></image>
       </view>
       <view class="goods-info">
         <view class="goods-name">
@@ -28,7 +28,8 @@
       <view class="choosed-amount">
         <view class="choosed-amount-wrapper solid">
           <view class="plus-amount bg-gray" bindtap="plusGoods" data-index="{{index}}" data-id="{{item.id}}">+</view>
-          <view class="amount solid">{{item.amount}}</view>
+          <!-- <view class="amount solid">{{item.amount}}</view> -->
+          <input type="number" class="amount" value="{{item.amount}}" data-index="{{index}}" data-id="{{item.id}}" bindinput="amountInput" bindblur="amountBlur"></input>
           <view class="minus-amount bg-gray" bindtap="minusGoods" data-index="{{index}}" data-id="{{item.id}}">-</view>
         </view>
       </view>

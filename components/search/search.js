@@ -23,7 +23,7 @@ Component({
    */
   methods: {
     toSearch(){
-      wx.redirectTo({
+      wx.navigateTo({
         url: this.properties.link,
       })
     }

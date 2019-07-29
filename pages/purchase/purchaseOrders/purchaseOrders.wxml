@@ -13,12 +13,19 @@
     <view class="sort-options ">
       <view wx:for="{{sortMethodsList[selectingMothod].options}}" bindtap="chooseTimeRange" wx:key class="bg-gray sort-option {{sortMethodsList[selectingMothod].activeOption===index?'theme-bgc':''}}" data-index="{{index}}">{{item}}</view>
     </view>
+    <view class="date-picker" wx:if="{{customTimeRange.isShow}}">
+      <picker mode="date" class=" solid-top solid-right" value="{{customTimeRange.startDate}}" start="2000-1-1"  end="{{customTimeRange.endDate}}" bindchange="startDateChange">
+        <view class="picker">
+         开始：<text class="cuIcon-calendar"></text>{{customTimeRange.startDate}}
+        </view>
+      </picker>
+      <picker mode="date" wx:if="{{customTimeRange.isShow}}" class=" solid-top" value="{{customTimeRange.endDate}}" start="2000-1-1" end="{{customTimeRange.nowDate}}" bindchange="endDateChange">
+        <view class="picker">
+         结束：<text class="cuIcon-calendar"></text>{{customTimeRange.endDate}}
+        </view>
+      </picker>
+    </view>
 
-    <picker mode="date" wx:if="{{customTimeRange.isShow}}" class="date-picker solid bg-gray" value="{{customTimeRange.date}}" start="2015-09-01" end="2017-09-01" bindchange="bindDateChange">
-      <view class="picker">
-        <text class="cuIcon-calendar"></text> {{customTimeRange.date}}至今
-      </view>
-    </picker>
   </view>
 
   <!-- 订单状态选择 -->
@@ -51,5 +58,34 @@
   <view class="mask" bindtap="closeHeader" hidden="{{selectingMothod===null}}"></view>
 </view>
 
-<view class="content">1111111</view>
- 
+<scroll-view class="content" scroll-y>
+  <view class="order-list">
+
+    <view class="order-item" wx:for="{{orderList}}" wx:key bindtap="seeDetail" data-id="{{index}}">
+      <view class="order-header solid-bottom">
+        <text class="order-id-icon cuIcon-text theme-color"></text>
+        <text class="order-id">订单号：{{item.id}}</text>
+        <text class="order-status text-{{item.status===1?'green':'red'}}">{{item.status===1?'已完成':item.status===2?'待付款':'待入库'}}</text>
+      </view>
+      <view class="order-info-list">
+        <view class="info-item">
+          <view class="info-item-name text-gray">供应商</view>
+          <view class="info-item-value">{{item.supplier}}</view>
+        </view>
+        <view class="info-item">
+          <view class="info-item-name text-gray">订单类型</view>
+          <view class="info-item-value">{{item.orderType}}</view>
+        </view>
+        <view class="info-item">
+          <view class="info-item-name text-gray">采购员</view>
+          <view class="info-item-value">{{item.buyer}}</view>
+        </view>
+        <view class="info-item">
+          <view class="info-item-name text-gray">订单金额</view>
+          <view class="info-item-value order-money">￥{{item.money}}</view>
+        </view>
+      </view>
+    </view>
+  </view>
+  <view class="cu-load  {{isLoad?'loading':'over'}}" wx:if="{{isLoad}}"></view>
+</scroll-view>

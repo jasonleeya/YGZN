@@ -8,6 +8,7 @@ create({
   },
   options: {
     addGlobalClass: true,
+    isLoad: false
   },
   /**
    * 组件的初始数据
@@ -110,7 +111,7 @@ create({
       var index = e.target.dataset.setTopIndex
       newTopList.unshift(this.data.messageList[index])
       newMessageList.splice(index, 1)
-     
+
       this.setData({
         topList: newTopList,
         messageList: newMessageList
@@ -124,9 +125,9 @@ create({
       this.setData({
         topList: newTopList,
       })
-      var insertIndex=0;
-      for(let i=0;i<newMessageList.length;i++){
-        if (newMessageList[i].id<newTopList[index].id){
+      var insertIndex = 0;
+      for (let i = 0; i < newMessageList.length; i++) {
+        if (newMessageList[i].id < newTopList[index].id) {
           insertIndex++
         }
       }
@@ -136,23 +137,23 @@ create({
         topList: newTopList,
         messageList: newMessageList
       })
-   
+
     },
     // 删除项
     Delete(e) {
       var newMessageList = this.data.messageList
-      var newTopList=this.data.topList
+      var newTopList = this.data.topList
       var index = e.target.dataset.deleteIndex
-      if (newMessageList[index].status===0){
+      if (newMessageList[index].status === 0) {
         this.store.data.messageCount--
-        this.update()
+          this.update()
       }
-      if(e.target.dataset.top==="true"){
+      if (e.target.dataset.top === "true") {
         newTopList.splice(index, 1)
         this.setData({
           topList: newTopList
         })
-      }else{
+      } else {
         newMessageList.splice(index, 1)
         this.setData({
           messageList: newMessageList
@@ -163,27 +164,38 @@ create({
     SetRead(e) {
       console.log(e)
       var newMessageList = this.data.messageList
-      var newTopList=this.data.topList
-      if (e.target.dataset.top === "true"){
-        if (newTopList[e.target.dataset.setReadIndex].status ===0){
+      var newTopList = this.data.topList
+      if (e.target.dataset.top === "true") {
+        if (newTopList[e.target.dataset.setReadIndex].status === 0) {
           this.store.data.messageCount--
-          this.update()
+            this.update()
         }
         newTopList[e.target.dataset.setReadIndex].status = 1
         this.setData({
           topList: newTopList
         })
-      }else{
+      } else {
         if (newMessageList[e.target.dataset.setReadIndex].status === 0) {
           this.store.data.messageCount--
-          this.update()
+            this.update()
         }
         newMessageList[e.target.dataset.setReadIndex].status = 1
         this.setData({
           messageList: newMessageList
         })
       }
-      
+
+    },
+    scrollToBottom() {
+      console.log(111)
+      this.setData({
+        isLoad: true
+      })
+      setTimeout(() => {
+        this.setData({
+          isLoad: false
+        })
+      }, 2000)
     }
   },
 })

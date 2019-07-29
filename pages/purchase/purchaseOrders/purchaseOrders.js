@@ -14,11 +14,11 @@ create(store, {
     }, {
       activeOption: 0,
       name: "订单状态",
-      options: ["全部状态", "订单状态1", "订单状态2", "订单状态3", "订单状态4", "订单状态5"]
+      options: ["全部状态", "已完成", "待付款", "待入库"]
     }, {
       activeOption: 0,
       name: "收款状态",
-      options: ["全部状态", "收款状态1", "收款状态2", "收款状态3", "收款状态4", "收款状态5"]
+      options: ["全部状态", "已收款", "待收款"]
     }, {
       activeOption: null,
       name: "业务人员",
@@ -26,80 +26,121 @@ create(store, {
     }],
     customTimeRange: {
       isShow: false,
-      date: "2015-09-01"
+      nowDate: '',
+      startDate: "2015-09-01",
+      endDate: "2015-09-01"
     },
     chooseAllPerson: true,
     personList: {
       curPage: 1,
       totalPage: 0,
+      isLoad:false,
       list: [{
         id: 0,
-        name: "人员1"
+        name: "业务员1"
       }, {
         id: 1,
-        name: "人员2"
+        name: "业务员2"
       }, {
         id: 2,
-        name: "人员3"
+        name: "业务员3"
       }, {
         id: 3,
-        name: "人员4"
+        name: "业务员4"
       }, {
         id: 4,
-        name: "人员5"
+        name: "业务员5"
       }, {
         id: 5,
-        name: "人员6"
+        name: "业务员6"
       }, {
         id: 6,
-        name: "人员7"
+        name: "业务员7"
       }, {
         id: 7,
-        name: "人员8"
+        name: "业务员8"
       }, {
         id: 8,
-        name: "人员9"
+        name: "业务员9"
       }, {
         id: 9,
-        name: "人员10"
+        name: "业务员10"
       }, {
         id: 10,
-        name: "人员11"
+        name: "业务员11"
       }, {
         id: 11,
-        name: "人员12"
+        name: "业务员12"
       }, {
         id: 12,
-        name: "人员13"
+        name: "业务员13"
       }, {
         id: 14,
-        name: "人员15"
+        name: "业务员15"
       }, {
         id: 15,
-        name: "人员16"
+        name: "业务员16"
       }, {
         id: 16,
-        name: "人员17"
+        name: "业务员17"
       }, {
         id: 17,
-        name: "人员18"
+        name: "业务员18"
       }, {
         id: 19,
-        name: "人员20"
+        name: "业务员20"
       }, {
         id: 20,
-        name: "人员21"
+        name: "业务员21"
       }, {
         id: 21,
-        name: "人员22"
+        name: "业务员22"
       }, {
         id: 22,
-        name: "人员23"
+        name: "业务员23"
       }, {
         id: 23,
-        name: "人员24"
-      }, ]
-    }
+        name: "业务员24"
+      }]
+    },
+
+    orderList: [{
+      id: '201907171712190071',
+      status: 1,
+      supplier: '成都成量集团有限个公司',
+      orderType: '线上订单/信用订单',
+      buyer: '吴建秋',
+      money: '6630.08'
+    }, {
+      id: '201907171712190071',
+      status: 2,
+      supplier: '成都成量集团有限个公司',
+      orderType: '线上订单/信用订单',
+      buyer: '吴建秋',
+      money: '6630.08'
+    }, {
+      id: '201907171712190071',
+      status: 3,
+      supplier: '成都成量集团有限个公司',
+      orderType: '线上订单/信用订单',
+      buyer: '吴建秋',
+      money: '6630.08'
+    }, {
+      id: '201907171712190071',
+      status: 1,
+      supplier: '成都成量集团有限个公司',
+      orderType: '线上订单/信用订单',
+      buyer: '吴建秋',
+      money: '6630.08'
+    }, {
+      id: '201907171712190071',
+      status: 2,
+      supplier: '成都成量集团有限个公司',
+      orderType: '线上订单/信用订单',
+      buyer: '吴建秋',
+      money: '6630.08'
+    }, ]
+
   },
   onLoad() {
     var listCopy = JSON.parse(JSON.stringify(this.data.personList.list))
@@ -107,11 +148,18 @@ create(store, {
     this.setData({
       ["sortMethodsList[3].options"]: listCopy.splice((this.data.personList.curPage - 1) * 10, 10)
     })
+    var date = new Date()
+    var nowDate = date.getFullYear() + "-" + (date.getMonth() + 1) + "-" + date.getDate()
+    this.setData({
+      ["customTimeRange.nowDate"]: nowDate,
+      ["customTimeRange.startDate"]: nowDate,
+      ["customTimeRange.endDate"]: nowDate
+    })
 
   },
-  closeHeader(){
+  closeHeader() {
     this.setData({
-      selectingMothod:null
+      selectingMothod: null
     })
   },
   chooseSortMethod(e) {
@@ -138,16 +186,45 @@ create(store, {
         }
         break;
       case 4:
-        this.setData({
-          ["customTimeRange.isShow"]: true
-        })
+        if (new Date(this.data.customTimeRange.startDate).getTime() === new Date(this.data.customTimeRange.endDate).getTime()) {
+          this.setData({
+            ["customTimeRange.isShow"]: true,
+            ["sortMethodsList[0].options[4]"]:this.data.customTimeRange.endDate
+          })
+        }else{
+          this.setData({
+            ["customTimeRange.isShow"]: true,
+            ["sortMethodsList[0].options[4]"]: this.data.customTimeRange.startDate + "至" + this.data.customTimeRange.endDate
+          })
+        }
     }
   },
-  bindDateChange(e) {
-    this.setData({
-      ["customTimeRange.date"]: e.detail.value,
-      ["sortMethodsList[0].options[4]"]: e.detail.value + "至今"
-    })
+  startDateChange(e) {
+    if (new Date(e.detail.value).getTime() >= new Date(this.data.customTimeRange.endDate).getTime()){
+      this.setData({
+        ["customTimeRange.startDate"]: this.data.customTimeRange.endDate,
+        ["sortMethodsList[0].options[4]"]: this.data.customTimeRange.endDate
+      })
+    }else{
+      this.setData({
+        ["customTimeRange.startDate"]: e.detail.value,
+        ["sortMethodsList[0].options[4]"]: e.detail.value + "至" + this.data.customTimeRange.endDate
+      })
+    }
+  
+  },
+  endDateChange(e) { 
+    if (new Date(e.detail.value).getTime() <= new Date(this.data.customTimeRange.startDate).getTime()) {
+      this.setData({
+        ["customTimeRange.endDate"]: this.data.customTimeRange.startDate,
+        ["sortMethodsList[0].options[4]"]: this.data.customTimeRange.startDate
+      })
+    } else {
+      this.setData({
+        ["customTimeRange.endDate"]: e.detail.value,
+        ["sortMethodsList[0].options[4]"]: this.data.customTimeRange.startDate + "至" + e.detail.value
+      })
+    }
   },
 
   chooseOrderStatus(e) {
@@ -206,6 +283,20 @@ create(store, {
       })
       console.log(this.data.personList.curPage)
     }
-
+  },
+  seeDetail(e){
+    wx.navigateTo({
+      url: '../orderDetail/orderDetail?id='+e.currentTarget.dataset.id,
+    })
+  },
+  onReachBottom(){
+    this.setData({
+      isLoad:true
+    })
+    setTimeout(() => {
+      this.setData({
+        isLoad: false
+      })
+    }, 2000)
   }
 })

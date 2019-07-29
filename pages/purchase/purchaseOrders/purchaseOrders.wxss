@@ -1,12 +1,15 @@
-.header{
- position: fixed;
+.header {
+  position: fixed;
   top: 0;
-  height: 100ch;
+  height: 200rpx;
+  z-index: 99;
 }
-.mask{
+
+.mask {
   height: calc(100vh - 200rpx);
-  background-color: rgba(0, 0, 0, 0.4)
+  background-color: rgba(0, 0, 0, 0.4);
 }
+
 .search {
   height: 100rpx;
   background-color: #fff;
@@ -58,7 +61,7 @@
   text-overflow: ellipsis;
 }
 
-.theme-color::after {
+.sort-methods .theme-color::after {
   z-index: 999;
   content: "";
   display: block;
@@ -104,16 +107,65 @@
   height: 88rpx;
   line-height: 88rpx;
   background-color: #fff;
+  display: flex
 }
-.person-change-page{
+.date-picker picker{
+  background-color: #fff;
+  width: 50vw;
+}
+
+.person-change-page {
   padding: 0 40rpx 30rpx;
   height: 88rpx;
   line-height: 88rpx;
 }
-.person-change-page text{
-margin-right:30rpx
+
+.person-change-page text {
+  margin-right: 30rpx;
 }
-.content{
-  padding-top: 200rpx
+
+.content {
+  padding-top: 200rpx;
 }
- 
+
+.order-item {
+  width: calc(100vw - 60rpx);
+  background-color: #fff;
+  margin: 30rpx auto;
+  border-radius: 20rpx;
+  padding: 0 30rpx 0rpx;
+  box-shadow:0 5rpx 5rpx #ccc
+}
+
+.order-header {
+  height: 88rpx;
+  line-height: 88rpx;
+  margin: 0 -30rpx;
+  padding: 0 30rpx;
+  display: flex;
+}
+
+.order-id-icon {
+  font-size: 35rpx;
+  margin-right: 5rpx;
+}
+
+.order-id {
+  flex: 1;
+}
+
+.order-info-list {
+  padding-top: 20rpx;
+  display: flex;
+  flex-direction: column;
+}
+
+.info-item {
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 20rpx;
+}
+
+.order-money {
+  font-weight: bold;
+}

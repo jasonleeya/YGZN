@@ -1,22 +1,22 @@
 <search/>
-<scroll-view scroll-y>
+<scroll-view scroll-y bindscrolltolower="scrollToBottom">
   <view class="goods-list">
     <view class="goods-item solid-bottom" wx:for="{{goodsList}}" wx:key>
       <view class="goods-pic">
-        <image src="{{item.pic}}"></image>
+        <image src="{{item.pic}}" class="solid"></image>
       </view>
       <view class="goods-info">
         <view class="goods-name">{{item.name}}</view>
         <view class="goods-type text-gray">{{item.type}}</view>
         <view class="goods-stocks text-green">库存：{{item.stock}}（片）</view>
       </view>
-
       <view class="add-goods cuIcon-add shadow bg-blue" bindtap='showPop' data-index="{{index}}"></view>
     </view>
+      <view class="cu-load  loading {{isLoad?'loading':'over'}}" wx:if="{{isLoad}}"></view>
   </view>
 </scroll-view>
 <view class="confirm-order solid-top">
-  <text>合计金额：<text class="total-amount text-red">￥{{totalPrice}}</text></text>
+  <text>合计金额：<text class="total-money text-red">￥{{totalPrice}}</text></text>
   <view class="confirm-btn bg-gradual-orange" bindtap="confirmOrder">确认（{{totalAmount}}）</view>
 </view>
 
@@ -45,9 +45,8 @@
 
       <view class="input-wrapper bg-gray solid">
       <view class="input-name">总价:</view>
-      <input type="digit" disabled  bindinput='totalPriceInput' bindblur='totalPriceeBlur' value="{{popData.totalPrice}}"></input>
+      <input type="digit" class="text-gray" disabled  bindinput='totalPriceInput' bindblur='totalPriceeBlur' value="{{popData.totalPrice}}"></input>
     </view>
-
     <view class="operation-btn solid-top">
       <view class="btn-cancel solid-right" bindtap='addCancel'>取消</view>
       <view class="btn-confirm text-blue light" bindtap='addConfirm'>确定</view>

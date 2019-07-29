@@ -11,7 +11,8 @@ create({
     totalPrice: {
       type: Number,
       value: 0
-    }
+    },
+    goodsListUrl:String
   },
   options: {
     addGlobalClass: true,
@@ -83,7 +84,6 @@ create({
     // 左滑删除商品
     slideToDelete(e) {
       var deleteIndex = e.target.dataset.deleteIndex
-      var id = e.target.dataset.deleteId
       var newList = this.data.goodsList
       newList.splice(deleteIndex, 1)
       this.setData({
@@ -92,6 +92,30 @@ create({
 
       this.computeTotalPriceTotalAmount()
     },
+    amountInput(e) {
+      var value = parseInt(e.detail.value)
+      var index = e.target.dataset.index
+      this.setData({
+        ["goodsList[" + index + "].amount"]: value
+      })
+      this.computeTotalPriceTotalAmount()
+
+    },
+    amountBlur(e) { 
+      var value = e.detail.value
+      var index = e.target.dataset.index
+      var newList = this.data.goodsList
+     
+      if (value === "") {
+        newList.splice(index, 1)
+        this.setData({
+          goodsList: newList
+        })
+
+        this.computeTotalPriceTotalAmount()
+      }
+    },
+
     // ListTouch触摸开始
     ListTouchStart(e) {
       this.setData({

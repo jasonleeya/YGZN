@@ -13,7 +13,8 @@ create(store, {
     popData: {}, //弹出框的内容
     popDataCopy: {}, //储存选择项原始值
     totalPrice: 0, //总价
-    totalAmount: 0 //总量
+    totalAmount: 0, //总量
+    isLoad: false
   },
   //进入页面初始化数据
   onShow() {
@@ -201,8 +202,18 @@ create(store, {
     console.log(cartList)
   },
   confirmOrder() {
-    wx.redirectTo({
-      url: '../newPurchase/newPurchase',
+
+    wx.navigateBack()
+  },
+  scrollToBottom() {
+    console.log(111)
+    this.setData({
+      isLoad: true
     })
+    setTimeout(() => {
+      this.setData({
+        isLoad: false
+      })
+    }, 2000)
   }
 })

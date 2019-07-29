@@ -52,7 +52,7 @@
   line-height: 100rpx;
 }
 
-.total-amount {
+.total-money {
   font-weight: bold;
 }
 
