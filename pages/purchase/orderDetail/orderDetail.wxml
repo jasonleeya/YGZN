@@ -61,13 +61,15 @@
   </view>
 
   <!-- 购物车 -->
-  <!-- <cart goodsList="{{goodsList}}" totalPrice="{{totalPrice}}" bind:changeData="getChangedData" goodsListUrl="{{'/pages/purchase/addGoods/addGoods'}}" /> -->
+  <cart goodsList="{{goodsList}}" editable="{{false}}" />
 
   <view class="title remake">备注</view>
-  <textarea class="remake-textarea" placeholder="请填写备注信息" />
+  <view class="remake-textarea">我是备注我是备注我是备注我是备注</view>
 
-  <cover-view class="operating-options">
-    <cover-view class="save-order bg-orange">保存订单</cover-view>
-    <cover-view class="comfirm-order bg-red" bindtap="confirmOrder">确认订单</cover-view>
-  </cover-view>
+  <view class="operating-options">
+    <view class="option bg-gradual-orange">修改订单</view>
+    <view class="option bg-gray">订单日志</view>
+    <view class="option bg-gray">取消订单</view>
+    <view class="option bg-gray">订单付款</view>
+  </view>view
 </scroll-view>

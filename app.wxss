@@ -1,16 +1,26 @@
 @import "colorui/main.wxss";
 @import "colorui/icon.wxss";
+@import "colorui/animation.wxss";
 @import "imgs/iconfont/iconfont.wxss";
+
 /* 主题色背景 */
-.theme-bgc{
-  background-color:  #317EFE!important;
+page{
+    --themeColor:#317EFE;
+}
+
+.theme-bgc {
+  background-color: var(--themeColor) !important;
   color: white;
 }
+
 /* 主题色字体 */
-.theme-color{
-  color:  #317EFE
+
+.theme-color {
+  color: var(--themeColor) !important;
 }
+
 /* navigator hover背景色*/
-.nav-hover{
+
+.nav-hover {
   background-color: #fff;
 }

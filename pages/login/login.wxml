@@ -1,0 +1,25 @@
+<view class="login">
+  <view class="login-title">欢迎登陆企业助手</view>
+  <view class="input-wrapper  {{phoneNumberError?'animation-shake error':''}}">
+    <text class="login-input-icon cuIcon-mobile {{activeInput==='phoneNumber'?'theme-color':''}}"></text>
+    <input type="number" maxlength="11"  bindfocus="phoneNumberFocus" bindinput="phoneNumberInput" placeholder="请输入手机号"></input>
+  </view>
+  <view class="input-wrapper {{passwordError?'animation-shake error':''}}">
+    <text class="login-input-icon cuIcon-lock {{activeInput==='password'?'theme-color':''}}"></text>
+    <input type="number" bindfocus="passwordFocus" bindinput="passwordInput" placeholder="请输入密码" password="{{!isPasswordVisible}}"></input>
+    <text class="login-input-icon cuIcon-attentionforbid{{!isPasswordVisible?'fill':''}} {{!isPasswordVisible?'theme-color':''}}" bindtap="togglePasswordVisibleState"></text>
+  </view>
+  <view class="terms text-gray">登陆即视为同意
+    <text class="text-blue">《Imatch用户协议》</text>
+  </view>
+  <view class="login-operate">
+    <label>
+      <checkbox-group bindchange="rememberPassword">
+        <checkbox value="1" checked="{{true}}"></checkbox>
+        记住密码
+      </checkbox-group>
+    </label>
+    <text class="forget-password text-gray" bindtap="forgetPassword">忘记密码</text>
+  </view>
+  <button class="theme-bgc" bindtap="login" open-type='getUserInfo'>登陆</button>
+</view>

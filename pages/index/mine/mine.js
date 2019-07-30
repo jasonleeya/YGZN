@@ -73,6 +73,11 @@ Component({
    * 组件的方法列表
    */
   methods: {
-
+    logout(){
+      wx.setStorageSync("token", null)
+      wx.redirectTo({
+        url: '/pages/login/login',
+      })
+    }
   }
 })

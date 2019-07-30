@@ -27,16 +27,15 @@
         <view class="option-name">{{optionItem.name}}</view>
         <view class="arrow-right cuIcon-right"></view>
       </view>
-
     </view>
-
   </view>
+  <button bindtap="logout" class="logout bg-red">退出登陆</button>
 </scroll-view>
 
 <wxs module="module">
   var colors = ["orange", "blue", "red", "green", "purple", "pink"];
   var getColor = function(index) {
-    return colors[index%6]
+    return colors[index % 6]
   }
   module.exports.getColor = getColor;
 </wxs>

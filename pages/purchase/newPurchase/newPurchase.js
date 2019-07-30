@@ -1,6 +1,6 @@
 import store from '../../../store'
 import create from '../../../utils/create'
-
+var app =getApp()
 create(store,{
 
   /**
@@ -12,7 +12,9 @@ create(store,{
     goodsList: [],
     totalPrice:0
   },
-
+  onLoad() {
+    app.checkLogin()
+  },
   onShow: function() {
     this.setData({
       goodsList:this.store.data.newPurchase.cartList,

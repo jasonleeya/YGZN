@@ -1,26 +1,29 @@
 import store from '../../store'
 import create from '../../utils/create'
-create(store,{
+var app = getApp();
+create(store, {
   /**
    * 页面的初始数据
    */
   data: {
-    curTab:"function",
+    curTab: "function",
     messageCount: store.data.messageCount,
   },
 
-//  切换tab
+  onLoad() {
+    app.checkLogin()
+  },
+  //  切换tab
   NavChange(e) {
-    if (e.currentTarget.dataset.link!=='order'){
+    if (e.currentTarget.dataset.link !== 'order') {
       this.setData({
         curTab: e.currentTarget.dataset.link
       })
-    }
-   else{
-      this.store.updateAll=true;
-      this.store.data.showOrderPage=true
+    } else {
+      this.store.updateAll = true;
+      this.store.data.showOrderPage = true
       this.update()
-       
-   }
+
+    }
   },
 })

@@ -1,5 +1,6 @@
 import store from '../../../store'
 import create from '../../../utils/create'
+var app = getApp()
 
 create(store, {
 
@@ -16,11 +17,14 @@ create(store, {
     totalAmount: 0, //总量
     isLoad: false
   },
+  onLoad() {
+    app.checkLogin()
+  },
   //进入页面初始化数据
   onShow() {
     this.setData({
       totalPrice: this.store.data.newPurchase.totalPrice.toFixed(2),
-      totalAmount: this.store.data.newPurchase. totalAmount
+      totalAmount: this.store.data.newPurchase.totalAmount
     }) //添加store里的总价和总额
   },
   // 显示弹出框

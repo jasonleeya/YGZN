@@ -1,5 +1,5 @@
-import create from '../../utils/create'
-create({
+// import create from '../../utils/create'
+Component({
   /**
    * 组件的属性列表
    */
@@ -12,7 +12,11 @@ create({
       type: Number,
       value: 0
     },
-    goodsListUrl:String
+    editable: {
+      type: Boolean,
+      value: true
+    },
+    goodsListUrl: String
   },
   options: {
     addGlobalClass: true,
@@ -101,11 +105,11 @@ create({
       this.computeTotalPriceTotalAmount()
 
     },
-    amountBlur(e) { 
+    amountBlur(e) {
       var value = e.detail.value
       var index = e.target.dataset.index
       var newList = this.data.goodsList
-     
+
       if (value === "") {
         newList.splice(index, 1)
         this.setData({

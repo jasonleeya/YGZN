@@ -115,3 +115,11 @@ todo-item {
 .option-name {
   flex: 1;
 }
+
+.logout {
+  margin: 400rpx auto 150rpx;
+  width: 90vw;
+  height: 80rpx;
+  line-height: 80rpx;
+ 
+}
