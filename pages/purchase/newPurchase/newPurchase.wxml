@@ -2,25 +2,25 @@
   <view class="info-list shadow">
     <view class="info-item">
       <view class="info-name">采购单号</view>
-      <view class="info-content">SPARK20197110001</view>
+      <view class="info-content">{{infoList.orderId}}</view>
     </view>
 
     <view class="info-item">
       <view class="info-name">供应商</view>
-      <view class="info-content text-gray">请选择供应商/或添加供应商</view>
+      <view class="info-content {{infoList.supplier===''?'text-gray':''}}" bindtap="selectSupplier">{{infoList.supplier===""?"请选择供应商/或添加供应商":infoList.supplier}}</view>
       <view class="cuIcon-right"></view>
     </view>
 
     <view class="info-item">
       <view class="info-name">采购员</view>
-      <view class="info-content text-gray">请选择采购员</view>
+      <view class="info-content {{infoList.buyer===''?'text-gray':''}}">{{infoList.buyer===""?"请选择采购员":infoList.buyer}}</view>
       <view class="cuIcon-right"></view>
     </view>
 
     <view class="info-item">
       <view class="info-name">收货人</view>
       <view class="info-content">
-        <input placeholder="依高智能" placeholder-class="placeholder"></input>
+        <input value="{{infoList.receiver}}"></input>
       </view>
       <view class="cuIcon-right"></view>
     </view>
@@ -28,7 +28,7 @@
     <view class="info-item">
       <view class="info-name">联系电话</view>
       <view class="info-content">
-        <input type="number" placeholder="18888888888" placeholder-class="placeholder"></input>
+        <input type="number" value="{{infoList.phoneNumber}}"></input>
       </view>
       <view class="cuIcon-right"></view>
     </view>
@@ -36,7 +36,7 @@
     <view class="info-item">
       <view class="info-name">收货地址</view>
       <view class="info-content">
-        北京/东城区/建设路100号
+        {{infoList.receiveAddress}}
       </view>
       <view class="cuIcon-right"></view>
     </view>
@@ -44,9 +44,9 @@
     <view class="info-item">
       <view class="info-name">收货日期</view>
       <view class="info-content">
-        <picker mode="date" value="{{date}}" start="2015-09-01" end="2020-09-01" bindchange="bindDateChange">
+        <picker mode="date" value="{{infoList.receiveDate}}" start="2015-09-01" end="2100-09-01" bindchange="bindDateChange">
           <view class="picker">
-            {{date}}
+            {{infoList.receiveDate}}
           </view>
         </picker>
       </view>

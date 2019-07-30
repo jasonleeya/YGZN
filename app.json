@@ -1,11 +1,13 @@
 {
   "pages": [
+    "pages/purchase/selectSupplier/selectSupplier",
     "pages/index/index",
     "pages/login/login",
     "pages/purchase/purchaseOrders/purchaseOrders",
     "pages/purchase/newPurchase/newPurchase",
     "pages/purchase/addGoods/addGoods",
-    "pages/purchase/orderDetail/orderDetail"
+    "pages/purchase/orderDetail/orderDetail" 
+   
   ],
   "window": {
     "backgroundTextStyle": "light",
