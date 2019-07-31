@@ -1,13 +1,15 @@
 import addGoods from './pages/purchase/addGoods/store.js'
 import newPurchase from './pages/purchase/newPurchase/store.js'
 import selectSupplier from './pages/purchase/selectSupplier/store.js'
+import selectBuyer from "./pages/purchase/selectBuyer/store.js"
 export default {
   data: {
     messageCount: 5, //未读消息数
     showOrderpage: false, //是否显示开单层
     addGoods: addGoods.data,
     newPurchase: newPurchase.data,
-    selectSupplier: selectSupplier.data
+    selectSupplier: selectSupplier.data,
+    selectBuyer: selectBuyer.data
   },
   globalData: [],
   logMotto: function() {},

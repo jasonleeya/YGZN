@@ -1,12 +1,11 @@
 <view class="header-search">
-    <view class="input-wrapper">
-      <view class="search-icon cuIcon-search">
-      </view>
-      <input class="bg-gray" placeholder="供应商名称、营业执照搜索"></input>
-    </view>
-    <view class="add-supplier" bindtap="addSupplier">新增</view>
-    
-  <scroll-view scroll-y class="supplier-scroll-view">
+  <view class="input-wrapper">
+    <view class="search-icon cuIcon-search"></view>
+    <input class="bg-gray" placeholder="供应商名称、营业执照搜索"></input>
+  </view>
+  <view class="add-supplier" bindtap="addSupplier">新增</view>
+</view>
+<scroll-view scroll-y class="supplier-scroll-view">
     <view class="supplier-list">
       <view class="supplier-item" wx:for="{{supplierList}}" wx:key bindtap="chooseSupplier" data-index="{{index}}">
         <view class="supplier-header solid-bottom">
@@ -33,4 +32,3 @@
       </view>
     </view>
   </scroll-view>
-</view>

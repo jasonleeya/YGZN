@@ -5,32 +5,7 @@
       </view>
       <input class="bg-gray" placeholder="搜索业务员"></input>
     </view>
-    <view class="add-buyer">新增</view>
+    <view class="add-buyer" bindtap="addBuyer">新增</view>
   </view>
 </view>
-
- <indexes/>
-
-
-<!-- <scroll-view scroll-y class="indexes" scroll-into-view="indexes-{{listCurID}}" style="height:calc(100vh - 100rpx)" scroll-with-animation="true" enable-back-to-top="true">
-  <block wx:for="{{list}}" wx:key>
-    <view class="padding indexItem-{{item}}" id="indexes-{{item.initialLetter}}" data-index="{{index}}">{{item.initial}}</view>
-    <view class="cu-list menu-avatar no-padding">
-      <view class="cu-item" wx:for="{{item.names}}" wx:key wx:for-item="namesItem">
-        <view class="cu-avatar round lg">{{item.initial}}</view>
-        <view class="content">
-          <view>{{namesItem}}</view>
-        </view>
-      </view>
-    </view>
-  </block>
-</scroll-view>
-<view class="indexBar" style="height:calc(100vh - {{CustomBar}}px - 50px)">
-  <view class="indexBar-box" bindtouchstart="tStart" bindtouchend="tEnd" catchtouchmove="tMove">
-    <view class="indexBar-item" wx:for="{{list}}" wx:key id="{{index}}" bindtouchstart="getCur" bindtouchend="setCur">{{item.initialLetter}}</view>
-  </view>
-</view>
-<!--选择显示-->
-<!-- <view hidden="{{hidden}}" class="indexToast">
-  {{listCur.initialLetter}}
-</view>  -->
+ <indexes list="{{buyerList}}"/>

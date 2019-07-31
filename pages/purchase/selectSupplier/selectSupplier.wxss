@@ -56,7 +56,8 @@
   padding: 20rpx 30rpx;
 }
 .supplier-scroll-view{
-  height: calc(100vh - 100rpx)
+  height: calc(100vh - 100rpx);
+  
 }
 .supplier-name {
   flex: 1;

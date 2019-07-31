@@ -1,6 +1,5 @@
 {
   "pages": [
-    "pages/purchase/selectBuyer/selectBuyer",
     "pages/index/index",
     "pages/purchase/selectSupplier/selectSupplier",
     "pages/login/login",
@@ -8,7 +7,9 @@
     "pages/purchase/newPurchase/newPurchase",
     "pages/purchase/addGoods/addGoods",
     "pages/purchase/orderDetail/orderDetail",
-    "pages/purchase/addSupplier/addSupplier"
+    "pages/purchase/addSupplier/addSupplier",
+    "pages/purchase/addBuyer/addBuyer",
+    "pages/purchase/selectBuyer/selectBuyer"
   ],
   "window": {
     "backgroundTextStyle": "light",
