@@ -15,9 +15,10 @@ create(store, {
     popDataCopy: {}, //储存选择项原始值
     totalPrice: 0, //总价
     totalAmount: 0, //总量
-    isLoad: false
+    isLoad: false, //是否显示加载图标
   },
   onLoad() {
+    //验证登录
     app.checkLogin()
   },
   //进入页面初始化数据
@@ -209,8 +210,8 @@ create(store, {
 
     wx.navigateBack()
   },
+  //监听滑动到底部
   scrollToBottom() {
-    console.log(111)
     this.setData({
       isLoad: true
     })

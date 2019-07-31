@@ -1,0 +1,10 @@
+<scroll-view scroll-y class="indexes" style="height:calc(100vh - {{indexesTop}}px)"  scroll-into-view="index-item-{{curLetter}}">
+  <view id="index-item-{{item.letter}}" wx:for="{{buyerList}}" wx:key>
+    <view class="initial-letter text-gray">{{item.letter}}</view>
+    <view class="names" wx:for="{{item.names}}" wx:for-item="namesItem" wx:key>{{namesItem}}</view>
+  </view>
+</scroll-view>
+<view class="floatbox" wx:if="{{isShowFLoatBox}}">{{curLetter}}</view>
+<view class="index-box" bindtouchstart="boxTouchStart" bindtouchmove="boxTouchMove" bindtouchend="boxTouchEnd">
+  <view class="letter text-gray {{item.contain?'theme-color':''}}" wx:for="{{letters}}" wx:key>{{item.letter}}</view>
+</view>

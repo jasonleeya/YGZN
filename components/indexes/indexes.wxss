@@ -1,0 +1,65 @@
+.indexes {
+  height: calc(100vh - 100rpx);
+}
+
+.initial-letter {
+  padding-left: 30rpx;
+  height: 40rpx;
+  line-height: 40rpx;
+  font-size: 36rpx;
+}
+
+.names {
+  height: 100rpx;
+  background-color: #fff;
+  padding: 0 30rpx;
+  line-height: 100rpx;
+  position: relative;
+}
+
+.names::after {
+  content: '';
+  width: calc(100vw - 30rpx);
+  position: absolute;
+  height: 1rpx;
+  background-color: #eee;
+  bottom: 1rpx;
+  left: 30rpx;
+}
+
+.names:last-child::after {
+  display: none;
+}
+
+.index-box {
+  height: calc(26 * 40rpx);
+  position: fixed;
+  flex-direction: column;
+  display: flex;
+  width: 40rpx;
+  right: 20rpx;
+  top: 140rpx;
+  border-radius: 10rpx;
+  background-color: #fff;
+  border: 1px solid #eee;
+}
+
+.index-box .letter {
+  height: 40rpx;
+  text-align: center;
+}
+
+.floatbox {
+  width: 100rpx;
+  height: 100rpx;
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  text-align: center;
+  line-height: 100rpx;
+  background-color: rgba(0, 0, 0, 0.2);
+  border-radius: 10rpx;
+  font-size: 40rpx;
+  color: rgba(0, 0, 0, 0.4);
+}

@@ -1,66 +1,31 @@
-// pages/purchase/selectSupplier/selectSupplier.js
-Page({
+import store from '../../../store'
+import create from '../../../utils/create'
+create(store, {
 
   /**
    * 页面的初始数据
    */
   data: {
-
+    supplierList: []
+  },
+  onLoad() {
+  },
+  onShow(){
+    //接收新建供应商的数据
+    this.setData({
+      supplierList: this.store.data.selectSupplier.supplierList
+    })
   },
 
-  /**
-   * 生命周期函数--监听页面加载
-   */
-  onLoad: function (options) {
-
+  //将所选的供应商存到新增采购单的store中
+  chooseSupplier(e) {
+    this.store.data.newPurchase.supplier = this.data.supplierList[e.currentTarget.dataset.index]
+    wx.navigateBack()
   },
-
-  /**
-   * 生命周期函数--监听页面初次渲染完成
-   */
-  onReady: function () {
-
+  //新增供应商
+  addSupplier() {
+    wx.navigateTo({
+      url: '/pages/purchase/addSupplier/addSupplier',
+    })
   },
-
-  /**
-   * 生命周期函数--监听页面显示
-   */
-  onShow: function () {
-
-  },
-
-  /**
-   * 生命周期函数--监听页面隐藏
-   */
-  onHide: function () {
-
-  },
-
-  /**
-   * 生命周期函数--监听页面卸载
-   */
-  onUnload: function () {
-
-  },
-
-  /**
-   * 页面相关事件处理函数--监听用户下拉动作
-   */
-  onPullDownRefresh: function () {
-
-  },
-
-  /**
-   * 页面上拉触底事件的处理函数
-   */
-  onReachBottom: function () {
-
-  },
-
-  /**
-   * 用户点击右上角分享
-   */
-  onShareAppMessage: function () {
-
-  }
 })

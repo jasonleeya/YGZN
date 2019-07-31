@@ -1,10 +1,36 @@
-<view class="selectSpplier">
-  <view class="header-search">
+<view class="header-search">
     <view class="input-wrapper">
       <view class="search-icon cuIcon-search">
       </view>
-      <input class="bg-gray" placeholder="供应商名称、营业执照"></input>
+      <input class="bg-gray" placeholder="供应商名称、营业执照搜索"></input>
     </view>
-    <view class="add-supplier">新增</view>
-  </view>
+    <view class="add-supplier" bindtap="addSupplier">新增</view>
+    
+  <scroll-view scroll-y class="supplier-scroll-view">
+    <view class="supplier-list">
+      <view class="supplier-item" wx:for="{{supplierList}}" wx:key bindtap="chooseSupplier" data-index="{{index}}">
+        <view class="supplier-header solid-bottom">
+          <text class="cuIcon-friend name-icon"></text>
+          <text class="supplier-name">{{item.company}}</text>
+          <text class="supplier-type text-green">{{item.companyType}}</text>
+        </view>
+        <view class="supplier-info">
+          <view class="supplier-info-name text-gray">营业执照</view>
+          <view class="supplier-info-value">{{item.businessLicenseId}}</view>
+        </view>
+        <view class="supplier-info">
+          <view class="supplier-info-name text-gray">客户类型</view>
+          <view class="supplier-info-value">{{item.supplierType}}</view>
+        </view>
+        <view class="supplier-info">
+          <view class="supplier-info-name text-gray">联系人</view>
+          <view class="supplier-info-value">{{item.contact}}</view>
+        </view>
+        <view class="supplier-info">
+          <view class="supplier-info-name text-gray">联系电话</view>
+          <view class="supplier-info-value">{{item.contactPhoneNumber}}</view>
+        </view>
+      </view>
+    </view>
+  </scroll-view>
 </view>

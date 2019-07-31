@@ -21,10 +21,10 @@
 </view>
 
 
-
+<!-- 弹出框 -->
 <view class="pop-up-shadow" wx:if="{{isShowPop}}">
   <view class="input-group">
-    <view class="input-group-title">通用型螺纹车刀片</view>
+    <view class="input-group-title">{{popData.name}}</view>
     <view class="input-wrapper bg-gray solid">
       <view class="input-name">数量:</view>
       <input type="number" bindinput='amountInput' value="{{popData.amount}}"></input>

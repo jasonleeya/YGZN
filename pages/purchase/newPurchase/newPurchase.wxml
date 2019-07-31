@@ -2,25 +2,25 @@
   <view class="info-list shadow">
     <view class="info-item">
       <view class="info-name">采购单号</view>
-      <view class="info-content">{{infoList.orderId}}</view>
+      <view class="info-content">{{infos.orderId}}</view>
     </view>
 
     <view class="info-item">
       <view class="info-name">供应商</view>
-      <view class="info-content {{infoList.supplier===''?'text-gray':''}}" bindtap="selectSupplier">{{infoList.supplier===""?"请选择供应商/或添加供应商":infoList.supplier}}</view>
+      <view class="info-content {{infos.supplier===''?'text-gray':''}}" bindtap="selectSupplier">{{infos.supplier===""?"请选择供应商/或添加供应商":infos.supplier}}</view>
       <view class="cuIcon-right"></view>
     </view>
 
     <view class="info-item">
       <view class="info-name">采购员</view>
-      <view class="info-content {{infoList.buyer===''?'text-gray':''}}">{{infoList.buyer===""?"请选择采购员":infoList.buyer}}</view>
+      <view class="info-content {{infos.buyer===''?'text-gray':''}}" bindtap="selectBuyer">{{infos.buyer===""?"请选择采购员":infos.buyer}}</view>
       <view class="cuIcon-right"></view>
     </view>
 
     <view class="info-item">
       <view class="info-name">收货人</view>
       <view class="info-content">
-        <input value="{{infoList.receiver}}"></input>
+        <input value="{{infos.receiver}}"></input>
       </view>
       <view class="cuIcon-right"></view>
     </view>
@@ -28,7 +28,7 @@
     <view class="info-item">
       <view class="info-name">联系电话</view>
       <view class="info-content">
-        <input type="number" value="{{infoList.phoneNumber}}"></input>
+        <input type="number" value="{{infos.phoneNumber}}"></input>
       </view>
       <view class="cuIcon-right"></view>
     </view>
@@ -36,7 +36,7 @@
     <view class="info-item">
       <view class="info-name">收货地址</view>
       <view class="info-content">
-        {{infoList.receiveAddress}}
+        {{infos.receiveAddress}}
       </view>
       <view class="cuIcon-right"></view>
     </view>
@@ -44,9 +44,9 @@
     <view class="info-item">
       <view class="info-name">收货日期</view>
       <view class="info-content">
-        <picker mode="date" value="{{infoList.receiveDate}}" start="2015-09-01" end="2100-09-01" bindchange="bindDateChange">
+        <picker mode="date" value="{{infos.receiveDate}}" start="2015-09-01" end="2100-09-01" bindchange="bindDateChange">
           <view class="picker">
-            {{infoList.receiveDate}}
+            {{infos.receiveDate}}
           </view>
         </picker>
       </view>

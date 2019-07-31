@@ -6,7 +6,8 @@ create(store, {
    * 页面的初始数据
    */
   data: {
-    selectingMothod: null,
+    selectingMothod: null, //正在选择的排序方法
+    //排序方法列表
     sortMethodsList: [{
       name: "日期范围",
       activeOption: 0,
@@ -24,13 +25,16 @@ create(store, {
       name: "业务人员",
       options: []
     }],
+    //自定义选择时间段
     customTimeRange: {
       isShow: false,
       nowDate: '',
       startDate: "2015-09-01",
       endDate: "2015-09-01"
     },
+    //是否是选择全部人员
     chooseAllPerson: true,
+    //人员列表分页
     personList: {
       curPage: 1,
       totalPage: 0,
@@ -103,10 +107,10 @@ create(store, {
         name: "业务员24"
       }]
     },
-
+    //订单列表
     orderList: [{
       id: '201907171712190071',
-      status: 1,
+      status: 1,  
       supplier: '成都成量集团有限个公司',
       orderType: '线上订单/信用订单',
       buyer: '吴建秋',
@@ -143,11 +147,13 @@ create(store, {
 
   },
   onLoad() {
+    //分页逻辑
     var listCopy = JSON.parse(JSON.stringify(this.data.personList.list))
     this.data.personList.personList = Math.ceil(listCopy.length / 10)
     this.setData({
       ["sortMethodsList[3].options"]: listCopy.splice((this.data.personList.curPage - 1) * 10, 10)
     })
+    //获取当前日期
     var date = new Date()
     var nowDate = date.getFullYear() + "-" + (date.getMonth() + 1) + "-" + date.getDate()
     this.setData({
@@ -157,11 +163,13 @@ create(store, {
     })
 
   },
+  //关闭正在选择的列表
   closeHeader() {
     this.setData({
       selectingMothod: null
     })
   },
+  //展开列表
   chooseSortMethod(e) {
     this.setData({
       selectingMothod: e.target.dataset.index
@@ -169,6 +177,7 @@ create(store, {
   },
   chooseTimeRange(e) {
     var index = e.target.dataset.index
+    //设置选中的方法
     this.setData({
       ["sortMethodsList[" + this.data.selectingMothod + "].activeOption"]: index
     })
@@ -180,12 +189,14 @@ create(store, {
       case 3:
         {
           this.setData({
-            ["customTimeRange.isShow"]: false,
-            ["sortMethodsList[0].options[4]"]: "自定义"
+            //当选中非自定义时间段时日期选择期隐藏自定义按钮显示自定义
+            ["customTimeRange.isShow"]: false, 
+            ["sortMethodsList[0].options[4]"]: "自定义" 
           })
         }
         break;
       case 4:
+      //如果选择的起始时间和结束时间一致则只显示所选的那天,不一致则显示时间段
         if (new Date(this.data.customTimeRange.startDate).getTime() === new Date(this.data.customTimeRange.endDate).getTime()) {
           this.setData({
             ["customTimeRange.isShow"]: true,
@@ -200,6 +211,7 @@ create(store, {
     }
   },
   startDateChange(e) {
+    //起始时间不能大于结束时间
     if (new Date(e.detail.value).getTime() >= new Date(this.data.customTimeRange.endDate).getTime()){
       this.setData({
         ["customTimeRange.startDate"]: this.data.customTimeRange.endDate,
@@ -214,6 +226,7 @@ create(store, {
   
   },
   endDateChange(e) { 
+     //起始时间不能大于结束时间
     if (new Date(e.detail.value).getTime() <= new Date(this.data.customTimeRange.startDate).getTime()) {
       this.setData({
         ["customTimeRange.endDate"]: this.data.customTimeRange.startDate,
@@ -226,7 +239,7 @@ create(store, {
       })
     }
   },
-
+  //订单状态
   chooseOrderStatus(e) {
     var index = e.target.dataset.index
     this.setData({
@@ -234,7 +247,7 @@ create(store, {
     })
     console.log(this.data.sortMethodsList[this.data.selectingMothod].options[index])
   },
-
+  //付款状态
   chooseReceiptStatus(e) {
     var index = e.target.dataset.index
     this.setData({
@@ -242,7 +255,9 @@ create(store, {
     })
     console.log(this.data.sortMethodsList[this.data.selectingMothod].options[index])
   },
+  //人员选择
   choosePerson(e) {
+    //是否选择所有人员
     var id = e.target.dataset.id
     if (id === "all") {
       this.setData({
@@ -258,6 +273,7 @@ create(store, {
 
     console.log(id)
   },
+  //人员列表上一页
   prePage() {
     var listCopy = JSON.parse(JSON.stringify(this.data.personList.list))
     if (this.data.personList.curPage > 1) {
@@ -271,6 +287,7 @@ create(store, {
       console.log(this.data.personList.curPage)
     }
   },
+  //人员列表下一页
   nextPage() {
     var listCopy = JSON.parse(JSON.stringify(this.data.personList.list))
     if (this.data.personList.curPage < 3) {
@@ -284,11 +301,13 @@ create(store, {
       console.log(this.data.personList.curPage)
     }
   },
+  //查看详情
   seeDetail(e){
     wx.navigateTo({
       url: '../orderDetail/orderDetail?id='+e.currentTarget.dataset.id,
     })
   },
+  //监听滑动到底部
   onReachBottom(){
     this.setData({
       isLoad:true
