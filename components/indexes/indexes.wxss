@@ -58,8 +58,8 @@
   transform: translate(-50%, -50%);
   text-align: center;
   line-height: 100rpx;
-  background-color: rgba(0, 0, 0, 0.2);
+  background-color: rgba(0, 49, 185, 0.397);
+  color: #fff;
   border-radius: 10rpx;
   font-size: 40rpx;
-  color: rgba(0, 0, 0, 0.4);
 }

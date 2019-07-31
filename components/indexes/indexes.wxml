@@ -4,7 +4,7 @@
     <view class="names" wx:for="{{item.names}}" wx:for-item="namesItem" wx:key>{{namesItem}}</view>
   </view>
 </scroll-view>
-<view class="floatbox" wx:if="{{isShowFLoatBox}}">{{curLetter}}</view>
+<view class="floatbox " wx:if="{{isShowFLoatBox}}">{{curLetter}}</view>
 <view class="index-box" bindtouchstart="boxTouchStart" bindtouchmove="boxTouchMove" bindtouchend="boxTouchEnd">
-  <view class="letter text-gray {{item.contain?'theme-color':''}}" wx:for="{{letters}}" wx:key>{{item.letter}}</view>
+  <view class="letter {{item.contain!==true?'text-gray':''}}" wx:for="{{letters}}" wx:key>{{item.letter}}</view>
 </view>

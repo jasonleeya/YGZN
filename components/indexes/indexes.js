@@ -6,7 +6,9 @@ Component({
   properties: {
 
   },
-
+  options: {
+    addGlobalClass: true,
+  },
   /**
    * 组件的初始数据
    */
@@ -66,17 +68,16 @@ Component({
     for (let i = 0; i < 26; i++) {
       list[i]={}
       list[i].letter = String.fromCharCode(65 + i)
-
-      // this.data.buyerList.forEach(item => {
-      //   if (item.letter === String.fromCharCode(65 + i)) {
-      //     list[i].contain = true
-      //   } else {
-      //     list[i].contain = false
-      //   }   
-      // })
-  
+      list[i].contain=false
+      this.data.buyerList.forEach(item => {
+       
+        if (item.letter === String.fromCharCode(65 + i)) {
+          list[i].contain = true
+        }    
+      })
     }
-   
+    console.log(list) 
+
     this.setData({
       letters: list
     })
