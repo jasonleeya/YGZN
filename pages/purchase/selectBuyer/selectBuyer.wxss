@@ -40,3 +40,8 @@
   text-align: center;
   color: #fff;
 }
+.empty{
+  height: calc(100vh - 100rpx);
+  line-height: calc(100vh - 100rpx);
+  text-align: center;
+}

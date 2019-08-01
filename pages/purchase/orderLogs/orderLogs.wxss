@@ -1,0 +1,43 @@
+.order-logs {
+  width: calc(100vw - 60rpx);
+  height: 100vh;
+  margin: auto;
+  padding-top: 30rpx;
+}
+
+.log {
+  background-color: #fff;
+  border-radius: 15rpx;
+  box-shadow: 0 10rpx 10rpx #ddd;
+  margin-bottom: 30rpx;
+}
+
+.log-header {
+  display: flex;
+  height: 88rpx;
+  line-height: 88rpx;
+  padding-left: 30rpx;
+}
+.log-date-icon{
+  font-size: 36rpx;
+  margin-right: 10rpx;
+}
+.log-infos {
+  padding: 20rpx 30rpx;
+}
+
+.log-info {
+  display: flex;
+  margin-bottom: 15rpx;
+}
+
+.info-name {
+  width: 140rpx;
+}
+
+.info-value {
+  flex: 1;
+}
+.order-id{
+  border-bottom: 1px dashed var(--themeColor)
+}

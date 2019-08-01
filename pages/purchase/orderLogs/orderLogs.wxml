@@ -1,0 +1,25 @@
+<scroll-view scroll-y>
+  <view class="order-logs">
+    <view class="log" wx:for="{{logs}}" wx:key>
+      <view class="log-header solid-bottom ">
+        <view class="log-date-icon cuIcon-calendar theme-color"></view>
+        <view class="log-date">{{item.time}}</view>
+      </view>
+      <view class="log-infos">
+        <view class="log-info">
+          <view class="info-name text-gray">日志类型：</view>
+          <view class="info-value">{{item.type}}</view>
+        </view>
+        <view class="log-info">
+          <view class="info-name text-gray">操作详情：</view>
+          <rich-text class="info-value" nodes="{{item.detail}}"></rich-text>
+
+        </view>
+        <view class="log-info">
+          <view class="info-name text-gray">操作人员：</view>
+          <view class="info-value">{{item.operator}}</view>
+        </view>
+      </view>
+    </view>
+  </view>
+</scroll-view>

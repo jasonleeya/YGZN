@@ -12,7 +12,6 @@ create(store, {
       this.setData({
         buyerList: this.store.data.selectBuyer.buyerList
       })
-    console.log(this.store.data.selectBuyer.buyerList)
   },
    compare(pro) {
     return function (obj1, obj2) {
@@ -31,5 +30,10 @@ create(store, {
     wx.navigateTo({
       url: '/pages/purchase/addBuyer/addBuyer',
     })
+  },
+  selectedBuyer(e){
+    var selectedName = 
+      this.store.data.newPurchase.buyer = e.detail
+    wx.navigateBack()
   }
 });

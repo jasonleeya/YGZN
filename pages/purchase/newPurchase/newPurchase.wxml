@@ -35,7 +35,7 @@
 
     <view class="info-item">
       <view class="info-name">收货地址</view>
-      <view class="info-content">
+      <view class="info-content" bindtap="addAeceiveAddress">
         {{infos.receiveAddress}}
       </view>
       <view class="cuIcon-right"></view>
@@ -44,7 +44,7 @@
     <view class="info-item">
       <view class="info-name">收货日期</view>
       <view class="info-content">
-        <picker mode="date" value="{{infos.receiveDate}}" start="2015-09-01" end="2100-09-01" bindchange="bindDateChange">
+        <picker mode="date" value="{{infos.receiveDate}}" start="{{infos.receiveDate}}" end="2100-09-01" bindchange="dateChange">
           <view class="picker">
             {{infos.receiveDate}}
           </view>

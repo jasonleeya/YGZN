@@ -67,9 +67,9 @@
   <view class="remake-textarea">我是备注我是备注我是备注我是备注</view>
 
   <view class="operating-options">
-    <view class="option bg-gradual-orange">修改订单</view>
-    <view class="option bg-gray">订单日志</view>
+    <view class="option bg-gray">修改订单</view>  
     <view class="option bg-gray">取消订单</view>
     <view class="option bg-gray">订单付款</view>
+    <view class="option bg-gradual-orange" bindtap="orderLogs">订单日志</view>
   </view>view
 </scroll-view>

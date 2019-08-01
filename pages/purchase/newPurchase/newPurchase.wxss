@@ -1,9 +1,10 @@
 .info-item {
-  height: 88rpx;
+  min-height: 88rpx;
   background-color: #fff;
   position: relative;
   display: flex;
   align-items: center;
+  padding: 20rpx 0;
 }
 
 .info-item::after {

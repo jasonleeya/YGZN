@@ -26,6 +26,13 @@ Component({
       wx.navigateTo({
         url: this.properties.link,
       })
+    },
+    scan(){
+      wx.scanCode({
+        success(res) {
+          console.log(res)
+        }
+      })
     }
   }
 })

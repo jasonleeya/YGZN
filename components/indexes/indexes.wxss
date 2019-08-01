@@ -4,8 +4,8 @@
 
 .initial-letter {
   padding-left: 30rpx;
-  height: 40rpx;
-  line-height: 40rpx;
+  height: 60rpx;
+  line-height: 60rpx;
   font-size: 36rpx;
 }
 

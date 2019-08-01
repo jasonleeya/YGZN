@@ -24,3 +24,6 @@ page{
 .nav-hover {
   background-color: #fff;
 }
+switch::after, switch::before{
+top:7rpx;
+}

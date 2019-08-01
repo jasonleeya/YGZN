@@ -105,6 +105,8 @@ Component({
       })
     },
 
-
+    selectItem(e){ 
+      this.triggerEvent("select", e.currentTarget.dataset.val)
+    }
   }
 })

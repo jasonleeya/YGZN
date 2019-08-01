@@ -9,7 +9,9 @@
     "pages/purchase/orderDetail/orderDetail",
     "pages/purchase/addSupplier/addSupplier",
     "pages/purchase/addBuyer/addBuyer",
-    "pages/purchase/selectBuyer/selectBuyer"
+    "pages/purchase/selectBuyer/selectBuyer",
+    "pages/purchase/addReceiveAdress/addReceiveAdress",
+    "pages/purchase/orderLogs/orderLogs"
   ],
   "window": {
     "backgroundTextStyle": "light",

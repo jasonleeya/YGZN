@@ -49,5 +49,9 @@ Page({
   onReady: function() {
 
   },
- 
+  orderLogs(){
+    wx.navigateTo({
+      url: '/pages/purchase/orderLogs/orderLogs',
+    })
+  }
 })
