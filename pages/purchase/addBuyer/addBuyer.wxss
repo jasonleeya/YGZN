@@ -3,22 +3,6 @@
   position: relative;
 }
 
-.buyer-info {
-  display: flex;
-  height: 100rpx;
-  position: relative;
-  background-color: #fff;
-  padding: 0 30rpx;
-  line-height: 100rpx;
-}
-
-.info-name {
-  width: 200rpx;
-}
-
-.info-value {
-  flex: 1;
-}
 
 .info-value input {
   height: 100rpx;
@@ -28,30 +12,16 @@
    padding: 15rpx 20rpx;
  }
 
-.border-bt::after {
-  content: "";
-  width: calc(100vw - 30rpx);
-  height: 1rpx;
-  position: absolute;
-  bottom: 1rpx;
-  left: 30rpx;
-  background-color: #eee;
-}
-
-.confirm-btn {
-  position: absolute;
-  bottom: 100rpx;
-  width: calc(100vw - 60rpx);
-  left: 50%;
-  transform: translateX(-50%);
-  height: 80rpx;
-  line-height: 80rpx;
-}
-
 textarea {
   margin-top: 10rpx;
   width: 100vw;
   padding: 30rpx;
   height: 200rpx;
   background-color: #fff;
+}
+
+.info-item{
+  height: 100rpx;
+  display: flex;
+  background-color: #fff
 }

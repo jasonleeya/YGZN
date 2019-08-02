@@ -1,8 +1,8 @@
 {
   "pages": [
     "pages/index/index",
-    "pages/purchase/selectSupplier/selectSupplier",
     "pages/login/login",
+    "pages/purchase/selectSupplier/selectSupplier",
     "pages/purchase/purchaseOrders/purchaseOrders",
     "pages/purchase/newPurchase/newPurchase",
     "pages/purchase/addGoods/addGoods",
@@ -11,7 +11,9 @@
     "pages/purchase/addBuyer/addBuyer",
     "pages/purchase/selectBuyer/selectBuyer",
     "pages/purchase/addReceiveAdress/addReceiveAdress",
-    "pages/purchase/orderLogs/orderLogs"
+    "pages/purchase/orderLogs/orderLogs",
+    "pages/product/productManage/productManage",
+    "pages/product/productOperate/productOperate"
   ],
   "window": {
     "backgroundTextStyle": "light",

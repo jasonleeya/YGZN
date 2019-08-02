@@ -2,23 +2,6 @@
   height: 100vh;
   position: relative;
 }
-
-.receive-info {
-  display: flex;
-  height: 100rpx;
-  position: relative;
-  background-color: #fff;
-  padding: 0 30rpx;
-  line-height: 100rpx;
-}
-
-.info-name {
-  width: 200rpx;
-}
-
-.info-value {
-  flex: 1;
-}
 .set-default{
   text-align: right
 }
@@ -39,16 +22,6 @@
   bottom: 1rpx;
   left: 30rpx;
   background-color: #eee;
-}
-
-.confirm-btn {
-  position: absolute;
-  bottom: 100rpx;
-  width: calc(100vw - 60rpx);
-  left: 50%;
-  transform: translateX(-50%);
-  height: 80rpx;
-  line-height: 80rpx;
 }
 
 textarea {

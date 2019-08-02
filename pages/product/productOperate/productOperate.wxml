@@ -1,0 +1,110 @@
+<scroll-view scroll-y>
+  <form bindsubmit="formSubmit" class="product-oprate">
+    <view class="cell border-bt">
+      <view class="cell-name">品牌
+        <text class="text-red">*</text>
+      </view>
+      <view class="cell-value">
+        <input name="brand" placeholder="请填写品牌"></input>
+      </view>
+    </view>
+    <view class="cell">
+      <view class="cell-name">品牌代码
+        <text class="text-red">*</text>
+      </view>
+      <view class="cell-value">
+        <input name="brandId" placeholder="请填写品牌代码"></input>
+      </view>
+    </view>
+    <view class="cells-title">商品图片</view>
+    <view class="product-pic cell-gutter-bt">
+      <previewImage wx:if="{{uploadPicUrl}}" class="pic" src="{{uploadPicUrl}}" w="100rpx" h="100rpx" />
+      <view wx:if="{{uploadPicUrl}}" class="add-pic-btn cuIcon-move" bindtap="removePic"></view>
+      <view wx:if="{{!uploadPicUrl}}" class="add-pic-btn cuIcon-add" bindtap="uploadPic"></view>
+    </view>
+    <view class="cell border-bt">
+      <view class="cell-name">自定义代码</view>
+      <view class="cell-value">
+        <input name="custom" placeholder="请填写自定义代码"></input>
+      </view>
+    </view>
+    <view class="cell border-bt">
+      <view class="cell-name">产品名称</view>
+      <view class="cell-value">
+        <input name="productName" placeholder="请填写产品名称"></input>
+      </view>
+    </view>
+    <view class="cell border-bt">
+      <view class="cell-name">条形码</view>
+      <view class="cell-value">
+        <input name="barCode" placeholder="请填写条形码或扫描条形码" value="{{barCode}}"></input>
+      </view>
+      <view class="cell-icon scan iconfont iconscan theme-color" bindtap="scan"></view>
+    </view>
+    <view class="cell cell-gutter-bt">
+      <view class="cell-name">规格</view>
+      <view class="cell-value">
+        <input name="format" placeholder="请填写规格"></input>
+      </view>
+    </view>
+    <view class="cell border-bt">
+      <view class="cell-name">最小包装量</view>
+      <view class="cell-value">
+        <input name="minPackageAmount" placeholder="请填写最小包装量" type="number"></input>
+      </view>
+    </view>
+    <view class="cell border-bt">
+      <view class="cell-name">货架编号</view>
+      <view class="cell-value">
+        <input name="shelfId" placeholder="请填写货架编号"></input>
+      </view>
+    </view>
+    <view class="cell border-bt">
+      <view class="cell-name">单位
+        <text class="text-red">*</text>
+      </view>
+      <view class="cell-value">
+        <input name="quantifier" placeholder="请填写或者单位" value="{{quantifier.list[quantifier.picked]}}"></input>
+      </view>
+          <picker  bindchange="pinkQuantifier"  value="{{quantifier.list[quantifier.picked]}}" range="{{quantifier.list}}">
+          <view class="picker">
+            <!-- {{quantifier.picked===null?'请选择单位':quantifier.list[quantifier.picked]}} -->
+            <view class="cell-icon cuIcon-right"></view> 
+          </view>
+        </picker>
+    
+    </view>
+    <view class="cell border-bt">
+      <view class="cell-name">默认到货天数
+        <text class="text-red">*</text>
+      </view>
+      <view class="cell-value">
+        <input name="receiptDay" placeholder="请填写到货天数" type="number"></input>
+      </view>
+      <view class="cell-icon cuIcon-right"></view>
+    </view>
+    <view class="cell cell-gutter-bt operates">
+      <view class="operate bg-gradual-orange">编辑商品</view>
+      <view class="operate bg-gray">出入库明细</view>
+    </view>
+    <view class="cell border-bt">
+      <view class="cell-name">安全库存
+        <text class="text-red">*</text>
+      </view>
+      <view class="cell-value">
+        <input name="safeStock" placeholder="请填写安全库存"  type="number"></input>
+      </view>
+      <view class="cell-icon cuIcon-right"></view>
+    </view>
+    <view class="cell">
+      <view class="cell-name">库存透明度</view>
+      <view class="cell-value">
+        <input name="stockTransparent" placeholder="请设置库存透明度"  type="number"></input>
+      </view>
+      <view class="cell-icon cuIcon-right"></view>
+    </view>
+    <view class="cells-title">备注</view>
+    <textarea name="remark" class="remark" placeholder="请填写备注"></textarea>
+    <button class="theme-bgc confirm-btn" form-type="submit">添加</button>
+  </form>
+</scroll-view>

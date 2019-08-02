@@ -23,9 +23,11 @@ Component({
    */
   methods: {
     toSearch(){
-      wx.navigateTo({
-        url: this.properties.link,
-      })
+      if (this.data.link) {
+        wx.navigateTo({
+          url: this.properties.link,
+        })
+      }  
     },
     scan(){
       wx.scanCode({

@@ -4,8 +4,9 @@
 @import "imgs/iconfont/iconfont.wxss";
 
 /* 主题色背景 */
-page{
-    --themeColor:#317EFE;
+
+page {
+  --themeColor: #317efe;
 }
 
 .theme-bgc {
@@ -24,6 +25,55 @@ page{
 .nav-hover {
   background-color: #fff;
 }
-switch::after, switch::before{
-top:7rpx;
+
+switch::after, switch::before {
+  top: 7rpx;
+}
+
+.border-bt::after {
+  content: "";
+  width: calc(100vw - 30rpx);
+  height: 1rpx;
+  position: absolute;
+  bottom: 1rpx;
+  left: 30rpx;
+  background-color: #ddd;
+  transform: scaleY(0.5)
+}
+
+.cell {
+  display: flex;
+  height: 100rpx;
+  position: relative;
+  background-color: #fff;
+  padding-left: 30rpx;
+  line-height: 100rpx;
+}
+
+.cell-name {
+  width: 200rpx;
+}
+
+.cell-value {
+  flex: 1;
+}
+
+.cell input {
+  height: 100rpx;
+}
+.cells-title{ 
+  padding: 20rpx 30rpx;
+}
+.cell-gutter-bt{
+  margin-bottom: 30rpx;
+}
+.cell-icon{
+  padding-right: 30rpx;
+}
+.confirm-btn {
+ position: relative;
+  width: calc(100vw - 60rpx);
+  height: 80rpx;
+  line-height: 80rpx;
+  margin: 100rpx auto;
 }

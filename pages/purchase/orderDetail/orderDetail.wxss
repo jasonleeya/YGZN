@@ -1,34 +1,3 @@
-.info-item {
-  height: 88rpx;
-  background-color: #fff;
-  position: relative;
-  display: flex;
-  align-items: center;
-}
-
-.info-item::after {
-  content: '';
-  display: block;
-  width: 100vw;
-  height: 1px;
-  background-color: #eee;
-  position: absolute;
-  bottom: 0;
-  left: 30rpx;
-}
-
-.info-name {
-  width: 25vw;
-  padding-left: 30rpx;
-}
-
-.info-content {
-  flex: 1;
-}
-
-.cuIcon-right {
-  margin-right: 30rpx;
-}
 
 .placeholder {
   color: #000;

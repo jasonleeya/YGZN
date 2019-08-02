@@ -1,38 +1,38 @@
 <view class="add-supplier">
   <form bindsubmit="addSubmit">
-    <view class="supplier-info  border-bt">
-      <view class="info-name">供应商名称</view>
-      <view class="info-value">
+    <view class="cell  border-bt">
+      <view class="cell-name">供应商名称</view>
+      <view class="cell-value">
         <input name="company" value="东莞市川牌量具有限公司"></input>
       </view>
     </view>
-    <view class="supplier-info margin-bt">
-      <view class="info-name">营业执照</view>
-      <view class="info-value">
+    <view class="cell margin-bt">
+      <view class="cell-name">营业执照</view>
+      <view class="cell-value">
         <input name="businessLicenseId" value="9144190069005922135"></input>
       </view>
     </view>
-    <view class="supplier-info  border-bt">
-      <view class="info-name">首要联系人</view>
-      <view class="info-value">
+    <view class="cell  border-bt">
+      <view class="cell-name">首要联系人</view>
+      <view class="cell-value">
         <input name="contact" value="顾栋涵"></input>
       </view>
     </view>
-    <view class="supplier-info  border-bt">
-      <view class="info-name">联系人电话</view>
-      <view class="info-value">
+    <view class="cell  border-bt">
+      <view class="cell-name">联系人电话</view>
+      <view class="cell-value">
         <input name="cantactPhoneNumber" value="15828419697" type="number"></input>
       </view>
     </view>
-    <view class="supplier-info  border-bt">
-      <view class="info-name">公司电话</view>
-      <view class="info-value">
+    <view class="cell  border-bt">
+      <view class="cell-name">公司电话</view>
+      <view class="cell-value">
         <input name="companyPhoneNumber" value="15828419697" type="number"></input>
       </view>
     </view>
-    <view class="supplier-info">
-      <view class="info-name">公司地址</view>
-      <view class="info-value">
+    <view class="cell">
+      <view class="cell-name">公司地址</view>
+      <view class="cell-value">
         <input name="companyAdress" value="建设南路1006号"></input>
       </view>
     </view>

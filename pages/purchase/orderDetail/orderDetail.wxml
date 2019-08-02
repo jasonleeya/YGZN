@@ -1,61 +1,61 @@
 <scroll-view scroll-y>
   <view class="info-list shadow">
-    <view class="info-item">
-      <view class="info-name">采购单号</view>
-      <view class="info-content">SPARK20197110001</view>
+    <view class="cell border-bt">
+      <view class="cell-name">采购单号</view>
+      <view class="cell-value">SPARK20197110001</view>
     </view>
 
-    <view class="info-item">
-      <view class="info-name">供应商</view>
-      <view class="info-content">成都成量集团有限公司</view>
+    <view class="cell border-bt">
+      <view class="cell-name">供应商</view>
+      <view class="cell-value">成都成量集团有限公司</view>
     </view>
 
-    <view class="info-item">
-      <view class="info-name">采购员</view>
-      <view class="info-content ">吴建秋</view>
+    <view class="cell border-bt">
+      <view class="cell-name">采购员</view>
+      <view class="cell-value ">吴建秋</view>
     </view>
 
-    <view class="info-item">
-      <view class="info-name">收货人</view>
-      <view class="info-content">
+    <view class="cell border-bt">
+      <view class="cell-name">收货人</view>
+      <view class="cell-value">
         依高智能
       </view>
     </view>
 
-    <view class="info-item">
-      <view class="info-name">联系电话</view>
-      <view class="info-content">
+    <view class="cell border-bt">
+      <view class="cell-name">联系电话</view>
+      <view class="cell-value">
         18888888888
       </view>
     </view>
 
-    <view class="info-item">
-      <view class="info-name">收货地址</view>
-      <view class="info-content">
+    <view class="cell border-bt">
+      <view class="cell-name">收货地址</view>
+      <view class="cell-value">
         北京/东城区/建设路100号
       </view>
     </view>
 
-    <view class="info-item">
-      <view class="info-name">收货日期</view>
-      <view class="info-content">
+    <view class="cell border-bt">
+      <view class="cell-name">收货日期</view>
+      <view class="cell-value">
         2019-7-18
       </view>
     </view>
 
-    <view class="info-item">
-      <view class="info-name">订单状态</view>
-      <view class="info-content">
+    <view class="cell border-bt">
+      <view class="cell-name">订单状态</view>
+      <view class="cell-value">
         线上订单/信用订单
       </view>
     </view>
 
-    <view class="info-item">
-      <view class="info-name">物流单号</view>
-      <view class="info-content text-gray">
+    <view class="cell border-bt">
+      <view class="cell-name">物流单号</view>
+      <view class="cell-value text-gray">
         出库时请输入物流订单号
       </view>
-      <view class="cuIcon-right"></view>
+      <view class="cell-icon cuIcon-right"></view>
     </view>
 
   </view>

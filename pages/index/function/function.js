@@ -158,10 +158,9 @@ Component({
       name: "产品管理",
       id: 4,
       items: [{
-        value: "新增采购",
+        value: "产品管理",
         icon: "iconcart",
-        link: "",
-        number: 32
+        link: "/pages/product/productManage/productManage",
       }, {
         value: "新增采购",
         icon: "iconcart",

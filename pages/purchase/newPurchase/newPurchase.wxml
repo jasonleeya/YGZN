@@ -1,56 +1,56 @@
 <scroll-view scroll-y>
   <view class="info-list shadow">
-    <view class="info-item">
-      <view class="info-name">采购单号</view>
-      <view class="info-content">{{infos.orderId}}</view>
+    <view class="cell border-bt">
+      <view class="cell-name">采购单号</view>
+      <view class="cell-value text-gray">{{infos.orderId}}</view>
     </view>
 
-    <view class="info-item">
-      <view class="info-name">供应商</view>
-      <view class="info-content {{infos.supplier===''?'text-gray':''}}" bindtap="selectSupplier">{{infos.supplier===""?"请选择供应商/或添加供应商":infos.supplier}}</view>
-      <view class="cuIcon-right"></view>
+    <view class="cell border-bt">
+      <view class="cell-name">供应商</view>
+      <view class="cell-value {{infos.supplier===''?'text-gray':''}}" bindtap="selectSupplier">{{infos.supplier===""?"请选择供应商/或添加供应商":infos.supplier}}</view>
+      <view class="cuIcon-right  cell-icon"></view>
     </view>
 
-    <view class="info-item">
-      <view class="info-name">采购员</view>
-      <view class="info-content {{infos.buyer===''?'text-gray':''}}" bindtap="selectBuyer">{{infos.buyer===""?"请选择采购员":infos.buyer}}</view>
-      <view class="cuIcon-right"></view>
+    <view class="cell border-bt">
+      <view class="cell-name">采购员</view>
+      <view class="cell-value {{infos.buyer===''?'text-gray':''}}" bindtap="selectBuyer">{{infos.buyer===""?"请选择采购员":infos.buyer}}</view>
+      <view class="cuIcon-right  cell-icon"></view>
     </view>
 
-    <view class="info-item">
-      <view class="info-name">收货人</view>
-      <view class="info-content">
+    <view class="cell border-bt">
+      <view class="cell-name">收货人</view>
+      <view class="cell-value">
         <input value="{{infos.receiver}}"></input>
       </view>
-      <view class="cuIcon-right"></view>
+      <view class="cuIcon-right  cell-icon"></view>
     </view>
 
-    <view class="info-item">
-      <view class="info-name">联系电话</view>
-      <view class="info-content">
+    <view class="cell border-bt">
+      <view class="cell-name">联系电话</view>
+      <view class="cell-value">
         <input type="number" value="{{infos.phoneNumber}}"></input>
       </view>
-      <view class="cuIcon-right"></view>
+      <view class="cuIcon-right  cell-icon"></view>
     </view>
 
-    <view class="info-item">
-      <view class="info-name">收货地址</view>
-      <view class="info-content" bindtap="addAeceiveAddress">
+    <view class="cell border-bt">
+      <view class="cell-name">收货地址</view>
+      <view class="cell-value" bindtap="addAeceiveAddress">
         {{infos.receiveAddress}}
       </view>
-      <view class="cuIcon-right"></view>
+      <view class="cuIcon-right  cell-icon"></view>
     </view>
 
-    <view class="info-item">
-      <view class="info-name">收货日期</view>
-      <view class="info-content">
+    <view class="cell">
+      <view class="cell-name">收货日期</view>
+      <view class="cell-value">
         <picker mode="date" value="{{infos.receiveDate}}" start="{{infos.receiveDate}}" end="2100-09-01" bindchange="dateChange">
           <view class="picker">
             {{infos.receiveDate}}
           </view>
         </picker>
       </view>
-      <view class="cuIcon-right"></view>
+      <view class="cuIcon-right  cell-icon"></view>
     </view>
   </view>
   <view class="title add-goods">添加商品</view>

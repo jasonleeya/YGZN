@@ -1,0 +1,48 @@
+scroll-view {
+  width: 100vw;
+  height: 100vh;
+}
+
+.product-pic {
+  padding: 30rpx;
+  background-color: #fff;
+  display: flex;
+}
+
+.add-pic-btn {
+  width: 100rpx;
+  height: 100rpx;
+  border: 1rpx dashed var(--themeColor);
+  color: var(--themeColor);
+  text-align: center;
+  line-height: 100rpx;
+  font-size: 40rpx;
+  border-radius: 10rpx;
+}
+
+.product-pic .pic {
+  margin-right: 30rpx;
+  position: relative;
+}
+
+.operates {
+  justify-content: flex-end;
+}
+
+.operate {
+  height: 60rpx;
+  border-radius: 30rpx;
+  line-height: 60rpx;
+  padding: 0 30rpx;
+  margin:20rpx 30rpx 0 0;
+}
+
+.remark {
+  width: 100vw;
+  height: 200rpx;
+  background-color: #fff;
+  padding: 20rpx 30rpx;
+}
+.scan{
+  font-size: 40rpx;
+}

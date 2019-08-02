@@ -1,27 +1,27 @@
 <view class="add-receive">
   <form bindsubmit="addSubmit">
 
-    <view class="receive-info border-bt">
-      <view class="info-name">所在地区</view>
-      <view class="info-value">
+    <view class="cell border-bt">
+      <view class="cell-name">所在地区</view>
+      <view class="cell-value">
         <picker name="region" mode="region" bindchange="regionChange" value="{{region}}">
           <view class="picker">
             {{region[0]}}-{{region[1]}}-{{region[2]}}
           </view>
         </picker>
       </view>
-      <view class="cuIcon-right"></view>
+      <view class="cuIcon-right cell-icon"></view>
     </view>
-    <view class="receive-info border-bt">
-      <view class="info-name">详细地址</view>
-      <view class="info-value">
+    <view class="cell border-bt">
+      <view class="cell-name">详细地址</view>
+      <view class="cell-value">
         <input name="detail" placeholder="请输入详细地址" value="{{detail}}"></input>
       </view>
     </view>
-    <view class="receive-info">
-      <view class="info-name">设置为默认地址</view>
-      <view class="info-value set-default">
-        <switch name="isDefault"  checked class="blue sm" bindchange="setDefault" checked="{{isDefault}}" value="{{isDefault}}"/>
+    <view class="cell">
+      <view class="cell-name">设置为默认地址</view>
+      <view class="cell-value set-default">
+        <switch name="isDefault"  checked class="blue sm cell-icon" bindchange="setDefault" checked="{{isDefault}}" value="{{isDefault}}"/>
       </view>
     </view>
     <button class="theme-bgc confirm-btn" form-type="submit">添加</button>

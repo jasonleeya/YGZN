@@ -17,7 +17,7 @@
 </scroll-view>
 <view class="confirm-order solid-top">
   <text>合计金额：<text class="total-money text-red">￥{{totalPrice}}</text></text>
-  <view class="confirm-btn bg-gradual-orange" bindtap="confirmOrder">确认（{{totalAmount}}）</view>
+  <view class="order-confirm bg-gradual-orange" bindtap="confirmOrder">确认（{{totalAmount}}）</view>
 </view>
 
 

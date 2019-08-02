@@ -3,27 +3,6 @@
   position: relative
 }
 
-.supplier-info {
-  display: flex;
-  height: 100rpx;
-  position: relative;
-  background-color: #fff;
-  padding-left: 30rpx;
-  line-height: 100rpx;
-}
-
-.info-name {
-  width: 200rpx;
-}
-
-.info-value {
-  flex: 1;
-}
-
-.info-value input {
-  height: 100rpx;
-}
-
 .margin-bt {
   margin-bottom: 30rpx;
 }
@@ -38,12 +17,4 @@
   background-color: #eee;
 }
 
-.confirm-btn {
-  position: absolute;
-  bottom: 100rpx;
-  width: calc(100vw - 60rpx);
-  left: 50%;
-  transform: translateX(-50%);
-  height: 80rpx;
-  line-height: 80rpx;
-}
+
