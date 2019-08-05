@@ -15,13 +15,14 @@ create(store, {
       buyer: "",
       receiver: "伊高智能",
       phoneNumber: "18888888888",
-      receiveAddress: "四川省-成都市-成华区-建设路钻石广场3005",
+      receiveAddress: "【四川省/成都市/成华区】建设路钻石广场3005",
       receiveDate: "2019-07-25"
     }
   },
   onLoad() {
     //验证登录
     app.checkLogin()
+    
     this.store.data.newPurchase.receiveAddress = this.data.infos.receiveAddress
     var date = new Date()
     var nowDate = date.getFullYear() + "-" + (date.getMonth() + 1) + "-" + date.getDate()
@@ -78,7 +79,9 @@ create(store, {
       url: '/pages/purchase/addReceiveAdress/addReceiveAdress?adress=' + this.data.infos.receiveAddress,
     })
   },
-  confirmOrder() {
-    console.log(this.data.infos)
+  formSubmit(e) {
+    var info = e.detail.value
+    info.goods = this.store.data.newPurchase.cartList
+    console.log(info)
   },
 })

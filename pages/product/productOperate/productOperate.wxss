@@ -26,7 +26,14 @@ scroll-view {
 }
 
 .operates {
+  display: flex;
+  position: fixed;
+  width: 100vw;
+  bottom: 0;
   justify-content: flex-end;
+  height: 100rpx;
+  background-color: #fff;
+  z-index: 999;
 }
 
 .operate {
@@ -34,7 +41,21 @@ scroll-view {
   border-radius: 30rpx;
   line-height: 60rpx;
   padding: 0 30rpx;
-  margin:20rpx 30rpx 0 0;
+  margin: 20rpx 30rpx 0 0;
+  font-size: 28rpx;
+}
+
+.save-btn {
+  padding: 0;
+}
+
+.save-btn button {
+  font-size: 28rpx;
+  height: 60rpx;
+  line-height: 60rpx;
+  padding: 0 30rpx;
+  background-color: transparent;
+  color: #fff;
 }
 
 .remark {
@@ -42,7 +63,9 @@ scroll-view {
   height: 200rpx;
   background-color: #fff;
   padding: 20rpx 30rpx;
+  margin-bottom: 100rpx
 }
-.scan{
+
+.scan {
   font-size: 40rpx;
 }

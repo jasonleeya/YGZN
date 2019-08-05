@@ -122,6 +122,9 @@ Component({
 
     // ListTouch触摸开始
     ListTouchStart(e) {
+      if(!this.data.editable){
+        return
+      }
       this.setData({
         ListTouchStart: e.touches[0].pageX
       })

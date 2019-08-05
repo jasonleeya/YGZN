@@ -8,13 +8,13 @@
   line-height: 100rpx;
 }
 
-.remake-textarea {
+.remarke-textarea {
   width: 100vw;
   height: 200rpx;
   padding: 30rpx;
   margin-bottom: 100rpx;
   background-color: #fff;
-  z-index: -1
+  z-index: -1;
 }
 
 .operating-options {
@@ -31,4 +31,18 @@
   text-align: center;
   height: 100rpx;
   line-height: 100rpx;
+}
+.comfirm-order button{
+  height: 100rpx;
+  line-height: 100rpx;
+  border-radius: 0
+}
+.add-aeceive-address {
+  display: flex;
+  position: relative;
+  background-color: #fff;
+  padding-left: 30rpx;
+  padding-top: 30rpx;
+  padding-bottom: 30rpx;
+  line-height: 44rpx;
 }

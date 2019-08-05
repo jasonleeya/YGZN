@@ -4,9 +4,9 @@ Component({
    * 组件的属性列表
    */
   properties: {
-    w:String,
+    w: String,
     h: String,
-    src:String
+    src: String
   },
 
   /**
@@ -20,8 +20,8 @@ Component({
    * 组件的方法列表
    */
   methods: {
-    previewImage(){
-      wx.previewImage({ 
+    previewImage() {
+      wx.previewImage({
         urls: [this.data.src],
       })
     }

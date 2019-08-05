@@ -1,0 +1,10 @@
+.item{
+  height: 100rpx;
+  width: 100vw;
+  background-color: #fff
+}
+.content{
+  width: 100vw;
+  height: 100rpx;
+  background-color: #fff;
+}

@@ -204,7 +204,6 @@ create(store, {
       isShowPop: false
     })
     this.update()
-    console.log(cartList)
   },
   confirmOrder() {
 

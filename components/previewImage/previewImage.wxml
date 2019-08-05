@@ -1,3 +1,3 @@
-<view class="preview-image" bindtap="previewImage">
+<view class="preview-image" catchtap="previewImage">
   <image src="{{src}}" style="width:{{w}};height:{{h}}"></image>
 </view>

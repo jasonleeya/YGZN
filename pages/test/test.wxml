@@ -1,0 +1,4 @@
+<leftSlide2Operate class="item" id="item1"  moveItemId="move-box-item1">
+<view slot="item" class="content">111</view>
+<view slot="move" class="move">222</view>
+</leftSlide2Operate>

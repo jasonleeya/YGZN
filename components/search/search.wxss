@@ -1,12 +1,12 @@
-.search{
+.search {
   height: 100rpx;
   width: 100vw;
   background-color: #fff;
   padding-top: 20rpx;
   display: flex;
 }
+
 .search-input {
-  color: #aaa;
   position: relative;
   border: 1px solid #eff1f1;
   height: 60rpx;
@@ -19,8 +19,8 @@
 }
 
 .search-input text {
-  font-size: 30rpx;
   color: #aaa;
+  font-size: 30rpx;
 }
 
 .search-input input {
@@ -50,4 +50,4 @@
   border-radius: 30rpx;
   margin-left: 20rpx;
   flex: 1;
-} 
+}

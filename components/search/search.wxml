@@ -3,7 +3,7 @@
     <view class="search-toggle bg-gray">全局搜索</view>
     <view class="search-input bg-gray" bindtap='toSearch'>
       <text class="iconfont iconsearch"></text>
-      <input class="" placeholder="请输入搜索关键词" />
+      <input class="" placeholder="请输入搜索关键词" value="{{barCode}}"/>
     </view>
     <view class="scan" bindtap="scan">
       <text class=" iconfont iconscan text-blue"></text>

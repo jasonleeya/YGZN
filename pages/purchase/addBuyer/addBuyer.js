@@ -56,14 +56,13 @@ create(store, {
     buyerList.forEach(item => {
       if (item.letter === info.letter) {
         item.names.push(e.detail.value.name)
-      } else {
-        flag = true
-      }
+        flag=true
+      }  
     })
-    if (flag || buyerList.length === 0) {
+    if (!flag || buyerList.length === 0) { 
       buyerList.push({
         letter: info.letter,
-        names: [e.detail.value.name]
+        names: [info.name]
       })
     }
 

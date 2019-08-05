@@ -31,3 +31,6 @@ textarea {
   height: 200rpx;
   background-color: #fff;
 }
+.set-default{
+  margin-right: 20rpx;
+}

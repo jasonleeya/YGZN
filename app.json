@@ -13,7 +13,8 @@
     "pages/purchase/addReceiveAdress/addReceiveAdress",
     "pages/purchase/orderLogs/orderLogs",
     "pages/product/productManage/productManage",
-    "pages/product/productOperate/productOperate"
+    "pages/product/productOperate/productOperate",
+    "pages/test/test"
   ],
   "window": {
     "backgroundTextStyle": "light",

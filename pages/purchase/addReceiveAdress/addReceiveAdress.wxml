@@ -21,7 +21,7 @@
     <view class="cell">
       <view class="cell-name">设置为默认地址</view>
       <view class="cell-value set-default">
-        <switch name="isDefault"  checked class="blue sm cell-icon" bindchange="setDefault" checked="{{isDefault}}" value="{{isDefault}}"/>
+        <switch name="isDefault"  checked class="blue sm set-default" bindchange="setDefault" checked="{{isDefault}}" value="{{isDefault}}"/>
       </view>
     </view>
     <button class="theme-bgc confirm-btn" form-type="submit">添加</button>

@@ -69,6 +69,7 @@ switch::after, switch::before {
 }
 .cell-icon{
   padding-right: 30rpx;
+  padding-left: 20rpx;
 }
 .confirm-btn {
  position: relative;

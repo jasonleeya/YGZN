@@ -1,69 +1,75 @@
-<scroll-view scroll-y>
-  <view class="info-list shadow">
-    <view class="cell border-bt">
-      <view class="cell-name">采购单号</view>
-      <view class="cell-value text-gray">{{infos.orderId}}</view>
-    </view>
+<scroll-view scroll-y> 
+    <form bindsubmit="formSubmit">
+      <view class="info-list shadow">
+        <view class="cell border-bt">
+          <view class="cell-name">采购单号</view>
+          <input name="orderId" class="text-gray" disabled value="{{infos.orderId}}"></input>
+        </view>
 
-    <view class="cell border-bt">
-      <view class="cell-name">供应商</view>
-      <view class="cell-value {{infos.supplier===''?'text-gray':''}}" bindtap="selectSupplier">{{infos.supplier===""?"请选择供应商/或添加供应商":infos.supplier}}</view>
-      <view class="cuIcon-right  cell-icon"></view>
-    </view>
+        <view class="cell border-bt">
+          <view class="cell-name">供应商</view>
+          <view></view>
+          <input name="supplier" disabled class="cell-value {{infos.supplier===''?'text-gray':''}}" placeholder="请选择供应商/或添加供应商" value="{{infos.supplier}}" bindtap="selectSupplier"></input>
+          <view class="cuIcon-right  cell-icon"></view>
+        </view>
 
-    <view class="cell border-bt">
-      <view class="cell-name">采购员</view>
-      <view class="cell-value {{infos.buyer===''?'text-gray':''}}" bindtap="selectBuyer">{{infos.buyer===""?"请选择采购员":infos.buyer}}</view>
-      <view class="cuIcon-right  cell-icon"></view>
-    </view>
+        <view class="cell border-bt">
+          <view class="cell-name">采购员</view>
+          <input name="buyer" disabled class="cell-value {{infos.buyer===''?'text-gray':''}}" placeholder="请选择采购员" value="{{infos.buyer}}" bindtap="selectBuyer"></input>
+          <view class="cuIcon-right  cell-icon"></view>
+        </view>
 
-    <view class="cell border-bt">
-      <view class="cell-name">收货人</view>
-      <view class="cell-value">
-        <input value="{{infos.receiver}}"></input>
-      </view>
-      <view class="cuIcon-right  cell-icon"></view>
-    </view>
-
-    <view class="cell border-bt">
-      <view class="cell-name">联系电话</view>
-      <view class="cell-value">
-        <input type="number" value="{{infos.phoneNumber}}"></input>
-      </view>
-      <view class="cuIcon-right  cell-icon"></view>
-    </view>
-
-    <view class="cell border-bt">
-      <view class="cell-name">收货地址</view>
-      <view class="cell-value" bindtap="addAeceiveAddress">
-        {{infos.receiveAddress}}
-      </view>
-      <view class="cuIcon-right  cell-icon"></view>
-    </view>
-
-    <view class="cell">
-      <view class="cell-name">收货日期</view>
-      <view class="cell-value">
-        <picker mode="date" value="{{infos.receiveDate}}" start="{{infos.receiveDate}}" end="2100-09-01" bindchange="dateChange">
-          <view class="picker">
-            {{infos.receiveDate}}
+        <view class="cell border-bt">
+          <view class="cell-name">收货人</view>
+          <view class="cell-value">
+            <input name="receiver" value="{{infos.receiver}}"></input>
           </view>
-        </picker>
+          <view class="cuIcon-right  cell-icon"></view>
+        </view>
+
+        <view class="cell border-bt">
+          <view class="cell-name">联系电话</view>
+          <view class="cell-value">
+            <input name="phoneNumber" type="number" value="{{infos.phoneNumber}}"></input>
+          </view>
+          <view class="cuIcon-right  cell-icon"></view>
+        </view>
+
+        <view class="add-aeceive-address  border-bt">
+          <view class="cell-name">收货地址</view>
+          <input name="receiveAddress" hidden type="hidden" value="{{infos.receiveAddress}}" disabled class="cell-value" bindtap="addAeceiveAddress"></input>
+          <view class="cell-value" bindtap="addAeceiveAddress">
+            {{infos.receiveAddress}}
+          </view>
+          <view class="cuIcon-right  cell-icon"></view>
+        </view>
+
+        <view class="cell">
+          <view class="cell-name">收货日期</view>
+          <view class="cell-value">
+            <picker name="receiveDate" mode="date" value="{{infos.receiveDate}}" start="{{infos.receiveDate}}" end="2100-09-01" bindchange="dateChange">
+              <view class="picker">
+                {{infos.receiveDate}}
+              </view>
+            </picker>
+          </view>
+          <view class="cuIcon-right  cell-icon"></view>
+        </view>
       </view>
-      <view class="cuIcon-right  cell-icon"></view>
-    </view>
-  </view>
-  <view class="title add-goods">添加商品</view>
-  <!-- 搜索 -->
-  <search link="/pages/purchase/addGoods/addGoods" />
-  <!-- 购物车 -->
-  <cart goodsList="{{goodsList}}" totalPrice="{{totalPrice}}" bind:changeData="getChangedData" goodsListUrl="{{'/pages/purchase/addGoods/addGoods'}}" />
+      <view class="title add-goods">添加商品</view>
+      <!-- 搜索 -->
+      <search link="/pages/purchase/addGoods/addGoods" />
+      <!-- 购物车 -->
+      <cart goodsList="{{goodsList}}" totalPrice="{{totalPrice}}" bind:changeData="getChangedData" goodsListUrl="{{'/pages/purchase/addGoods/addGoods'}}" />
 
-  <view class="title remake">备注</view>
-  <textarea class="remake-textarea" placeholder="请填写备注信息" />
+      <view class="title remake">备注</view>
+      <textarea name="remark" class="remarke-textarea" placeholder="请填写备注信息" />
 
-  <cover-view class="operating-options">
-    <cover-view class="save-order bg-orange">保存订单</cover-view>
-    <cover-view class="comfirm-order bg-red" bindtap="confirmOrder">确认订单</cover-view>
-  </cover-view>
+      <cover-view class="operating-options">
+        <cover-view class="save-order bg-orange">保存订单</cover-view>
+        <cover-view class="comfirm-order">
+          <button class=" bg-red" form-type="submit">确认订单</button>
+        </cover-view>
+      </cover-view>
+    </form>
 </scroll-view>

@@ -15,7 +15,7 @@ Component({
    * 组件的初始数据
    */
   data: {
-
+    barCode:''
   },
 
   /**
@@ -30,11 +30,14 @@ Component({
       }  
     },
     scan(){
+      let that=this
       wx.scanCode({
         success(res) {
-          console.log(res)
+          that.setData({
+            barCode:res.result
+          })
         }
-      })
+      }) 
     }
   }
 })

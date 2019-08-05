@@ -1,12 +1,12 @@
 <search/>
 <scroll-view scroll-y class="product-manage-scroll">
   <view class="product-list">
-    <view class="product-item solid-bottom" wx:for="{{productList}}" wx:key>
+    <view class="product-item solid-bottom" wx:for="{{productList}}" wx:key bindtap="editProductInfo" data-index="{{index}}">
       <view class="product-pic"  >
      <previewImage src="{{item.pic}}" w="{{'140rpx'}}" h="{{'140rpx'}}"/>
       </view>
       <view class="product-info">
-        <view class="product-name">{{item.name}}</view>
+        <view class="product-name">{{item.brand+'/'+item.productName}}</view>
         <view class="product-type text-gray">{{item.type}}</view>
         <view class="product-price">
           <text class="text-gray">面价:</text>
@@ -14,7 +14,7 @@
           <text class="text-gray">销售价:</text>
           <text class="text-red">￥{{item.sellingPrice}}</text>
         </view>
-        <view class="stock {{item.stock>10?'text-green':'text-red'}}">库存:{{item.stock}}({{item.quantifier}})</view>
+        <view class="stock {{item.stock>10?'text-green':'text-red'}}">库存:{{item.safeStock}}({{item.quantifier}})</view>
       </view>
     </view>
   </view>
