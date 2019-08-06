@@ -1,7 +1,0 @@
-<view class="cu-list left-slide-2-operate">
-  
-    <slot name='item' class="cu-item {{moveItemId=='move-box-'+ id?'move-cur':''}}" bindtouchstart="ListTouchStart" bindtouchmove="ListTouchMove" bindtouchend="ListTouchEnd" data-target="move-box-{{id}}"></slot>
-  
-    <slot name='move'  class="move"></slot>
-  
-</view>

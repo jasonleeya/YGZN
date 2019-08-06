@@ -32,7 +32,7 @@ create(store, {
   },
   onShow() {
    
-    if (this.store.data.newPurchase.supplier.length !== 0) {
+    if (this.store.data.newPurchase.supplier.company) { 
       this.setData({
         ["infos.supplier"]: this.store.data.newPurchase.supplier.company //从store中获取供应商信息
       })
@@ -76,7 +76,7 @@ create(store, {
   },
   addAeceiveAddress() {
     wx.navigateTo({
-      url: '/pages/purchase/addReceiveAdress/addReceiveAdress?adress=' + this.data.infos.receiveAddress,
+      url: '/pages/common/addReceiveAdress/addReceiveAdress?adress=' + this.data.infos.receiveAddress +'&store=newPurchase.receiveAddress',
     })
   },
   formSubmit(e) {

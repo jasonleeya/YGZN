@@ -1,8 +1,11 @@
-import addGoods from './pages/purchase/addGoods/store.js'
+import addGoods from './pages/common/addGoods/store.js'
 import newPurchase from './pages/purchase/newPurchase/store.js'
 import selectSupplier from './pages/purchase/selectSupplier/store.js'
 import selectBuyer from "./pages/purchase/selectBuyer/store.js"
 import productManage from "./pages/product/productManage/store.js"
+import newSales from "./pages/sales/newSales/store.js"
+import selectCustomer from "./pages/sales/selectCustomer/store.js"
+import selectSeller from "./pages/sales/selectSeller/store.js"
 
 export default {
   data: {
@@ -13,7 +16,10 @@ export default {
     newPurchase: newPurchase.data,
     selectSupplier: selectSupplier.data,
     selectBuyer: selectBuyer.data, 
-    productManage: productManage.data
+    productManage: productManage.data,
+    newSales: newSales.data,
+    selectCustomer: selectCustomer.data,
+    selectSeller: selectSeller.data
   },
   globalData: [],
   logMotto: function() {},

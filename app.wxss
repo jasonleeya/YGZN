@@ -78,3 +78,12 @@ switch::after, switch::before {
   line-height: 80rpx;
   margin: 100rpx auto;
 }
+.move{
+  top: 0;
+  margin-top: 0!important;
+}
+.cu-list>.cu-item {
+ transition: all 0.2s ease-in-out 0s;
+transform: translateX(0rpx);
+
+}

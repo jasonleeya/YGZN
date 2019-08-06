@@ -100,6 +100,56 @@ Page({
     //   }
     // })
     // wx.setStorageSync("token", response.data.data.token)
+
+
+
+
+    // methods: {
+    //   sub() {
+    //     var that = this;
+    //     wx.getStorage({
+    //       key: "openid",
+    //       success: function (res) {
+    //         that.username = res.data;
+    //         wx.request({
+    //           url: "https://" + that.url + "/netgate-user/bindingAccount",
+    //           method: "post",
+    //           data: {
+    //             username: that.username,
+    //             phone: that.phone
+    //           },
+    //           header: {
+    //             "content-type": "application/x-www-form-urlencoded" // 默认
+    //           },
+    //           success: function (res) {
+    //             console.log(res)
+    //             if (res.data.code == '000000') {
+    //               wx.setStorage({
+    //                 key: "token",
+    //                 data: res.data.info
+    //               });
+    //               wx.navigateTo({
+    //                 url: "../index/main"
+    //               });
+    //             } else if (res.data.t != null) {
+    //               that.msg = res.data.t.msg;
+    //             }
+    //           }
+    //         });
+    //       }
+    //     });
+    //   }
+
+
+
+
+
+
+
+
+
+
+
     if (this.data.isRemenberPassword){
       wx.setStorageSync("token", "token")
     }

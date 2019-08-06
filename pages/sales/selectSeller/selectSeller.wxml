@@ -1,0 +1,13 @@
+<view class="select-buyer solid-bottom">
+  <view class="header-search">
+    <view class="input-wrapper">
+      <view class="search-icon cuIcon-search">
+      </view>
+      <input class="bg-gray" placeholder="搜索销售员"></input>
+    </view>
+    <view class="add-buyer" bindtap="addBuyer">新增</view>
+  </view>
+</view>
+ <indexes wx:if="{{sellerList.length>0}}" list="{{sellerList}}" bind:select="selectedSeller"/>
+ <view  wx:if="{{sellerList.length===0}}" class="empty">还没有销售员,请添加销售员~</view>
+ 

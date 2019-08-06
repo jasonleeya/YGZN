@@ -5,16 +5,19 @@
     "pages/purchase/selectSupplier/selectSupplier",
     "pages/purchase/purchaseOrders/purchaseOrders",
     "pages/purchase/newPurchase/newPurchase",
-    "pages/purchase/addGoods/addGoods",
     "pages/purchase/orderDetail/orderDetail",
     "pages/purchase/addSupplier/addSupplier",
     "pages/purchase/addBuyer/addBuyer",
     "pages/purchase/selectBuyer/selectBuyer",
-    "pages/purchase/addReceiveAdress/addReceiveAdress",
     "pages/purchase/orderLogs/orderLogs",
     "pages/product/productManage/productManage",
     "pages/product/productOperate/productOperate",
-    "pages/test/test"
+    "pages/test/test",
+    "pages/sales/newSales/newSales",
+    "pages/sales/selectSeller/selectSeller",
+    "pages/sales/selectCustomer/selectCustomer",
+    "pages/common/addReceiveAdress/addReceiveAdress",
+    "pages/sales/addCustomer/addCustomer"
   ],
   "window": {
     "backgroundTextStyle": "light",

@@ -1,0 +1,87 @@
+<scroll-view scroll-y>
+  <form bindsubmit="formSubmit">
+    <view class="info-list shadow">
+      <view class="cell border-bt">
+        <view class="cell-name">销售单号</view>
+        <input name="orderId" class="text-gray" disabled value="{{infos.orderId}}"></input>
+      </view>
+
+      <view class="cell border-bt">
+        <view class="cell-name">客户</view>
+        <view></view>
+        <input name="customer" disabled class="cell-value {{infos.customer===''?'text-gray':''}}" placeholder="请选择或添加客户" value="{{infos.customer}}"></input>
+        <view class="cuIcon-right  cell-icon" bindtap="selectCustomer"></view>
+      </view>
+
+      <view class="cell border-bt">
+        <view class="cell-name">销售员</view>
+        <input name="seller" disabled class="cell-value {{infos.seller===''?'text-gray':''}}" placeholder="请选择或添加销售员" value="{{infos.seller}}"></input>
+        <view class="cuIcon-right  cell-icon" bindtap="selectSeller"></view>
+      </view>
+
+      <view class="cell border-bt">
+        <view class="cell-name">仓库</view>
+        <input name="storehouse" disabled class="cell-value {{storehouse.index===null?'text-gray':''}}" placeholder="请选择仓库" value="{{storehouse.list[storehouse.index]}}"></input>
+        <picker bindchange="selectStorehouse" value="{{storehouse.index}}" range="{{storehouse.list}}">
+          <view class="picker">
+            <view class="cuIcon-right  cell-icon"></view>
+          </view>
+        </picker>
+
+
+      </view>
+
+      <view class="cell border-bt">
+        <view class="cell-name">收货人</view>
+        <view class="cell-value">
+          <input name="receiver" value="{{infos.receiver}}"></input>
+        </view>
+        <view class="cuIcon-right  cell-icon"></view>
+      </view>
+
+      <view class="cell border-bt">
+        <view class="cell-name">联系电话</view>
+        <view class="cell-value">
+          <input name="phoneNumber" type="number" value="{{infos.phoneNumber}}"></input>
+        </view>
+        <view class="cuIcon-right  cell-icon"></view>
+      </view>
+
+      <view class="add-aeceive-address  border-bt">
+        <view class="cell-name">收货地址</view>
+        <input name="receiveAddress" hidden type="hidden" value="{{infos.receiveAddress}}" disabled class="cell-value" bindtap="addAeceiveAddress"></input>
+        <view class="cell-value" bindtap="addAeceiveAddress">
+          {{infos.receiveAddress}}
+        </view>
+        <view class="cuIcon-right  cell-icon"></view>
+      </view>
+
+      <view class="cell">
+        <view class="cell-name">收货日期</view>
+        <view class="cell-value">
+          <picker name="receiveDate" mode="date" value="{{infos.receiveDate}}" start="{{infos.receiveDate}}" end="2100-09-01" bindchange="dateChange">
+            <view class="picker">
+              {{infos.receiveDate}}
+            </view>
+          </picker>
+        </view>
+        <view class="cuIcon-right  cell-icon"></view>
+      </view>
+    </view>
+    <view class="title add-goods">添加商品</view>
+    <!-- 搜索 -->
+    <search link="/pages/common/addGoods/addGoods?store=newSales" />
+    <!-- 购物车 -->
+    <cart goodsList="{{goodsList}}" totalPrice="{{totalPrice}}" bind:changeData="getChangedData" goodsListUrl="{{'/pages/common/addGoods/addGoods?store=newSales'}}" />
+
+    <view class="title remake">备注</view>
+    <textarea name="remark" class="remarke-textarea" placeholder="请填写备注信息" />
+
+    <cover-view class="operating-options">
+      <cover-view class="save-order bg-orange">保存订单</cover-view>
+      <cover-view class="comfirm-order">
+        <button class=" bg-red" form-type="submit">确认订单</button>
+      </cover-view>
+    </cover-view>
+  </form>
+</scroll-view>

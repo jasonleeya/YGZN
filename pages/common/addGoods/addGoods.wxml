@@ -2,8 +2,8 @@
 <scroll-view scroll-y bindscrolltolower="scrollToBottom">
   <view class="goods-list">
     <view class="goods-item solid-bottom" wx:for="{{goodsList}}" wx:key>
-      <view class="goods-pic">
-        <image src="{{item.pic}}" class="solid"></image>
+      <view class="goods-pic"> 
+          <previewImage  class="solid" src="{{item.pic}}" w="140rpx" h="140rpx" />
       </view>
       <view class="goods-info">
         <view class="goods-name">{{item.name}}</view>

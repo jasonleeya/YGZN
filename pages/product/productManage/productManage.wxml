@@ -1,9 +1,10 @@
 <search/>
 <scroll-view scroll-y class="product-manage-scroll">
-  <view class="product-list">
-    <view class="product-item solid-bottom" wx:for="{{productList}}" wx:key bindtap="editProductInfo" data-index="{{index}}">
-      <view class="product-pic"  >
-     <previewImage src="{{item.pic}}" w="{{'140rpx'}}" h="{{'140rpx'}}"/>
+  <view class="product-list cu-list">
+
+    <view class="product-item solid-bottom cu-item {{modalName=='move-box-'+ index?'move-cur':''}}" wx:for="{{productList}}" wx:key bindtap="editProductInfo" data-index="{{index}}" bindtouchstart="ListTouchStart" bindtouchmove="ListTouchMove" bindtouchend="ListTouchEnd" data-target="move-box-{{index}}">
+      <view class="product-pic">
+        <previewImage src="{{item.pic}}" w="{{'140rpx'}}" h="{{'140rpx'}}" />
       </view>
       <view class="product-info">
         <view class="product-name">{{item.brand+'/'+item.productName}}</view>
@@ -16,7 +17,11 @@
         </view>
         <view class="stock {{item.stock>10?'text-green':'text-red'}}">库存:{{item.safeStock}}({{item.quantifier}})</view>
       </view>
+      <view class="move">
+        <view class="bg-red" data-index="{{index}}" catchtap="deleteItem">删除</view>
+      </view>
     </view>
+
   </view>
 </scroll-view>
 <view class="add-btn cuIcon-add shadow bg-blue" bindtap="addProduct"></view>

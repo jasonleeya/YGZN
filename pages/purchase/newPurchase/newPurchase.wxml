@@ -9,14 +9,14 @@
         <view class="cell border-bt">
           <view class="cell-name">供应商</view>
           <view></view>
-          <input name="supplier" disabled class="cell-value {{infos.supplier===''?'text-gray':''}}" placeholder="请选择供应商/或添加供应商" value="{{infos.supplier}}" bindtap="selectSupplier"></input>
-          <view class="cuIcon-right  cell-icon"></view>
+          <input name="supplier" disabled class="cell-value {{infos.supplier===''?'text-gray':''}}" placeholder="请选择供应商/或添加供应商" value="{{infos.supplier}}"></input>
+          <view class="cuIcon-right  cell-icon"  bindtap="selectSupplier"></view>
         </view>
 
         <view class="cell border-bt">
           <view class="cell-name">采购员</view>
-          <input name="buyer" disabled class="cell-value {{infos.buyer===''?'text-gray':''}}" placeholder="请选择采购员" value="{{infos.buyer}}" bindtap="selectBuyer"></input>
-          <view class="cuIcon-right  cell-icon"></view>
+          <input name="buyer" disabled class="cell-value {{infos.buyer===''?'text-gray':''}}" placeholder="请选择采购员" value="{{infos.buyer}}"></input>
+          <view class="cuIcon-right  cell-icon" bindtap="selectBuyer"></view>
         </view>
 
         <view class="cell border-bt">
@@ -58,9 +58,9 @@
       </view>
       <view class="title add-goods">添加商品</view>
       <!-- 搜索 -->
-      <search link="/pages/purchase/addGoods/addGoods" />
+      <search link="/pages/common/addGoods/addGoods?store=newPurchase" />
       <!-- 购物车 -->
-      <cart goodsList="{{goodsList}}" totalPrice="{{totalPrice}}" bind:changeData="getChangedData" goodsListUrl="{{'/pages/purchase/addGoods/addGoods'}}" />
+      <cart goodsList="{{goodsList}}" totalPrice="{{totalPrice}}" bind:changeData="getChangedData" goodsListUrl="{{'/pages/common/addGoods/addGoods?store=newPurchase'}}" />
 
       <view class="title remake">备注</view>
       <textarea name="remark" class="remarke-textarea" placeholder="请填写备注信息" />

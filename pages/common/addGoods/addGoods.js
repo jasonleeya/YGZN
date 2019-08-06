@@ -16,22 +16,26 @@ create(store, {
     totalPrice: 0, //总价
     totalAmount: 0, //总量
     isLoad: false, //是否显示加载图标
+    store:""
   },
-  onLoad() {
+  onLoad(options) {
+   this.setData({
+     store: options.store
+   })
     //验证登录
     app.checkLogin()
   },
   //进入页面初始化数据
   onShow() {
     this.setData({
-      totalPrice: this.store.data.newPurchase.totalPrice.toFixed(2),
-      totalAmount: this.store.data.newPurchase.totalAmount
+      totalPrice: this.store.data[this.data.store].totalPrice.toFixed(2),
+      totalAmount: this.store.data[this.data.store].totalAmount
     }) //添加store里的总价和总额
   },
   // 显示弹出框
   showPop(e) {
     var index = e.target.dataset.index
-    var cartList = this.store.data.newPurchase.cartList
+    var cartList = this.store.data[this.data.store].cartList
     var flag = false;
     this.setData({
       isShowPop: true,
@@ -175,7 +179,7 @@ create(store, {
     var flag = false
     var totalAmount = 0
     var totalPrice = 0
-    var cartList = this.store.data.newPurchase.cartList
+    var cartList = this.store.data[this.data.store].cartList
     cartList.forEach((item, index) => {
       if (item.id === this.data.popData.id) { //如果id相同则合并
         flag = true
@@ -196,8 +200,8 @@ create(store, {
       totalPrice += item.amount * item.containTaxPrice
     })
     totalPrice = totalPrice.toFixed(2)
-    this.store.data.newPurchase.totalPrice = totalPrice
-    this.store.data.newPurchase.totalAmount = totalAmount
+    this.store.data[this.data.store].totalPrice = totalPrice
+    this.store.data[this.data.store].totalAmount = totalAmount
     this.setData({
       totalPrice: totalPrice,
       totalAmount: totalAmount,

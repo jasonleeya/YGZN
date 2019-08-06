@@ -1,0 +1,10 @@
+{
+  "usingComponents": {
+    "search": "/components/search/search",
+    "cart": "/components/cart/cart"
+  },
+  "navigationBarBackgroundColor": "#317EFE",
+  "navigationBarTextStyle": "white",
+  "navigationBarTitleText": "新增销售单",
+  "backgroundTextStyle": "light"
+}

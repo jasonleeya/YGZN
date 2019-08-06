@@ -1,0 +1,20 @@
+.add-supplier {
+  height: 100vh;
+  position: relative
+}
+
+.margin-bt {
+  margin-bottom: 30rpx;
+}
+
+.border-bt::after {
+  content: "";
+  width: calc(100vw - 30rpx);
+  height: 1rpx;
+  position: absolute;
+  bottom: 1rpx;
+  left: 30rpx;
+  background-color: #eee;
+}
+
+

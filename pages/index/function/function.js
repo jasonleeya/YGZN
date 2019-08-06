@@ -70,11 +70,12 @@ Component({
     }, {
       name: "销售管理",
       id: 1,
+      subTitle: '全部订单',
       items: [{
         value: "新增采购",
         icon: "iconcart",
-        link: "",
-        number: 31
+        link: "/pages/sales/newSales/newSales",
+        number: 0
       }, {
         value: "新增采购",
         icon: "iconcart",
