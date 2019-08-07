@@ -1,63 +1,84 @@
-<view class="add-supplier">
-  <form bindsubmit="addSubmit">
-    <view class="cell  border-bt">
-      <view class="cell-name">客户名称
-        <text class="text-red">*</text>
-      </view>
-      <view class="cell-value">
-        <input name="name" placeholder="请输入客户名称" value="顾栋涵"></input>
-      </view>
-    </view>
-    <view class="cell margin-bt">
-      <view class="cell-name">名称缩写</view>
-      <view class="cell-value">
-        <input name="pinyinInitial" placeholder="请输入拼音缩写" value="GDH"></input>
-      </view>
-    </view>
-    <view class="cell  border-bt">
-      <view class="cell-name">首要联系人</view>
-      <view class="cell-value">
-        <input name="primaryContact" placeholder="请输入联系人" value="顾栋涵"></input>
-      </view>
-    </view>
-    <view class="cell  border-bt">
-      <view class="cell-name">联系人电话</view>
-      <view class="cell-value">
-        <input name="phoneNumber" placeholder="请输入手机号" value="15828419697" type="number"></input>
-      </view>
-    </view>
-    <view class="cell  border-bt">
-      <view class="cell-name">公司电话</view>
-      <view class="cell-value">
-        <input name="companyPhoneNumber" placeholder="请输入公司电话" value="15828419697" type="number"></input>
-      </view>
-    </view>
-    <view class="cell margin-bt">
-      <view class="cell-name">价格等级</view>
-      <view class="cell-value">
-        <input name="customerLevel" placeholder="请设置价格等级" value="{{customerLevel.list[customerLevel.index]}}" disabled></input>
-      </view>
-      <picker bindchange="setLevel" value="{{customerLevel.index}}" range="{{customerLevel.list}}">
-        <view class="picker">
-          <view class="cell-icon cuIcon-right"></view>
-        </view>
-      </picker>
-
-    </view>
-
-    <view class="cell  border-bt">
-      <view class="cell-name">地址</view>
-      <view class="cell-value">
-        <input name="address" placeholder="请输入地址" value="四川省成都市成华区建设路钻石广场B座3006" type="number"></input>
-      </view>
-    </view>
-    <view class="cell">
-      <view class="cell-name">业务员</view>
-      <view class="cell-value">
-        <input name="salesman" placeholder="请设置业务员" value="顾栋涵"></input>
-      </view>
-    </view>
-    <button class="theme-bgc confirm-btn" form-type="submit">添加</button>
-  </form>
-
+<view class="search-header solid-bottom">
+  <view class="search-icon cuIcon-search"></view>
+  <input class="bg-gray" placeholder="可搜索已认证的客户 申请后 需要用户通过" bindfocus="searchFocus" bindinput="searchInput" bindblur="searchBlur" value="{{searchInputValue}}"></input>
+  <view class="dropdowm-list" wx:if="{{showDropdown}}">
+    <view class="dropdown-item solid-bottom" wx:for="{{searchList}}" wx:key data-id="{{item.id}}" bindtap="chooseSearchItem"><text class="dropdown-icon cuIcon-friend"></text>{{item.name}}</view>
+  </view>
+  <view class="dropdown-mask" bindtap="hiddenMask" wx:if="{{showDropdown}}"></view>
 </view>
+<scroll-view scroll-y>
+  <view class="add-supplier">
+    <form bindsubmit="addSubmit">
+      <view class="cell  border-bt">
+        <view class="cell-name">客户名称
+          <text class="text-red">*</text>
+        </view>
+        <view class="cell-value">
+          <input name="name" placeholder="请输入客户名称" value="{{formData.name}}"></input>
+        </view>
+      </view>
+      <view class="cell margin-bt">
+        <view class="cell-name">名称缩写</view>
+        <view class="cell-value">
+          <input name="pinyinInitial" placeholder="请输入拼音缩写" value="{{formData.pinyinInitial}}"></input>
+        </view>
+      </view>
+      <view class="cell  border-bt">
+        <view class="cell-name">首要联系人</view>
+        <view class="cell-value">
+          <input name="primaryContact" placeholder="请输入联系人" value="{{formData.primaryContact}}"></input>
+        </view>
+      </view>
+      <view class="cell  border-bt">
+        <view class="cell-name">联系人电话</view>
+        <view class="cell-value">
+          <input name="phoneNumber" placeholder="请输入手机号" type="number" value="{{formData.phoneNumber}}"></input>
+        </view>
+      </view>
+      <view class="cell  border-bt">
+        <view class="cell-name">公司电话</view>
+        <view class="cell-value">
+          <input name="companyPhoneNumber" placeholder="请输入公司电话" type="number" value="{{formData.companyPhoneNumber}}"></input>
+        </view>
+      </view>
+      <view class="cell margin-bt">
+        <view class="cell-name">价格等级</view>
+        <view class="cell-value">
+          <input name="customerLevel" placeholder="请设置价格等级" value="{{formData.customerLevel?formData.customerLevel:customerLevel.list[customerLevel.index]}}" disabled></input>
+        </view>
+        <picker bindchange="setLevel" value="{{customerLevel.index}}" range="{{customerLevel.list}}">
+          <view class="picker">
+            <view class="cell-icon cuIcon-right"></view>
+          </view>
+        </picker>
+      </view>
+
+      <view class="cell  border-bt">
+        <view class="cell-name">所在地区</view>
+        <view class="cell-value">
+          <input name="region" disabled placeholder="请选择所在地区" value="{{formData.region?formData.region:region.length===0?'':region[0] +'/'+ region[1] +'/'+  region[2]}}"></input>
+        </view>
+        <picker mode="region" bindchange="chooseRegion" value="{{region}}">
+          <view class="picker">
+            <view class="cell-icon cuIcon-right"></view>
+          </view>
+        </picker>
+      </view>
+
+      <view class="cell  border-bt">
+        <view class="cell-name">详细地址</view>
+        <view class="cell-value">
+          <input name="detailAddress" placeholder="请输入详细地址" value="{{formData.detailAddress}}"></input>
+        </view>
+      </view>
+
+      <view class="cell">
+        <view class="cell-name">业务员</view>
+        <view class="cell-value">
+          <input name="salesman" placeholder="请设置业务员" value="{{formData.salesman}}"></input>
+        </view>
+      </view>
+      <button class="theme-bgc confirm-btn" form-type="submit">添加</button>
+    </form>
+  </view>
+</scroll-view>

@@ -5,7 +5,7 @@
       </view>
       <input class="bg-gray" placeholder="搜索销售员"></input>
     </view>
-    <view class="add-buyer" bindtap="addBuyer">新增</view>
+    <view class="add-buyer" bindtap="add">新增</view>
   </view>
 </view>
  <indexes wx:if="{{sellerList.length>0}}" list="{{sellerList}}" bind:select="selectedSeller"/>

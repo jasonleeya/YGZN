@@ -26,9 +26,9 @@ create(store, {
       }
     }
   },
-  addBuyer() {
+  add() {
     wx.navigateTo({
-      url: '/pages/purchase/addBuyer/addBuyer',
+      url: '/pages/sales/addSeller/addSeller',
     })
   },
   selectedSeller(e) {

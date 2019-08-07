@@ -1,0 +1,42 @@
+<view class="add-buyer">
+  <form bindsubmit="addSubmit">
+    <view class="cell  border-bt">
+      <view class="cell-name">职位</view>
+      <view class="cell-value">      
+        <picker name="position" bindchange="pinkPosition" value="{{position.list[position.picked]}}"   range="{{position.list}}">
+          <view class="picker">
+            {{position.picked===null?'请选择职位':position.list[position.picked]}}
+          </view>
+        </picker>
+      </view>
+      <view class="cuIcon-right cell-icon"></view>
+    </view>
+    <view class="cell border-bt">
+      <view class="cell-name">销售员名称</view>
+      <view class="cell-value">
+        <input name="name" placeholder="请输入销售员名称"></input>
+      </view>
+    </view>
+    <view class="cell border-bt">
+      <view class="cell-name">销售员电话</view>
+      <view class="cell-value">
+        <input name="phoneNumber" type="number" maxlength="11" placeholder="请输入电话"></input>
+      </view>
+    </view>
+    <view class="cell  margin-bt">
+      <view class="cell-name">等级</view>
+      <view class="cell-value">
+        <picker name="rank" bindchange="pinkRank" value="{{rank.list[rank.picked]}}"   range="{{rank.list}}">
+          <view class="picker">
+            {{rank.picked===null?'请选择职位':rank.list[rank.picked]}}
+          </view>
+        </picker>
+      </view>
+      <view class="cuIcon-right cell-icon"></view>
+    </view>
+    <view class="remark-title">备注</view>
+    <textarea name="remark" placeholder="填写备注信息"></textarea>
+    <button class="theme-bgc confirm-btn" form-type="submit">添加</button>
+  </form>
+
+</view>

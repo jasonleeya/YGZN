@@ -85,7 +85,8 @@ create(store, {
   },
   selectStorehouse: function(e) {
     this.setData({
-      ["storehouse.index"]: e.detail.value
+      ["storehouse.index"]: e.detail.value,
+      ["infos.storehouse"]: this.data.storehouse.list[e.detail.value]
     })
   },
 })
