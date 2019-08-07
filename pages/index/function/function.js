@@ -71,6 +71,7 @@ Component({
       name: "销售管理",
       id: 1,
       subTitle: '全部订单',
+      subtitleLink: '/pages/sales/salesOrders/salesOrders',
       items: [{
         value: "新增采购",
         icon: "iconcart",

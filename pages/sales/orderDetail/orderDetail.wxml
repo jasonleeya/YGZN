@@ -1,0 +1,81 @@
+<scroll-view scroll-y>
+  <view class="info-list shadow">
+    <view class="cell border-bt">
+      <view class="cell-name">采购单号</view>
+      <view class="cell-value">SPARK20197110001</view>
+    </view>
+
+    <view class="cell border-bt">
+      <view class="cell-name">客户</view>
+      <view class="cell-value">测试需求用户</view>
+    </view>
+
+    <view class="cell border-bt">
+      <view class="cell-name">销售员</view>
+      <view class="cell-value ">吴建秋</view>
+    </view>
+
+    <view class="cell border-bt">
+      <view class="cell-name">仓库</view>
+      <view class="cell-value ">仓库一</view>
+    </view>
+
+
+    <view class="cell border-bt">
+      <view class="cell-name">收货人</view>
+      <view class="cell-value">
+        依高智能
+      </view>
+    </view>
+
+    <view class="cell border-bt">
+      <view class="cell-name">联系电话</view>
+      <view class="cell-value">
+        18888888888
+      </view>
+    </view>
+
+    <view class="cell border-bt">
+      <view class="cell-name">收货地址</view>
+      <view class="cell-value">
+        北京/东城区/建设路100号
+      </view>
+    </view>
+
+    <view class="cell border-bt">
+      <view class="cell-name">收货日期</view>
+      <view class="cell-value">
+        2019-7-18
+      </view>
+    </view>
+
+    <view class="cell border-bt">
+      <view class="cell-name">订单状态</view>
+      <view class="cell-value">
+        线上订单/信用订单
+      </view>
+    </view>
+
+    <view class="cell border-bt">
+      <view class="cell-name">物流单号</view>
+      <view class="cell-value text-gray">
+        出库时请输入物流订单号
+      </view>
+      <view class="cell-icon cuIcon-right"></view>
+    </view>
+
+  </view>
+
+  <!-- 购物车 -->
+  <cart goodsList="{{goodsList}}" editable="{{false}}" />
+
+  <view class="title remake">备注</view>
+  <view class="remake-textarea">我是备注我是备注我是备注我是备注</view>
+
+  <view class="operating-options">
+    <view class="option bg-gray">修改订单</view>
+    <view class="option bg-gray">取消订单</view>
+    <view class="option bg-gray">订单付款</view>
+    <view class="option bg-gradual-orange" bindtap="orderLogs">订单日志</view>
+  </view>view
+</scroll-view>

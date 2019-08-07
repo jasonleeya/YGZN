@@ -18,7 +18,10 @@
     "pages/sales/selectCustomer/selectCustomer",
     "pages/common/addReceiveAdress/addReceiveAdress",
     "pages/sales/addCustomer/addCustomer",
-    "pages/sales/addSeller/addSeller"
+    "pages/sales/addSeller/addSeller",
+    "pages/sales/salesOrders/salesOrders",
+    "pages/sales/orderDetail/orderDetail",
+    "pages/sales/orderLogs/orderLogs"
   ],
   "window": {
     "backgroundTextStyle": "light",
