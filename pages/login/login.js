@@ -5,8 +5,10 @@ Page({
   /**
    * 页面的初始数据
    */
-  onLoad(){
-    if (wx.getStorageSync("token")){
+  onLoad() {
+
+
+    if (wx.getStorageSync("token")) {
       wx.redirectTo({
         url: '../index/index',
       })
@@ -18,8 +20,8 @@ Page({
     phoneNumber: '',
     password: '',
     isRemenberPassword: true,
-    phoneNumberError:false,
-    passwordError:false,
+    phoneNumberError: false,
+    passwordError: false,
   },
 
   phoneNumberFocus() {
@@ -67,7 +69,7 @@ Page({
       app.showToast("请输入手机号和密码")
       return
     }
-    
+
     if (phoneNumber.length === 0) {
       this.shakeInput('phoneNumber')
       app.showToast("请输入手机号")
@@ -78,7 +80,7 @@ Page({
       app.showToast("手机号格式有误")
       return
     }
-    
+
     if (password.length === 0) {
       this.shakeInput('password')
       app.showToast("请输入密码")
@@ -142,36 +144,37 @@ Page({
 
 
 
+    app.http("loginAuthenticate", {
+      username: this.data.phoneNumber,
+      password: this.data.password,
+      loginType: 1,
+    }).then(data => {
+      if (this.data.isRemenberPassword) {
+        wx.setStorageSync("token", data.info.split(";")[0])
+      }
 
-
-
-
-
-
-
-
-    if (this.data.isRemenberPassword){
-      wx.setStorageSync("token", "token")
-    }
-    
-    app.globalData.token="token"
-
-    wx.redirectTo({
-      url: '../index/index',
+      wx.redirectTo({
+        url: '../index/index',
+      })
+    }).catch(erorr=>{
+      app.showToast(erorr)
     })
+
+
+
   },
   checkPhoneNumber(phone) {
     return (/^1[3456789]\d{9}$/.test(parseInt(phone)))
   },
 
-  shakeInput(input){
+  shakeInput(input) {
     var that = this
     this.setData({
       [input + 'Error']: true
-    }) 
-    setTimeout(function () {
+    })
+    setTimeout(function() {
       that.setData({
-        [input +'Error']: false
+        [input + 'Error']: false
       })
 
     }, 1000)

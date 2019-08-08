@@ -1,13 +1,13 @@
-<scroll-view scroll-y class="mine-scroll">
+<scroll-view  class="mine-scroll" >
   <view class="mine-header">
     <image src="../../../imgs/9924.png" mode="scaleToFill" class="header-bg"></image>
     <view class="header-content">
       <image class="user-avatar" src="https://ss3.bdstatic.com/70cFv8Sh_Q1YnxGkpoWK1HF6hhy/it/u=2922170376,2371336021&fm=27&gp=0.jpg"></image>
       <view class="user-info">
-        <view class="user-name">成都依高智能科技有限公司</view>
-        <view class="user-id">ID:188888888888</view>
+        <view class="user-name">{{account.currentCompany}}</view>
+        <view class="user-id">ID:{{account.currentId}}</view>
       </view>
-      <button class="toggle-account theme-color">切换账号</button>
+      <button class="toggle-account theme-color" bindtap="showToggleAccountPop">切换账号</button>
     </view>
   </view>
   <view class="todo-list shadow-wrap">
@@ -30,6 +30,22 @@
     </view>
   </view>
   <button bindtap="logout" class="logout bg-red">退出登陆</button>
+  
+  <view class="toggle-account-pop-wrappper" wx:if="{{showToggleAccountPop}}" >
+    <view class="toggle-account-pop">
+      <view class="pop-content">
+        <view class="pop-title">切换账号</view>
+      <scroll-view scroll-y>
+        <view class="account bg-gray {{account.checked===item.id?'active':' text-gray'}}" bindtap="toggleAccount" data-id="{{item.id}}" wx:for="{{account.list}}" wx:key>{{item.company}}</view>
+      </scroll-view>
+      </view>
+      <view class="operation-btn solid-top">
+        <view class="cancel solid-right" bindtap="toggleAccountCancel">取消</view>
+        <view class="confirm theme-color" bindtap="toggleAccountConfirm">确定</view>
+      </view>
+
+    </view>
+  </view>
 </scroll-view>
 
 <wxs module="module">

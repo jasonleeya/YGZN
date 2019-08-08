@@ -1,4 +1,5 @@
 // pages/function/function.js
+var app = getApp()
 Component({
   /**
    * 组件的属性列表
@@ -37,35 +38,45 @@ Component({
         icon: "iconcart",
         link: '/pages/purchase/newPurchase/newPurchase',
       }, {
-        value: "采购订单确认",
+        value: "采购待审核",
         icon: "iconcart",
         link: "",
-        number: 3
+      }, {
+        value: "采购待确认",
+        icon: "iconcart",
+        link: "",
       }, {
         value: "采购待付款",
         icon: "iconcart",
         link: "",
-        number: 10
+        number: 0
       }, {
         value: "采购待发货",
         icon: "iconcart",
         link: "",
-        number: 100
       }, {
-        value: "采购待入库",
+        value: "采购待入库订单",
         icon: "iconcart",
         link: "",
-        number: 23
+        number: 0
       }, {
         value: "采购已完成",
         icon: "iconcart",
         link: "",
-        number: 100
+      }, {
+        value: "采购取消订单",
+        icon: "iconcart",
+        link: "",
+        number: 0
       }, {
         value: "采购未完成",
         icon: "iconcart",
         link: "",
-        number: 23
+      }, {
+        value: "采购退货列表",
+        icon: "iconcart",
+        link: "",
+
       }],
     }, {
       name: "销售管理",
@@ -76,56 +87,67 @@ Component({
         value: "新增采购",
         icon: "iconcart",
         link: "/pages/sales/newSales/newSales",
-        number: 0
       }, {
-        value: "新增采购",
+          value: "销售待确认订单",
         icon: "iconcart",
         link: "",
         number: 4
       }, {
-        value: "新增采购",
+          value: "销售待付款订单",
         icon: "iconcart",
         link: "",
         number: 64
       }, {
-        value: "新增采购",
+          value: "销售待发货订单",
         icon: "iconcart",
         link: "",
         number: 13
-      }, {
-        value: "新增采购",
-        icon: "iconcart",
-        link: "",
-        number: 45
-      }]
+        }, {
+          value: "销售待完成订单",
+          icon: "iconcart",
+          link: "",
+          number: 45
+        }, {
+          value: "销售已完成",
+          icon: "iconcart",
+          link: "" 
+        }, {
+          value: "销售取消订单",
+          icon: "iconcart",
+          link: "",
+          number: 45
+        }, {
+          value: "销售未完成",
+          icon: "iconcart",
+          link: "",
+        }, {
+          value: "销售退货列表",
+          icon: "iconcart",
+          link: "",
+        }]
     }, {
       name: "公司管理",
       id: 2,
       items: [{
         value: "新增采购",
         icon: "iconcart",
-        link: "",
-        number: 14
+        link: ""
       }, {
         value: "新增采购",
         icon: "iconcart",
-        link: "",
-        number: 64
+        link: ""
       }, {
         value: "新增采购",
         icon: "iconcart",
-        link: "",
-        number: 27
+        link: ""
       }, {
         value: "新增采购",
         icon: "iconcart",
-        link: "",
-        number: 96
+        link: ""
       }, {
         value: "新增采购",
         icon: "iconcart",
-        link: "",
-        number: 234
+        link: ""
       }]
     }, {
       name: "统计管理",
@@ -133,28 +155,23 @@ Component({
       items: [{
         value: "新增采购",
         icon: "iconcart",
-        link: "",
-        number: 31
+        link: ""
       }, {
         value: "新增采购",
         icon: "iconcart",
-        link: "",
-        number: 34
+        link: ""
       }, {
         value: "新增采购",
         icon: "iconcart",
-        link: "",
-        number: 22
+        link: ""
       }, {
         value: "新增采购",
         icon: "iconcart",
-        link: "",
-        number: 23
+        link: ""
       }, {
         value: "新增采购",
         icon: "iconcart",
-        link: "",
-        number: 56
+        link: ""
       }]
     }, {
       name: "产品管理",
@@ -166,23 +183,19 @@ Component({
       }, {
         value: "新增采购",
         icon: "iconcart",
-        link: "",
-        number: 12
+        link: ""
       }, {
         value: "新增采购",
         icon: "iconcart",
-        link: "",
-        number: 73
+        link: ""
       }, {
         value: "新增采购",
         icon: "iconcart",
-        link: "",
-        number: 22
+        link: ""
       }, {
         value: "新增采购",
         icon: "iconcart",
-        link: "",
-        number: 33
+        link: ""
       }]
     }, {
       name: "资源管理",
@@ -190,28 +203,23 @@ Component({
       items: [{
         value: "新增采购",
         icon: "iconcart",
-        link: "",
-        number: 11
+        link: ""
       }, {
         value: "新增采购",
         icon: "iconcart",
-        link: "",
-        number: 86
+        link: ""
       }, {
         value: "新增采购",
         icon: "iconcart",
-        link: "",
-        number: 6
+        link: ""
       }, {
         value: "新增采购",
         icon: "iconcart",
-        link: "",
-        number: 3
+        link: ""
       }, {
         value: "新增采购",
         icon: "iconcart",
-        link: "",
-        number: 62
+        link: ""
       }]
     }, {
       name: "财务管理",
@@ -219,36 +227,59 @@ Component({
       items: [{
         value: "新增采购",
         icon: "iconcart",
-        link: "",
-        number: 12
+        link: ""
       }, {
         value: "新增采购",
         icon: "iconcart",
-        link: "",
-        number: 56
+        link: ""
       }, {
         value: "新增采购",
         icon: "iconcart",
-        link: "",
-        number: 78
+        link: ""
       }, {
         value: "新增采购",
         icon: "iconcart",
-        link: "",
-        number: 29
+        link: ""
       }, {
         value: "新增采购",
         icon: "iconcart",
-        link: "",
-        number: 48
+        link: "" 
       }]
     }],
-    load: true
+    load: true,
+    interval:null
+  },
+  lifetimes: {
+    created() {
+    //   this.data.interval= setInterval(()=>{
+    //   app.http("homeMessage", {}, true).then(data => {
+    //     for (let i = 0; i < this.data.list[0].items.length; i++) {
+    //       data.list.forEach(item => {
+    //         if (item.typeZh === this.data.list[0].items[i].value) {
+    //           this.setData({
+    //             ["list[0].items[" + i + "].number"]: item.notRead
+    //           })
+    //         }
+    //       })
+    //     }
+    //     for (let i = 0; i < this.data.list[1].items.length; i++) {
+    //       data.list.forEach(item => {
+    //         if (item.typeZh === this.data.list[1].items[i].value) {
+    //           this.setData({
+    //             ["list[1].items[" + i + "].number"]: item.notRead
+    //           })
+    //         }
+    //       })
+    //     }
+    //   }) 
+    // },4000)   
+    },
+    detached(){
+      clearInterval(this.data.interval)
+    }
+
   },
 
-  /**
-   * 组件的方法列表
-   */
   methods: {
     TabSelect(e) {
       this.setData({

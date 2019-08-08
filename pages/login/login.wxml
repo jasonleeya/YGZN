@@ -21,5 +21,5 @@
     </label>
     <text class="forget-password text-gray" bindtap="forgetPassword">忘记密码</text>
   </view>
-  <button class="theme-bgc" bindtap="login" open-type='getUserInfo'>登陆</button>
+  <button class="theme-bgc" bindtap="login">登陆</button>
 </view>
