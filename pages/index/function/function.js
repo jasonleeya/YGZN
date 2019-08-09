@@ -88,43 +88,43 @@ Component({
         icon: "iconcart",
         link: "/pages/sales/newSales/newSales",
       }, {
-          value: "销售待确认订单",
+        value: "销售待确认订单",
         icon: "iconcart",
         link: "",
-        number: 4
+        number: 0
       }, {
-          value: "销售待付款订单",
+        value: "销售待付款订单",
         icon: "iconcart",
         link: "",
-        number: 64
+        number: 0
       }, {
-          value: "销售待发货订单",
+        value: "销售待发货订单",
         icon: "iconcart",
         link: "",
-        number: 13
-        }, {
-          value: "销售待完成订单",
-          icon: "iconcart",
-          link: "",
-          number: 45
-        }, {
-          value: "销售已完成",
-          icon: "iconcart",
-          link: "" 
-        }, {
-          value: "销售取消订单",
-          icon: "iconcart",
-          link: "",
-          number: 45
-        }, {
-          value: "销售未完成",
-          icon: "iconcart",
-          link: "",
-        }, {
-          value: "销售退货列表",
-          icon: "iconcart",
-          link: "",
-        }]
+        number: 0
+      }, {
+        value: "销售待完成订单",
+        icon: "iconcart",
+        link: "",
+        number: 0
+      }, {
+        value: "销售已完成",
+        icon: "iconcart",
+        link: ""
+      }, {
+        value: "销售取消订单",
+        icon: "iconcart",
+        link: "",
+        number: 0
+      }, {
+        value: "销售未完成",
+        icon: "iconcart",
+        link: "",
+      }, {
+        value: "销售退货列表",
+        icon: "iconcart",
+        link: "",
+      }]
     }, {
       name: "公司管理",
       id: 2,
@@ -243,38 +243,42 @@ Component({
       }, {
         value: "新增采购",
         icon: "iconcart",
-        link: "" 
+        link: ""
       }]
     }],
     load: true,
-    interval:null
+    interval: null
   },
   lifetimes: {
     created() {
-    //   this.data.interval= setInterval(()=>{
-    //   app.http("homeMessage", {}, true).then(data => {
-    //     for (let i = 0; i < this.data.list[0].items.length; i++) {
-    //       data.list.forEach(item => {
-    //         if (item.typeZh === this.data.list[0].items[i].value) {
-    //           this.setData({
-    //             ["list[0].items[" + i + "].number"]: item.notRead
-    //           })
-    //         }
-    //       })
-    //     }
-    //     for (let i = 0; i < this.data.list[1].items.length; i++) {
-    //       data.list.forEach(item => {
-    //         if (item.typeZh === this.data.list[1].items[i].value) {
-    //           this.setData({
-    //             ["list[1].items[" + i + "].number"]: item.notRead
-    //           })
-    //         }
-    //       })
-    //     }
-    //   }) 
-    // },4000)   
+      let that = this
+      if (!app.globalData.homeMessage) {
+        return
+      }
+      app.watchGloabalData("homeMessage", function(value) {
+        if(!app.globalData.homeMessage){return}
+        for (let i = 0; i < that.data.list[0].items.length; i++) {
+          app.globalData.homeMessage.forEach(item => {
+            if (item.typeZh === that.data.list[0].items[i].value) {
+              that.setData({
+                ["list[0].items[" + i + "].number"]: item.notRead
+              })
+            }
+          })
+        }
+        for (let i = 0; i < that.data.list[1].items.length; i++) {
+          app.globalData.homeMessage.forEach(item => {
+            if (item.typeZh === that.data.list[1].items[i].value) {
+              that.setData({
+                ["list[1].items[" + i + "].number"]: item.notRead
+              })
+            }
+          })
+        }
+      })
+
     },
-    detached(){
+    detached() {
       clearInterval(this.data.interval)
     }
 
@@ -320,6 +324,6 @@ Component({
           return false
         }
       }
-    }
+    },
   }
 })

@@ -1,4 +1,5 @@
 // pages/mine/mine.js
+var app = getApp()
 Component({
   /**
    * 组件的属性列表
@@ -14,24 +15,8 @@ Component({
    * 组件的初始数据
    */
   data: {
-    account: {
-      currentId: "0000000001",
-      currentCompany:"东莞川牌量具有限公司",
-      checked:"0000000001",
-      list: [{
-        company: "东莞川牌量具有限公司",
-        id: '0000000001'
-      },
-        {
-          company: "成都成量集团有限公司",
-          id: '0000000002'
-        },
-        {
-          company: "日本三菱有限公司",
-          id: '0000000003'
-        }
-      ]
-    },
+    userInfo: {},
+    companies: [],
     todoList: [{
       name: "采购单",
       count: 5,
@@ -87,12 +72,33 @@ Component({
     ]
   },
 
-  /**
-   * 组件的方法列表
-   */
+  lifetimes: {
+    ready() {
+      // console.log(app.globalData.userInfo)
+      // console.log(app.globalData.companies)
+      var userInfo = app.globalData.userInfo[0] ? app.globalData.userInfo[0] : app.globalData.userInfo;
+      var companies = app.globalData.companies
+      if (app.globalData.companies) {
+        app.globalData.companies.forEach(item => {
+          if (item[1] === userInfo.queryNo) {
+            userInfo.currentCompany = item[0]
+            userInfo.idCopy = JSON.parse(JSON.stringify(userInfo.queryNo))
+          }
+        })
+      }
+
+      this.setData({
+        userInfo: userInfo,
+        companies: companies
+      })
+      // console.log(userInfo)
+      // console.log(companies)
+
+    },
+  },
   methods: {
     logout() {
-      wx.setStorageSync("token", null)
+      wx.removeStorageSync("token")
       wx.redirectTo({
         url: '/pages/login/login',
       })
@@ -102,31 +108,34 @@ Component({
         showToggleAccountPop: true
       })
     },
-    toggleAccount(e){
+    toggleAccount(e) {
       this.setData({
-        ["account.checked"]:e.currentTarget.dataset.id
+        ["userInfo.idCopy"]: e.currentTarget.dataset.id
       })
     },
-    toggleAccountCancel(){
+    toggleAccountCancel() {
       this.setData({
         showToggleAccountPop: false,
-        ["account.checked"]: this.data.account.currentId
+        ["userInfo.idCopy"]: this.data.userInfo.queryNo
       })
     },
-    toggleAccountConfirm(){
-      var currentCompany=""
-      this.data.account.list.forEach(item => {
-        if (item.id === this.data.account.checked) {
-          currentCompany = item.company
+    toggleAccountConfirm() {
+      app.http("toggleAccount", {
+        id: this.data.userInfo.idCopy
+      }, true)
+      var currentCompany = ""
+      this.data.companies.forEach(item => {
+        if (item[1] === this.data.userInfo.idCopy) {
+          currentCompany = item[0]
         }
       })
       this.setData({
         showToggleAccountPop: false,
-        ["account.currentId"]:this.data.account.checked,
-        ["account.currentCompany"]: currentCompany
+        ["userInfo.queryNo"]: this.data.userInfo.idCopy,
+        ["userInfo.currentCompany"]: currentCompany
       })
     },
-  
+
   },
 
 

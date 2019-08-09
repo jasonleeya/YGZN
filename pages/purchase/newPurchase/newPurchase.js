@@ -10,7 +10,7 @@ create(store, {
     goodsList: [],
     totalPrice: 0,
     infos: {
-      orderId: "SPARK20197110001",
+      orderId: "",
       supplier: "",
       buyer: "",
       receiver: "伊高智能",
@@ -22,7 +22,7 @@ create(store, {
   onLoad() {
     //验证登录
     app.checkLogin()
-    
+    this.initData()
     this.store.data.newPurchase.receiveAddress = this.data.infos.receiveAddress
     var date = new Date()
     var nowDate = date.getFullYear() + "-" + (date.getMonth() + 1) + "-" + date.getDate()
@@ -43,6 +43,21 @@ create(store, {
       ["infos.buyer"]: this.store.data.newPurchase.buyer,
       ["infos.receiveAddress"]: this.store.data.newPurchase.receiveAddress
     }) 
+  },
+  initData(){
+    app.http("getOrderNo").then(data=>{
+       this.setData({
+         ['infos.orderId']:data
+       })
+    })
+    app.globalData.defaultAddress.forEach(item=>{
+      if (item.dftStatus==="1"){
+
+      }
+    })
+    
+    
+   
   },
   //跳转选择供应商页面
   selectSupplier() {

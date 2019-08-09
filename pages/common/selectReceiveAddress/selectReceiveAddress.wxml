@@ -1,0 +1,14 @@
+<scroll-view scroll-y>
+  <view class="select-receive-address">
+    <view class="adress">
+      <view class="address-header solid-bottom">
+        <view class="header-title">
+          <text class="title-icon theme-color cuIcon-mail"></text>
+          <text class="title-text">收货信息<text class="theme-color">(默认)</text></text>
+        </view>
+        <text class="edit text-green">编辑</text>
+      </view>
+     <view class="address-content">111</view>
+    </view>
+  </view>
+</scroll-view>

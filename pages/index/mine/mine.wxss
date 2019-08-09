@@ -20,26 +20,39 @@
 }
 
 .user-avatar {
-  width: 100rpx;
-  height: 100rpx;
-  border-radius: 50rpx;
+  width: 120rpx;
+  height: 120rpx;
+  border-radius: 60rpx;
 }
 
 .user-info {
   flex: 1;
   color: #fff;
   padding-left: 20rpx;
+  width: calc(100vw - 300rpx);
 }
 
-.user-name {
+.user-company {
   font-size: 34rpx;
-  height: 60rpx;
-  line-height: 60rpx;
+  margin-bottom: 10rpx;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.uesr-name {
+  font-size: 30rpx;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
 }
 
 .user-id {
-  font-size: 30rpx;
+  font-size: 28rpx;
   font-weight: lighter;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
 }
 
 .toggle-account {
@@ -121,9 +134,9 @@ todo-item {
   width: 90vw;
   height: 80rpx;
   line-height: 80rpx;
- 
 }
-.toggle-account-pop-wrappper{
+
+.toggle-account-pop-wrappper {
   width: 100vw;
   height: 100vh;
   background-color: rgba(0, 0, 0, 0.2);
@@ -132,47 +145,51 @@ todo-item {
   z-index: 2000;
 }
 
-.toggle-account-pop-wrappper scroll-view{
+.toggle-account-pop-wrappper scroll-view {
   max-height: 50vh;
 }
-.toggle-account-pop{
+
+.toggle-account-pop {
   width: calc(100vw - 120rpx);
   position: absolute;
   left: 50%;
   top: 50%;
-  transform: translate(-50%,-50%);
+  transform: translate(-50%, -50%);
   background-color: #fff;
   border-radius: 20rpx;
 }
-.pop-content{
+
+.pop-content {
   padding: 30rpx 60rpx 0;
 }
-.account{
+
+.account {
   height: 88rpx;
   line-height: 88rpx;
   border-radius: 10rpx;
   padding: 0 30rpx;
   margin-bottom: 30rpx;
+}
 
+.pop-title {
+  text-align: center;
+  font-size: 36rpx;
+  margin-bottom: 30rpx;
 }
-.pop-title{
-text-align: center;
-font-size: 36rpx;
-margin-bottom: 30rpx;
-}
-.operation-btn{
+
+.operation-btn {
   display: flex;
   justify-content: space-around;
-
 }
-.cancel,.confirm{
-    height: 100rpx;
+
+.cancel, .confirm {
+  height: 100rpx;
   line-height: 100rpx;
   flex: 1;
   text-align: center;
-  
 }
-.active{
+
+.active {
   color: var(--themeColor);
-  border: 1rpx solid var(--themeColor); 
+  border: 1rpx solid var(--themeColor);
 }

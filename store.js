@@ -11,7 +11,7 @@ export default {
   data: {
     messageCount: 5, //未读消息数
     showOrderpage: false, //是否显示开单层
-    
+
     addGoods: addGoods.data,
     newPurchase: newPurchase.data,
     selectSupplier: selectSupplier.data,

@@ -3,8 +3,65 @@ import urls from "./utils/urls.js"
 App({
   globalData: {
     token: "",
-    userInfo: null 
+    userInfo: null,
+    interval: null,
+    homeMessage: [],
+    companies: [],
+    defaultAddress:[]
   },
+
+  onLaunch: function() {
+    this.iniData()
+    let that = this
+    this.globalData.interval = setInterval(function() {
+      let pages = getCurrentPages();
+      let currPage = null;
+      if (pages.length) {
+        currPage = pages[pages.length - 1];
+      }
+      if (currPage.route !== "pages/login/login") {
+        that.http("homeMessage", {}).then(data => {
+          that.globalData.homeMessage = data.list
+          if (data.infoBody === null) {
+            wx.showModal({
+              title: '重新登录',
+              content: '身份信息已过期,请重新登录',
+              showCancel:false,
+              success(res) {
+                if (res.confirm) {
+                  wx.redirectTo({
+                    url: '/pages/login/login',
+                  })
+                }  
+              }
+            })
+
+            wx.removeStorageSync("token")
+          }
+        })
+      }
+    }, 5000)
+  },
+  onHide() {
+    clearInterval(this.globalData.interval)
+  },
+
+  iniData() {
+    let that = this
+    this.http("getUserByCustNo", {
+      flag: true
+    }).then(data => {
+      that.globalData.userInfo = data.list
+      wx.setStorageSync("userInfo", data.list)
+    })
+    this.http("queryCompany").then(data => {
+      that.globalData.companies = data.list 
+    })
+    this.http("getDtfAddress").then(data => {
+      // that.globalData.defaultAddress=data.list
+    })
+  },
+
   showToast(text) {
     wx.showToast({
       title: text,
@@ -12,7 +69,7 @@ App({
       duration: 2000
     })
   },
-  checkLogin(){
+  checkLogin() {
     // wx.checkSession({
     //   success: function () {
     //     //session_key 未过期，并且在本生命周期一直有效
@@ -31,16 +88,33 @@ App({
       })
     }
   },
- 
-  http(alias, data={},isShowLogs=false){
+
+
+  watchGloabalData(key, callback) {
+    var obj = this.globalData;
+    Object.defineProperty(obj, key, {
+      configurable: true,
+      enumerable: true,
+      set: function(value) {
+        this["_" + key] = value;
+        callback(value);
+      },
+      get: function() {
+        return this["_" + key]
+      }
+    })
+  },
+
+
+  http(alias, data = {}, isShowLogs = false) {
     var token = wx.getStorageSync("token")
-    data.token=token
-    
-    if (isShowLogs){
-      console.log("%c请求接口:" + alias, "font-weight:bold;font-size:1rem", data)
+    data.token = token
+
+    if (isShowLogs) {
+      console.log("%c请求接口:" + alias, "font-weight:bold", data)
     }
-    
-    return new Promise(function (resolve, reject) {
+
+    return new Promise(function(resolve, reject) {
       wx.request({
         url: urls(alias),
         method: 'POST',
@@ -49,28 +123,27 @@ App({
           'content-type': 'application/x-www-form-urlencoded',
           // 'token': token
         },
-        success: function (res) {
+        success: function(res) {
           if (res.statusCode != 200) {
             reject('服务器忙，请稍后重试');
             return;
-          } 
-          if (res.data.success===false){
+          }
+          if (res.data.success === false) {
             reject(res.data.info);
             return;
           }
           if (isShowLogs) {
-            console.log("%c" + alias, "font-weight:bold;font-size:1rem", res.data)
+            console.log("%c" + alias, "font-weight:bold", res.data)
           }
           resolve(res.data);
         },
-        fail: function (res) {
+        fail: function(res) {
           reject('网络错误');
         },
-        complete: function (res) {
-        }
+        complete: function(res) {}
       })
     })
   }
- 
+
 
 })

@@ -61,31 +61,34 @@ Page({
   },
 
   login(e) {
-    var phoneNumber = this.data.phoneNumber
-    var password = this.data.password
-    if (phoneNumber.length === 0 && password.length === 0) {
-      this.shakeInput('phoneNumber')
-      this.shakeInput('password')
-      app.showToast("请输入手机号和密码")
-      return
-    }
+    // var phoneNumber = this.data.phoneNumber
+    // var password = this.data.password
+    // if (phoneNumber.length === 0 && password.length === 0) {
+    //   this.shakeInput('phoneNumber')
+    //   this.shakeInput('password')
+    //   app.showToast("请输入手机号和密码")
+    //   return
+    // }
 
-    if (phoneNumber.length === 0) {
-      this.shakeInput('phoneNumber')
-      app.showToast("请输入手机号")
-      return
-    }
-    if (!this.checkPhoneNumber(phoneNumber)) {
-      this.shakeInput('phoneNumber')
-      app.showToast("手机号格式有误")
-      return
-    }
+    // if (phoneNumber.length === 0) {
+    //   this.shakeInput('phoneNumber')
+    //   app.showToast("请输入手机号")
+    //   return
+    // }
+    // if (!this.checkPhoneNumber(phoneNumber)) {
+    //   this.shakeInput('phoneNumber')
+    //   app.showToast("手机号格式有误")
+    //   return
+    // }
 
-    if (password.length === 0) {
-      this.shakeInput('password')
-      app.showToast("请输入密码")
-      return
-    }
+    // if (password.length === 0) {
+    //   this.shakeInput('password')
+    //   app.showToast("请输入密码")
+    //   return
+    // }
+
+
+    
     // wx.login({
     //   success: function (res) {
     //     console.log(res, res.code)
@@ -145,18 +148,19 @@ Page({
 
 
     app.http("loginAuthenticate", {
-      username: this.data.phoneNumber,
-      password: this.data.password,
+      // username: this.data.phoneNumber,
+      // password: this.data.password,
+      username: "18883814448",
+      password: "814448",
       loginType: 1,
-    }).then(data => {
+    },true).then(data => {
       if (this.data.isRemenberPassword) {
         wx.setStorageSync("token", data.info.split(";")[0])
-      }
-
+      } 
       wx.redirectTo({
         url: '../index/index',
       })
-    }).catch(erorr=>{
+    }).catch(erorr => {
       app.showToast(erorr)
     })
 
