@@ -5,9 +5,9 @@ App({
     token: "",
     userInfo: null,
     interval: null,
-    homeMessage: [],
-    companies: [],
-    defaultAddress:[]
+    homeMessage: null,
+    companies: null,
+    defaultAddress:null
   },
 
   onLaunch: function() {

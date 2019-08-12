@@ -1,0 +1,42 @@
+<view class="add-receive">
+  <form bindsubmit="addSubmit">
+    <view class="cell border-bt">
+      <view class="cell-name">收货人</view>
+      <view class="cell-value">
+        <input name="consignee" placeholder="请输入收货人姓名" value="{{consignee}}"></input>
+      </view>
+    </view>
+    <view class="cell border-bt">
+      <view class="cell-name">联系电话</view>
+      <view class="cell-value">
+        <input name="telephone" placeholder="请输入收货人联系电话" maxlength="11" value="{{telephone}}"></input>
+      </view>
+    </view>
+
+    <view class="cell border-bt">
+      <view class="cell-name">所在地区</view>
+      <view class="cell-value">
+        <picker name="region" mode="region" bindchange="regionChange" value="{{region}}">
+          <view class="picker">
+            <text wx:if="{{region!==''}}">{{region[0]}}-{{region[1]}}-{{region[2]}}</text>
+          <text class="text-gray " wx:if="{{region===''}}">请选择地区</text>
+          </view>
+        </picker>
+      </view>
+      <view class="cuIcon-right cell-icon "></view>
+    </view>
+    <view class="cell border-bt ">
+      <view class="cell-name">详细地址</view>
+      <view class="cell-value ">
+        <input name="address" placeholder="请输入详细地址 " value="{{address}}"></input>
+      </view>
+    </view>
+    <view class="cell">
+      <view class="cell-name ">设置为默认地址</view>
+      <view class="cell-value set-default">
+        <switch name="dftStatus" checked class="blue sm set-default" bindchange="setDefault" checked="{{dftStatus==='1'}}" value="{{dftStatus}}"/></view>
+    </view>
+    <button class="theme-bgc confirm-btn" form-type="submit">确定 </button>
+  </form>
+
+</view>

@@ -49,12 +49,11 @@ create(store, {
        this.setData({
          ['infos.orderId']:data
        })
-    })
-    app.globalData.defaultAddress.forEach(item=>{
-      if (item.dftStatus==="1"){
-
-      }
-    })
+    }) 
+      app.http("getDtfAddress",{},true).then(data=>{
+        app.globalData.defaultAddress=data.list
+      })
+ 
     
     
    
@@ -91,7 +90,8 @@ create(store, {
   },
   addAeceiveAddress() {
     wx.navigateTo({
-      url: '/pages/common/addReceiveAdress/addReceiveAdress?adress=' + this.data.infos.receiveAddress +'&store=newPurchase.receiveAddress',
+      // url: '/pages/common/addReceiveAdress/addReceiveAdress?adress=' + this.data.infos.receiveAddress +'&store=newPurchase.receiveAddress',
+      url: '/pages/common/selectReceiveAddress/selectReceiveAddress' 
     })
   },
   formSubmit(e) {

@@ -68,7 +68,7 @@ Component({
         name: '代理品牌管理',
         icon: '',
         link: ''
-      }, ]
+      },]
     ]
   },
 

@@ -91,14 +91,13 @@ Page({
 
 
 
-  
+
     app.http("loginAuthenticate", {
       username: this.data.phoneNumber,
       password: this.data.password,
       loginType: 1,
-    },true).then(data => {
-      if (this.data.isRemenberPassword) {
-      } 
+    }, true).then(data => {
+      if (this.data.isRemenberPassword) {}
       wx.setStorageSync("token", data.info.split(";")[0])
       app.globalData.token = data.info.split(";")[0]
       wx.redirectTo({
@@ -107,9 +106,9 @@ Page({
     }).catch(erorr => {
       app.showToast(erorr)
     })
-
-
-
+  },
+  getUserInfo(){
+ 
   },
   checkPhoneNumber(phone) {
     return (/^1[3456789]\d{9}$/.test(parseInt(phone)))

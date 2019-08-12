@@ -6,7 +6,9 @@ const alias = {
   queryCompany: "14000/imatchUser/user/queryCompany",
   toggleAccount: "26000/netgate-user/switchLogin",
   getOrderNo: "14000/imatchOrder/order/getOrderNo",
-  getDtfAddress:"14000/imatchUser/user/getDtfAddress"
+  getDtfAddress: "14000/imatchUser/user/getDtfAddress",
+  updateUserAddress: "14000/imatchUser/user/updateUserAddress",
+  updateUserDftAddress:"14000/imatchUser/user/updateUserDftAddress"
 }
 export default function(name) {
   return BASE_URL + alias[name]

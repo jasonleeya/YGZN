@@ -1,0 +1,91 @@
+import store from '../../../store'
+import create from '../../../utils/create'
+var app = getApp()
+create(store, {
+  /**
+   * 页面的初始数据
+   */
+  data: {
+    operateType:"",
+    region: "",
+    address: "",
+    dftStatus: "",
+    consignee: "",
+    telephone: "",
+    tableKey: "" 
+  },
+
+  /**
+   * 生命周期函数--监听页面加载
+   */
+  onLoad: function(options) {
+    // this.setData({
+    //   store:options.store.split(".")
+    // })
+    // var region = options.adress.match(/【.+】/g)[0].replace("【", "").replace("】", "").split("/")
+    // var detail = options.adress.split("】")[1]
+
+    if(options.operateType==="edit"){
+      options.region = options.region.split("/")
+      this.setData({
+        region: options.region,
+        address: options.address,
+        dftStatus: options.dftStatus,
+        consignee: options.consignee,
+        telephone: options.telephone,
+        tableKey: options.tableKey,
+        custNo: options.custNo
+      })
+    }
+   
+  },
+  regionChange(e) {
+    this.setData({
+      region: e.detail.value
+    })
+  },
+  setDefault(e) {
+    this.setData({
+      isDefault: e.detail.value
+    })
+  },
+  addSubmit(e) { 
+    var value = e.detail.value
+    if (!value.consignee){
+      app.showToast("请填写收货人")
+      return
+    }
+    if (!value.telephone) {
+      app.showToast("请填写收货电话")
+      return
+    }
+    if (!value.region) {
+      app.showToast("请选择地区")
+      return
+    }
+    if (!value.address) {
+      app.showToast("请填写详细地址")
+      return
+    }
+    console.log(value)
+    if (value.dftStatus===true){
+      
+      app.http("updateUserDftAddress",{
+        tableKey: this.data.tableKey,
+        custNo: this.data.custNo
+      },true)
+    }
+    app.http("updateUserAddress", {
+      tableKey: this.data.tableKey,
+      consignee: value.consignee,
+      telephone: value.telephone,
+      address: value.address,
+      province: value.region[0],
+      city: value.region[1],
+      area: value.region[2],
+      dftStatus: "0"
+    },true)
+wx.navigateBack()
+  }
+
+})

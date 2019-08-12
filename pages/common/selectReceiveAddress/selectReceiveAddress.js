@@ -1,66 +1,45 @@
 // pages/common/selectReceiveAddress/selectReceiveAddress.js
+let app = getApp()
 Page({
 
   /**
    * 页面的初始数据
    */
   data: {
-
+    list: []
   },
 
   /**
    * 生命周期函数--监听页面加载
    */
-  onLoad: function (options) {
+  onShow: function(options) {
 
+    
+    var address = ""
+    app.http("getDtfAddress").then(data => {
+      address = data.list
+      address.forEach(item => {
+        item.region = item.province + "/" + item.city + "/" + item.area
+      },true)
+      this.setData({
+        list: address
+      }) 
+    })
+   
   },
 
-  /**
-   * 生命周期函数--监听页面初次渲染完成
-   */
-  onReady: function () {
 
+
+  edit(e) {
+    var index = e.currentTarget.dataset.index
+    var address = this.data.list[index]
+    wx.navigateTo({
+      url: '/pages/common/operateReceiveAddress/operateReceiveAddress?operateType=edit&consignee=' + address.consignee + '&telephone=' + address.telephone + '&region=' + address.region + '&address=' + address.address + "&dftStatus=" + address.dftStatus + "&tableKey=" + address.tableKey + "&custNo=" + address.custNo
+    })
   },
-
-  /**
-   * 生命周期函数--监听页面显示
-   */
-  onShow: function () {
-
-  },
-
-  /**
-   * 生命周期函数--监听页面隐藏
-   */
-  onHide: function () {
-
-  },
-
-  /**
-   * 生命周期函数--监听页面卸载
-   */
-  onUnload: function () {
-
-  },
-
-  /**
-   * 页面相关事件处理函数--监听用户下拉动作
-   */
-  onPullDownRefresh: function () {
-
-  },
-
-  /**
-   * 页面上拉触底事件的处理函数
-   */
-  onReachBottom: function () {
-
-  },
-
-  /**
-   * 用户点击右上角分享
-   */
-  onShareAppMessage: function () {
-
+  add() {
+wx.navigateTo({
+  url: '/pages/common/operateReceiveAddress/operateReceiveAddress?operateType=add'
+})
   }
 })
