@@ -73,26 +73,41 @@ Component({
   },
 
   lifetimes: {
-    ready() {
-      // console.log(app.globalData.userInfo)
-      // console.log(app.globalData.companies)
-      var userInfo = app.globalData.userInfo[0] ? app.globalData.userInfo[0] : app.globalData.userInfo;
-      var companies = app.globalData.companies
-      if (app.globalData.companies) {
-        app.globalData.companies.forEach(item => {
-          if (item[1] === userInfo.queryNo) {
-            userInfo.currentCompany = item[0]
-            userInfo.idCopy = JSON.parse(JSON.stringify(userInfo.queryNo))
+    attached() {
+      let that = this
+      app.http("getUserByCustNo", {
+        flag: true
+      }, true).then(data => {
+        app.globalData.userInfo = data.list
+        wx.setStorageSync("userInfo", data.list)
+        that.setData({
+          userInfo: data.list[0]
+        })
+      })
+      app.http("queryCompany", {}, true).then(data => {
+        app.globalData.companies = data.list
+        that.setData({
+          companies: data.list
+        })
+        data.list.forEach(item => {
+          if (item[1] === that.data.userInfo.queryNo) {
+            that.setData({
+              ["userInfo.currentCompany"]: item[0],
+              ["userInfo.idCopy"]: JSON.parse(JSON.stringify(that.data.userInfo.queryNo))
+            })
           }
         })
-      }
-
-      this.setData({
-        userInfo: userInfo,
-        companies: companies
       })
-      // console.log(userInfo)
-      // console.log(companies)
+
+
+
+
+
+
+
+
+
+
 
     },
   },

@@ -47,19 +47,20 @@ App({
   },
 
   iniData() {
-    let that = this
-    this.http("getUserByCustNo", {
-      flag: true
-    }).then(data => {
-      that.globalData.userInfo = data.list
-      wx.setStorageSync("userInfo", data.list)
-    })
-    this.http("queryCompany").then(data => {
-      that.globalData.companies = data.list 
-    })
-    this.http("getDtfAddress").then(data => {
-      // that.globalData.defaultAddress=data.list
-    })
+    // let that = this
+    // this.http("getUserByCustNo", {
+    //   flag: true
+    // },true).then(data => {
+    //   that.globalData.userInfo = data.list
+    //   wx.setStorageSync("userInfo", data.list)
+    // })
+    // this.http("queryCompany",{},true).then(data => {
+    //   that.globalData.companies = data.list 
+    // })
+    // this.http("getDtfAddress").then(data => {
+    //   // that.globalData.defaultAddress=data.list
+    // })
+    // console.log(that.globalData.userInfo)
   },
 
   showToast(text) {

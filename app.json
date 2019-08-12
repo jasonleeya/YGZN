@@ -1,6 +1,5 @@
 {
   "pages": [
-    "pages/common/selectReceiveAddress/selectReceiveAddress",
     "pages/index/index",
     "pages/login/login",
     "pages/purchase/selectSupplier/selectSupplier",
@@ -22,7 +21,8 @@
     "pages/sales/addSeller/addSeller",
     "pages/sales/salesOrders/salesOrders",
     "pages/sales/orderDetail/orderDetail",
-    "pages/sales/orderLogs/orderLogs"
+    "pages/sales/orderLogs/orderLogs",
+    "pages/common/selectReceiveAddress/selectReceiveAddress"
   ],
   "window": {
     "backgroundTextStyle": "light",
