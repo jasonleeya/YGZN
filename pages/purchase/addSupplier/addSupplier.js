@@ -1,12 +1,14 @@
 import store from '../../../store'
 import create from '../../../utils/create'
+let app=getApp()
 create(store, {
 
   /**
    * 页面的初始数据
    */
   data: {
-
+    region: "",
+    address: "",
   },
 
   /**
@@ -15,12 +17,23 @@ create(store, {
   onLoad: function(options) {
 
   },
+  regionChange(e) {
+    this.setData({
+      region: e.detail.value
+    })
+  },
   addSubmit(e) {
-    var info = e.detail.value
-    info.companyType = "自建"
-    info.supplierType = "普通客户"
-    //添加所填信息到选择供应商页面store中
-    this.store.data.selectSupplier.supplierList.push(e.detail.value)
+    var info = e.detail.value  
+    app.http("addProvider",{
+      customerNo:"",
+      blNumber: info.businessLicenseId,
+      supplyName: info.company,
+      supCompanyPhone: info.companyPhoneNumber,
+      supContact: info.contact,
+      supPhone: info.cantactPhoneNumber,
+      supAddress: "【" + this.data.region[0] + "/" + this.data.region[1] + "/" + this.data.region[2] +"】"+info.address,
+      supRemarks: info.remark
+    }) 
     wx.navigateBack()
   }
 })

@@ -7,11 +7,18 @@ create(store, {
     buyerList: []
   },
   onShow() {
-    this.store.data.selectBuyer.buyerList.sort(this.compare("letter"))
+    // this.store.data.selectBuyer.buyerList.sort(this.compare("letter"))
 
+    //   this.setData({
+    //     buyerList: this.store.data.selectBuyer.buyerList
+    //   })
+
+    app.http("queryAllUsingSalesman", { pageSize: 1000}).then(data=>{
       this.setData({
-        buyerList: this.store.data.selectBuyer.buyerList
-      })
+        buyerList:data.list
+      }) 
+    })
+
   },
    compare(pro) {
     return function (obj1, obj2) {

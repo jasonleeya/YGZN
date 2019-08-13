@@ -13,10 +13,10 @@ create(store, {
       orderId: "",
       supplier: "",
       buyer: "",
-      receiver: "伊高智能",
-      phoneNumber: "18888888888",
-      receiveAddress: "【四川省/成都市/成华区】建设路钻石广场3005",
-      receiveDate: "2019-07-25"
+      receiver: "",
+      phoneNumber: "",
+      receiveAddress: "",
+      receiveDate: ""
     }
   },
   onLoad() {
@@ -50,8 +50,16 @@ create(store, {
          ['infos.orderId']:data
        })
     }) 
-      app.http("getDtfAddress",{},true).then(data=>{
-        app.globalData.defaultAddress=data.list
+      app.http("getDtfAddress",{}).then(data=>{
+       data.list.forEach(item=>{
+         if (item.dftStatus==="1"){
+           this.setData({ 
+             ["infos.receiveAddress"]: "【" + item.province + "/" + item.city + "/" + item.area + "】" + item.address,
+             ["infos.receiver"]: item.consignee,
+             ["infos.phoneNumber"]: item.telephone,
+           })
+         }
+       })
       })
  
     
@@ -63,8 +71,8 @@ create(store, {
     wx.navigateTo({
       url: '/pages/purchase/selectSupplier/selectSupplier',
       event: {
-        chooseSupplier(data) {
-          console.log(data.id)
+        someEvent(data) {
+          console.log(data)
         }
       }
     })

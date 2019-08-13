@@ -8,5 +8,5 @@
     <view class="add-buyer" bindtap="addBuyer">新增</view>
   </view>
 </view>
- <indexes wx:if="{{buyerList.length>0}}" list="{{buyerList}}" bind:select="selectedBuyer"/>
+ <indexes wx:if="{{buyerList.length>0}}" list="{{buyerList}}" key="userName" bind:select="selectedBuyer"/>
  <view  wx:if="{{buyerList.length===0}}" class="empty">还没有业务员,请添加业务员~</view>

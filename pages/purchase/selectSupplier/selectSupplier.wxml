@@ -5,30 +5,31 @@
   </view>
   <view class="add-supplier" bindtap="addSupplier">新增</view>
 </view>
-<scroll-view scroll-y class="supplier-scroll-view">
+<scroll-view scroll-y class="supplier-scroll-view" bindscrolltolower="scrollToBottom">
     <view class="supplier-list">
       <view class="supplier-item" wx:for="{{supplierList}}" wx:key bindtap="chooseSupplier" data-index="{{index}}">
         <view class="supplier-header solid-bottom">
           <text class="cuIcon-friend name-icon"></text>
-          <text class="supplier-name">{{item.company}}</text>
-          <text class="supplier-type text-green">{{item.createType}}</text>
+          <text class="supplier-name">{{item.customer.supplyName}}</text>
+          <text class="supplier-type text-green">{{item.customer.approveStatus===1?"线上":"自建"}}</text>
         </view>
         <view class="supplier-info">
           <view class="supplier-info-name text-gray">营业执照</view>
-          <view class="supplier-info-value">{{item.businessLicenseId}}</view>
+          <view class="supplier-info-value">{{item.customer.blNumber}}</view>
         </view>
         <view class="supplier-info">
           <view class="supplier-info-name text-gray">客户类型</view>
-          <view class="supplier-info-value">{{item.supplierType}}</view>
+          <view class="supplier-info-value">{{item.customer.customerType==="1003"?"信用客户":item.customerType==="1003"?"信用客户":"普通客户"}}</view>
         </view>
         <view class="supplier-info">
           <view class="supplier-info-name text-gray">联系人</view>
-          <view class="supplier-info-value">{{item.contact}}</view>
+          <view class="supplier-info-value">{{item.customer.supContact}}</view>
         </view>
         <view class="supplier-info">
           <view class="supplier-info-name text-gray">联系电话</view>
-          <view class="supplier-info-value">{{item.contactPhoneNumber}}</view>
+          <view class="supplier-info-value">{{item.customer.supPhone}}</view>
         </view>
       </view>
     </view>
+    <view class="cu-load bg-gray {{isLoad?'loading':'over'}}"></view>
   </scroll-view>

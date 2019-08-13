@@ -1,5 +1,5 @@
 <scroll-view scroll-y class="indexes" style="height:calc(100vh - {{indexesTop}}px)"  scroll-into-view="index-item-{{curLetter}}">
-  <view id="index-item-{{item.letter}}" wx:for="{{list}}" wx:key>
+  <view id="index-item-{{item.letter}}" wx:for="{{formatList}}" wx:key>
     <view class="initial-letter text-gray">{{item.letter}}</view>
     <view class="names" wx:for="{{item.names}}" wx:for-item="namesItem" wx:key bindtap="selectItem" data-val="{{namesItem}}">{{namesItem}}</view>
   </view>

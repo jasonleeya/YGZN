@@ -6,13 +6,13 @@ create(store, {
    * 页面的初始数据
    */
   data: {
-    operateType:"",
+    operateType: "",
     region: "",
     address: "",
     dftStatus: "",
     consignee: "",
     telephone: "",
-    tableKey: "" 
+    tableKey: ""
   },
 
   /**
@@ -25,7 +25,7 @@ create(store, {
     // var region = options.adress.match(/【.+】/g)[0].replace("【", "").replace("】", "").split("/")
     // var detail = options.adress.split("】")[1]
 
-    if(options.operateType==="edit"){
+    if (options.operateType === "edit") {
       options.region = options.region.split("/")
       this.setData({
         region: options.region,
@@ -37,7 +37,7 @@ create(store, {
         custNo: options.custNo
       })
     }
-   
+
   },
   regionChange(e) {
     this.setData({
@@ -49,9 +49,9 @@ create(store, {
       isDefault: e.detail.value
     })
   },
-  addSubmit(e) { 
+  addSubmit(e) {
     var value = e.detail.value
-    if (!value.consignee){
+    if (!value.consignee) {
       app.showToast("请填写收货人")
       return
     }
@@ -68,13 +68,7 @@ create(store, {
       return
     }
     console.log(value)
-    if (value.dftStatus===true){
-      
-      app.http("updateUserDftAddress",{
-        tableKey: this.data.tableKey,
-        custNo: this.data.custNo
-      },true)
-    }
+
     app.http("updateUserAddress", {
       tableKey: this.data.tableKey,
       consignee: value.consignee,
@@ -83,9 +77,21 @@ create(store, {
       province: value.region[0],
       city: value.region[1],
       area: value.region[2],
-      dftStatus: "0"
-    },true)
-wx.navigateBack()
+      dftStatus: value.dftStatus ? "1" : "0"
+    }).then(() => {
+      if (value.dftStatus === true) {
+        app.http("updateUserDftAddress", {
+          tableKey: this.data.tableKey,
+          custNo: this.data.custNo
+        }).then(() => {
+          wx.navigateBack()
+        })
+      } else {
+        wx.navigateBack()
+      }
+
+    })
+
   }
 
 })
