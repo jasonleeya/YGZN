@@ -9,62 +9,56 @@ create(store, {
   data: {
     goodsList: [],
     totalPrice: 0,
-    infos: {
-      orderId: "",
-      supplier: "",
-      buyer: "",
-      receiver: "",
-      phoneNumber: "",
-      receiveAddress: "",
-      receiveDate: ""
-    }
+
+    orderId: "",
+    supplier: "",
+    buyer: "",
+    receiver: "",
+    phoneNumber: "",
+    receiveAddress: "",
+    receiveDate: ""
+
   },
   onLoad() {
     //验证登录
     app.checkLogin()
     this.initData()
-    this.store.data.newPurchase.receiveAddress = this.data.infos.receiveAddress
+    // this.store.data.newPurchase.receiveAddress = this.data.receiveAddress
     var date = new Date()
     var nowDate = date.getFullYear() + "-" + (date.getMonth() + 1) + "-" + date.getDate()
     this.setData({
-      ["infos.receiveDate"]: nowDate
+      receiveDate: nowDate
     })
   },
   onShow() {
-   
-    if (this.store.data.newPurchase.supplier.company) { 
-      this.setData({
-        ["infos.supplier"]: this.store.data.newPurchase.supplier.company //从store中获取供应商信息
-      })
-    }
+
+
     this.setData({
       goodsList: this.store.data.newPurchase.cartList,
       totalPrice: this.store.data.newPurchase.totalPrice,
-      ["infos.buyer"]: this.store.data.newPurchase.buyer,
-      ["infos.receiveAddress"]: this.store.data.newPurchase.receiveAddress
-    }) 
+    })
   },
-  initData(){
-    app.http("getOrderNo").then(data=>{
-       this.setData({
-         ['infos.orderId']:data
-       })
-    }) 
-      app.http("getDtfAddress",{}).then(data=>{
-       data.list.forEach(item=>{
-         if (item.dftStatus==="1"){
-           this.setData({ 
-             ["infos.receiveAddress"]: "【" + item.province + "/" + item.city + "/" + item.area + "】" + item.address,
-             ["infos.receiver"]: item.consignee,
-             ["infos.phoneNumber"]: item.telephone,
-           })
-         }
-       })
+  initData() {
+    app.http("getOrderNo").then(data => {
+      this.setData({
+        orderId: data
       })
- 
-    
-    
-   
+    })
+    app.http("getDtfAddress", {}).then(data => {
+      data.list.forEach(item => {
+        if (item.dftStatus === "1") {
+          this.setData({
+           receiveAddress: "【" + item.province + "/" + item.city + "/" + item.area + "】" + item.address,
+            receiver: item.consignee,
+            phoneNumber: item.telephone,
+          })
+        }
+      })
+    })
+
+
+
+
   },
   //跳转选择供应商页面
   selectSupplier() {
@@ -91,15 +85,15 @@ create(store, {
       store.totalPrice = data.totalPrice,
       store.totalAmount = data.totalAmount
   },
-  dateChange(e){
-  this.setData({
-    ["infos.receiveDate"]: e.detail.value
+  dateChange(e) {
+    this.setData({
+      ["receiveDate"]: e.detail.value
     })
   },
   addAeceiveAddress() {
     wx.navigateTo({
-      // url: '/pages/common/addReceiveAdress/addReceiveAdress?adress=' + this.data.infos.receiveAddress +'&store=newPurchase.receiveAddress',
-      url: '/pages/common/selectReceiveAddress/selectReceiveAddress' 
+      // url: '/pages/common/addReceiveAdress/addReceiveAdress?adress=' + this.data.receiveAddress +'&store=newPurchase.receiveAddress',
+      url: '/pages/common/selectReceiveAddress/selectReceiveAddress'
     })
   },
   formSubmit(e) {

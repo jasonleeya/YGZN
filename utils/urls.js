@@ -8,11 +8,14 @@ const alias = {
   getOrderNo: "14000/imatchOrder/order/getOrderNo",
   getDtfAddress: "14000/imatchUser/user/getDtfAddress",
   updateUserAddress: "14000/imatchUser/user/updateUserAddress",
-  updateUserDftAddress:"14000/imatchUser/user/updateUserDftAddress",
-  getPurchasingSupplyNew:"14000/imatchUser/agency/getPurchasingSupplyNew",
-  getSupplyList:"14000/imatchUser/agency/getSupplyList",
-  addProvider:"14000/imatchUser/agency/addProvider",
-  queryAllUsingSalesman:"14000/imatchUser/user/queryAllUsingSalesman"
+  updateUserDftAddress: "14000/imatchUser/user/updateUserDftAddress",
+  getPurchasingSupplyNew: "14000/imatchUser/agency/getPurchasingSupplyNew",
+  getSupplyList: "14000/imatchUser/agency/getSupplyList",
+  addProvider: "14000/imatchUser/agency/addProvider",
+  queryAllUsingSalesman: "14000/imatchUser/user/queryAllUsingSalesman",
+  findRoles: "14000/imatchPower/findRoles",
+  queryAllGrade: "14000/imatchUser/user/queryAllGrade",
+  insertSalesman: "14000/imatchUser/user/insertSalesman"
 }
 export default function(name) {
   return BASE_URL + alias[name]

@@ -12,7 +12,7 @@ create(store, {
     //   this.setData({
     //     buyerList: this.store.data.selectBuyer.buyerList
     //   })
-
+  
     app.http("queryAllUsingSalesman", { pageSize: 1000}).then(data=>{
       this.setData({
         buyerList:data.list
@@ -39,8 +39,13 @@ create(store, {
     })
   },
   selectedBuyer(e){
-    var selectedName = 
-      this.store.data.newPurchase.buyer = e.detail
+   
+    var pages = getCurrentPages()
+    var prevPage = pages[pages.length - 2]
+    prevPage.setData({
+       buyer: e.detail
+    })
     wx.navigateBack()
-  }
+  },
+ 
 });

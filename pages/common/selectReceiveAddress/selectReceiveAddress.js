@@ -14,18 +14,18 @@ Page({
    */
   onShow: function(options) {
 
-    
+
     var address = ""
     app.http("getDtfAddress").then(data => {
       address = data.list
       address.forEach(item => {
         item.region = item.province + "/" + item.city + "/" + item.area
-      },true)
+      }, true)
       this.setData({
         list: address
-      }) 
+      })
     })
-   
+
   },
 
 
@@ -38,8 +38,17 @@ Page({
     })
   },
   add() {
-wx.navigateTo({
-  url: '/pages/common/operateReceiveAddress/operateReceiveAddress?operateType=add'
-})
+    wx.navigateTo({
+      url: '/pages/common/operateReceiveAddress/operateReceiveAddress?operateType=add'
+    })
+  },
+  choose(e) {
+
+    getCurrentPages()[getCurrentPages().length - 2].setData({
+     receiveAddress: "【" + this.data.list[e.currentTarget.dataset.index].region + "】" + this.data.list[e.currentTarget.dataset.index].address
+    })
+    wx.navigateBack({
+      delta: 1,
+    })
   }
 })

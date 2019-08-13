@@ -10,20 +10,45 @@ create(store, {
    */
   data: {
     position: {
-      list: ['管理员', '测试职位'],
+      list: [],
       picked: null,
     },
     rank: {
       list: ['LV01', 'LV02'],
       picked: null,
-    }
-
+    },
+    findRoles: [],
+    queryAllGrade:[]
   },
 
   /**
    * 生命周期函数--监听页面加载
    */
   onLoad: function(options) {
+    app.http("findRoles", {
+      loginUserId: wx.getStorageSync("token")
+    }).then(data => {
+      var list = []
+      data.list.forEach(item => {
+        list.push(item.role_name)
+      })
+      this.setData({
+        ["position.list"]: list,
+        findRoles:data.list
+      })
+    })
+
+    app.http("queryAllGrade", {}, true).then(data => {
+      var list = []
+      data.list.forEach(item => {
+        list.push(item.name)
+      })
+      this.setData({
+        ["rank.list"]: list,
+        queryAllGrade:data.list
+      })
+    })
+
 
   },
   addSubmit(e) {
@@ -39,7 +64,7 @@ create(store, {
       app.showToast("请填写业务员电话")
       return
     }
-    if (!this.checkPhoneNumber(e.detail.value.phoneNumber)){
+    if (!this.checkPhoneNumber(e.detail.value.phoneNumber)) {
       app.showToast("业务员电话填写格式有误")
       return
     }
@@ -48,25 +73,39 @@ create(store, {
       return
     }
 
-    var info = e.detail.value
-    var flag = false
-    var buyerList = this.store.data.selectBuyer.buyerList
-    info.letter = chinese2pinyin(e.detail.value.name)[0][0].toUpperCase()
-
-    buyerList.forEach(item => {
-      if (item.letter === info.letter) {
-        item.names.push(e.detail.value.name)
-        flag=true
-      }  
+    var value = e.detail.value
+    // findRoles: [],
+    //   queryAllGrade: []
+    this.data.findRoles.forEach(item=>{
+      if (item.role_name===value.rank){
+        value.roleId=item.role_id
+      }
     })
-    if (!flag || buyerList.length === 0) { 
-      buyerList.push({
-        letter: info.letter,
-        names: [info.name]
-      })
-    }
+    this.data.queryAllGrade.forEach(item => {
+      if (item.name === value.position) {
+        value.grade = item.id
+      }
+    })
 
-    wx.navigateBack()
+    app.http("insertSalesman",{
+      roleId: value.roleId,
+      userName: value.name,
+      userPhone: value.phoneNumber,
+      position: value.position,
+      grade: value.grade,
+      remark:value.remark,
+    }).then(()=>{
+      app.showToast("添加成功")
+   
+      wx.navigateBack({
+        delta:1
+      })
+    })
+    .catch(err=>{
+      app.showToast("添加失败")
+    }) 
+
+
   },
 
   pinkPosition: function(e) {

@@ -8,6 +8,8 @@ Component({
     list: {
       type: Array,
       observer(n) {
+
+        this.initData(n)
         // let li = [];
         // for (let i = 0; i < 26; i++) {
         //   li[i] = {}
@@ -44,69 +46,6 @@ Component({
 
 
   ready() {
-
-    // let li = [];
-    // for (let i = 0; i < 26; i++) {
-    //   li[i] = {}
-    //   li[i].letter = String.fromCharCode(65 + i)
-    //   li[i].contain = false
-    //   this.data.list.forEach(item => {
-
-    //     if (item.letter === String.fromCharCode(65 + i)) {
-    //       li[i].contain = true
-    //     }
-    //   })
-    // }
-    // this.setData({
-    //   letters: li
-    // })
-
-    var fList=[]
-  
-
-    this.data.list.forEach(item => {
-      // console.log(chineseToPinyin(item[this.data.key])[0][0].toUpperCase())
-      var letter = chineseToPinyin(item[this.data.key])[0][0].toUpperCase()
-      if (!fList.some(fItem => {
-        if (fItem.letter === letter ) {
-            return true
-          }
-        })) {
-        fList.push({
-          letter: letter,
-          names: [item[this.data.key]]
-        })  
-      }else{
-        fList.forEach(fListItem=>{
-          if (fListItem.letter===letter){
-            fListItem.names.push(item[this.data.key])
-          }
-        })
-      }
-    })
-
-    let li = [];
-    for (let i = 0; i < 26; i++) {
-      li[i] = {}
-      li[i].letter = String.fromCharCode(65 + i)
-      li[i].contain = false
-      fList.forEach(item => {
-
-        if (item.letter === String.fromCharCode(65 + i)) {
-          li[i].contain = true
-        }
-      })
-    }
-
-    fList.sort(this.compare("letter"))
-
-    this.setData({
-      letters: li,
-      formatList:fList
-    })
-
-
-
     let that = this;
     wx.createSelectorQuery().in(this).select('.indexes').boundingClientRect(function(res) {
       that.setData({
@@ -119,11 +58,57 @@ Component({
       })
     }).exec();
 
+    this.initData()
+
   },
   /**
    * 组件的方法列表
    */
   methods: {
+    
+    initData(list=this.data.list) {
+      var fList = []
+      this.data.list.forEach(item => {
+        // console.log(chineseToPinyin(item[this.data.key])[0][0].toUpperCase())
+        var letter = chineseToPinyin(item[this.data.key])[0][0].toUpperCase()
+        if (!fList.some(fItem => {
+            if (fItem.letter === letter) {
+              return true
+            }
+          })) {
+          fList.push({
+            letter: letter,
+            names: [item[this.data.key]]
+          })
+        } else {
+          fList.forEach(fListItem => {
+            if (fListItem.letter === letter) {
+              fListItem.names.push(item[this.data.key])
+            }
+          })
+        }
+      })
+
+      let li = [];
+      for (let i = 0; i < 26; i++) {
+        li[i] = {}
+        li[i].letter = String.fromCharCode(65 + i)
+        li[i].contain = false
+        fList.forEach(item => {
+
+          if (item.letter === String.fromCharCode(65 + i)) {
+            li[i].contain = true
+          }
+        })
+      }
+
+      fList.sort(this.compare("letter"))
+
+      this.setData({
+        letters: li,
+        formatList: fList
+      })
+    },
     boxTouchStart(e) {
       this.changeCurLetter(e.touches[0].clientY)
       this.setData({
@@ -158,7 +143,7 @@ Component({
       this.triggerEvent("select", e.currentTarget.dataset.val)
     },
     compare(pro) {
-      return function (obj1, obj2) {
+      return function(obj1, obj2) {
         var val1 = obj1[pro];
         var val2 = obj2[pro];
         if (val1 < val2) {

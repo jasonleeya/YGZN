@@ -37,7 +37,7 @@ create(store, {
     var pages = getCurrentPages()
     var prevPage = pages[pages.length - 2]
     prevPage.setData({
-      ["infos.supplier"]: this.data.supplierList[e.currentTarget.dataset.index].customer.supplyName
+      supplier: this.data.supplierList[e.currentTarget.dataset.index].customer.supplyName
     })
     wx.navigateBack()
   },
