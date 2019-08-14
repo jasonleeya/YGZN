@@ -42,7 +42,7 @@ create(store, {
     })
     wx.navigateBack()
   },
-
+ 
   scrollToBottom() {
     if (!this.data.isLoad) {
       this.setData({

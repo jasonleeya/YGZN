@@ -16,7 +16,10 @@ const alias = {
   findRoles: "14000/imatchPower/findRoles",
   queryAllGrade: "14000/imatchUser/user/queryAllGrade",
   insertSalesman: "14000/imatchUser/user/insertSalesman",
-  searchStockProduct:"14000/imatchProduct/stockCurrent/searchStockProduct"
+  searchStockProduct: "14000/imatchProduct/stockCurrent/searchStockProduct",
+  getWarehouse: "14000/imatchUser/agency/getWarehouse",
+  // fetchPurchaseProductInfo: "14000/stockCurrent/fetchPurchaseProductInfo"
+  purchaseDiscount:"14000/imatchProduct/product/discount/purchaseDiscount"
 }
 export default function(name) {
   return BASE_URL + alias[name]

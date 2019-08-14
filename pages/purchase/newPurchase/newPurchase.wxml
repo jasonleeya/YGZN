@@ -19,6 +19,16 @@
           <view class="cuIcon-right  cell-icon" bindtap="selectBuyer"></view>
         </view>
 
+  <view class="cell border-bt">
+        <view class="cell-name">仓库</view>
+        <input name="storehouse" disabled class="cell-value {{storehouse.index===null?'text-gray':''}}" placeholder="请选择仓库" value="{{storehouse.list[storehouse.index]}}"></input>
+        <picker bindchange="selectStorehouse" value="{{storehouse.index}}" range="{{storehouse.list}}">
+          <view class="picker">
+            <view class="cuIcon-right  cell-icon"></view>
+          </view>
+        </picker>
+      </view>
+
         <view class="cell border-bt">
           <view class="cell-name">收货人</view>
           <view class="cell-value">
@@ -58,7 +68,7 @@
       </view>
       <view class="title add-goods">添加商品</view>
       <!-- 搜索 -->
-      <search link="/pages/common/addGoods/addGoods?store=newPurchase&custNo={{supplyNo}}" />
+      <search bindtap="toSearch"/>
       <!-- 购物车 -->
       <cart goodsList="{{goodsList}}" totalPrice="{{totalPrice}}" bind:changeData="getChangedData" goodsListUrl="{{'/pages/common/addGoods/addGoods?store=newPurchase'}}" />
 

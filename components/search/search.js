@@ -4,9 +4,9 @@ Component({
    * 组件的属性列表
    */
   properties: {
-    link: {
-      type: String,
-    },
+    // link: {
+    //   type: String,
+    // },
     justLink:{
       type:Boolean,
       value:true
@@ -46,13 +46,13 @@ Component({
 
 
   methods: {
-    toSearch() {
-      if (this.data.link) {
-        wx.navigateTo({
-          url: this.properties.link,
-        })
-      }
-    },
+    // toSearch() {
+    //   if (this.data.link) {
+    //     wx.navigateTo({
+    //       url: this.properties.link,
+    //     })
+    //   }
+    // },
     scan() {
       let that = this
       wx.scanCode({

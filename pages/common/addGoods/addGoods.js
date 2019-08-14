@@ -18,14 +18,16 @@ create(store, {
     totalAmount: 0, //总量
     isLoad: false, //是否显示加载图标
     store: "",
-    custNo: '',
+    supplyNo: '',
+    wareId: "",
     searchType: "",
-    searchValue:""
+    searchValue: ""
   },
   onLoad(options) {
     this.setData({
       store: options.store,
-      custNo: options.custNo
+      supplyNo: options.supplyNo,
+      wareId: options.wareId
     })
     //验证登录
     app.checkLogin()
@@ -49,7 +51,7 @@ create(store, {
     var inputValue = e.detail
     if (e.detail === "") {
       this.setData({
-        goodsList:[]
+        goodsList: []
       })
       return
     }
@@ -99,59 +101,109 @@ create(store, {
   // 显示弹出框
   showPop(e) {
     var index = e.target.dataset.index
-    var cartList = this.store.data[this.data.store].cartList
-    var flag = false;
-    this.setData({
-      isShowPop: true,
-      activeIndex: index,
+    console.log(this.data.goodsList[index])
+
+    app.http("purchaseDiscount", {
+      supplyNo: this.data.supplyNo,
+      productId: this.data.goodsList[index].productUuid
+    }, true).then(data => {
+      this.setData({
+        isShowPop: true,
+        ['popData.goodsCount']: this.data.goodsList[index].minCount,
+        ["popData.NTPSingle"]: data.infoBody.price,
+        ["popData.taxRate"]: 13,
+        ["popData.discountPrice"]: parseFloat(data.infoBody.price) * 1.3,
+        ["popData.sttAmount"]: parseFloat(data.infoBody.price) * 1.3 * parseInt(this.data.goodsList[index].minCount)
+      })
+
+      this.setData({
+        popDataCopy: JSON.parse(JSON.stringify(this.data.popData))
+      })
+
+
     })
 
-    cartList.forEach(item => {
-      if (item.id === this.data.goodsList[index].id) { //判断cartList中是否有此商品
-        flag = true
-        this.setData({
-          popData: JSON.parse(JSON.stringify(item)), //深拷贝cartList中已有项到popData
-          popDataCopy: JSON.parse(JSON.stringify(item)), //保存初始数据
-        }, function() {
-          //回调
-          var totalPrice = parseInt(item.amount) * (parseFloat(this.data.popData.noTaxPrice) * (1 + parseFloat(this.data.popData.taxRate) / 100))
-          // 总价=数量x无税价(1+税率)
-          totalPrice = totalPrice.toFixed(2)
-          this.setData({
-            ["popData.amount"]: parseInt(item.amount), //cartList中该商品数量
-            ["popData.totalPrice"]: totalPrice
-          })
-        })
-      }
-    })
-    if (!flag) {
-      this.setData({
-        popData: JSON.parse(JSON.stringify(this.data.goodsList[index])), //深拷贝所选项内容到popData
-        popDataCopy: JSON.parse(JSON.stringify(this.data.goodsList[index])),
-      }, function() {
-        //回调
-        this.setData({
-          ["popData.amount"]: 1, //总价初始值为1
-          ["popData.totalPrice"]: (parseFloat(this.data.popData.noTaxPrice) * (1 + parseFloat(this.data.popData.taxRate) / 100)).toFixed(2)
-        }) //初始总价
-      })
-    }
+
+
+    // app.http("etchPurchaseProductInfo",{
+    //   supplyNo: this.data.supplyNo,
+    //   wareId: this.data.wareId,
+    //   productId: this.data.goodsList[index]. productUuid
+    // },true)
+
+    // var index = e.target.dataset.index
+    // console.log(this.data.goodsList[index]) 
+
+
+    // var cartList = this.store.data[this.data.store].cartList
+    // var flag = false;
+    // this.setData({
+    //   isShowPop: true,
+    //   activeIndex: index,
+    // })
+
+    // cartList.forEach(item => {
+    //   if (item.id === this.data.goodsList[index].id) { //判断cartList中是否有此商品
+    //     flag = true
+    //     this.setData({
+    //       popData: JSON.parse(JSON.stringify(item)), //深拷贝cartList中已有项到popData
+    //       popDataCopy: JSON.parse(JSON.stringify(item)), //保存初始数据
+    //     }, function() {
+    //       //回调
+    //       var totalPrice = parseInt(item.amount) * (parseFloat(this.data.popData.noTaxPrice) * (1 + parseFloat(this.data.popData.taxRate) / 100))
+    //       // 总价=数量x无税价(1+税率)
+    //       totalPrice = totalPrice.toFixed(2)
+    //       this.setData({
+    //         ["popData.amount"]: parseInt(item.amount), //cartList中该商品数量
+    //         ["popData.totalPrice"]: totalPrice
+    //       })
+    //     })
+    //   }
+    // })
+    // if (!flag) {
+    //   this.setData({
+    //     popData: JSON.parse(JSON.stringify(this.data.goodsList[index])), //深拷贝所选项内容到popData
+    //     popDataCopy: JSON.parse(JSON.stringify(this.data.goodsList[index])),
+    //   }, function() {
+    //     //回调
+    //     this.setData({
+    //       ["popData.amount"]: 1, //总价初始值为1
+    //       ["popData.totalPrice"]: (parseFloat(this.data.popData.noTaxPrice) * (1 + parseFloat(this.data.popData.taxRate) / 100)).toFixed(2)
+    //     }) //初始总价
+    //   })
+    // }
   },
+
+
+
   /**
    * 数量input
    */
   amountInput(e) {
-    if (e.detail.value === "") { //如果输入内容为空则为0
-      e.detail.value = "0"
-    }
-    this.setData({
-      ["popData.amount"]: parseInt(e.detail.value),
-      ["popData.totalPrice"]: (parseInt(e.detail.value) * parseFloat(this.data.popData.noTaxPrice) * (1 + parseFloat(this.data.popData.taxRate) / 100)).toFixed(2)
-    }) //数量和总价改变
-    /**
-     * 无税价input
-     */
+    var value = e.detail.value
+    console.log(value)
+  
+
+    // if (e.detail.value === "") { //如果输入内容为空则为0
+    //   e.detail.value = "0"
+    // }
+    // this.setData({
+    //   ["popData.amount"]: parseInt(e.detail.value),
+    //   ["popData.totalPrice"]: (parseInt(e.detail.value) * parseFloat(this.data.popData.noTaxPrice) * (1 + parseFloat(this.data.popData.taxRate) / 100)).toFixed(2)
+    // }) //数量和总价改变
+    // /**
+    //  * 无税价input
+    //  */
   },
+  amountBlur(e){
+    var value = e.detail.value
+    if (!value || parseInt(value) < parseInt(this.data.popDataCopy.goodsCount)) {
+      this.setData({
+        ['popData.goodsCount']: this.data.popDataCopy.goodsCount
+      })
+    }
+  },
+
   noTaxPriceInput(e) {
     if (e.detail.value === "") { //如果输入内容为空则为原始值
       e.detail.value = this.data.popDataCopy.noTaxPrice

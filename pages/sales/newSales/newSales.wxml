@@ -27,8 +27,6 @@
             <view class="cuIcon-right  cell-icon"></view>
           </view>
         </picker>
-
-
       </view>
 
       <view class="cell border-bt">
