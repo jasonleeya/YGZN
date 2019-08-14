@@ -32,12 +32,13 @@ create(store, {
 
   //将所选的供应商存到新增采购单的store中
   chooseSupplier(e) {
-    this.store.data.newPurchase.supplier = this.data.supplierList[e.currentTarget.dataset.index]
+    // this.store.data.newPurchase.supplier = this.data.supplierList[e.currentTarget.dataset.index]
 
     var pages = getCurrentPages()
     var prevPage = pages[pages.length - 2]
     prevPage.setData({
-      supplier: this.data.supplierList[e.currentTarget.dataset.index].customer.supplyName
+      supplier: this.data.supplierList[e.currentTarget.dataset.index].customer.supplyName,
+      supplyNo: this.data.supplierList[e.currentTarget.dataset.index].customer.supplyNo
     })
     wx.navigateBack()
   },

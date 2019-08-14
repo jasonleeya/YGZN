@@ -110,3 +110,10 @@
   height: 80rpx;
   line-height: 80rpx;
 }
+.empty{
+  position: fixed;
+  top:50%;
+  width: 100vw;
+  text-align: center;
+  transform: translateY(-50%)
+}

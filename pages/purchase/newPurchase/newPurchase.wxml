@@ -58,7 +58,7 @@
       </view>
       <view class="title add-goods">添加商品</view>
       <!-- 搜索 -->
-      <search link="/pages/common/addGoods/addGoods?store=newPurchase" />
+      <search link="/pages/common/addGoods/addGoods?store=newPurchase&custNo={{supplyNo}}" />
       <!-- 购物车 -->
       <cart goodsList="{{goodsList}}" totalPrice="{{totalPrice}}" bind:changeData="getChangedData" goodsListUrl="{{'/pages/common/addGoods/addGoods?store=newPurchase'}}" />
 

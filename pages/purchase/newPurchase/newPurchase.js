@@ -12,6 +12,8 @@ create(store, {
 
     orderId: "",
     supplier: "",
+    supplyNo:"",
+
     buyer: "",
     receiver: "",
     phoneNumber: "",

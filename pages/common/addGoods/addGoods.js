@@ -8,7 +8,8 @@ create(store, {
    * 页面的初始数据
    */
   data: {
-    ...store.data.addGoods,
+    // ...store.data.addGoods,
+    goodsList: [],
     isShowPop: false, //显示弹窗
     activeIndex: null, //当前选择项的index
     popData: {}, //弹出框的内容
@@ -16,12 +17,16 @@ create(store, {
     totalPrice: 0, //总价
     totalAmount: 0, //总量
     isLoad: false, //是否显示加载图标
-    store:""
+    store: "",
+    custNo: '',
+    searchType: "",
+    searchValue:""
   },
   onLoad(options) {
-   this.setData({
-     store: options.store
-   })
+    this.setData({
+      store: options.store,
+      custNo: options.custNo
+    })
     //验证登录
     app.checkLogin()
   },
@@ -32,6 +37,65 @@ create(store, {
       totalAmount: this.store.data[this.data.store].totalAmount
     }) //添加store里的总价和总额
   },
+
+  searchTypeChange(e) {
+    this.setData({
+      searchType: e.detail.name
+    })
+    this.search()
+  },
+
+  inputValue(e) {
+    var inputValue = e.detail
+    if (e.detail === "") {
+      this.setData({
+        goodsList:[]
+      })
+      return
+    }
+    this.setData({
+      searchValue: e.detail
+    })
+    this.search()
+
+  },
+  search() {
+    switch (this.data.searchType) {
+      case "":
+      case "我的仓库":
+        app.http("searchStockProduct", {
+          wareKey: "",
+          pageNo: "1",
+          pageSize: "10",
+          custNo: "",
+          searchKey: this.data.searchValue,
+        }).then(data => {
+          this.setData({
+            goodsList: data.list
+          })
+        })
+
+        break
+      case "供方仓库":
+        app.http("searchStockProduct", {
+          wareKey: "",
+          pageNo: "1",
+          pageSize: "10",
+          custNo: this.data.custNo,
+          searchKey: this.data.searchValue,
+        }).then(data => {
+          this.setData({
+            goodsList: data.list
+          })
+        })
+
+        break
+      case "全局搜索":
+
+        break
+    }
+  },
+
   // 显示弹出框
   showPop(e) {
     var index = e.target.dataset.index

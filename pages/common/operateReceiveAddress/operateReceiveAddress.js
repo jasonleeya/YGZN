@@ -19,6 +19,9 @@ create(store, {
    * 生命周期函数--监听页面加载
    */
   onLoad: function(options) {
+    this.setData({
+      operateType:options.operateType
+    })
     // this.setData({
     //   store:options.store.split(".")
     // })
@@ -67,30 +70,65 @@ create(store, {
       app.showToast("请填写详细地址")
       return
     }
-    console.log(value)
+    console.log(this.data.operateType)
 
-    app.http("updateUserAddress", {
-      tableKey: this.data.tableKey,
-      consignee: value.consignee,
-      telephone: value.telephone,
-      address: value.address,
-      province: value.region[0],
-      city: value.region[1],
-      area: value.region[2],
-      dftStatus: value.dftStatus ? "1" : "0"
-    }).then(() => {
-      if (value.dftStatus === true) {
-        app.http("updateUserDftAddress", {
-          tableKey: this.data.tableKey,
-          custNo: this.data.custNo
-        }).then(() => {
-          wx.navigateBack()
-        })
-      } else {
-        wx.navigateBack()
-      }
+ if(this.data.operateType==="edit"){
+   app.http("updateUserAddress", {
+     tableKey: this.data.tableKey,
+     consignee: value.consignee,
+     telephone: value.telephone,
+     address: value.address,
+     province: value.region[0],
+     city: value.region[1],
+     area: value.region[2],
+     dftStatus: value.dftStatus ? "1" : "0"
+   }).then(() => {
+     if (value.dftStatus === true) {
+       app.http("updateUserDftAddress", {
+         tableKey: this.data.tableKey,
+         custNo: this.data.custNo
+       }).then(() => {
+         wx.navigateBack()
+       })
+     } else {
+       wx.navigateBack()
+     }
 
-    })
+   })
+ }else if(this.data.operateType==="add"){
+   app.http("updateUserAddress", {
+     tableKey: this.data.tableKey,
+     consignee: value.consignee,
+     telephone: value.telephone,
+     address: value.address,
+     province: value.region[0],
+     city: value.region[1],
+     area: value.region[2],
+     dftStatus: value.dftStatus ? "1" : "0"
+   }).then(() => {
+     if (value.dftStatus === true) {
+       var tableKey=""
+       var custNo=""
+       app.http("getDtfAddress").then(data=>{
+         console.log(data.list[data.list.length-1])
+         tableKey = data.list[data.list.length - 1].tableKey
+         custNo = data.list[data.list.length - 1].custNo
+
+
+         app.http("updateUserDftAddress", {
+           tableKey:tableKey,
+           custNo:custNo
+         }).then(() => {
+           wx.navigateBack()
+         })
+       })
+
+     } else {
+       wx.navigateBack()
+     }
+
+   })
+ }
 
   }
 

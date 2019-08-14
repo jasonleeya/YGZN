@@ -1,12 +1,12 @@
 <scroll-view scroll-y>
   <view class="select-receive-address">
-    <view class="adress" wx:for="{{list}}" wx:key bindtap="choose" data-index="{{index}}">
+    <view class="adress" wx:for="{{list}}" wx:key catchtap="choose" data-index="{{index}}">
       <view class="address-header solid-bottom">
         <view class="header-title">
           <text class="title-icon theme-color cuIcon-mail"></text>
           <text class="title-text">收货信息<text class="theme-color" wx:if="{{item.dftStatus==='1'}}">(默认)</text></text>
         </view>
-        <text class="edit text-green" bindtap="edit" data-index="{{index}}"
+        <text class="edit text-green" catchtap="edit" data-index="{{index}}"
         >编辑</text>
       </view>
         <view class="address-info">
