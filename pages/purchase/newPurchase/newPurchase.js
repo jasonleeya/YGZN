@@ -41,8 +41,8 @@ create(store, {
 
 
     this.setData({
-      goodsList: this.store.data.newPurchase.cartList,
-      totalPrice: this.store.data.newPurchase.totalPrice,
+      goodsList: app.globalData.purchaseCartList,
+      totalPrice: app.globalData.purchaseTotalPrice,
     })
   },
   toSearch() {
@@ -117,13 +117,15 @@ create(store, {
   },
 
   //监听购物车组件信息的改变
-  getChangedData(e) {
-    var store = this.store.data.newPurchase
-    var data = e.detail
-    store.cartList = data.goodsList,
-      store.totalPrice = data.totalPrice,
-      store.totalAmount = data.totalAmount
+  getChangeAmount(e) {
+    app.globalData.purchaseCartList[e.detail.index].goodsCount=e.detail.amount
+    console.log(app.globalData.purchaseCartList)
   },
+  deleteGoods(e){
+    app.globalData.purchaseCartList.splice(e.detail.index, 1)
+    console.log(app.globalData.purchaseCartList,e.detail.index)
+  },
+
   dateChange(e) {
     this.setData({
       ["receiveDate"]: e.detail.value

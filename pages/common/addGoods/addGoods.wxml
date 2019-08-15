@@ -13,14 +13,16 @@
       </view>
       <view class="add-goods cuIcon-add shadow bg-blue" bindtap='showPop' data-index="{{index}}"></view>
     </view>
-      <view class="cu-load  loading {{isLoad?'loading':'over'}}" wx:if="{{isLoad}}"></view>
+      <view class="cu-load  loading {{loadMore?'loading':'over'}}" wx:if="{{loadMore}}"></view>
   </view>
 </scroll-view>
 <view class="confirm-order solid-top">
   <text>合计金额：<text class="total-money text-red">￥{{totalPrice}}</text></text>
   <view class="order-confirm bg-gradual-orange" bindtap="confirmOrder">确认（{{totalAmount}}）</view>
 </view>
-
+<view class='cu-load load-modal' wx:if="{{isLoad}}"> 
+  <view class='gray-text'>加载中...</view>
+</view>
 
 <!-- 弹出框 -->
 <view class="pop-up-shadow" wx:if="{{isShowPop}}">
@@ -37,7 +39,7 @@
     </view>
     <view class="input-wrapper bg-gray solid">
       <view class="input-name">税率:</view>
-      <input type="digit" bindfocus='taxRateFocus'  bindblur='taxRateBlur'  value='{{popData.taxRate}}%'></input>
+      <input type="digit" bindfocus='taxRateFocus'  bindblur='taxRateBlur' bindinput="textRateInput"  value='{{popData.taxRate}}'></input>
     </view>
     <view class="input-wrapper bg-gray solid">
       <view class="input-name">含税价:</view>

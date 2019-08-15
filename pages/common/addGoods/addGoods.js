@@ -16,12 +16,14 @@ create(store, {
     popDataCopy: {}, //储存选择项原始值
     totalPrice: 0, //总价
     totalAmount: 0, //总量
-    isLoad: false, //是否显示加载图标
+    loadMore: false, //是否显示加载图标
     store: "",
     supplyNo: '',
     wareId: "",
     searchType: "",
-    searchValue: ""
+    searchValue: "",
+    isLoad: false,
+    pageNo: 2,
   },
   onLoad(options) {
     this.setData({
@@ -34,10 +36,15 @@ create(store, {
   },
   //进入页面初始化数据
   onShow() {
-    this.setData({
-      totalPrice: this.store.data[this.data.store].totalPrice.toFixed(2),
-      totalAmount: this.store.data[this.data.store].totalAmount
-    }) //添加store里的总价和总额
+    var cartList=app.globalData.purchaseCartList
+    var totalAmount=0
+    var totalPrice=0
+    cartList.forEach(item => {
+      totalAmount = parseInt(totalAmount) + parseInt(item.goodsCount)
+      totalPrice = parseFloat(totalPrice) + parseFloat(item.sttAmount)
+    })
+    
+
   },
 
   searchTypeChange(e) {
@@ -49,6 +56,10 @@ create(store, {
 
   inputValue(e) {
     var inputValue = e.detail
+    this.setData({
+      pageNo: 1,
+      loadMore: false
+    })
     if (e.detail === "") {
       this.setData({
         goodsList: []
@@ -61,27 +72,57 @@ create(store, {
     this.search()
 
   },
+  load(isLoad = true) {
+    if (isLoad) {
+      this.setData({
+        isLoad: true
+      })
+    } else {
+      this.setData({
+        isLoad: false
+      })
+    }
+  },
+
   search() {
+    if (this.data.pageNo === 1) {
+      this.load()
+    }
     switch (this.data.searchType) {
       case "":
       case "我的仓库":
         app.http("searchStockProduct", {
-          wareKey: "",
-          pageNo: "1",
-          pageSize: "10",
-          custNo: "",
-          searchKey: this.data.searchValue,
-        }).then(data => {
-          this.setData({
-            goodsList: data.list
+            wareKey: "",
+            pageNo: this.data.pageNo,
+            pageSize: "10",
+            custNo: "",
+            searchKey: this.data.searchValue,
+          }).then(data => {
+            if (this.data.pageNo === 1) {
+              this.setData({
+                goodsList: data.list
+              })
+              this.load(false)
+            } else {
+              this.setData({
+                goodsList: this.data.goodsList.concat(data.list),
+                loadMore: false,
+              })
+            }
           })
-        })
+          .catch(err => {
+            this.load(false)
+            this.setData({
+              loadMore: false
+            })
+            app.showToast(err)
+          })
 
         break
       case "供方仓库":
         app.http("searchStockProduct", {
           wareKey: "",
-          pageNo: "1",
+          pageNo: this.data.pageNo,
           pageSize: "10",
           custNo: this.data.custNo,
           searchKey: this.data.searchValue,
@@ -89,6 +130,10 @@ create(store, {
           this.setData({
             goodsList: data.list
           })
+          this.load(false)
+        }).catch(err => {
+          this.load(false)
+          app.showToast(err)
         })
 
         break
@@ -97,11 +142,24 @@ create(store, {
         break
     }
   },
-
+  //监听滑动到底部
+  scrollToBottom() {
+    if (this.data.loadMore) {
+      return
+    }
+    this.setData({
+      loadMore: true,
+      pageNo: this.data.pageNo + 1
+    })
+    this.search()
+  },
   // 显示弹出框
   showPop(e) {
     var index = e.target.dataset.index
-    console.log(this.data.goodsList[index])
+    this.setData({
+      activeIndex: index
+    })
+    this.load()
 
     app.http("purchaseDiscount", {
       supplyNo: this.data.supplyNo,
@@ -110,148 +168,142 @@ create(store, {
       this.setData({
         isShowPop: true,
         ['popData.goodsCount']: this.data.goodsList[index].minCount,
-        ["popData.NTPSingle"]: data.infoBody.price,
-        ["popData.taxRate"]: 13,
-        ["popData.discountPrice"]: parseFloat(data.infoBody.price) * 1.3,
-        ["popData.sttAmount"]: parseFloat(data.infoBody.price) * 1.3 * parseInt(this.data.goodsList[index].minCount)
+        ["popData.NTPSingle"]: parseFloat(data.infoBody.price).toFixed(2),
+        ["popData.taxRate"]: '13.00%',
+        ["popData.discountPrice"]: (parseFloat(data.infoBody.price) * 1.13).toFixed(2),
+        ["popData.sttAmount"]: (parseFloat(data.infoBody.price) * 1.13 * parseInt(this.data.goodsList[index].minCount)).toFixed(2)
       })
 
       this.setData({
         popDataCopy: JSON.parse(JSON.stringify(this.data.popData))
       })
-
-
+      this.load(false)
+    }).catch(err => {
+      this.load(false)
+      app.showToast(err)
     })
 
-
-
-    // app.http("etchPurchaseProductInfo",{
-    //   supplyNo: this.data.supplyNo,
-    //   wareId: this.data.wareId,
-    //   productId: this.data.goodsList[index]. productUuid
-    // },true)
-
-    // var index = e.target.dataset.index
-    // console.log(this.data.goodsList[index]) 
-
-
-    // var cartList = this.store.data[this.data.store].cartList
-    // var flag = false;
-    // this.setData({
-    //   isShowPop: true,
-    //   activeIndex: index,
-    // })
-
-    // cartList.forEach(item => {
-    //   if (item.id === this.data.goodsList[index].id) { //判断cartList中是否有此商品
-    //     flag = true
-    //     this.setData({
-    //       popData: JSON.parse(JSON.stringify(item)), //深拷贝cartList中已有项到popData
-    //       popDataCopy: JSON.parse(JSON.stringify(item)), //保存初始数据
-    //     }, function() {
-    //       //回调
-    //       var totalPrice = parseInt(item.amount) * (parseFloat(this.data.popData.noTaxPrice) * (1 + parseFloat(this.data.popData.taxRate) / 100))
-    //       // 总价=数量x无税价(1+税率)
-    //       totalPrice = totalPrice.toFixed(2)
-    //       this.setData({
-    //         ["popData.amount"]: parseInt(item.amount), //cartList中该商品数量
-    //         ["popData.totalPrice"]: totalPrice
-    //       })
-    //     })
-    //   }
-    // })
-    // if (!flag) {
-    //   this.setData({
-    //     popData: JSON.parse(JSON.stringify(this.data.goodsList[index])), //深拷贝所选项内容到popData
-    //     popDataCopy: JSON.parse(JSON.stringify(this.data.goodsList[index])),
-    //   }, function() {
-    //     //回调
-    //     this.setData({
-    //       ["popData.amount"]: 1, //总价初始值为1
-    //       ["popData.totalPrice"]: (parseFloat(this.data.popData.noTaxPrice) * (1 + parseFloat(this.data.popData.taxRate) / 100)).toFixed(2)
-    //     }) //初始总价
-    //   })
-    // }
   },
 
+  compute(type) {
+    var goodsCount = isNaN(this.data.popData.goodsCount) ? "0" : this.data.popData.goodsCount
+    var discountPrice = isNaN(this.data.popData.discountPrice) ? "0" : this.data.popData.discountPrice
+    var NTPSingle = isNaN(this.data.popData.NTPSingle) ? "0" : this.data.popData.NTPSingle
+    var taxRate = isNaN(this.data.popData.taxRate) ? "13" : this.data.popData.taxRate
 
+    switch (type) {
+      case "goodsCount":
+        break
+      case "NTPSingle":
+        return (parseFloat(discountPrice) / (1 + taxRate / 100)).toFixed(2)
+        break
+      case "taxRate":
+        break
+      case "discountPrice":
+        return (NTPSingle * (1 + (taxRate / 100))).toFixed(2)
+        break
+      case "sttAmount":
 
-  /**
-   * 数量input
-   */
+        return (parseInt(goodsCount) * parseFloat(discountPrice)).toFixed(2)
+        break
+    }
+  },
   amountInput(e) {
     var value = e.detail.value
-    console.log(value)
-  
 
-    // if (e.detail.value === "") { //如果输入内容为空则为0
-    //   e.detail.value = "0"
-    // }
-    // this.setData({
-    //   ["popData.amount"]: parseInt(e.detail.value),
-    //   ["popData.totalPrice"]: (parseInt(e.detail.value) * parseFloat(this.data.popData.noTaxPrice) * (1 + parseFloat(this.data.popData.taxRate) / 100)).toFixed(2)
-    // }) //数量和总价改变
-    // /**
-    //  * 无税价input
-    //  */
+    this.setData({
+      ["popData.goodsCount"]: parseInt(e.detail.value),
+    })
+    this.setData({
+      ["popData.sttAmount"]: this.compute("sttAmount")
+    })
+
   },
-  amountBlur(e){
+  amountBlur(e) {
     var value = e.detail.value
-    if (!value || parseInt(value) < parseInt(this.data.popDataCopy.goodsCount)) {
+    if (!value || parseInt(value) < parseInt(this.data.popDataCopy.minCount)) {
       this.setData({
-        ['popData.goodsCount']: this.data.popDataCopy.goodsCount
+        ['popData.goodsCount']: this.data.popDataCopy.minCount
       })
+      this.setData({
+        ["popData.sttAmount"]: this.compute("sttAmount")
+      })
+
     }
   },
 
   noTaxPriceInput(e) {
-    if (e.detail.value === "") { //如果输入内容为空则为原始值
-      e.detail.value = this.data.popDataCopy.noTaxPrice
-    }
+
     this.setData({
-      ["popData.noTaxPrice"]: e.detail.value,
-      ["popData.containTaxPrice"]: (((parseFloat(this.data.popData.taxRate) / 100) + 1) * parseFloat(e.detail.value)).toFixed(2),
-      ["popData.totalPrice"]: (parseInt(this.data.popData.amount) * parseFloat(e.detail.value) * (1 + parseFloat(this.data.popData.taxRate) / 100)).toFixed(2)
+      ["popData.NTPSingle"]: parseFloat(e.detail.value),
     }) //含税价和总价跟着改变
+    this.setData({
+      ["popData.discountPrice"]: this.compute("discountPrice"),
+    })
+    this.setData({
+      ["popData.sttAmount"]: this.compute("sttAmount")
+    })
   },
   /**
    * 无税价input失去焦点保留两位小数
    */
   noTaxPriceBlur(e) {
+    var value = e.detail.value
+    value = parseFloat(value).toFixed(2)
+
+    if (isNaN(value)) {
+      this.setData({
+        ["popData.NTPSingle"]: "0",
+      })
+    } else {
+      this.setData({
+        ["popData.NTPSingle"]: value,
+      })
+    }
     this.setData({
-      ["popData.noTaxPrice"]: parseFloat(e.detail.value).toFixed(2),
+      ["popData.discountPrice"]: this.compute("discountPrice"),
     })
+    this.setData({
+      ["popData.sttAmount"]: this.compute("sttAmount")
+    })
+
+
   },
   /**
    * 税率input失去焦点
    */
-
+  textRateInput(e) {
+    var value = e.detail.value
+    parseFloat(value)
+    if (value < 0) {
+      value = 0
+    }
+    if (value > 100) {
+      value = 100
+    }
+    this.setData({
+      ["popData.taxRate"]: value
+    })
+    this.setData({
+      ["popData.discountPrice"]: this.compute("discountPrice"),
+    })
+    this.setData({
+      ["popData.sttAmount"]: this.compute("sttAmount")
+    })
+  },
   taxRateBlur(e) {
     var value = e.detail.value
-    if (value === '') { //输入为空返回原始值
+    value = parseFloat(value).toFixed(2)
+    if (isNaN(value)) {
       this.setData({
         ["popData.taxRate"]: this.data.popDataCopy.taxRate
       })
-    }
-    if (parseFloat(value) <= 1 && parseFloat(value) >= 0) { //0~1的小数转换为百分数
+    } else {
       this.setData({
-        ["popData.taxRate"]: (parseFloat(value) * 100).toFixed(2),
+        ["popData.taxRate"]: value + "%"
       })
     }
-    if (parseFloat(value) > 1 && parseFloat(value) < 100) { //1-100直接加%
-      this.setData({
-        ["popData.taxRate"]: parseFloat(value).toFixed(2),
-      })
-    }
-    if (parseFloat(value) >= 100) { //大于100返回100
-      this.setData({
-        ["popData.taxRate"]: '100',
-      })
-    }
-    this.setData({
-      ["popData.containTaxPrice"]: (((parseFloat(this.data.popData.taxRate) / 100) + 1) * parseFloat(this.data.popData.noTaxPrice)).toFixed(2),
-      ["popData.totalPrice"]: (parseInt(this.data.popData.amount) * parseFloat(this.data.popData.noTaxPrice) * (1 + parseFloat(this.data.popData.taxRate) / 100)).toFixed(2)
-    }) //含税价总价跟着改变
+
   },
   /**
    * 税率input获得焦点时去掉%保留两位小数
@@ -265,20 +317,37 @@ create(store, {
    * 含税价input
    */
   containTaxPriceInput(e) {
-    if (e.detail.value === "") { //如果输入内容为空则为原始值
-      e.detail.value = this.data.popDataCopy.containTaxPrice
-    }
-    var value = e.detail.value
     this.setData({
-      ["popData.containTaxPrice"]: e.detail.value,
-      ["popData.noTaxPrice"]: (parseFloat(value) / ((parseFloat(this.data.popData.taxRate) / 100) + 1)).toFixed(2),
-      ["popData.totalPrice"]: (parseInt(this.data.popData.amount) * parseFloat(value)).toFixed(2)
-    }) //不含税价总价跟着改变
+      ["popData.discountPrice"]: parseFloat(e.detail.value),
+    })
+    this.setData({
+      ["popData.NTPSingle"]: this.compute("NTPSingle"),
+    }) //含税价和总价跟着改变
+    this.setData({
+      ["popData.sttAmount"]: this.compute("sttAmount")
+    })
+
   },
   containTaxPriceBlur(e) {
+    var value = e.detail.value
+    value = parseFloat(value).toFixed(2)
+
+    if (isNaN(value)) {
+      this.setData({
+        ["popData.discountPrice"]: "0",
+      })
+    } else {
+      this.setData({
+        ["popData.discountPrice"]: value,
+      })
+    }
     this.setData({
-      ["popData.containTaxPrice"]: parseFloat(e.detail.value).toFixed(2),
+      ["popData.NTPSingle"]: this.compute("NTPSingle"),
     })
+    this.setData({
+      ["popData.sttAmount"]: this.compute("sttAmount")
+    })
+
   },
   totalPriceInput(e) {
 
@@ -291,53 +360,74 @@ create(store, {
       isShowPop: false
     })
   },
+
   addConfirm() {
-    var flag = false
+    var goods = this.data.goodsList[this.data.activeIndex]
+    var popData = this.data.popData
+    var value = () => {
+      return {
+        brandNo: goods.brandCode,
+        goodsUnit: goods.productUnit,
+        goodsNo: goods.productUuid,
+        goodsName: goods.productName + "~" + goods.parameter,
+        facePrice: this.data.popDataCopy.NTPSingle,
+        minNums: this.data.popDataCopy.goodsCount,
+        goodsDiscount: (parseFloat(popData.NTPSingle) / parseFloat(this.data.popDataCopy.NTPSingle)).toFixed(2),
+        goodsBrand: goods.brandName,
+        NTP: parseFloat(popData.NTPSingle) * parseInt(popData.goodsCount),
+        taxRate: parseFloat(popData.taxRate),
+        billingAmount: parseFloat(this.data.popDataCopy.NTPSingle) * popData.goodsCount,
+        sttAmount: (parseFloat(popData.discountPrice) * popData.goodsCount).toFixed(2),
+        goodsCount: popData.goodsCount,
+        remark: "",
+        sourceOrder: "",
+        tableKey: "",
+        pirctureWay: "",
+        NTPSingle: popData.NTPSingle,
+        discountPrice: popData.discountPrice,
+        beforeSendNumsPurchase: "0",
+        sortID: "",
+        
+        brandCode: goods.brandCode,
+        name: goods.brandName+"/"+goods.productName
+      }
+    }
     var totalAmount = 0
     var totalPrice = 0
-    var cartList = this.store.data[this.data.store].cartList
-    cartList.forEach((item, index) => {
-      if (item.id === this.data.popData.id) { //如果id相同则合并
-        flag = true
-        if (this.data.popData.amount === 0) { // 数量改为0时删除项
-          cartList.splice(index, 1)
-        } else {
-          cartList[index] = this.data.popData
-        }
+    var cartList = app.globalData.purchaseCartList
+    var index = null
+    var flag = cartList.some(item => {
+      if (item.goodsNo === value().goodsNo) {
+        index = cartList.indexOf(item)
+        return true
       }
+
     })
     if (!flag) {
-      if (this.data.popData.amount !== 0) {
-        cartList.push(this.data.popData) //如果id不相同则添加
-      }
-    } //计算总量总价存到store中
+      cartList.push(value())
+    } else {
+      this.setData({
+        ["popData.goodsCount"]: parseInt(this.data.popData.goodsCount) + parseInt(cartList[index].goodsCount)
+      })
+      app.globalData.purchaseCartList[index] = value()
+    }
+
     cartList.forEach(item => {
-      totalAmount += item.amount
-      totalPrice += item.amount * item.containTaxPrice
+      totalAmount = parseInt(totalAmount) + parseInt(item.goodsCount)
+      totalPrice = parseFloat(totalPrice) + parseFloat(item.sttAmount)
     })
-    totalPrice = totalPrice.toFixed(2)
-    this.store.data[this.data.store].totalPrice = totalPrice
-    this.store.data[this.data.store].totalAmount = totalAmount
     this.setData({
-      totalPrice: totalPrice,
+      isShowPop: false,
       totalAmount: totalAmount,
-      isShowPop: false
+      totalPrice: totalPrice
     })
-    this.update()
+    app.globalData.purchaseTotalPrice = totalPrice
+    app.globalData.purchaseTotalAmount = totalAmount
+    console.log(cartList)
   },
   confirmOrder() {
 
     wx.navigateBack()
   },
-  //监听滑动到底部
-  scrollToBottom() {
-    this.setData({
-      isLoad: true
-    })
-    setTimeout(() => {
-      this.setData({
-        isLoad: false
-      })
-    }, 2000)
-  }
+
 })

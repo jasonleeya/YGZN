@@ -6,10 +6,14 @@ App({
     userInfo: null,
     interval: null,
     homeMessage: null,
-    companies: null
+    companies: null,
+    //purchase
+    purchaseCartList:[],
+    purchaseTotalPrice:0,
+    purchaseTotalAmount:0,
   },
 
-  onLaunch: function() {
+  onShow: function() {
     this.iniData()
     let that = this
     this.globalData.interval = setInterval(function() {
