@@ -1,4 +1,5 @@
 // import create from '../../utils/create'
+var app = getApp()
 Component({
   /**
    * 组件的属性列表
@@ -40,6 +41,10 @@ Component({
       type: String,
       value: ""
     },
+    minNumKey: {
+      type: String,
+      value: ""
+    }
   },
   options: {
     addGlobalClass: true,
@@ -70,11 +75,9 @@ Component({
       })
       this.triggerEvent("changeAmount", {
         amount: this.data.goodsList[index][this.data.amountKey],
-        index:index
+        index: index
       })
-      this.setData({
-        totalPrice: (parseFloat(this.data.totalPrice) + parseFloat(this.data.goodsList[index][this.data.priceKey])).toFixed(2)
-      })
+      this.computeTotalPriceTotalAmount()
 
     },
 
@@ -82,50 +85,79 @@ Component({
     minusGoods(e) {
       var id = e.target.dataset.id
       var index = e.target.dataset.index
-      if (this.data.goodsList[index][this.data.amountKey] > 0) {
-        this.setData({
-          ["goodsList[" + index + "]." + this.data.amountKey]: parseInt(this.data.goodsList[index][this.data.amountKey]) - 1
-        })
-        this.triggerEvent("changeAmount", {
-          amount: this.data.goodsList[index][this.data.amountKey],
-          index: index
-        })
-        this.setData({
-          totalPrice: (parseFloat(this.data.totalPrice) - parseFloat(this.data.goodsList[index][this.data.priceKey])).toFixed(2)
-        })
+      var min = parseInt(this.data.goodsList[index][this.data.minNumKey])
+
+      if (!isNaN(min)) {
+        if (this.data.goodsList[index][this.data.amountKey] > min) {
+          this.setData({
+            ["goodsList[" + index + "]." + this.data.amountKey]: parseInt(this.data.goodsList[index][this.data.amountKey]) - 1
+          })
+          this.triggerEvent("changeAmount", {
+            amount: this.data.goodsList[index][this.data.amountKey],
+            index: index
+          })
+          this.computeTotalPriceTotalAmount()
+
+        } else {
+          app.showToast("不能小于最小采购量")
+        }
+
+      } else {
+
+        if (this.data.goodsList[index][this.data.amountKey] > 0) {
+          this.setData({
+            ["goodsList[" + index + "]." + this.data.amountKey]: parseInt(this.data.goodsList[index][this.data.amountKey]) - 1
+          })
+          this.triggerEvent("changeAmount", {
+            amount: this.data.goodsList[index][this.data.amountKey],
+            index: index
+          })
+          this.computeTotalPriceTotalAmount()
+
+        }
+
+        if (this.data.goodsList[index][this.data.amountKey] === 0) { //商品数量减少到0删除项
+          var newList = this.data.goodsList
+          newList.splice(index, 1)
+          this.setData({
+            goodsList: newList
+          })
+          this.triggerEvent("deleteGoods", {
+            index: index
+          })
+        }
       }
 
-      if (this.data.goodsList[index][this.data.amountKey] === 0) { //商品数量减少到0删除项
-        var newList = this.data.goodsList
-        newList.splice(index, 1)
-        this.setData({
-          goodsList: newList
-        })
-        this.triggerEvent("deleteGoods", {
-          index: index
-        })
-      }
+
+
+
+
+
+
+
     },
     /**
      * 重新计算总价和总量并保存到store中
      */
     computeTotalPriceTotalAmount() {
-      // var totalPrice = 0
-      // var totalAmount = 0
-      // this.data.goodsList.forEach(item => {
-      //   totalPrice += parseFloat(item.amount * item.containTaxPrice)
-      //   totalAmount += parseInt(item.amount)
-      // })
-      // totalPrice = parseFloat(totalPrice.toFixed(2))
-      // this.setData({
-      //   totalPrice: totalPrice
-      // })
-      // //向父组件传递改变的数据
-      // this.triggerEvent("changeData", {
-      //   goodsList: this.data.goodsList,
-      //   totalPrice: this.data.totalPrice,
-      //   totalAmount: totalAmount
-      // })
+
+      var totalPrice = 0
+      var totalAmount = 0
+      this.data.goodsList.forEach(item => {
+        if (isNaN(parseInt(item[this.data.amountKey]))) {
+          item[this.data.amountKey] = 0
+        }
+        totalPrice = (parseFloat(totalPrice) + parseFloat(item[this.data.priceKey]) * parseInt(item[this.data.amountKey])).toFixed(2)
+        totalAmount = parseInt(totalAmount) + parseInt(item[this.data.amountKey])
+      })
+      this.setData({
+        totalPrice: totalPrice
+      })
+      //向父组件传递改变的数据
+      this.triggerEvent("changeTotalPriceAndAmount", {
+        totalPrice: totalPrice,
+        totalAmount: totalAmount
+      })
     },
     // 左滑删除商品
     slideToDelete(e) {
@@ -135,14 +167,23 @@ Component({
       this.setData({
         goodsList: newList
       })
-
+      this.triggerEvent("deleteGoods", {
+        index: deleteIndex
+      })
       this.computeTotalPriceTotalAmount()
     },
     amountInput(e) {
       var value = parseInt(e.detail.value)
       var index = e.target.dataset.index
+
+
       this.setData({
-        ["goodsList[" + index + "].amount"]: value
+        ["goodsList[" + index + "]." + this.data.amountKey + ""]: value
+      })
+
+      this.triggerEvent("changeAmount", {
+        amount: this.data.goodsList[index][this.data.amountKey],
+        index: index
       })
       this.computeTotalPriceTotalAmount()
 
@@ -151,15 +192,25 @@ Component({
       var value = e.detail.value
       var index = e.target.dataset.index
       var newList = this.data.goodsList
-
+      var min = parseInt(this.data.goodsList[index][this.data.minNumKey])
       if (value === "") {
-        newList.splice(index, 1)
-        this.setData({
-          goodsList: newList
-        })
-
-        this.computeTotalPriceTotalAmount()
+        value = 0
+        e.detail.value = "0"
       }
+      if (!isNaN(min)) {
+        if (parseInt(value) < min) {
+          value = min
+          e.detail.value = min
+        }
+      }
+      this.setData({
+        ["goodsList[" + index + "]." + this.data.amountKey + ""]: value
+      })
+      this.triggerEvent("changeAmount", {
+        amount: this.data.goodsList[index][this.data.amountKey],
+        index: index
+      })
+      this.computeTotalPriceTotalAmount()
     },
 
     // ListTouch触摸开始

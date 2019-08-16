@@ -96,7 +96,7 @@ Page({
       username: this.data.phoneNumber,
       password: this.data.password,
       loginType: 1,
-    }, true).then(data => {
+    }).then(data => {
       if (this.data.isRemenberPassword) {}
       wx.setStorageSync("token", data.info.split(";")[0])
       app.globalData.token = data.info.split(";")[0]

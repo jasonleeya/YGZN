@@ -1,5 +1,6 @@
 import store from '../../../store'
 import create from '../../../utils/create'
+var app = getApp()
 create(store, {
 
   /**
@@ -38,7 +39,7 @@ create(store, {
     personList: {
       curPage: 1,
       totalPage: 0,
-      isLoad:false,
+      isLoad: false,
       list: [{
         id: 0,
         name: "业务员1"
@@ -108,45 +109,79 @@ create(store, {
       }]
     },
     //订单列表
-    orderList: [{
-      id: '201907171712190071',
-      status: 1,  
-      supplier: '成都成量集团有限个公司',
-      orderType: '线上订单/信用订单',
-      buyer: '吴建秋',
-      money: '6630.08'
-    }, {
-      id: '201907171712190071',
-      status: 2,
-      supplier: '成都成量集团有限个公司',
-      orderType: '线上订单/信用订单',
-      buyer: '吴建秋',
-      money: '6630.08'
-    }, {
-      id: '201907171712190071',
-      status: 3,
-      supplier: '成都成量集团有限个公司',
-      orderType: '线上订单/信用订单',
-      buyer: '吴建秋',
-      money: '6630.08'
-    }, {
-      id: '201907171712190071',
-      status: 1,
-      supplier: '成都成量集团有限个公司',
-      orderType: '线上订单/信用订单',
-      buyer: '吴建秋',
-      money: '6630.08'
-    }, {
-      id: '201907171712190071',
-      status: 2,
-      supplier: '成都成量集团有限个公司',
-      orderType: '线上订单/信用订单',
-      buyer: '吴建秋',
-      money: '6630.08'
-    }, ]
-
+    orderList: [],
+    orderStatus: null
   },
-  onLoad() {
+  onLoad(options) {
+    this.setData({
+      orderStatus: options.orderStatus
+    })
+    var parmas = {
+      orderStatus: options.orderStatus === "back" ? "" : options.orderStatus,
+      currentPage: 1,
+      pageSize: 10,
+      simpleSeek: "",
+      beginTime: "",
+      endTime: "",
+      warehouse: "",
+    }
+    var query = ""
+    if (options.orderStatus === "back") {
+      query = "queryPurchaseBackUpp"
+    } else {
+      query = "queryPurchaseUpp"
+    }
+
+    app.http(query, parmas).then(data => {
+      data.list.forEach(item => {
+        switch (options.orderStatus) {
+          case "wait":
+            item.status = "待审核"
+            break
+          case "090001":
+            item.status = "待确认"
+            break
+          case "090003":
+            item.status = "待付款"
+            break
+          case "090002":
+            item.status = "待发货"
+            break
+          case "090004":
+            item.status = "待入库"
+            break
+          case "090005":
+            item.status = "已完成"
+            break
+          case "090008":
+            item.status = "已取消"
+            break
+          case "":
+            item.status = "未完成"
+            break 
+             case "back":
+            item.status = "退货"
+            break
+        }
+        var orderType = ''
+        orderType += item.oando === "up" ? "线上/" : item.oando === "down" ? "线下/" : ""
+        orderType += item.hdGoods ? "代发货/" : ""
+        orderType += String.call(this, item.remark).indexOf("已提前入库") > -1 ? "已拆分/" : ""
+        orderType += parseInt(item.orderStatus) > parseInt("090002") ? item.isPaid ? "已支付/" : "信用/" : ""
+        orderType += item.typeOfGoods === "002" ? "有退货/" : ""
+        orderType += item.showPayBtn === "yes" && item.orderStatus === "090003" ? "已汇款/" : ""
+        item.orderType = orderType.slice(0, orderType.length - 1)
+      })
+      this.setData({
+        orderList: data.list
+      })
+    })
+
+
+
+
+
+
     //分页逻辑
     var listCopy = JSON.parse(JSON.stringify(this.data.personList.list))
     this.data.personList.personList = Math.ceil(listCopy.length / 10)
@@ -190,19 +225,19 @@ create(store, {
         {
           this.setData({
             //当选中非自定义时间段时日期选择期隐藏自定义按钮显示自定义
-            ["customTimeRange.isShow"]: false, 
-            ["sortMethodsList[0].options[4]"]: "自定义" 
+            ["customTimeRange.isShow"]: false,
+            ["sortMethodsList[0].options[4]"]: "自定义"
           })
         }
         break;
       case 4:
-      //如果选择的起始时间和结束时间一致则只显示所选的那天,不一致则显示时间段
+        //如果选择的起始时间和结束时间一致则只显示所选的那天,不一致则显示时间段
         if (new Date(this.data.customTimeRange.startDate).getTime() === new Date(this.data.customTimeRange.endDate).getTime()) {
           this.setData({
             ["customTimeRange.isShow"]: true,
-            ["sortMethodsList[0].options[4]"]:this.data.customTimeRange.endDate
+            ["sortMethodsList[0].options[4]"]: this.data.customTimeRange.endDate
           })
-        }else{
+        } else {
           this.setData({
             ["customTimeRange.isShow"]: true,
             ["sortMethodsList[0].options[4]"]: this.data.customTimeRange.startDate + "至" + this.data.customTimeRange.endDate
@@ -212,21 +247,21 @@ create(store, {
   },
   startDateChange(e) {
     //起始时间不能大于结束时间
-    if (new Date(e.detail.value).getTime() >= new Date(this.data.customTimeRange.endDate).getTime()){
+    if (new Date(e.detail.value).getTime() >= new Date(this.data.customTimeRange.endDate).getTime()) {
       this.setData({
         ["customTimeRange.startDate"]: this.data.customTimeRange.endDate,
         ["sortMethodsList[0].options[4]"]: this.data.customTimeRange.endDate
       })
-    }else{
+    } else {
       this.setData({
         ["customTimeRange.startDate"]: e.detail.value,
         ["sortMethodsList[0].options[4]"]: e.detail.value + "至" + this.data.customTimeRange.endDate
       })
     }
-  
+
   },
-  endDateChange(e) { 
-     //起始时间不能大于结束时间
+  endDateChange(e) {
+    //起始时间不能大于结束时间
     if (new Date(e.detail.value).getTime() <= new Date(this.data.customTimeRange.startDate).getTime()) {
       this.setData({
         ["customTimeRange.endDate"]: this.data.customTimeRange.startDate,
@@ -302,15 +337,15 @@ create(store, {
     }
   },
   //查看详情
-  seeDetail(e){
+  seeDetail(e) {
     wx.navigateTo({
-      url: '../orderDetail/orderDetail?id='+e.currentTarget.dataset.id,
+      url: '../orderDetail/orderDetail?id=' + e.currentTarget.dataset.id,
     })
   },
   //监听滑动到底部
-  onReachBottom(){
+  onReachBottom() {
     this.setData({
-      isLoad:true
+      isLoad: true
     })
     setTimeout(() => {
       this.setData({

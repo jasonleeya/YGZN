@@ -169,3 +169,10 @@
 .order-money {
   font-weight: bold;
 }
+.empty{
+  position: fixed;
+  width: 100vw;
+  top: 50%;
+  transform: translateY(-50%);
+  text-align: center;
+}

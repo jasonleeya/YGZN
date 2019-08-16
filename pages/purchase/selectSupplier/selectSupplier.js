@@ -22,7 +22,7 @@ create(store, {
       pageSize: 15,
       keyword: "",
       status: "1,2"
-    }, true).then(data => {
+    }).then(data => {
       this.setData({
         supplierList: data.list,
         isLoad: false,

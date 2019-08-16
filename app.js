@@ -53,26 +53,14 @@ App({
     
   },
 
-  showToast(text) {
+  showToast(text,duration=2000) {
     wx.showToast({
       title: text,
       icon: 'none',
-      duration: 2000
+      duration: duration
     })
   },
   checkLogin() {
-    // wx.checkSession({
-    //   success: function () {
-    //     //session_key 未过期，并且在本生命周期一直有效
-    //   },
-    //   fail: function () {
-
-    //     wx.redirectTo({
-    //       url: '/pages/login/login',
-    //     })
-    //   }
-    // })
-
     if (!wx.getStorageSync("token")) {
       wx.redirectTo({
         url: '/pages/login/login',
@@ -124,7 +112,7 @@ App({
             return;
           }
           if (isShowLogs) {
-            console.log("%c" + alias, "font-weight:bold", res.data)
+            console.log("%c" + alias, "font-weight:bold;color:deeppink", res.data)
           }
           resolve(res.data);
         },

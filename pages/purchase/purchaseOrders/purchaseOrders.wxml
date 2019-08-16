@@ -59,18 +59,18 @@
 </view>
 
 <scroll-view class="content" scroll-y>
+<view class="empty" wx:if="{{orderList.length===0}}">暂无订单~</view>
   <view class="order-list">
-
     <view class="order-item" wx:for="{{orderList}}" wx:key bindtap="seeDetail" data-id="{{index}}">
       <view class="order-header solid-bottom">
         <text class="order-id-icon cuIcon-text theme-color"></text>
-        <text class="order-id">订单号：{{item.id}}</text>
-        <text class="order-status text-{{item.status===1?'green':'red'}}">{{item.status===1?'已完成':item.status===2?'待付款':'待入库'}}</text>
+        <text class="order-id">订单号：{{item.orderNo}}</text>
+        <text class="order-status text-{{item.status==='已完成'?'green':'red'}}">{{item.status}}</text>
       </view>
       <view class="order-info-list">
         <view class="info-item">
           <view class="info-item-name text-gray">供应商</view>
-          <view class="info-item-value">{{item.supplier}}</view>
+          <view class="info-item-value">{{item.supplyName}}</view>
         </view>
         <view class="info-item">
           <view class="info-item-name text-gray">订单类型</view>
@@ -78,11 +78,11 @@
         </view>
         <view class="info-item">
           <view class="info-item-name text-gray">采购员</view>
-          <view class="info-item-value">{{item.buyer}}</view>
+          <view class="info-item-value">{{item.buySalesMan}}</view>
         </view>
         <view class="info-item">
           <view class="info-item-name text-gray">订单金额</view>
-          <view class="info-item-value order-money">￥{{item.money}}</view>
+          <view class="info-item-value order-money">￥{{item.sttAmount}}</view>
         </view>
       </view>
     </view>

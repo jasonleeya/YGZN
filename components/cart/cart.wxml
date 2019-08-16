@@ -39,7 +39,7 @@
       
 
       <view class="move">
-        <view class="bg-red" bindtap='slideToDelete' data-delet-index="{{index}}" data-delete-id="{{item[idKey]}}">删除</view>
+        <view class="bg-red" bindtap='slideToDelete' data-delete-index="{{index}}" data-delete-id="{{item[idKey]}}">删除</view>
       </view>
     </view>
   </view>

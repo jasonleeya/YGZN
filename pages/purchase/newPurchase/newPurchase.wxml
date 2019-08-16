@@ -70,7 +70,7 @@
       <!-- 搜索 -->
       <search bindtap="toSearch"/>
       <!-- 购物车 -->
-      <cart goodsList="{{goodsList}}" totalPrice="{{totalPrice}}" picUrlKey="xx" nameKey="name" typeKey="brandCode"      priceKey="discountPrice" amountKey="goodsCount" idKey="goodsNo"   bind:changeAmount="getChangeAmount" bind:deleteGoods="deleteGoods" />
+      <cart goodsList="{{goodsList}}" totalPrice="{{totalPrice}}" picUrlKey="xx" nameKey="name" typeKey="brandCode"      priceKey="discountPrice" amountKey="goodsCount" idKey="goodsNo" minNumKey="minNums"  bind:changeAmount="getChangeAmount" bind:deleteGoods="deleteGoods" bind:changeTotalPriceAndAmount="priceAmountChange"/>
 
       <view class="title remake">备注</view>
       <textarea name="remark" class="remarke-textarea" placeholder="请填写备注信息" />

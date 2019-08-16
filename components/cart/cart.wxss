@@ -75,7 +75,7 @@
   line-height: 50rpx;
   height: 50rpx;
   width: 80rpx;
-  padding: 0 20rpx;
+  padding: 0 10rpx;
   text-align: center
 }
 

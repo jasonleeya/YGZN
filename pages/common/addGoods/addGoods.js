@@ -36,14 +36,17 @@ create(store, {
   },
   //进入页面初始化数据
   onShow() {
-    var cartList=app.globalData.purchaseCartList
-    var totalAmount=0
-    var totalPrice=0
-    cartList.forEach(item => {
-      totalAmount = parseInt(totalAmount) + parseInt(item.goodsCount)
-      totalPrice = parseFloat(totalPrice) + parseFloat(item.sttAmount)
+    // var cartList=app.globalData.purchaseCartList
+    // var totalAmount=0
+    // var totalPrice=0
+    // cartList.forEach(item => {
+    //   totalAmount = parseInt(totalAmount) + parseInt(item.goodsCount)
+    //   totalPrice = parseFloat(totalPrice) + parseFloat(item.sttAmount)
+    // })
+    this.setData({
+      totalPrice:app.globalData.purchaseTotalPrice,
+      totalAmount: app.globalData.purchaseTotalAmount
     })
-    
 
   },
 
@@ -164,7 +167,7 @@ create(store, {
     app.http("purchaseDiscount", {
       supplyNo: this.data.supplyNo,
       productId: this.data.goodsList[index].productUuid
-    }, true).then(data => {
+    }).then(data => {
       this.setData({
         isShowPop: true,
         ['popData.goodsCount']: this.data.goodsList[index].minCount,
@@ -422,8 +425,7 @@ create(store, {
       totalPrice: totalPrice
     })
     app.globalData.purchaseTotalPrice = totalPrice
-    app.globalData.purchaseTotalAmount = totalAmount
-    console.log(cartList)
+    app.globalData.purchaseTotalAmount = totalAmount 
   },
   confirmOrder() {
 

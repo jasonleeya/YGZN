@@ -31,7 +31,7 @@ Component({
     list: [{
       name: "采购管理",
       subTitle: '全部订单',
-      subtitleLink: '/pages/purchase/purchaseOrders/purchaseOrders',
+      subtitleLink: '/pages/purchase/purchaseOrders/purchaseOrders?orderStatus=',
       id: 0,
       items: [{
         value: "新增采购",
@@ -40,42 +40,38 @@ Component({
       }, {
         value: "采购待审核",
         icon: "iconcart",
-        link: "",
+          link: "/pages/purchase/purchaseOrders/purchaseOrders?orderStatus=wait",
       }, {
         value: "采购待确认",
         icon: "iconcart",
-        link: "",
+          link: "/pages/purchase/purchaseOrders/purchaseOrders?orderStatus=090001",
       }, {
         value: "采购待付款",
         icon: "iconcart",
-        link: "",
+          link: "/pages/purchase/purchaseOrders/purchaseOrders?orderStatus=090003",
         number: 0
       }, {
         value: "采购待发货",
         icon: "iconcart",
-        link: "",
+          link: "/pages/purchase/purchaseOrders/purchaseOrders?orderStatus=090002",
       }, {
         value: "采购待入库订单",
         icon: "iconcart",
-        link: "",
+          link: "/pages/purchase/purchaseOrders/purchaseOrders?orderStatus=090004",
         number: 0
       }, {
         value: "采购已完成",
         icon: "iconcart",
-        link: "",
+          link: "/pages/purchase/purchaseOrders/purchaseOrders?orderStatus=090005",
       }, {
         value: "采购取消订单",
         icon: "iconcart",
-        link: "",
+          link: "/pages/purchase/purchaseOrders/purchaseOrders?orderStatus=090008",
         number: 0
-      }, {
-        value: "采购未完成",
-        icon: "iconcart",
-        link: "",
-      }, {
+      } , {
         value: "采购退货列表",
         icon: "iconcart",
-        link: "",
+          link: "/pages/purchase/purchaseOrders/purchaseOrders?orderStatus=back",
 
       }],
     }, {
@@ -250,13 +246,18 @@ Component({
     interval: null
   },
   lifetimes: {
-    created() {
+    created() { 
       let that = this
-      if (!app.globalData.homeMessage) {
-        return
+      if (app.globalData.homeMessage) {
+        getMessage()
+        app.watchGloabalData("homeMessage", function (value) {
+          // if(!app.globalData.homeMessage){return}
+          getMessage()
+        })
       }
-      app.watchGloabalData("homeMessage", function(value) {
-        if(!app.globalData.homeMessage){return}
+    
+   function getMessage(){
+     console.log(111)
         for (let i = 0; i < that.data.list[0].items.length; i++) {
           app.globalData.homeMessage.forEach(item => {
             if (item.typeZh === that.data.list[0].items[i].value) {
@@ -275,8 +276,7 @@ Component({
             }
           })
         }
-      })
-
+    }
     },
     detached() {
       clearInterval(this.data.interval)

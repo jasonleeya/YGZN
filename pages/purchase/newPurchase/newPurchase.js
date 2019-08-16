@@ -118,12 +118,15 @@ create(store, {
 
   //监听购物车组件信息的改变
   getChangeAmount(e) {
-    app.globalData.purchaseCartList[e.detail.index].goodsCount=e.detail.amount
-    console.log(app.globalData.purchaseCartList)
+    app.globalData.purchaseCartList[e.detail.index].goodsCount=e.detail.amount 
   },
   deleteGoods(e){
-    app.globalData.purchaseCartList.splice(e.detail.index, 1)
-    console.log(app.globalData.purchaseCartList,e.detail.index)
+    app.globalData.purchaseCartList.splice(e.detail.index, 1) 
+  },
+  priceAmountChange(e){
+    app.globalData.purchaseTotalPrice=e.detail.totalPrice,
+    app.globalData.purchaseTotalAmount=e.detail.totalAmount
+    // console.log(app.globalData.purchaseTotalPrice, app.globalData.purchaseTotalAmount)
   },
 
   dateChange(e) {
@@ -139,7 +142,7 @@ create(store, {
   },
   formSubmit(e) {
     var info = e.detail.value
-    info.goods = this.store.data.newPurchase.cartList
+    info.list=app.globalData.purchaseCartList
     console.log(info)
   },
 })
