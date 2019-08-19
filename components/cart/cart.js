@@ -21,6 +21,10 @@ Component({
       type: String,
       value: ""
     },
+    brandNameKey: {
+      type: String,
+      value: ""
+    },
     nameKey: {
       type: String,
       value: ""
@@ -211,6 +215,10 @@ Component({
         index: index
       })
       this.computeTotalPriceTotalAmount()
+    },
+
+    getIndex(e){ 
+      this.triggerEvent("getIndex", { index: e.currentTarget.dataset.index})
     },
 
     // ListTouch触摸开始

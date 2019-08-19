@@ -38,7 +38,7 @@ create(store, {
     //人员列表分页
     personList: {
       curPage: 1,
-      totalPage: 0,
+      totalPages: 0,
       isLoad: false,
       list: [{
         id: 0,
@@ -110,15 +110,38 @@ create(store, {
     },
     //订单列表
     orderList: [],
-    orderStatus: null
+    orderStatus: null,
+    isLoading: false,
+    curPage: 1,
+    totalPages: null
   },
   onLoad(options) {
     this.setData({
       orderStatus: options.orderStatus
     })
+
+    this.getList()
+
+    //分页逻辑
+    var listCopy = JSON.parse(JSON.stringify(this.data.personList.list))
+    this.data.personList.personList = Math.ceil(listCopy.length / 10)
+    this.setData({
+      ["sortMethodsList[3].options"]: listCopy.splice((this.data.personList.curPage - 1) * 10, 10)
+    })
+    //获取当前日期
+    var date = new Date()
+    var nowDate = date.getFullYear() + "-" + (date.getMonth() + 1) + "-" + date.getDate()
+    this.setData({
+      ["customTimeRange.nowDate"]: nowDate,
+      ["customTimeRange.startDate"]: nowDate,
+      ["customTimeRange.endDate"]: nowDate
+    })
+
+  },
+  getList() {
     var parmas = {
-      orderStatus: options.orderStatus === "back" ? "" : options.orderStatus,
-      currentPage: 1,
+      orderStatus: this.data.orderStatus === "back" ? "" : this.data.orderStatus,
+      currentPage: this.data.curPage,
       pageSize: 10,
       simpleSeek: "",
       beginTime: "",
@@ -126,7 +149,7 @@ create(store, {
       warehouse: "",
     }
     var query = ""
-    if (options.orderStatus === "back") {
+    if (this.data.orderStatus === "back") {
       query = "queryPurchaseBackUpp"
     } else {
       query = "queryPurchaseUpp"
@@ -134,7 +157,7 @@ create(store, {
 
     app.http(query, parmas).then(data => {
       data.list.forEach(item => {
-        switch (options.orderStatus) {
+        switch (this.data.orderStatus) {
           case "wait":
             item.status = "待审核"
             break
@@ -158,8 +181,8 @@ create(store, {
             break
           case "":
             item.status = "未完成"
-            break 
-             case "back":
+            break
+          case "back":
             item.status = "退货"
             break
         }
@@ -172,30 +195,34 @@ create(store, {
         orderType += item.showPayBtn === "yes" && item.orderStatus === "090003" ? "已汇款/" : ""
         item.orderType = orderType.slice(0, orderType.length - 1)
       })
+      if (this.data.curPage === 1) {
+        this.setData({
+          orderList: data.list,
+          isLoading: false,
+          totalPages: data.totalPages
+        })
+      } else {
+        this.setData({
+          orderList: this.data.orderList.concat(data.list),
+          isLoading: false,
+        })
+      }
+
+    })
+
+  },
+
+  //监听滑动到底部
+  onReachBottom() {
+    if (this.data.curPage === 1 || this.data.curPage < this.data.totalPages) {
       this.setData({
-        orderList: data.list
+        isLoading: true,
+        curPage: this.data.curPage + 1
       })
-    })
-
-
-
-
-
-
-    //分页逻辑
-    var listCopy = JSON.parse(JSON.stringify(this.data.personList.list))
-    this.data.personList.personList = Math.ceil(listCopy.length / 10)
-    this.setData({
-      ["sortMethodsList[3].options"]: listCopy.splice((this.data.personList.curPage - 1) * 10, 10)
-    })
-    //获取当前日期
-    var date = new Date()
-    var nowDate = date.getFullYear() + "-" + (date.getMonth() + 1) + "-" + date.getDate()
-    this.setData({
-      ["customTimeRange.nowDate"]: nowDate,
-      ["customTimeRange.startDate"]: nowDate,
-      ["customTimeRange.endDate"]: nowDate
-    })
+      this.getList()
+    } else {
+      app.showToast("没有更多订单了")
+    }
 
   },
   //关闭正在选择的列表
@@ -339,18 +366,8 @@ create(store, {
   //查看详情
   seeDetail(e) {
     wx.navigateTo({
-      url: '../orderDetail/orderDetail?id=' + e.currentTarget.dataset.id,
+      url: '../orderDetail/orderDetail?orderNo=' + e.currentTarget.dataset.id
     })
   },
-  //监听滑动到底部
-  onReachBottom() {
-    this.setData({
-      isLoad: true
-    })
-    setTimeout(() => {
-      this.setData({
-        isLoad: false
-      })
-    }, 2000)
-  }
+
 })

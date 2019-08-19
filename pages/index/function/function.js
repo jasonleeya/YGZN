@@ -256,8 +256,7 @@ Component({
         })
       }
     
-   function getMessage(){
-     console.log(111)
+   function getMessage(){ 
         for (let i = 0; i < that.data.list[0].items.length; i++) {
           app.globalData.homeMessage.forEach(item => {
             if (item.typeZh === that.data.list[0].items[i].value) {

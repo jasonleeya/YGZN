@@ -16,9 +16,9 @@
       <previewImage  class="solid" src="http://img4.imgtn.bdimg.com/it/u=2022307077,2423689529&fm=15&gp=0.jpg" w="140rpx" h="140rpx" />
        
       </view>
-      <view class="goods-info">
+      <view class="goods-info"  bindtap="getIndex" data-index="{{index}}">
         <view class="goods-name">
-          {{item[nameKey]}}
+         {{item.brandNameKey}}/{{item[nameKey]}}
         </view>
         <view class="goods-type text-gray">
           {{item[typeKey]}}

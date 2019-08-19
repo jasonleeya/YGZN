@@ -186,8 +186,7 @@ create({
       }
 
     },
-    scrollToBottom() {
-      console.log(111)
+    scrollToBottom() { 
       this.setData({
         isLoad: true
       })

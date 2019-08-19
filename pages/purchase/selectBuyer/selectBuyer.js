@@ -4,7 +4,13 @@ var app = getApp()
 
 create(store, {
   data: {
-    buyerList: []
+    buyerList: [],
+    setData:null
+  },
+  onLoad(options){
+    this.setData({
+      setData:options.setData
+    })
   },
   onShow() {
     // this.store.data.selectBuyer.buyerList.sort(this.compare("letter"))
@@ -43,7 +49,7 @@ create(store, {
     var pages = getCurrentPages()
     var prevPage = pages[pages.length - 2]
     prevPage.setData({
-       buyer: e.detail
+       [this.data.setData]: e.detail
     })
     wx.navigateBack()
   },

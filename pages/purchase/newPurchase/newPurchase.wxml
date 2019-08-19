@@ -1,25 +1,25 @@
-<scroll-view scroll-y> 
-    <form bindsubmit="formSubmit">
-      <view class="info-list shadow">
-        <view class="cell border-bt">
-          <view class="cell-name">采购单号</view>
-          <input name="orderId" class="text-gray" disabled value="{{orderId}}"></input>
-        </view>
+<scroll-view scroll-y>
+  <form bindsubmit="formSubmit">
+    <view class="info-list shadow">
+      <view class="cell border-bt">
+        <view class="cell-name">采购单号</view>
+        <input name="orderId" class="text-gray" disabled value="{{orderId}}"></input>
+      </view>
 
-        <view class="cell border-bt">
-          <view class="cell-name">供应商</view>
-          <view></view>
-          <input name="supplier" disabled class="cell-value {{supplier===''?'text-gray':''}}" placeholder="请选择供应商/或添加供应商" value="{{supplier}}"></input>
-          <view class="cuIcon-right  cell-icon"  bindtap="selectSupplier"></view>
-        </view>
+      <view class="cell border-bt">
+        <view class="cell-name">供应商</view>
+        <view></view>
+        <input name="supplier" disabled class="cell-value {{supplier===''?'text-gray':''}}" placeholder="请选择供应商/或添加供应商" value="{{supplier}}"></input>
+        <view class="cuIcon-right  cell-icon" bindtap="selectSupplier"></view>
+      </view>
 
-        <view class="cell border-bt">
-          <view class="cell-name">采购员</view>
-          <input name="buyer" disabled class="cell-value {{buyer===''?'text-gray':''}}" placeholder="请选择采购员" value="{{buyer}}"></input>
-          <view class="cuIcon-right  cell-icon" bindtap="selectBuyer"></view>
-        </view>
+      <view class="cell border-bt">
+        <view class="cell-name">采购员</view>
+        <input name="buyer" disabled class="cell-value {{buyer===''?'text-gray':''}}" placeholder="请选择采购员" value="{{buyer}}"></input>
+        <view class="cuIcon-right  cell-icon" bindtap="selectBuyer"></view>
+      </view>
 
-  <view class="cell border-bt">
+      <view class="cell border-bt">
         <view class="cell-name">仓库</view>
         <input name="storehouse" disabled class="cell-value {{storehouse.index===null?'text-gray':''}}" placeholder="请选择仓库" value="{{storehouse.list[storehouse.index]}}"></input>
         <picker bindchange="selectStorehouse" value="{{storehouse.index}}" range="{{storehouse.list}}">
@@ -29,57 +29,59 @@
         </picker>
       </view>
 
-        <view class="cell border-bt">
-          <view class="cell-name">收货人</view>
-          <view class="cell-value">
-            <input name="receiver" value="{{receiver}}"></input>
-          </view>
-          <view class="cuIcon-right  cell-icon"></view>
+      <view class="cell border-bt">
+        <view class="cell-name">收货人</view>
+        <view class="cell-value">
+          <input name="receiver" value="{{receiver}}"></input>
         </view>
-
-        <view class="cell border-bt">
-          <view class="cell-name">联系电话</view>
-          <view class="cell-value">
-            <input name="phoneNumber" type="number" value="{{phoneNumber}}"></input>
-          </view>
-          <view class="cuIcon-right  cell-icon"></view>
-        </view>
-
-        <view class="add-aeceive-address  border-bt">
-          <view class="cell-name">收货地址</view>
-          <input name="receiveAddress" hidden type="hidden" value="{{receiveAddress}}" disabled class="cell-value" bindtap="addAeceiveAddress"></input>
-          <view class="cell-value" >
-            {{receiveAddress}}
-          </view>
-          <view class="cuIcon-right  cell-icon" bindtap="addAeceiveAddress"></view>
-        </view>
-
-        <view class="cell">
-          <view class="cell-name">收货日期</view>
-          <view class="cell-value">
-            <picker name="receiveDate" mode="date" value="{{receiveDate}}" start="{{receiveDate}}" end="2100-09-01" bindchange="dateChange">
-              <view class="picker">
-                {{receiveDate}}
-              </view>
-            </picker>
-          </view>
-          <view class="cuIcon-right  cell-icon"></view>
-        </view>
+        <!-- <view class="cuIcon-right  cell-icon"></view> -->
       </view>
-      <view class="title add-goods">添加商品</view>
-      <!-- 搜索 -->
-      <search bindtap="toSearch"/>
-      <!-- 购物车 -->
-      <cart goodsList="{{goodsList}}" totalPrice="{{totalPrice}}" picUrlKey="xx" nameKey="name" typeKey="brandCode"      priceKey="discountPrice" amountKey="goodsCount" idKey="goodsNo" minNumKey="minNums"  bind:changeAmount="getChangeAmount" bind:deleteGoods="deleteGoods" bind:changeTotalPriceAndAmount="priceAmountChange"/>
 
-      <view class="title remake">备注</view>
-      <textarea name="remark" class="remarke-textarea" placeholder="请填写备注信息" />
+      <view class="cell border-bt">
+        <view class="cell-name">联系电话</view>
+        <view class="cell-value">
+          <input name="phoneNumber" type="number" value="{{phoneNumber}}" maxlength="11"></input>
+        </view>
+        <!-- <view class="cuIcon-right  cell-icon"></view> -->
+      </view>
 
-      <cover-view class="operating-options">
-        <cover-view class="save-order bg-orange">保存订单</cover-view>
-        <cover-view class="comfirm-order">
-          <button class=" bg-red" form-type="submit">确认订单</button>
-        </cover-view>
+      <view class="add-aeceive-address  border-bt">
+        <view class="cell-name">收货地址</view>
+        <input name="receiveAddress" hidden type="hidden" value="{{receiveAddress}}" disabled class="cell-value" bindtap="addAeceiveAddress"></input>
+        <view class="cell-value">
+          {{receiveAddress}}
+        </view>
+        <view class="cuIcon-right  cell-icon" bindtap="addAeceiveAddress"></view>
+      </view>
+
+      <view class="cell">
+        <view class="cell-name">收货日期</view>
+        <view class="cell-value">
+          <picker name="receiveDate" mode="date" value="{{receiveDate}}" start="{{receiveDate}}" end="2100-09-01" bindchange="dateChange">
+            <view class="picker">
+              {{receiveDate}}
+            </view>
+          </picker>
+        </view>
+        <!-- <view class="cuIcon-right  cell-icon"></view> -->
+      </view>
+    </view>
+    <view class="title add-goods">添加商品</view>
+    <!-- 搜索 -->
+    <search bindtap="toSearch" />
+    <!-- 购物车 -->
+    <cart goodsList="{{goodsList}}" totalPrice="{{totalPrice}}" picUrlKey="xx" nameKey="name" brandNameKey="goodsBrand" typeKey="brandCode" priceKey="discountPrice" amountKey="goodsCount" idKey="goodsNo" minNumKey="minNums" bind:changeAmount="getChangeAmount"  bind:getIndex="getEditGoodsId"
+      bind:deleteGoods="deleteGoods" bind:changeTotalPriceAndAmount="priceAmountChange"/>
+
+    <view class="title remake">备注</view>
+    <textarea name="remark" class="remarke-textarea" placeholder="请填写备注信息" />
+
+    <cover-view class="operating-options">
+      <cover-view class="save-order bg-orange">保存订单</cover-view>
+      <cover-view class="comfirm-order">
+        <button class=" bg-red" form-type="submit">确认订单</button>
       </cover-view>
-    </form>
+    </cover-view>
+  </form>
 </scroll-view>
+<editGoodsInfo wx:if="{{showEditPop}}" popData="{{popData}}" bind:editedInfo="getEditedInfo"/>

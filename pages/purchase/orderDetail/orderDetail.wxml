@@ -1,75 +1,106 @@
 <scroll-view scroll-y>
-  <view class="info-list shadow">
-    <view class="cell border-bt">
-      <view class="cell-name">采购单号</view>
-      <view class="cell-value">SPARK20197110001</view>
-    </view>
-
-    <view class="cell border-bt">
-      <view class="cell-name">供应商</view>
-      <view class="cell-value">成都成量集团有限公司</view>
-    </view>
-
-    <view class="cell border-bt">
-      <view class="cell-name">采购员</view>
-      <view class="cell-value ">吴建秋</view>
-    </view>
-
-    <view class="cell border-bt">
-      <view class="cell-name">收货人</view>
-      <view class="cell-value">
-        依高智能
+  <form bindsubmit="formSubmit">
+    <view class="info-list shadow">
+      <view class="cell border-bt">
+        <view class="cell-name">采购单号</view>
+        <input name="orderId" class="text-gray" disabled value="{{infos.orderNo}}"></input>
       </view>
-    </view>
 
-    <view class="cell border-bt">
-      <view class="cell-name">联系电话</view>
-      <view class="cell-value">
-        18888888888
+      <view class="cell border-bt">
+        <view class="cell-name">供应商</view>
+        <view></view>
+        <input name="supplier" disabled class="cell-value text-gray" placeholder="请选择供应商/或添加供应商" value="{{infos.supplyName}}"></input>
+        <view class="cuIcon-right  cell-icon text-gray" ></view>
       </view>
-    </view>
 
-    <view class="cell border-bt">
-      <view class="cell-name">收货地址</view>
-      <view class="cell-value">
-        北京/东城区/建设路100号
+      <view class="cell border-bt">
+        <view class="cell-name">采购员</view>
+        <input name="buyer" disabled class="cell-value {{canEdit&&infos.orderStatus==='wait'?'':'text-gray'}}" placeholder="请选择采购员" value="{{infos.buySalesMan}}"></input>
+        <view class="cuIcon-right  cell-icon {{canEdit&&infos.orderStatus==='wait'?'':'text-gray'}}" bindtap="selectBuyer"></view>
       </view>
-    </view>
 
-    <view class="cell border-bt">
-      <view class="cell-name">收货日期</view>
-      <view class="cell-value">
-        2019-7-18
+      <view class="cell border-bt">
+        <view class="cell-name">仓库</view>
+        <input name="storehouse" disabled class="cell-value {{canEdit&&infos.orderStatus==='wait'?'':'text-gray'}}" placeholder="请选择仓库" value="{{storehouse.list[storehouse.index]}}"></input>
+        <picker bindchange="selectStorehouse" disabled="{{canEdit&&infos.orderStatus==='wait'?false:true}}" value="{{storehouse.index}}" range="{{storehouse.list}}">
+          <view class="picker">
+            <view class="cuIcon-right  cell-icon {{canEdit&&infos.orderStatus==='wait'?'':'text-gray'}}"></view>
+          </view>
+        </picker>
       </view>
-    </view>
 
-    <view class="cell border-bt">
-      <view class="cell-name">订单状态</view>
-      <view class="cell-value">
-        线上订单/信用订单
+      <view class="cell border-bt">
+        <view class="cell-name">收货人</view>
+        <view class="cell-value">
+          <input class="{{canEdit&&infos.orderStatus==='wait'?'':'text-gray'}}" disabled="{{canEdit&&infos.orderStatus==='wait'?false:true}}" name="receiver" value="{{infos.consigneeName}}"></input>
+        </view>
+        <!-- <view class="cuIcon-right  cell-icon {{canEdit&&infos.orderStatus==='wait'?'':'text-gray'}}"></view> -->
       </view>
-    </view>
 
-    <view class="cell border-bt">
-      <view class="cell-name">物流单号</view>
-      <view class="cell-value text-gray">
-        出库时请输入物流订单号
+      <view class="cell border-bt">
+        <view class="cell-name">联系电话</view>
+        <view class="cell-value">
+          <input class="{{canEdit&&infos.orderStatus==='wait'?'':'text-gray'}}" disabled="{{canEdit&&infos.orderStatus==='wait'?false:true}}" name="phoneNumber" type="number" value="{{infos.telephone}}" maxlength="11"></input>
+        </view>
+        <!-- <view class="cuIcon-right  cell-icon {{canEdit&&infos.orderStatus==='wait'?'':'text-gray'}}"></view> -->
       </view>
-      <view class="cell-icon cuIcon-right"></view>
+
+      <view class="add-aeceive-address  border-bt">
+        <view class="cell-name">收货地址</view>
+        <input class="{{canEdit&&infos.orderStatus==='wait'?'':'text-gray'}}" name="receiveAddress" hidden type="hidden" value="{{infos.address}}" disabled class="cell-value" bindtap="addAeceiveAddress"></input>
+        <view class="cell-value {{canEdit&&infos.orderStatus==='wait'?'':'text-gray'}}">
+          {{infos.address}}
+        </view>
+        <view class="cuIcon-right  cell-icon {{canEdit&&infos.orderStatus==='wait'?'':'text-gray'}}" bindtap="addAeceiveAddress"></view>
+      </view>
+
+      <view class="cell border-bt">
+        <view class="cell-name">收货日期</view>
+        <view class="cell-value">
+          <picker name="receiveDate" disabled="{{canEdit&&infos.orderStatus==='wait'?false:true}}" mode="date" value="{{infos.receiveTime}}" start="{{infos.receiveTime}}" end="2100-09-01" bindchange="dateChange">
+            <view class="picker {{canEdit&&infos.orderStatus==='wait'?'':'text-gray'}}">
+             {{infos.receiveTime}}
+            </view>
+          </picker>
+        </view>
+        <!-- <view class="cuIcon-right  cell-icon {{canEdit&&infos.orderStatus==='wait'?'':'text-gray'}}"></view> -->
+      </view>
+
+      <view class="cell border-bt">
+        <view class="cell-name">订单状态</view>
+        <view class="cell-value">
+          线上订单/信用订单
+        </view>
+      </view>
+
+      <view class="cell border-bt">
+        <view class="cell-name">物流单号</view>
+        <view class="cell-value text-gray">
+          出库时请输入物流订单号
+        </view>
+        <view class="cell-icon cuIcon-right {{canEdit&&infos.orderStatus==='wait'?'':'text-gray'}}"></view>
+      </view>
+
+
+
     </view>
+    <view class="title add-goods">添加商品</view>
+    <!-- 搜索 -->
+    <search bindtap="toSearch" />
+    <!-- 购物车 -->
+    <cart goodsList="{{goodsList}}" totalPrice="{{totalPrice}}" picUrlKey="pirctureWay" nameKey="goodsName" brandNameKey="goodsBrand"  typeKey="brandNo" priceKey="purchasePrice" amountKey="goodsCount" idKey="goodsNo" minNumKey="minNums" bind:changeAmount="getChangeAmount" bind:deleteGoods="deleteGoods"
+      bind:changeTotalPriceAndAmount="priceAmountChange" />
 
-  </view>
+    <view class="title remake">备注</view>
+    <textarea name="remark" class="remarke-textarea" placeholder="请填写备注信息" />
 
-  <!-- 购物车 -->
-  <cart goodsList="{{goodsList}}" editable="{{false}}" />
+    <view class="operating-options">
+      <view class="option bg-gray"  bindtap="edit">修改订单</view>
+      <view class="option bg-gray">取消订单</view>
+      <view class="option bg-gray">订单付款</view>
+      <view class="option bg-gradual-orange" bindtap="orderLogs">订单日志</view>
+    </view>view
 
-  <view class="title remake">备注</view>
-  <view class="remake-textarea">我是备注我是备注我是备注我是备注</view>
+  </form>
 
-  <view class="operating-options">
-    <view class="option bg-gray">修改订单</view>  
-    <view class="option bg-gray">取消订单</view>
-    <view class="option bg-gray">订单付款</view>
-    <view class="option bg-gradual-orange" bindtap="orderLogs">订单日志</view>
-  </view>view
 </scroll-view>

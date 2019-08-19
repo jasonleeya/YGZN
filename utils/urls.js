@@ -21,7 +21,8 @@ const alias = {
   // fetchPurchaseProductInfo: "14000/stockCurrent/fetchPurchaseProductInfo"
   purchaseDiscount: "14000/imatchProduct/product/discount/purchaseDiscount",
   queryPurchaseUpp: "14000/imatchOrder/reOrder/queryPurchaseUpp",
-  queryPurchaseBackUpp: "14000/imatchOrder/reOrder/queryPurchaseBackUpp"
+  queryPurchaseBackUpp: "14000/imatchOrder/reOrder/queryPurchaseBackUpp",
+  queryByOrderNo: "14000/imatchOrder/reOrder/queryByOrderNo"
 }
 export default function(name) {
   return BASE_URL + alias[name]

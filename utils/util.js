@@ -14,6 +14,17 @@ const formatNumber = n => {
   return n[1] ? n : '0' + n
 }
 
+const objToUrl=(obj, url)=>{
+  if (["", null, undefined].includes(url)) {
+    return ""
+  }
+  url += (url.indexOf("?") != -1) ? "" : "?"
+  for (var key in obj) {
+    url += ((url.indexOf("=") != -1) ? "&" : "") + key + "=" + obj[key]
+  }
+  return url
+}
 module.exports = {
-  formatTime: formatTime
+  formatTime: formatTime,
+  objToUrl: objToUrl
 }

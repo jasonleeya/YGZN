@@ -24,7 +24,11 @@ create(store, {
       idList: [],
       index: null
     },
-    slectedStoreHouseId: ""
+    slectedStoreHouseId: "",
+    showEditPop: false,
+
+    popData: {},
+    editingIndex: null
   },
   onLoad() {
     //验证登录
@@ -38,8 +42,6 @@ create(store, {
     })
   },
   onShow() {
-
-
     this.setData({
       goodsList: app.globalData.purchaseCartList,
       totalPrice: app.globalData.purchaseTotalPrice,
@@ -112,21 +114,52 @@ create(store, {
   },
   selectBuyer() {
     wx.navigateTo({
-      url: '/pages/purchase/selectBuyer/selectBuyer',
+      url: '/pages/purchase/selectBuyer/selectBuyer?setData=buyer',
     })
   },
 
   //监听购物车组件信息的改变
   getChangeAmount(e) {
-    app.globalData.purchaseCartList[e.detail.index].goodsCount=e.detail.amount 
+    app.globalData.purchaseCartList[e.detail.index].goodsCount = e.detail.amount
   },
-  deleteGoods(e){
-    app.globalData.purchaseCartList.splice(e.detail.index, 1) 
+  deleteGoods(e) {
+    var list=this.data.goodsList
+    list.splice(e.detail.index, 1)
+    this.setData({
+      goodsList:list
+    })
+    app.globalData.purchaseCartList.splice(e.detail.index, 1)
   },
-  priceAmountChange(e){
-    app.globalData.purchaseTotalPrice=e.detail.totalPrice,
-    app.globalData.purchaseTotalAmount=e.detail.totalAmount
+  priceAmountChange(e) {
+    app.globalData.purchaseTotalPrice = e.detail.totalPrice,
+      app.globalData.purchaseTotalAmount = e.detail.totalAmount
     // console.log(app.globalData.purchaseTotalPrice, app.globalData.purchaseTotalAmount)
+  },
+  getEditGoodsId(e) {
+    var index = e.detail.index
+    this.setData({
+      editingIndex: index,
+      showEditPop: true,
+      popData: this.data.goodsList[index]
+    })
+  },
+  getEditedInfo(e) {
+    var totalPrice = 0
+    var totalAmount = 0
+    this.setData({
+      showEditPop: false,
+      popData:{},
+      ["goodsList[" + this.data.editingIndex + "]"]: e.detail.data
+    })
+    this.data.goodsList.forEach(item => {
+      totalPrice = (parseFloat(totalPrice) + parseFloat(item.discountPrice) * parseInt(item.goodsCount)).toFixed(2)
+      totalAmount = parseInt(totalAmount) + parseInt(item.goodsCount)
+    })
+    this.setData({
+      totalPrice: totalPrice
+    })
+    app.globalData.purchaseTotalPrice = totalPrice
+    app.globalData.purchaseTotalAmount = totalAmount
   },
 
   dateChange(e) {
@@ -136,13 +169,12 @@ create(store, {
   },
   addAeceiveAddress() {
     wx.navigateTo({
-      // url: '/pages/common/addReceiveAdress/addReceiveAdress?adress=' + this.data.receiveAddress +'&store=newPurchase.receiveAddress',
-      url: '/pages/common/selectReceiveAddress/selectReceiveAddress'
+      url: '/pages/common/selectReceiveAddress/selectReceiveAddress?setData=receiveAddress'
     })
   },
   formSubmit(e) {
     var info = e.detail.value
-    info.list=app.globalData.purchaseCartList
+    info.list = app.globalData.purchaseCartList
     console.log(info)
   },
 })

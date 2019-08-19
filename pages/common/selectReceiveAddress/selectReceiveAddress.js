@@ -6,13 +6,19 @@ Page({
    * 页面的初始数据
    */
   data: {
-    list: []
+    list: [],
+    setData:null,
   },
 
   /**
    * 生命周期函数--监听页面加载
    */
-  onShow: function(options) {
+  onLoad(options){
+    this.setData({
+      setData:options.setData
+    })
+  },
+  onShow: function() {
 
 
     var address = ""
@@ -45,7 +51,7 @@ Page({
   choose(e) {
 
     getCurrentPages()[getCurrentPages().length - 2].setData({
-     receiveAddress: "【" + this.data.list[e.currentTarget.dataset.index].region + "】" + this.data.list[e.currentTarget.dataset.index].address
+      [this.data.setData]: "【" + this.data.list[e.currentTarget.dataset.index].region + "】" + this.data.list[e.currentTarget.dataset.index].address
     })
     wx.navigateBack({
       delta: 1,

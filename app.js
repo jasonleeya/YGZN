@@ -85,9 +85,11 @@ App({
   },
 
 
-  http(alias, data = {}, isShowLogs = false) {
-    var token = wx.getStorageSync("token")
-    data.token = token
+  http(alias, data = {}, isShowLogs = false,needToken=true) {
+    if (needToken){
+      var token = wx.getStorageSync("token")
+      data.token = token
+    }
 
     if (isShowLogs) {
       console.log("%c请求接口:" + alias, "font-weight:bold", data)
