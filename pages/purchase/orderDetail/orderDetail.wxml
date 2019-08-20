@@ -10,13 +10,13 @@
         <view class="cell-name">供应商</view>
         <view></view>
         <input name="supplier" disabled class="cell-value text-gray" placeholder="请选择供应商/或添加供应商" value="{{infos.supplyName}}"></input>
-        <view class="cuIcon-right  cell-icon text-gray" ></view>
+        <view class="cuIcon-right  cell-icon text-gray"></view>
       </view>
 
       <view class="cell border-bt">
         <view class="cell-name">采购员</view>
-        <input name="buyer" disabled class="cell-value {{canEdit&&infos.orderStatus==='wait'?'':'text-gray'}}" placeholder="请选择采购员" value="{{infos.buySalesMan}}"></input>
-        <view class="cuIcon-right  cell-icon {{canEdit&&infos.orderStatus==='wait'?'':'text-gray'}}" bindtap="selectBuyer"></view>
+        <input name="buyer" disabled class="cell-value {{(canEdit&&infos.orderStatus==='wait')||(canEdit&&infos.orderStatus==='090001'&&infos.oando==='down')?'':'text-gray'}}" placeholder="请选择采购员" value="{{infos.buySalesMan}}"></input>
+        <view class="cuIcon-right  cell-icon {{(canEdit&&infos.orderStatus==='wait')||(canEdit&&infos.orderStatus==='090001'&&infos.oando==='down')?'':'text-gray'}}" bindtap="selectBuyer"></view>
       </view>
 
       <view class="cell border-bt">
@@ -59,7 +59,7 @@
         <view class="cell-value">
           <picker name="receiveDate" disabled="{{canEdit&&infos.orderStatus==='wait'?false:true}}" mode="date" value="{{infos.receiveTime}}" start="{{infos.receiveTime}}" end="2100-09-01" bindchange="dateChange">
             <view class="picker {{canEdit&&infos.orderStatus==='wait'?'':'text-gray'}}">
-             {{infos.receiveTime}}
+              {{infos.receiveTime}}
             </view>
           </picker>
         </view>
@@ -88,19 +88,23 @@
     <!-- 搜索 -->
     <search bindtap="toSearch" />
     <!-- 购物车 -->
-    <cart goodsList="{{goodsList}}" totalPrice="{{totalPrice}}" picUrlKey="pirctureWay" nameKey="goodsName" brandNameKey="goodsBrand"  typeKey="brandNo" priceKey="purchasePrice" amountKey="goodsCount" idKey="goodsNo" minNumKey="minNums" bind:changeAmount="getChangeAmount" bind:deleteGoods="deleteGoods"
-      bind:changeTotalPriceAndAmount="priceAmountChange" />
-
+    <cart goodsList="{{goodsList}}" totalPrice="{{totalPrice}}" picUrlKey="pirctureWay" nameKey="goodsName" brandNameKey="goodsBrand" typeKey="brandNo" priceKey="discountPrice" amountKey="goodsCount" idKey="goodsNo" minNumKey="minNums" bind:changeAmount="getChangeAmount"
+      bind:deleteGoods="deleteGoods" bind:getIndex="getEditGoodsId" bind:changeTotalPriceAndAmount="priceAmountChange" editable="{{canEdit}}" />
     <view class="title remake">备注</view>
     <textarea name="remark" class="remarke-textarea" placeholder="请填写备注信息" />
 
     <view class="operating-options">
-      <view class="option bg-gray"  bindtap="edit">修改订单</view>
-      <view class="option bg-gray">取消订单</view>
+     <view class="option bg-gradual-orange">添加商品</view>
+      <view class="option bg-gradual-orange" bindtap="edit" wx:if="{{infos.orderStatus === 'wait'||infos.orderStatus === '090001'&& infos.oando === 'down'}}">修改订单</view>
+
+      <view class="option bg-gradual-orange">取消订单</view>
+      <view class="option bg-gradual-orange" wx:if="{{infos.orderStatus === 'wait'||infos.orderStatus === '090001'&& infos.oando === 'down'}}">确认订单</view>
+      <!-- <view class="option bg-gray">取消订单</view>
       <view class="option bg-gray">订单付款</view>
-      <view class="option bg-gradual-orange" bindtap="orderLogs">订单日志</view>
+      <view class="option bg-gradual-orange" bindtap="orderLogs">订单日志</view> -->
     </view>view
 
   </form>
 
 </scroll-view>
+<editGoodsInfo wx:if="{{showEditPop}}" popData="{{popData}}" noTaxPriceKey="ntpsingle" bind:editedInfo="getEditedInfo" />

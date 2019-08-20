@@ -58,12 +58,12 @@ Component({
    */
   data: {},
   ready() {
-    // this.computeTotalPriceTotalAmount()
+   
   },
 
   pageLifetimes: {
     show() {
-
+      this.computeTotalPriceTotalAmount()
     }
   },
   /**
@@ -121,11 +121,11 @@ Component({
         }
 
         if (this.data.goodsList[index][this.data.amountKey] === 0) { //商品数量减少到0删除项
-          var newList = this.data.goodsList
-          newList.splice(index, 1)
-          this.setData({
-            goodsList: newList
-          })
+          // var newList = this.data.goodsList
+          // newList.splice(index, 1)
+          // this.setData({
+          //   goodsList: newList
+          // })
           this.triggerEvent("deleteGoods", {
             index: index
           })
@@ -147,6 +147,9 @@ Component({
 
       var totalPrice = 0
       var totalAmount = 0
+
+ 
+
       this.data.goodsList.forEach(item => {
         if (isNaN(parseInt(item[this.data.amountKey]))) {
           item[this.data.amountKey] = 0
@@ -166,11 +169,11 @@ Component({
     // 左滑删除商品
     slideToDelete(e) {
       var deleteIndex = e.target.dataset.deleteIndex
-      var newList = this.data.goodsList
-      newList.splice(deleteIndex, 1)
-      this.setData({
-        goodsList: newList
-      })
+      // var newList = this.data.goodsList
+      // newList.splice(deleteIndex, 1)
+      // this.setData({
+      //   goodsList: newList
+      // })
       this.triggerEvent("deleteGoods", {
         index: deleteIndex
       })

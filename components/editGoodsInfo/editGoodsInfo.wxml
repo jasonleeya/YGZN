@@ -3,25 +3,25 @@
     <view class="input-group-title">{{popData.name}}</view>
     <view class="input-wrapper bg-gray solid">
       <view class="input-name">数量:</view>
-      <input type="number" bindinput='amountInput' bindblur="amountBlur" value="{{popData.goodsCount}}"></input>
+      <input type="number" bindinput='amountInput' bindblur="amountBlur" value="{{popData[amountKey]}}"></input>
     </view>
 
     <view class="input-wrapper bg-gray solid">
       <view class="input-name">不含税价:</view>
-      <input type="digit" bindinput='noTaxPriceInput' bindblur='noTaxPriceBlur' value="{{popData.NTPSingle}}"></input>
+      <input type="digit" bindinput='noTaxPriceInput' bindblur='noTaxPriceBlur' value="{{popData[noTaxPriceKey]}}"></input>
     </view>
     <view class="input-wrapper bg-gray solid">
       <view class="input-name">税率:</view>
-      <input type="digit" bindfocus='taxRateFocus'  bindblur='taxRateBlur' bindinput="textRateInput"  value='{{popData.taxRate}}'></input>
+      <input type="digit" bindfocus='taxRateFocus'  bindblur='taxRateBlur' bindinput="textRateInput"  value='{{popData[taxKey]}}'></input>
     </view>
     <view class="input-wrapper bg-gray solid">
       <view class="input-name">含税价:</view>
-      <input type="digit"  bindinput='containTaxPriceInput' bindblur='containTaxPriceBlur' value="{{popData.discountPrice}}"></input>
+      <input type="digit"  bindinput='containTaxPriceInput' bindblur='containTaxPriceBlur' value="{{popData[containTaxPriceKey]}}"></input>
     </view>
 
       <view class="input-wrapper bg-gray solid">
       <view class="input-name">总价:</view>
-      <input type="digit" class="text-gray" disabled  bindinput='totalPriceInput' bindblur='totalPriceeBlur' value="{{popData.sttAmount}}"></input>
+      <input type="digit" class="text-gray" disabled  bindinput='totalPriceInput' bindblur='totalPriceeBlur' value="{{popData[totalPriceKey]}}"></input>
     </view>
     <view class="operation-btn solid-top">
       <view class="btn-cancel solid-right" bindtap='addCancel'>取消</view>

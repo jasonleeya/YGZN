@@ -9,7 +9,7 @@ create(store, {
   data: {
     goodsList: [],
     totalPrice: 0,
-
+    totalAmount: 0,
     orderId: "",
     supplier: "",
     supplyNo: "",
@@ -120,20 +120,30 @@ create(store, {
 
   //监听购物车组件信息的改变
   getChangeAmount(e) {
-    app.globalData.purchaseCartList[e.detail.index].goodsCount = e.detail.amount
+    // app.globalData.purchaseCartList[e.detail.index].goodsCount = e.detail.amount
+    var index = e.detail.index
+    this.setData({
+      ["goodsList[" + index + "].goodsCount"]: e.detail.amount,
+      ["goodsList[" + index + "].sttAmount"]: (parseInt(e.detail.amount) * parseFloat(this.data.goodsList[index].discountPrice)).toFixed(2)
+    })
   },
   deleteGoods(e) {
-    var list=this.data.goodsList
+    var list = this.data.goodsList
     list.splice(e.detail.index, 1)
     this.setData({
-      goodsList:list
+      goodsList: list
     })
-    app.globalData.purchaseCartList.splice(e.detail.index, 1)
+    // app.globalData.purchaseCartList.splice(e.detail.index, 1)
   },
   priceAmountChange(e) {
-    app.globalData.purchaseTotalPrice = e.detail.totalPrice,
-      app.globalData.purchaseTotalAmount = e.detail.totalAmount
+    // app.globalData.purchaseTotalPrice = e.detail.totalPrice,
+    //   app.globalData.purchaseTotalAmount = e.detail.totalAmount
     // console.log(app.globalData.purchaseTotalPrice, app.globalData.purchaseTotalAmount)
+    this.setData({
+      totalPrice: e.detail.totalPrice,
+      totalAmount: e.detail.totalAmount
+    })
+
   },
   getEditGoodsId(e) {
     var index = e.detail.index
@@ -146,10 +156,17 @@ create(store, {
   getEditedInfo(e) {
     var totalPrice = 0
     var totalAmount = 0
+    var index = this.data.editingIndex 
+    var data = e.detail.data
     this.setData({
       showEditPop: false,
-      popData:{},
-      ["goodsList[" + this.data.editingIndex + "]"]: e.detail.data
+      popData: {},
+      ["goodsList[" + index + "].goodsCount"]: data.goodsCount,
+      ["goodsList[" + index + "].NTPSingle"]: data.NTPSingle,
+      ["goodsList[" + index + "].NTP"]: data.NTP,
+      ["goodsList[" + index + "].taxRate"]: parseFloat(data.taxRate),
+      ["goodsList[" + index + "].discountPrice"]: data.discountPrice,
+      ["goodsList[" + index + "].sttAmount"]: data.sttAmount,
     })
     this.data.goodsList.forEach(item => {
       totalPrice = (parseFloat(totalPrice) + parseFloat(item.discountPrice) * parseInt(item.goodsCount)).toFixed(2)

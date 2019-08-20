@@ -1,4 +1,4 @@
- .placeholder {
+.placeholder {
   color: #000;
 }
 
@@ -32,11 +32,13 @@
   height: 100rpx;
   line-height: 100rpx;
 }
-.comfirm-order button{
+
+.comfirm-order button {
   height: 100rpx;
   line-height: 100rpx;
-  border-radius: 0
+  border-radius: 0;
 }
+
 .add-aeceive-address {
   display: flex;
   position: relative;
@@ -46,6 +48,7 @@
   padding-bottom: 30rpx;
   line-height: 44rpx;
 }
+
 .operating-options {
   display: flex;
   height: 100rpx;
@@ -54,13 +57,15 @@
   bottom: 0;
   width: 100vw;
   background-color: #fff;
-  justify-content: space-between;
+  justify-content: flex-end;
   padding: 0 30rpx;
-  border-top: 1rpx solid #eee
+  border-top: 1rpx solid #eee;
 }
- .option{
-   height: 60rpx;
-   line-height: 60rpx;
-   padding: 0 20rpx;
-   border-radius: 30rpx
- }
+
+.option {
+  height: 60rpx;
+  line-height: 60rpx;
+  padding: 0 20rpx;
+  border-radius: 30rpx;
+  margin-left: 20rpx;
+}

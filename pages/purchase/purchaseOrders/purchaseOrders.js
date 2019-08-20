@@ -10,28 +10,57 @@ create(store, {
     selectingMothod: null, //正在选择的排序方法
     //排序方法列表
     sortMethodsList: [{
-      name: "日期范围",
-      activeOption: 0,
-      options: ["全部时间", "今日", "最近7天", "最近1月", "自定义"]
-    }, {
-      activeOption: 0,
-      name: "订单状态",
-      options: ["全部状态", "已完成", "待付款", "待入库"]
-    }, {
-      activeOption: 0,
-      name: "收款状态",
-      options: ["全部状态", "已收款", "待收款"]
-    }, {
-      activeOption: null,
-      name: "业务人员",
-      options: []
-    }],
+        name: "日期范围",
+        activeOption: 0,
+        options: ["全部时间", "今日", "最近7天", "最近1月", "自定义"]
+      },
+      {
+        activeOption: 0,
+        name: "订单状态",
+        options: [{
+          name: "全部状态",
+          status: ""
+        }, {
+          name: "待审核",
+          status: "wait"
+        }, {
+          name: "待确认",
+          status: "090001"
+        }, {
+          name: "待付款",
+          status: "090003"
+        }, {
+          name: "待发货",
+          status: "090002"
+        }, {
+          name: "待入库",
+          status: "090004"
+        }, {
+          name: "已完成",
+          status: "090005"
+        }, {
+          name: "已取消",
+          status: "090008"
+        }]
+      },
+      {
+        activeOption: 0,
+        name: "收款状态",
+        options: ["全部状态", "已收款", "待收款"]
+      }, {
+        activeOption: null,
+        name: "业务人员",
+        options: []
+      }
+    ],
+
+
     //自定义选择时间段
     customTimeRange: {
       isShow: false,
       nowDate: '',
-      startDate: "2015-09-01",
-      endDate: "2015-09-01"
+      startDate: "",
+      endDate: ""
     },
     //是否是选择全部人员
     chooseAllPerson: true,
@@ -109,11 +138,15 @@ create(store, {
       }]
     },
     //订单列表
-    orderList: [],
-    orderStatus: null,
+    orderList: [], 
     isLoading: false,
     curPage: 1,
-    totalPages: null
+    totalPages: null,
+    isSearchBlur: false,
+    searchValue: "",
+    sortStartTime: "",
+    sortEndTime: "",
+    orderStatus:""
   },
   onLoad(options) {
     this.setData({
@@ -136,16 +169,26 @@ create(store, {
       ["customTimeRange.startDate"]: nowDate,
       ["customTimeRange.endDate"]: nowDate
     })
-
   },
-  getList() {
+  getList(isReplaceList = false, isLoadMore = false) {
+    if (isReplaceList) {
+      this.setData({
+        orderList: []
+      })
+    }
+    if (!isLoadMore) {
+      this.setData({
+        curPage: 1
+      })
+    }
+
     var parmas = {
       orderStatus: this.data.orderStatus === "back" ? "" : this.data.orderStatus,
       currentPage: this.data.curPage,
       pageSize: 10,
-      simpleSeek: "",
-      beginTime: "",
-      endTime: "",
+      simpleSeek: this.data.searchValue,
+      beginTime: this.data.sortStartTime,
+      endTime: this.data.sortEndTime,
       warehouse: "",
     }
     var query = ""
@@ -157,7 +200,7 @@ create(store, {
 
     app.http(query, parmas).then(data => {
       data.list.forEach(item => {
-        switch (this.data.orderStatus) {
+        switch (item.orderStatus) {
           case "wait":
             item.status = "待审核"
             break
@@ -195,21 +238,37 @@ create(store, {
         orderType += item.showPayBtn === "yes" && item.orderStatus === "090003" ? "已汇款/" : ""
         item.orderType = orderType.slice(0, orderType.length - 1)
       })
-      if (this.data.curPage === 1) {
-        this.setData({
-          orderList: data.list,
-          isLoading: false,
-          totalPages: data.totalPages
-        })
-      } else {
-        this.setData({
-          orderList: this.data.orderList.concat(data.list),
-          isLoading: false,
-        })
-      }
+
+      this.setData({
+        orderList: this.data.orderList.concat(data.list),
+        isLoading: false,
+        totalPages: data.totalPages
+      })
+
 
     })
 
+  },
+  searchFocus() {
+    this.setData({
+      isSearchBlur: true
+    })
+  },
+  searchBlur(e) {
+    this.setData({
+      isSearchBlur: false
+    })
+  },
+  searchInput(e) {
+    this.setData({
+      searchValue: e.detail.value
+    })
+  },
+  search() {
+    this.setData({
+      curPage: 1,
+    })
+    this.getList(true)
   },
 
   //监听滑动到底部
@@ -219,7 +278,7 @@ create(store, {
         isLoading: true,
         curPage: this.data.curPage + 1
       })
-      this.getList()
+      this.getList(false, true)
     } else {
       app.showToast("没有更多订单了")
     }
@@ -246,18 +305,78 @@ create(store, {
     console.log(this.data.sortMethodsList[this.data.selectingMothod].options[index])
     switch (index) {
       case 0:
+        this.setData({
+          sortStartTime: "",
+          sortEndTime: "",
+          ["customTimeRange.isShow"]: false,
+          ["sortMethodsList[" + this.data.selectingMothod + "].options[4]"]: "自定义"
+        })
+        this.getList(true)
+        break
       case 1:
+        this.setData({
+          sortStartTime: this.data.customTimeRange.nowDate,
+          sortEndTime: this.data.customTimeRange.nowDate,
+          ["customTimeRange.isShow"]: false,
+          ["sortMethodsList[" + this.data.selectingMothod + "].options[4]"]: "自定义"
+        })
+        this.getList(true)
+        break
       case 2:
-      case 3:
-        {
-          this.setData({
-            //当选中非自定义时间段时日期选择期隐藏自定义按钮显示自定义
-            ["customTimeRange.isShow"]: false,
-            ["sortMethodsList[0].options[4]"]: "自定义"
-          })
+        var date = new Date()
+        var year = date.getFullYear()
+        var mouth = date.getMonth() + 1
+        var day = date.getDate()
+        var lastWeek = null
+        if (day > 7) {
+          day = day - 7
+        } else {
+          day = new Date(year, mouth, 0).getDate() - (7 - day)
+          if (mouth === 1) {
+            mouth = 12
+            year = year - 1
+          } else(
+            mouth = mouth - 1
+          )
+
         }
+        lastWeek = year + "-" + mouth + "-" + day
+
+        this.setData({
+          sortStartTime: lastWeek,
+          sortEndTime: this.data.customTimeRange.nowDate,
+          ["customTimeRange.isShow"]: false,
+          ["sortMethodsList[" + this.data.selectingMothod + "].options[4]"]: "自定义"
+        })
+        this.getList(true)
+        break
+      case 3:
+        var date = new Date()
+        var year = date.getFullYear()
+        var month = date.getMonth() + 1
+        var day = date.getDate()
+        var lastMonth = null
+        if (month > 1) {
+          month = month - 1
+        } else {
+          month = 12
+          year = year - 1
+        }
+        lastMonth = year + "-" + month + "-" + day
+
+        this.setData({
+          sortStartTime: lastMonth,
+          sortEndTime: this.data.customTimeRange.nowDate,
+          ["customTimeRange.isShow"]: false,
+          ["sortMethodsList[" + this.data.selectingMothod + "].options[4]"]: "自定义"
+        })
+        this.getList(true)
         break;
       case 4:
+        this.setData({
+          sortStartTime: this.data.customTimeRange.nowDate,
+          sortEndTime: this.data.customTimeRange.nowDate,
+        })
         //如果选择的起始时间和结束时间一致则只显示所选的那天,不一致则显示时间段
         if (new Date(this.data.customTimeRange.startDate).getTime() === new Date(this.data.customTimeRange.endDate).getTime()) {
           this.setData({
@@ -270,6 +389,7 @@ create(store, {
             ["sortMethodsList[0].options[4]"]: this.data.customTimeRange.startDate + "至" + this.data.customTimeRange.endDate
           })
         }
+        this.getList(true)
     }
   },
   startDateChange(e) {
@@ -285,7 +405,10 @@ create(store, {
         ["sortMethodsList[0].options[4]"]: e.detail.value + "至" + this.data.customTimeRange.endDate
       })
     }
-
+    this.setData({
+      sortStartTime: this.data.customTimeRange.startDate,
+    })
+    this.getList(true)
   },
   endDateChange(e) {
     //起始时间不能大于结束时间
@@ -300,14 +423,19 @@ create(store, {
         ["sortMethodsList[0].options[4]"]: this.data.customTimeRange.startDate + "至" + e.detail.value
       })
     }
+    this.setData({
+      sortEndTime: this.data.customTimeRange.endDate,
+    })
+    this.getList(true)
   },
   //订单状态
   chooseOrderStatus(e) {
     var index = e.target.dataset.index
     this.setData({
-      ["sortMethodsList[" + this.data.selectingMothod + "].activeOption"]: index
+      ["sortMethodsList[" + this.data.selectingMothod + "].activeOption"]: index,
+      orderStatus: this.data.sortMethodsList[this.data.selectingMothod].options[index].status
     })
-    console.log(this.data.sortMethodsList[this.data.selectingMothod].options[index])
+    this.getList(true)
   },
   //付款状态
   chooseReceiptStatus(e) {
