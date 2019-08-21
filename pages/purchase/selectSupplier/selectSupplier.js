@@ -34,11 +34,13 @@ create(store, {
   chooseSupplier(e) {
     // this.store.data.newPurchase.supplier = this.data.supplierList[e.currentTarget.dataset.index]
 
+    // console.log(this.data.supplierList[e.currentTarget.dataset.index])
     var pages = getCurrentPages()
     var prevPage = pages[pages.length - 2]
     prevPage.setData({
       supplier: this.data.supplierList[e.currentTarget.dataset.index].customer.supplyName,
-      supplyNo: this.data.supplierList[e.currentTarget.dataset.index].customer.supplyNo
+      supplyNo: this.data.supplierList[e.currentTarget.dataset.index].customer.supplyNo,
+      customerType: this.data.supplierList[e.currentTarget.dataset.index].customer.customerType
     })
     wx.navigateBack()
   },

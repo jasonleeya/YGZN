@@ -51,7 +51,7 @@
     </view>
     <view class="person-change-page solid-top">
       <text class="pre-page cuIcon-back" bindtap="prePage"> 上一页</text>
-      <text class="cur-page">第{{personList.curPage}}页/共{{personList.personList}}页</text>
+      <text class="cur-page">第{{personList.curPage}}页/共{{personList.totalPages}}页</text>
       <text class="next-page" bindtap="nextPage">下一页<text class="cuIcon-right"></text></text>
     </view>
   </view>

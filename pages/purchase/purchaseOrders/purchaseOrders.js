@@ -13,8 +13,7 @@ create(store, {
         name: "日期范围",
         activeOption: 0,
         options: ["全部时间", "今日", "最近7天", "最近1月", "自定义"]
-      },
-      {
+      }, {
         activeOption: 0,
         name: "订单状态",
         options: [{
@@ -69,76 +68,10 @@ create(store, {
       curPage: 1,
       totalPages: 0,
       isLoad: false,
-      list: [{
-        id: 0,
-        name: "业务员1"
-      }, {
-        id: 1,
-        name: "业务员2"
-      }, {
-        id: 2,
-        name: "业务员3"
-      }, {
-        id: 3,
-        name: "业务员4"
-      }, {
-        id: 4,
-        name: "业务员5"
-      }, {
-        id: 5,
-        name: "业务员6"
-      }, {
-        id: 6,
-        name: "业务员7"
-      }, {
-        id: 7,
-        name: "业务员8"
-      }, {
-        id: 8,
-        name: "业务员9"
-      }, {
-        id: 9,
-        name: "业务员10"
-      }, {
-        id: 10,
-        name: "业务员11"
-      }, {
-        id: 11,
-        name: "业务员12"
-      }, {
-        id: 12,
-        name: "业务员13"
-      }, {
-        id: 14,
-        name: "业务员15"
-      }, {
-        id: 15,
-        name: "业务员16"
-      }, {
-        id: 16,
-        name: "业务员17"
-      }, {
-        id: 17,
-        name: "业务员18"
-      }, {
-        id: 19,
-        name: "业务员20"
-      }, {
-        id: 20,
-        name: "业务员21"
-      }, {
-        id: 21,
-        name: "业务员22"
-      }, {
-        id: 22,
-        name: "业务员23"
-      }, {
-        id: 23,
-        name: "业务员24"
-      }]
+      list: []
     },
     //订单列表
-    orderList: [], 
+    orderList: [],
     isLoading: false,
     curPage: 1,
     totalPages: null,
@@ -146,7 +79,7 @@ create(store, {
     searchValue: "",
     sortStartTime: "",
     sortEndTime: "",
-    orderStatus:""
+    orderStatus: ""
   },
   onLoad(options) {
     this.setData({
@@ -156,11 +89,26 @@ create(store, {
     this.getList()
 
     //分页逻辑
-    var listCopy = JSON.parse(JSON.stringify(this.data.personList.list))
-    this.data.personList.personList = Math.ceil(listCopy.length / 10)
-    this.setData({
-      ["sortMethodsList[3].options"]: listCopy.splice((this.data.personList.curPage - 1) * 10, 10)
+
+    app.http("queryAllUsingSalesman", {
+      pageSize: 10000
+    }).then(data => {
+      data.list.forEach(item => {
+        item.name = item.userName
+        item.id = item.custNo
+      })
+      var listCopy = JSON.parse(JSON.stringify(data.list))
+      var sortMethodsList = this.data.sortMethodsList
+      var index = sortMethodsList.indexOf(sortMethodsList.filter(item => {
+        return item.name === "业务人员"
+      })[0])
+      this.setData({
+        ["personList.list"]: data.list,
+        ["personList.totalPages"]: Math.ceil(listCopy.length / 10),
+        ["sortMethodsList[" + index + "].options"]: listCopy.splice((this.data.personList.curPage - 1) * 10, 10)
+      })
     })
+
     //获取当前日期
     var date = new Date()
     var nowDate = date.getFullYear() + "-" + (date.getMonth() + 1) + "-" + date.getDate()
@@ -292,8 +240,9 @@ create(store, {
   },
   //展开列表
   chooseSortMethod(e) {
+    var index = e.target.dataset.index
     this.setData({
-      selectingMothod: e.target.dataset.index
+      selectingMothod: this.data.selectingMothod === index ? null : index,
     })
   },
   chooseTimeRange(e) {
@@ -381,12 +330,12 @@ create(store, {
         if (new Date(this.data.customTimeRange.startDate).getTime() === new Date(this.data.customTimeRange.endDate).getTime()) {
           this.setData({
             ["customTimeRange.isShow"]: true,
-            ["sortMethodsList[0].options[4]"]: this.data.customTimeRange.endDate
+            ["sortMethodsList[" + this.data.selectingMothod + "].options[4]"]: this.data.customTimeRange.endDate
           })
         } else {
           this.setData({
             ["customTimeRange.isShow"]: true,
-            ["sortMethodsList[0].options[4]"]: this.data.customTimeRange.startDate + "至" + this.data.customTimeRange.endDate
+            ["sortMethodsList[" + this.data.selectingMothod + "].options[4]"]: this.data.customTimeRange.startDate + "至" + this.data.customTimeRange.endDate
           })
         }
         this.getList(true)
@@ -397,12 +346,12 @@ create(store, {
     if (new Date(e.detail.value).getTime() >= new Date(this.data.customTimeRange.endDate).getTime()) {
       this.setData({
         ["customTimeRange.startDate"]: this.data.customTimeRange.endDate,
-        ["sortMethodsList[0].options[4]"]: this.data.customTimeRange.endDate
+        ["sortMethodsList[" + this.data.selectingMothod + "].options[4]"]: this.data.customTimeRange.endDate
       })
     } else {
       this.setData({
         ["customTimeRange.startDate"]: e.detail.value,
-        ["sortMethodsList[0].options[4]"]: e.detail.value + "至" + this.data.customTimeRange.endDate
+        ["sortMethodsList[" + this.data.selectingMothod + "].options[4]"]: e.detail.value + "至" + this.data.customTimeRange.endDate
       })
     }
     this.setData({
@@ -415,12 +364,12 @@ create(store, {
     if (new Date(e.detail.value).getTime() <= new Date(this.data.customTimeRange.startDate).getTime()) {
       this.setData({
         ["customTimeRange.endDate"]: this.data.customTimeRange.startDate,
-        ["sortMethodsList[0].options[4]"]: this.data.customTimeRange.startDate
+        ["sortMethodsList[" + this.data.selectingMothod + "].options[4]"]: this.data.customTimeRange.startDate
       })
     } else {
       this.setData({
         ["customTimeRange.endDate"]: e.detail.value,
-        ["sortMethodsList[0].options[4]"]: this.data.customTimeRange.startDate + "至" + e.detail.value
+        ["sortMethodsList[" + this.data.selectingMothod + "].options[4]"]: this.data.customTimeRange.startDate + "至" + e.detail.value
       })
     }
     this.setData({
@@ -444,6 +393,14 @@ create(store, {
       ["sortMethodsList[" + this.data.selectingMothod + "].activeOption"]: index
     })
     console.log(this.data.sortMethodsList[this.data.selectingMothod].options[index])
+    switch (this.data.sortMethodsList[this.data.selectingMothod].options[index]) {
+      case "已收款":
+        // break
+      case "待收款":
+        // break
+      default:
+        app.showToast("暂时不支持")
+    }
   },
   //人员选择
   choosePerson(e) {
@@ -461,7 +418,20 @@ create(store, {
       })
     }
 
-    console.log(id)
+    var name = null
+    if (id === "all") {
+      name = ""
+    } else {
+      name = this.data.personList.list.filter(item => {
+        return item.id === id
+      })[0].name
+    }
+    console.log(name)
+
+    this.setData({
+      searchValue: name
+    })
+    this.getList(true)
   },
   //人员列表上一页
   prePage() {
@@ -471,7 +441,7 @@ create(store, {
         ["personList.curPage"]: this.data.personList.curPage - 1,
       }, function() {
         this.setData({
-          ["sortMethodsList[3].options"]: listCopy.splice((this.data.personList.curPage - 1) * 10, 10)
+          ["sortMethodsList[" + this.data.selectingMothod + "].options"]: listCopy.splice((this.data.personList.curPage - 1) * 10, 10)
         })
       })
       console.log(this.data.personList.curPage)
@@ -480,12 +450,12 @@ create(store, {
   //人员列表下一页
   nextPage() {
     var listCopy = JSON.parse(JSON.stringify(this.data.personList.list))
-    if (this.data.personList.curPage < 3) {
+    if (this.data.personList.curPage < this.data.personList.totalPages) {
       this.setData({
         ["personList.curPage"]: this.data.personList.curPage + 1,
       }, function() {
         this.setData({
-          ["sortMethodsList[3].options"]: listCopy.splice((this.data.personList.curPage - 1) * 10, 10)
+          ["sortMethodsList[" + this.data.selectingMothod + "].options"]: listCopy.splice((this.data.personList.curPage - 1) * 10, 10)
         })
       })
       console.log(this.data.personList.curPage)

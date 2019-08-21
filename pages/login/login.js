@@ -98,8 +98,15 @@ Page({
       loginType: 1,
     }).then(data => {
       if (this.data.isRemenberPassword) {}
-      wx.setStorageSync("token", data.info.split(";")[0])
-      app.globalData.token = data.info.split(";")[0]
+      var token = data.info.split(";")[0]
+      wx.setStorageSync("token", token)
+      app.globalData.token = token
+
+      app.http("getUserByCustNo",{token:token,flag:true},true,false).then(data=>{
+        app.globalData.userInfo = data.list
+        wx.setStorageSync("userInfo", data.list)
+      }) 
+
       wx.redirectTo({
         url: '../index/index',
       })

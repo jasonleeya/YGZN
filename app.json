@@ -11,6 +11,7 @@
     "pages/purchase/addBuyer/addBuyer",
     "pages/purchase/selectBuyer/selectBuyer",
     "pages/purchase/orderLogs/orderLogs",
+    "pages/purchase/addGoods/addGoods",
     "pages/product/productManage/productManage",
     "pages/product/productOperate/productOperate",
     "pages/test/test",

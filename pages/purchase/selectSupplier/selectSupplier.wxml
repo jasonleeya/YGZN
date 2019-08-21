@@ -11,7 +11,7 @@
         <view class="supplier-header solid-bottom">
           <text class="cuIcon-friend name-icon"></text>
           <text class="supplier-name">{{item.customer.supplyName}}</text>
-          <text class="supplier-type text-green">{{item.customer.approveStatus===1?"线上":"自建"}}</text>
+          <text class="supplier-type text-green">{{item.customer.customerType==="1003"?"线上":"自建"}}</text>
         </view>
         <view class="supplier-info">
           <view class="supplier-info-name text-gray">营业执照</view>

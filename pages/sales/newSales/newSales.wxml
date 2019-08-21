@@ -68,9 +68,9 @@
     </view>
     <view class="title add-goods">添加商品</view>
     <!-- 搜索 -->
-    <search link="/pages/common/addGoods/addGoods?store=newSales" />
+    <search link="/pages/purchase/addGoods/addGoods?store=newSales" />
     <!-- 购物车 -->
-    <cart goodsList="{{goodsList}}" totalPrice="{{totalPrice}}" bind:changeData="getChangedData" goodsListUrl="{{'/pages/common/addGoods/addGoods?store=newSales'}}" />
+    <cart goodsList="{{goodsList}}" totalPrice="{{totalPrice}}" bind:changeData="getChangedData" goodsListUrl="{{'/pages/purchase/addGoods/addGoods?store=newSales'}}" />
 
     <view class="title remake">备注</view>
     <textarea name="remark" class="remarke-textarea" placeholder="请填写备注信息" />

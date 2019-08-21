@@ -1,4 +1,4 @@
-import addGoods from './pages/common/addGoods/store.js'
+import addGoods from './pages/purchase/addGoods/store.js'
 import newPurchase from './pages/purchase/newPurchase/store.js'
 import selectSupplier from './pages/purchase/selectSupplier/store.js'
 import selectBuyer from "./pages/purchase/selectBuyer/store.js"

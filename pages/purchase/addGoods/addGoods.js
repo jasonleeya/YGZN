@@ -36,16 +36,16 @@ create(store, {
   },
   //进入页面初始化数据
   onShow() {
-    // var cartList=app.globalData.purchaseCartList
-    // var totalAmount=0
-    // var totalPrice=0
-    // cartList.forEach(item => {
-    //   totalAmount = parseInt(totalAmount) + parseInt(item.goodsCount)
-    //   totalPrice = parseFloat(totalPrice) + parseFloat(item.sttAmount)
-    // })
+    var cartList=app.globalData.purchaseCartList
+    var totalAmount=0
+    var totalPrice=0
+    cartList.forEach(item => {
+      totalAmount = parseInt(totalAmount) + parseInt(item.goodsCount)
+      totalPrice = parseFloat(totalPrice) + parseFloat(item.sttAmount)
+    })
     this.setData({
-      totalPrice:app.globalData.purchaseTotalPrice,
-      totalAmount: app.globalData.purchaseTotalAmount
+      totalPrice: totalPrice,
+      totalAmount: totalAmount
     })
 
   },
@@ -368,6 +368,10 @@ create(store, {
     var goods = this.data.goodsList[this.data.activeIndex]
     var popData = this.data.popData
     var value = () => {
+      var goodsDiscount = (parseFloat(popData.NTPSingle) / parseFloat(this.data.popDataCopy.NTPSingle)).toFixed(2)
+      if (goodsDiscount>1){
+        goodsDiscount=1
+      } 
       return {
         brandNo: goods.brandCode,
         goodsUnit: goods.productUnit,
@@ -375,7 +379,7 @@ create(store, {
         goodsName: goods.productName + "~" + goods.parameter,
         facePrice: this.data.popDataCopy.NTPSingle,
         minNums: this.data.popDataCopy.goodsCount,
-        goodsDiscount: (parseFloat(popData.NTPSingle) / parseFloat(this.data.popDataCopy.NTPSingle)).toFixed(2),
+        goodsDiscount: goodsDiscount ,
         goodsBrand: goods.brandName,
         NTP: parseFloat(popData.NTPSingle) * parseInt(popData.goodsCount),
         taxRate: parseFloat(popData.taxRate),
@@ -424,11 +428,9 @@ create(store, {
       totalAmount: totalAmount,
       totalPrice: totalPrice
     })
-    app.globalData.purchaseTotalPrice = totalPrice
-    app.globalData.purchaseTotalAmount = totalAmount 
+     
   },
   confirmOrder() {
-
     wx.navigateBack()
   },
 

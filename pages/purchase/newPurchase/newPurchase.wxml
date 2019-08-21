@@ -28,7 +28,14 @@
           </view>
         </picker>
       </view>
-
+      <view class="add-aeceive-address  border-bt">
+        <view class="cell-name">收货地址</view>
+        <input name="receiveAddress" hidden type="hidden" value="{{receiveAddress}}" disabled class="cell-value" bindtap="addAeceiveAddress"></input>
+        <view class="cell-value">
+          {{receiveAddress}}
+        </view>
+        <view class="cuIcon-right  cell-icon" bindtap="addAeceiveAddress"></view>
+      </view>
       <view class="cell border-bt">
         <view class="cell-name">收货人</view>
         <view class="cell-value">
@@ -45,14 +52,7 @@
         <!-- <view class="cuIcon-right  cell-icon"></view> -->
       </view>
 
-      <view class="add-aeceive-address  border-bt">
-        <view class="cell-name">收货地址</view>
-        <input name="receiveAddress" hidden type="hidden" value="{{receiveAddress}}" disabled class="cell-value" bindtap="addAeceiveAddress"></input>
-        <view class="cell-value">
-          {{receiveAddress}}
-        </view>
-        <view class="cuIcon-right  cell-icon" bindtap="addAeceiveAddress"></view>
-      </view>
+
 
       <view class="cell">
         <view class="cell-name">收货日期</view>

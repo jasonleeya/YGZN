@@ -7,15 +7,17 @@ Page({
    */
   data: {
     list: [],
-    setData:null,
+    setData: null,
   },
 
   /**
    * 生命周期函数--监听页面加载
    */
-  onLoad(options){
+  onLoad(options) {
     this.setData({
-      setData:options.setData
+      addressKey: options.addressKey,
+      phoneNumberKey: options.phoneNumberKey,
+      receiverKey: options.receiverKey
     })
   },
   onShow: function() {
@@ -49,9 +51,11 @@ Page({
     })
   },
   choose(e) {
-
+    var index = e.currentTarget.dataset.index
     getCurrentPages()[getCurrentPages().length - 2].setData({
-      [this.data.setData]: "【" + this.data.list[e.currentTarget.dataset.index].region + "】" + this.data.list[e.currentTarget.dataset.index].address
+      [this.data.addressKey]: "【" + this.data.list[index].region + "】" + this.data.list[index].address,
+      [this.data.phoneNumberKey]: this.data.list[index].telephone,
+      [this.data.receiverKey]: this.data.list[index].consignee, 
     })
     wx.navigateBack({
       delta: 1,

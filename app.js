@@ -9,7 +9,7 @@ App({
     companies: null,
     //purchase
     purchaseCartList:[],
-    purchaseTotalPrice:0,
+    purchaseTotalPrice:0, 
     purchaseTotalAmount:0,
   },
 
