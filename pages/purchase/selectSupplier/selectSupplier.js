@@ -8,33 +8,16 @@ create(store, {
    */
   data: {
     supplierList: [],
-    isLoad: true,
+    isLoad: false,
     currentPage: 0,
+    searchValue: "",
+    timeOut: null,
   },
   onLoad() {},
   onShow() {
-    //接收新建供应商的数据
-    // this.setData({
-    //   supplierList: this.store.data.selectSupplier.supplierList
-    // })
-    app.http("getSupplyList", {
-      pageNo: 0,
-      pageSize: 15,
-      keyword: "",
-      status: "1,2"
-    }).then(data => {
-      this.setData({
-        supplierList: data.list,
-        isLoad: false,
-      })
-    })
+    this.getList()
   },
-
-  //将所选的供应商存到新增采购单的store中
   chooseSupplier(e) {
-    // this.store.data.newPurchase.supplier = this.data.supplierList[e.currentTarget.dataset.index]
-
-    // console.log(this.data.supplierList[e.currentTarget.dataset.index])
     var pages = getCurrentPages()
     var prevPage = pages[pages.length - 2]
     prevPage.setData({
@@ -44,30 +27,57 @@ create(store, {
     })
     wx.navigateBack()
   },
+  searchBlur(e) {},
+  searchFocus(e) {},
+  searchInput(e) {
+    this.setData({
+      searchValue: e.detail.value
+    })
+    if(this.data.timeOut){
+      clearTimeout(this.data.timeOut)
+    }
+    var timeOut = setTimeout(() => {
+      this.getList(true)
+    }, 500)
+    this.setData({
+      timeOut:timeOut
+    })
  
+  },
+
+  getList(isReplace = false) {
+    if (isReplace) {
+      this.setData({
+        supplierList: []
+      })
+    }
+    this.setData({
+      isLoad: true,
+    })
+    app.http("getSupplyList", {
+      pageNo: this.data.currentPage,
+      pageSize: 15,
+      keyword: this.data.searchValue,
+      status: "1,2"
+    }).then(data => {
+      if (data.list) {
+        this.setData({
+          supplierList: this.data.supplierList.concat(data.list),
+          isLoad: false,
+        })
+      } else {
+        this.setData({
+          isLoad: false
+        })
+      }
+    })
+  },
   scrollToBottom() {
     if (!this.data.isLoad) {
       this.setData({
-        isLoad: true,
         currentPage: this.data.currentPage + 1
       })
-      app.http("getSupplyList", {
-        pageNo: this.data.currentPage,
-        pageSize: 15,
-        keyword: "",
-        status: "1,2"
-      }, true).then(data => {
-        if (data.list) {
-          this.setData({
-            supplierList: this.data.supplierList.concat(data.list),
-            isLoad: false,
-          })
-        }else{
-          this.setData({
-            isLoad: false
-          })
-        }
-      })
+      this.getList()
     }
   },
   //新增供应商

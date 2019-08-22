@@ -1,0 +1,6 @@
+{
+  "usingComponents": {
+    "search":"/components/search/search",
+    "previewImage": "/components/previewImage/previewImage"
+  }
+}

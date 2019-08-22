@@ -1,34 +1,38 @@
 <view class="header-search">
   <view class="input-wrapper">
-    <view class="search-icon cuIcon-search"></view>
-    <input class="bg-gray" placeholder="客户名称、拼音首字母搜索"></input>
+    <view class="search-icon cuIcon-search {{isSearchFocus?'theme-color':''}}" bindtap="search"></view>
+    <input class="bg-gray" placeholder="客户名称、拼音首字母搜索" bindblur="searchBlur" bindfocus="searchFocus" bindinput="searchInput"></input>
   </view>
   <view class="add" bindtap="add">新增</view>
 </view>
 <scroll-view scroll-y class="scroll-view">
-    <view class="list">
-      <view class="item" wx:for="{{customerList}}" wx:key bindtap="chooseCustomer" data-index="{{index}}">
-        <view class="header solid-bottom">
-          <text class="cuIcon-friend name-icon"></text>
-          <text class="name">{{item.name}}</text>
-          <text class="type text-green">{{item.createType}}</text>
-        </view>
-        <view class="info">
-          <view class="info-name text-gray">首要联系人</view>
-          <view class="info-value">{{item.primaryContact}}</view>
-        </view>
-        <view class="info">
-          <view class="info-name text-gray">联系电话</view>
-          <view class="info-value">{{item.phoneNumber}}</view>
-        </view>
-        <view class="info">
-          <view class="info-name text-gray">信用余额</view>
-          <view class="info-value">{{item.creditBalance}}</view>
-        </view>
-        <view class="info">
-          <view class="info-name text-gray">客户等级</view>
-          <view class="info-value">{{item.customerLevel}}</view>
-        </view>
+  <view class="list">
+    <view class="item" wx:for="{{customerList}}" wx:key bindtap="chooseCustomer" data-index="{{index}}">
+      <view class="header solid-bottom">
+        <text class="cuIcon-friend name-icon"></text>
+        <text class="name">{{item.customerName}}</text>
+        <text class="type text-green">{{item.approveStatus?"线上":"自建"}}</text>
+      </view>
+      <view class="info">
+        <view class="info-name text-gray">首要联系人</view>
+        <view class="info-value">{{item.primaryContact}}</view>
+      </view>
+      <view class="info">
+        <view class="info-name text-gray">联系电话</view>
+        <view class="info-value">{{item.contactPhone}}</view>
+      </view>
+      <view class="info">
+        <view class="info-name text-gray">信用余额</view>
+        <view class="info-value">{{item.creditLine}}</view>
+      </view>
+      <!-- <view class="info">
+        <view class="info-name text-gray">客户类型</view>
+        <view class="info-value">{{item.priceLevel}}</view>
+      </view> -->
+      <view class="info">
+        <view class="info-name text-gray">客户等级</view>
+        <view class="info-value">{{item.grade}}</view>
       </view>
     </view>
-  </scroll-view>
+  </view>
+</scroll-view>

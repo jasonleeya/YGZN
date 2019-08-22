@@ -7,11 +7,12 @@ create(store, {
     sellerList: []
   },
   onShow() {
-    this.store.data.selectSeller.sellerList.sort(this.compare("letter"))
-
-    this.setData({
-      sellerList: this.store.data.selectSeller.sellerList
+    app.http("queryAllUsingSalesman", { pageSize: 1000 }).then(data => {
+      this.setData({
+        sellerList: data.list
+      })
     })
+ 
   },
   compare(pro) {
     return function (obj1, obj2) {

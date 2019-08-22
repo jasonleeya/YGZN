@@ -23,7 +23,8 @@
     "pages/sales/addSeller/addSeller",
     "pages/sales/salesOrders/salesOrders",
     "pages/sales/orderDetail/orderDetail",
-    "pages/sales/orderLogs/orderLogs"  
+    "pages/sales/orderLogs/orderLogs",
+    "pages/sales/addGoods/addGoods"
   ],
   "window": {
     "backgroundTextStyle": "light",

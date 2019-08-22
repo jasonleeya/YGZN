@@ -57,9 +57,9 @@
       <view class="cell border-bt">
         <view class="cell-name">收货日期</view>
         <view class="cell-value">
-          <picker name="receiveDate" disabled="{{canEdit&&infos.orderStatus==='wait'?false:true}}" mode="date" value="{{infos.receiveTime}}" start="{{infos.receiveTime}}" end="2100-09-01" bindchange="dateChange">
+          <picker name="receiveDate" disabled="{{canEdit&&infos.orderStatus==='wait'?false:true}}" mode="date" value="{{infos.getGoodsDate}}" start="{{infos.getGoodsDate}}" end="2100-09-01" bindchange="dateChange">
             <view class="picker {{canEdit&&infos.orderStatus==='wait'?'':'text-gray'}}">
-              {{infos.receiveTime}}
+              {{infos.getGoodsDate}}
             </view>
           </picker>
         </view>
@@ -68,7 +68,7 @@
 
       <view class="cell border-bt">
         <view class="cell-name">订单状态</view>
-        <view class="cell-value">
+        <view class="cell-value text-gray">
           线上订单/信用订单
         </view>
       </view>
@@ -84,7 +84,6 @@
 
 
     </view>
-    <view class="title add-goods">添加商品</view>
     <!-- 搜索 -->
     <search bindtap="toSearch" />
     <!-- 购物车 -->
@@ -94,15 +93,16 @@
     <textarea name="remark" class="remarke-textarea" placeholder="请填写备注信息" />
 
     <view class="operating-options">
-     <view class="option bg-gradual-orange">添加商品</view>
-      <view class="option bg-gradual-orange" bindtap="edit" wx:if="{{infos.orderStatus === 'wait'||infos.orderStatus === '090001'&& infos.oando === 'down'}}">修改订单</view>
+
+      <view class="option bg-gradual-orange" bindtap="edit" wx:if="{{infos.orderStatus === 'wait'||infos.orderStatus === '090001'&& infos.oando === 'down'}}">{{canEdit?'确认修改':'修改订单'}}</view>
+
+      <view class="option bg-gradual-orange">添加商品</view>
 
       <view class="option bg-gradual-orange">取消订单</view>
+
       <view class="option bg-gradual-orange" wx:if="{{infos.orderStatus === 'wait'||infos.orderStatus === '090001'&& infos.oando === 'down'}}">确认订单</view>
-      <!-- <view class="option bg-gray">取消订单</view>
-      <view class="option bg-gray">订单付款</view>
-      <view class="option bg-gradual-orange" bindtap="orderLogs">订单日志</view> -->
-    </view>view
+
+    </view>
 
   </form>
 

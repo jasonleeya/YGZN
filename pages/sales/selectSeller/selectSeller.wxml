@@ -8,6 +8,6 @@
     <view class="add-buyer" bindtap="add">新增</view>
   </view>
 </view>
- <indexes wx:if="{{sellerList.length>0}}" list="{{sellerList}}" bind:select="selectedSeller"/>
+ <indexes wx:if="{{sellerList.length>0}}" list="{{sellerList}}" key="userName" bind:select="selectedSeller"/> 
  <view  wx:if="{{sellerList.length===0}}" class="empty">还没有销售员,请添加销售员~</view>
  

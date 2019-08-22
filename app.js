@@ -11,6 +11,10 @@ App({
     purchaseCartList:[],
     purchaseTotalPrice:0, 
     purchaseTotalAmount:0,
+    //sales
+    salesCartList: [],
+    salesTotalPrice: 0,
+    salesTotalAmount: 0,
   },
 
   onShow: function() {

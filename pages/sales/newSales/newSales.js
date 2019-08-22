@@ -8,43 +8,73 @@ create(store, {
   data: {
     goodsList: [],
     totalPrice: 0,
+    customerName: null,
+    customerNo: null,
+    custNo:null,
     storehouse: {
-      list: ["仓库一", "仓库二", "仓库三", "仓库四" ],
-      index:null
+      list: [],
+      idList: [],
+      index: null
     },
-    infos: {
-      orderId: "SPARK20197110001",
-      customer: "",
-      seller: "",
-      storehouse: "",
-      receiver: "伊高智能",
-      phoneNumber: "18888888888",
-      receiveAddress: "【四川省/成都市/成华区】建设路钻石广场3005",
-      receiveDate: "2019-07-25",
-    }
+    slectedStoreHouseId: "",
+    orderId: "",
+    customer: "",
+    seller: "",
+    receiver: "",
+    phoneNumber: "",
+    receiveAddress: "",
+    receiveDate: "",
+    region: "",
+    addressDetail: ""
   },
+
   onLoad() {
     //验证登录
     app.checkLogin()
-
-    this.store.data.newSales.receiveAddress = this.data.infos.receiveAddress
+    this.initData()
+    this.store.data.newSales.receiveAddress = this.data.receiveAddress
     var date = new Date()
     var nowDate = date.getFullYear() + "-" + (date.getMonth() + 1) + "-" + date.getDate()
     this.setData({
-      ["infos.receiveDate"]: nowDate
+      receiveDate: nowDate
     })
   },
   onShow() {
-    if (this.store.data.newSales.customer.length !== 0) {
-      this.setData({
-        ["infos.customer"]: this.store.data.newSales.customer.primaryContact
+    if (this.data.customerNo) {
+      app.http("getDftAddress", {
+        customerNo: this.data.customerNo
+      }).then(data => {
+        var address = data.list[0]
+        this.setData({
+          region: [address.province, address.city, address.area],
+          addressDetail: address.address
+        })
       })
     }
+  },
+  initData() {
+    app.http("getOrderNo").then(data => {
+      this.setData({
+        orderId: data
+      })
+    })
+    app.http("getWarehouse").then(data => {
+      var list = []
+      var idList = []
+      data.list.forEach(item => {
+        list.push(item.name)
+        idList.push(item.tableKey)
+      })
+      this.setData({
+        ["storehouse.list"]: list,
+        ["storehouse.idList"]: idList
+      })
+    })
+  },
+  selectStorehouse: function(e) {
     this.setData({
-      goodsList: this.store.data.newSales.cartList,
-      totalPrice: this.store.data.newSales.totalPrice,
-      ["infos.seller"]: this.store.data.newSales.seller,
-      ["infos.receiveAddress"]: this.store.data.newSales.receiveAddress
+      ["storehouse.index"]: e.detail.value,
+      slectedStoreHouseId: this.data.storehouse.idList[e.detail.value]
     })
   },
   //跳转选择供应商页面
@@ -58,7 +88,22 @@ create(store, {
       url: '/pages/sales/selectSeller/selectSeller',
     })
   },
-   
+  toAddGoods(){
+    if (this.data.customerNo === "") {
+      app.showToast("请先选择客户")
+      return
+    }
+
+    wx.navigateTo({
+      url: "/pages/sales/addGoods/addGoods"
+    })
+    
+  },
+  regionChange(e) {
+    this.setData({
+      region: e.detail.value
+    })
+  },
 
   //监听购物车组件信息的改变
   getChangedData(e) {
@@ -70,23 +115,48 @@ create(store, {
   },
   dateChange(e) {
     this.setData({
-      ["infos.receiveDate"]: e.detail.value
+      receiveDate: e.detail.value
     })
   },
   addAeceiveAddress() {
     wx.navigateTo({
-      url: '/pages/common/addReceiveAdress/addReceiveAdress?adress=' + this.data.infos.receiveAddress +"&store=newSales.receiveAddress",
+      url: '/pages/common/addReceiveAdress/addReceiveAdress?adress=' + this.data.receiveAddress + "&store=newSales.receiveAddress",
     })
   },
   formSubmit(e) {
     var info = e.detail.value
+    var data=this.data
     info.goods = this.store.data.newSales.cartList
-    console.log(info)
+
+    var paramas = {
+      upperpartOrder:{
+        orderNo: info.orderId,
+        custNo: data.custNo,
+        custName: data.custName,
+        sellSalesMan: data.seller,
+        insertDate: '',//
+        deliveryDate: '',//
+        billingAmount: '500.00',//
+        orderStatus: '090003',//
+        sttAmount: '508.50',//
+        sttMode: '',//
+        remark: info.remark,
+        buyOperator: wx.getStorageSync("userInfo")[0].userName,
+        auditor: '',//
+        oando: 'down',//---
+        getGoodsDate: info.receiveDate,
+        hdGoods: '0',//
+        lgtNums: '',//
+        cpdOrder: '',//
+        saleWarehouse: '233113894401343488',//---
+        invoice: '0003',//
+        orderTypeChoose: '01',//
+        logisticsCost: '0.00',//
+        consignor: '',//
+        reflect: '0'//
+      }
+    }
+    console.log(paramas)  
   },
-  selectStorehouse: function(e) {
-    this.setData({
-      ["storehouse.index"]: e.detail.value,
-      ["infos.storehouse"]: this.data.storehouse.list[e.detail.value]
-    })
-  },
+
 })

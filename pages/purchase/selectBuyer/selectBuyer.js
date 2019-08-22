@@ -13,13 +13,7 @@ create(store, {
     })
   },
   onShow() {
-    // this.store.data.selectBuyer.buyerList.sort(this.compare("letter"))
-
-    //   this.setData({
-    //     buyerList: this.store.data.selectBuyer.buyerList
-    //   })
-  
-    app.http("queryAllUsingSalesman", { pageSize: 1000}).then(data=>{
+   app.http("queryAllUsingSalesman", { pageSize: 1000}).then(data=>{
       this.setData({
         buyerList:data.list
       }) 

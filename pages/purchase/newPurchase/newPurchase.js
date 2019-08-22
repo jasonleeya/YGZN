@@ -23,13 +23,14 @@ create(store, {
     storehouse: {
       list: [],
       idList: [],
-      index: null
+      index: 0
     },
     slectedStoreHouseId: "",
     showEditPop: false,
 
     popData: {},
-    editingIndex: null
+    editingIndex: null,
+    isLoad: false
   },
   onLoad() {
 
@@ -55,7 +56,7 @@ create(store, {
       totalPrice: totalPrice
     })
   },
-  toSearch() {
+  toAddGoods() {
     if (this.data.supplyNo === "") {
       app.showToast("请先选择供应商")
       return
@@ -87,7 +88,8 @@ create(store, {
       })
       this.setData({
         ["storehouse.list"]: list,
-        ["storehouse.idList"]: idList
+        ["storehouse.idList"]: idList,
+        slectedStoreHouseId: idList[0]
       })
     })
     app.http("getDtfAddress", {}).then(data => {
@@ -219,7 +221,7 @@ create(store, {
       upperpartOrder: JSON.stringify([{
         orderNo: info.orderId,
         supplyNo: data.supplyNo,
-        supplyName: info.supplier,  
+        supplyName: info.supplier,
         buySalesMan: info.buyer,
         insertDate: "", //*
         deliveryDate: null, //*
@@ -257,6 +259,20 @@ create(store, {
       beforeGoodsNum: "", //*
       beforeWareHouse: "" //*
     }
-    app.http("savePurchaseOrderUpperAndLower", paramas, true)
+    this.setData({
+      isLoad: true
+    })
+    app.http("savePurchaseOrderUpperAndLower", paramas, true).then(() => {
+        app.showToast("添加成功")
+        this.setData({
+          isLoad: false
+        })
+        wx.navigateBack({
+          delta: 1,
+        })
+      })
+      .catch((e) => {
+        app.showToast(e)
+      })
   },
 })

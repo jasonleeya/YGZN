@@ -2,7 +2,8 @@
   <view class="search-icon cuIcon-search"></view>
   <input class="bg-gray" placeholder="可搜索已认证的客户 申请后 需要用户通过" bindfocus="searchFocus" bindinput="searchInput" bindblur="searchBlur" value="{{searchInputValue}}"></input>
   <view class="dropdowm-list" wx:if="{{showDropdown}}">
-    <view class="dropdown-item solid-bottom" wx:for="{{searchList}}" wx:key data-id="{{item.id}}" bindtap="chooseSearchItem"><text class="dropdown-icon cuIcon-friend"></text>{{item.name}}</view>
+    <view class="dropdown-item solid-bottom" wx:for="{{searchList}}" wx:key data-id="{{item.id}}" bindtap="chooseSearchItem">
+      <text class="dropdown-icon cuIcon-friend"></text>{{item.name}}</view>
   </view>
   <view class="dropdown-mask" bindtap="hiddenMask" wx:if="{{showDropdown}}"></view>
 </view>
@@ -14,13 +15,13 @@
           <text class="text-red">*</text>
         </view>
         <view class="cell-value">
-          <input name="name" placeholder="请输入客户名称" value="{{formData.name}}"></input>
+          <input name="customerName" placeholder="请输入客户名称" value="{{formData.name}}" bindinput="customerNameInput"></input>
         </view>
       </view>
       <view class="cell margin-bt">
         <view class="cell-name">名称缩写</view>
         <view class="cell-value">
-          <input name="pinyinInitial" placeholder="请输入拼音缩写" value="{{formData.pinyinInitial}}"></input>
+          <input name="letter" placeholder="请输入拼音缩写" value="{{formData.pinyinInitial}}"></input>
         </view>
       </view>
       <view class="cell  border-bt">
@@ -32,17 +33,17 @@
       <view class="cell  border-bt">
         <view class="cell-name">联系人电话</view>
         <view class="cell-value">
-          <input name="phoneNumber" placeholder="请输入手机号" type="number" value="{{formData.phoneNumber}}"></input>
+          <input name="contactPhone" placeholder="请输入手机号" type="number" maxlength="11" value="{{formData.phoneNumber}}"></input>
         </view>
       </view>
       <view class="cell  border-bt">
         <view class="cell-name">公司电话</view>
         <view class="cell-value">
-          <input name="companyPhoneNumber" placeholder="请输入公司电话" type="number" value="{{formData.companyPhoneNumber}}"></input>
+          <input name="telephone" placeholder="请输入公司电话" type="number" maxlength="11" value="{{formData.companyPhoneNumber}}"></input>
         </view>
       </view>
       <view class="cell margin-bt">
-        <view class="cell-name">价格等级</view>
+        <view class="cell-name">客户等级</view>
         <view class="cell-value">
           <input name="customerLevel" placeholder="请设置价格等级" value="{{formData.customerLevel?formData.customerLevel:customerLevel.list[customerLevel.index]}}" disabled></input>
         </view>
@@ -73,9 +74,21 @@
       </view>
 
       <view class="cell">
-        <view class="cell-name">业务员</view>
+  <view class="cell-name">业务员</view>
         <view class="cell-value">
-          <input name="salesman" placeholder="请设置业务员" value="{{formData.salesman}}"></input>
+          <input name="salesman" placeholder="请设置业务员" value="{{formData.salesman?formData.salesman:salesman.list[salesman.index]}}" disabled></input>
+        </view>
+        <picker bindchange="setSalesman" value="{{salesman.index}}" range="{{salesman.list}}">
+          <view class="picker">
+            <view class="cell-icon cuIcon-right"></view>
+          </view>
+        </picker>
+
+      </view>
+      <view class="cell  border-bt">
+        <view class="cell-name">备注</view>
+        <view class="cell-value">
+          <input name="remarks" placeholder="请输入备注信息" value="{{formData.remark}}"></input>
         </view>
       </view>
       <button class="theme-bgc confirm-btn" form-type="submit">添加</button>

@@ -17,20 +17,14 @@ create(store, {
     totalPrice: 0, //总价
     totalAmount: 0, //总量
     loadMore: false, //是否显示加载图标
-    store: "",
-    supplyNo: '',
-    wareId: "",
+    
     searchType: "",
     searchValue: "",
     isLoad: false,
     pageNo: 2,
   },
   onLoad(options) {
-    this.setData({
-      store: options.store,
-      supplyNo: options.supplyNo,
-      wareId: options.wareId
-    })
+    
     //验证登录
     app.checkLogin()
   },
@@ -151,7 +145,6 @@ create(store, {
           this.setData({
             goodsList: data.list
           })
-          
           this.load(false)
         }).catch(err => {
           this.load(false)

@@ -7,9 +7,9 @@ Component({
     // link: {
     //   type: String,
     // },
-    justLink:{
-      type:Boolean,
-      value:true
+    justLink: {
+      type: Boolean,
+      value: false
     }
   },
   options: {
@@ -37,12 +37,12 @@ Component({
   /**
    * 组件的方法列表
    */
-  lifetimes:{
+  lifetimes: {
     // attached() {
     //   this.triggerEvent("searchType", this.data.searchTypes.list[0])
     // },
   },
-  
+
 
 
   methods: {
@@ -64,27 +64,30 @@ Component({
       })
     },
     toggleSearchType() {
-      if(this.data.justLink){
+      if (this.data.justLink) {
         return
       }
       this.setData({
         isShowDorpdown: !this.data.isShowDorpdown
       })
     },
-    
-    selectSearchType(e){
+
+    selectSearchType(e) {
       this.setData({
-        ["searchTypes.select"]:e.currentTarget.dataset.index,
-        isShowDorpdown:false
+        ["searchTypes.select"]: e.currentTarget.dataset.index,
+        isShowDorpdown: false
       })
       this.triggerEvent("searchType", this.data.searchTypes.list[e.currentTarget.dataset.index])
     },
 
     input(e) {
       clearTimeout(this.data.timer)
-      this.data.timer = setTimeout(() => {
+      var timer = setTimeout(() => {
         this.triggerEvent("value", e.detail.value)
-      }, 1000)
+      }, 500)
+      this.setData({
+        timer: timer
+      })
     },
     focus(e) {},
     blur(e) {},

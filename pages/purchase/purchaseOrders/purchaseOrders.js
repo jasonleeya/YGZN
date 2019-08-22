@@ -75,11 +75,11 @@ create(store, {
     isLoading: false,
     curPage: 1,
     totalPages: null,
-    isSearchBlur: false,
     searchValue: "",
     sortStartTime: "",
     sortEndTime: "",
-    orderStatus: ""
+    orderStatus: "",
+    timeOut: null
   },
   onLoad(options) {
     this.setData({
@@ -170,13 +170,11 @@ create(store, {
           case "090008":
             item.status = "已取消"
             break
-          case "":
-            item.status = "未完成"
-            break
-          case "back":
-            item.status = "退货"
-            break
         }
+        if (item.isBackOrder === 1) {
+          item.status = "退货"
+        }
+
         var orderType = ''
         orderType += item.oando === "up" ? "线上/" : item.oando === "down" ? "线下/" : ""
         orderType += item.hdGoods ? "代发货/" : ""
@@ -197,26 +195,25 @@ create(store, {
     })
 
   },
-  searchFocus() {
-    this.setData({
-      isSearchBlur: true
-    })
-  },
-  searchBlur(e) {
-    this.setData({
-      isSearchBlur: false
-    })
-  },
+
   searchInput(e) {
     this.setData({
-      searchValue: e.detail.value
-    })
-  },
-  search() {
-    this.setData({
+      searchValue: e.detail.value,
       curPage: 1,
     })
-    this.getList(true)
+    if (this.data.timeOut) {
+      clearTimeout(this.data.timeOut)
+    }
+    var timeOut = setTimeout(() => {
+      this.getList(true)
+    }, 500)
+    this.setData({
+      timeOut: timeOut
+    })
+
+  },
+  search() {
+
   },
 
   //监听滑动到底部
@@ -241,6 +238,9 @@ create(store, {
   //展开列表
   chooseSortMethod(e) {
     var index = e.target.dataset.index
+    if (this.data.sortMethodsList[index].name === "订单状态" && this.data.orderStatus !== '') {
+      return
+    }
     this.setData({
       selectingMothod: this.data.selectingMothod === index ? null : index,
     })

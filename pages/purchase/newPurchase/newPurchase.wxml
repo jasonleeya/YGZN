@@ -68,7 +68,7 @@
     </view>
     <view class="title add-goods">添加商品</view>
     <!-- 搜索 -->
-    <search bindtap="toSearch" />
+    <search bindtap="toAddGoods" justLink="{{true}}" />
     <!-- 购物车 -->
     <cart goodsList="{{goodsList}}" totalPrice="{{totalPrice}}" picUrlKey="xx" nameKey="name" brandNameKey="goodsBrand" typeKey="brandCode" priceKey="discountPrice" amountKey="goodsCount" idKey="goodsNo" minNumKey="minNums" bind:changeAmount="getChangeAmount"
       bind:getIndex="getEditGoodsId" bind:deleteGoods="deleteGoods" bind:changeTotalPriceAndAmount="priceAmountChange" />
@@ -85,4 +85,7 @@
       </cover-view>
     </cover-view>
   </form>
+  <view class='cu-load load-modal' wx:if="{{isLoad}}"> 
+  <view class='gray-text'>请稍等...</view>
+</view>
 </scroll-view>

@@ -80,7 +80,7 @@ Component({
       subTitle: '全部订单',
       subtitleLink: '/pages/sales/salesOrders/salesOrders',
       items: [{
-        value: "新增采购",
+        value: "新增销售",
         icon: "iconcart",
         link: "/pages/sales/newSales/newSales",
       }, {

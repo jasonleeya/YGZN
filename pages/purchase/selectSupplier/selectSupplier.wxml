@@ -1,7 +1,7 @@
 <view class="header-search">
   <view class="input-wrapper">
     <view class="search-icon cuIcon-search"></view>
-    <input class="bg-gray" placeholder="供应商名称、营业执照搜索"></input>
+    <input class="bg-gray" placeholder="供应商名称、营业执照搜索" bindblur="searchBlur" bindfocus="searchFocus" bindinput="searchInput" value="{{searchValue}}"></input>
   </view>
   <view class="add-supplier" bindtap="addSupplier">新增</view>
 </view>
@@ -11,7 +11,7 @@
         <view class="supplier-header solid-bottom">
           <text class="cuIcon-friend name-icon"></text>
           <text class="supplier-name">{{item.customer.supplyName}}</text>
-          <text class="supplier-type text-green">{{item.customer.customerType==="1003"?"线上":"自建"}}</text>
+          <text class="supplier-type text-green">{{item.customer.approveStatus?"线上":"自建"}}</text>
         </view>
         <view class="supplier-info">
           <view class="supplier-info-name text-gray">营业执照</view>
