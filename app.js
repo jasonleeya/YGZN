@@ -59,7 +59,7 @@ App({
 
   showToast(text,duration=2000) {
     wx.showToast({
-      title: text,
+      title: String(text),
       icon: 'none',
       duration: duration
     })

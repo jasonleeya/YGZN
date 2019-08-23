@@ -8,14 +8,7 @@
   line-height: 100rpx;
 }
 
-.remarke-textarea {
-  width: 100vw;
-  height: 200rpx;
-  padding: 30rpx;
-  margin-bottom: 100rpx;
-  background-color: #fff;
-  z-index: -1;
-}
+ 
 
 .operating-options {
   display: flex;

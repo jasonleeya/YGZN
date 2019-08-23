@@ -1,4 +1,6 @@
-const BASE_URL = "http://192.168.3.101:"
+// const BASE_URL = "http://192.168.3.101:"
+const BASE_URL = "http://47.104.86.230:"
+
 const alias = {
   loginAuthenticate: "26000/netgate-user/loginAuthenticate",
   homeMessage: "14000/imatchOrder/bubble/homeMessage",
@@ -26,7 +28,8 @@ const alias = {
   savePurchaseOrderUpperAndLower:"14000/imatchOrder/reOrder/savePurchaseOrderUpperAndLower",
   queryCustomer: "14000/imatchUser/user/queryCustomer", 
   addCustomer: "14000/imatchUser/user/addCustomer",
-  getDftAddress: "14000/imatchUser/agency/getDftAddress"
+  getDftAddress: "14000/imatchUser/agency/getDftAddress",
+  cancelOrder: "14000/imatchOrder/reOrder/cancelOrder",
 }
 export default function(name) {
   return BASE_URL + alias[name]

@@ -1,11 +1,3 @@
- <view class="cell border-bt">
-        <view class="cell-name">所在地区</view>
-        <view class="cell-value">
-          <picker name="region" mode="region" bindchange="regionChange" value="{{region}}">
-            <view class="picker">
-              {{region[0]}}-{{region[1]}}-{{region[2]}}
-            </view>
-          </picker>
-        </view>
-        <view class="cuIcon-right cell-icon"></view>
-      </view>
+<form bindsubmit="formSubmit">
+<input placeholder="111"></input>
+<button form-type="submit">111</button></form>

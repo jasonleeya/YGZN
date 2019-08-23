@@ -32,7 +32,7 @@
       <view class="cell border-bt">
         <view class="cell-name">收货人</view>
         <view class="cell-value">
-          <input class="{{canEdit&&infos.orderStatus==='wait'?'':'text-gray'}}" disabled="{{canEdit&&infos.orderStatus==='wait'?false:true}}" name="receiver" value="{{infos.consigneeName}}"></input>
+          <input class="{{canEdit&&infos.orderStatus==='wait'?'':'text-gray'}}" disabled="{{canEdit&&infos.orderStatus==='wait'?false:true}}" name="receiver" value="{{address.consigneeName}}"></input>
         </view>
         <!-- <view class="cuIcon-right  cell-icon {{canEdit&&infos.orderStatus==='wait'?'':'text-gray'}}"></view> -->
       </view>
@@ -40,16 +40,16 @@
       <view class="cell border-bt">
         <view class="cell-name">联系电话</view>
         <view class="cell-value">
-          <input class="{{canEdit&&infos.orderStatus==='wait'?'':'text-gray'}}" disabled="{{canEdit&&infos.orderStatus==='wait'?false:true}}" name="phoneNumber" type="number" value="{{infos.telephone}}" maxlength="11"></input>
+          <input class="{{canEdit&&infos.orderStatus==='wait'?'':'text-gray'}}" disabled="{{canEdit&&infos.orderStatus==='wait'?false:true}}" name="phoneNumber" type="number" value="{{address.telephone}}" maxlength="11"></input>
         </view>
         <!-- <view class="cuIcon-right  cell-icon {{canEdit&&infos.orderStatus==='wait'?'':'text-gray'}}"></view> -->
       </view>
 
       <view class="add-aeceive-address  border-bt">
         <view class="cell-name">收货地址</view>
-        <input class="{{canEdit&&infos.orderStatus==='wait'?'':'text-gray'}}" name="receiveAddress" hidden type="hidden" value="{{infos.address}}" disabled class="cell-value" bindtap="addAeceiveAddress"></input>
+        <input class="{{canEdit&&infos.orderStatus==='wait'?'':'text-gray'}}" name="receiveAddress" hidden type="hidden" value="{{address.address}}" disabled class="cell-value" bindtap="addAeceiveAddress"></input>
         <view class="cell-value {{canEdit&&infos.orderStatus==='wait'?'':'text-gray'}}">
-          {{infos.address}}
+          {{address.address}}
         </view>
         <view class="cuIcon-right  cell-icon {{canEdit&&infos.orderStatus==='wait'?'':'text-gray'}}" bindtap="addAeceiveAddress"></view>
       </view>
@@ -92,17 +92,49 @@
     <view class="title remake">备注</view>
     <textarea name="remark" class="remarke-textarea" placeholder="请填写备注信息" />
 
+
     <view class="operating-options">
+      <view class="option">
+        <button class="bg-gradual-orange" bindtap="edit" hidden="{{canEdit}}" wx:if="{{infos.orderStatus === 'wait'||infos.orderStatus === '090001'&& infos.oando === 'down'}}">修改订单</button>
+      </view>
 
-      <view class="option bg-gradual-orange" bindtap="edit" wx:if="{{infos.orderStatus === 'wait'||infos.orderStatus === '090001'&& infos.oando === 'down'}}">{{canEdit?'确认修改':'修改订单'}}</view>
+      <!-- <button class="bg-gradual-orange" wx:if="{{infos.orderStatus === 'wait'}}">添加商品</button> -->
 
-      <view class="option bg-gradual-orange">添加商品</view>
+      <view class="option">
+        <button class="bg-gradual-orange" wx:if="{{infos.orderStatus==='090001'&&infos.oando === 'down'}}" form-type="submit" bindtap="confirmOrder">确认订单</button>
+      </view>
 
-      <view class="option bg-gradual-orange">取消订单</view>
+      <view class="option">
+        <button class="bg-gradual-orange" wx:if="{{ infos.orderStatus!=='090005'&&infos.orderStatus!=='090008'}}" hidden="{{infos.orderStatus==='090004'&&infos.oando === 'up'}}" bindtap="cancelOrder">取消订单</button>
+      </view>
 
-      <view class="option bg-gradual-orange" wx:if="{{infos.orderStatus === 'wait'||infos.orderStatus === '090001'&& infos.oando === 'down'}}">确认订单</view>
+      <view class="option">
+        <button class="bg-gradual-orange" wx:if="{{infos.orderStatus === 'wait'}}" form-type="submit" bindtap="confirmOrder">确认订单</button>
+      </view>
+
+      <view class="option">
+        <button class="bg-gradual-orange" wx:if="{{infos.orderStatus === '090003'}}" bindtap="payment">确认付款</button>
+      </view>
+
+      <view class="option">
+        <button class="bg-gradual-orange" wx:if="{{infos.orderStatus === '090004'}}" bindtap="split">拆分</button>
+      </view>
+
+      <view class="option">
+        <button class="bg-gradual-orange" wx:if="{{infos.orderStatus === '090004'}}"  form-type="submit"  bindtap="confirmStorage">确认入库</button>
+      </view>
+
+      <view class="option">
+        <button class="bg-gradual-orange" wx:if="{{infos.orderStatus === '090005'}}" bindtap="return">退货</button>
+      </view>
+
+      <view class="option">
+        <button class="bg-gradual-orange">再次采购</button>
+      </view>
 
     </view>
+
+
 
   </form>
 

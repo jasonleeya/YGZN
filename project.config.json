@@ -4,7 +4,7 @@
 		"ignore": []
 	},
 	"setting": {
-		"urlCheck": true,
+		"urlCheck": false,
 		"es6": true,
 		"postcss": true,
 		"minified": true,
@@ -56,8 +56,8 @@
 			"list": [
 				{
 					"id": -1,
-					"name": "pages/purchase/newPurchase/newPurchase",
-					"pathName": "pages/purchase/newPurchase/newPurchase",
+					"name": "pages/purchase/payment/payment",
+					"pathName": "pages/purchase/payment/payment",
 					"query": "",
 					"scene": null
 				}

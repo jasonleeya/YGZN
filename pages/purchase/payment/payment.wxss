@@ -1,0 +1,10 @@
+.operate {
+  margin-top: 200rpx;
+  display: flex;
+  padding: 0 20rpx;
+}
+
+.operate button {
+  width: calc((100vw - 120rpx) / 2);
+  font-size: 32rpx;
+}

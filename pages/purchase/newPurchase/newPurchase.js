@@ -240,9 +240,7 @@ create(store, {
         hdGoods: "", //*
         lgtNums: "", //*
         cpdOrder: "", //*
-        purchaseWarehouse: data.storehouse.idList[data.storehouse.list.indexOf(data.storehouse.list.filter(item => {
-          return info.storehouse === item
-        })[0])],
+        purchaseWarehouse: data.slectedStoreHouseId,
         invoice: "0003", //*
         orderTypeChoose: "01", //*
         consignee: info.receiver,

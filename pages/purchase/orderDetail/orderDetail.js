@@ -10,8 +10,10 @@ Page({
     totalPrice: "",
     totalAmount: "",
     infos: {},
+    address: {},
     canEdit: false,
     purchaseWarehouse: null,
+    beforeWareHouse: null,
     buyer: null,
     storehouse: {
       list: [],
@@ -20,7 +22,8 @@ Page({
     },
     showEditPop: false,
     popData: {},
-    editingIndex: null
+    editingIndex: null,
+    oprateType: null
   },
 
   /**
@@ -34,9 +37,11 @@ Page({
       orderNo: options.orderNo
     }, false, false).then(data => {
       this.setData({
-        infos: Object.assign(data.infoBody.address, data.infoBody.upp),
+        infos: data.infoBody.upp,
+        address: data.infoBody.address,
         goodsList: data.infoBody.lows,
         purchaseWarehouse: data.infoBody.upp.purchaseWarehouse,
+        beforeWareHouse: JSON.parse(JSON.stringify(data.infoBody.upp.purchaseWarehouse)),
         totalPrice: data.infoBody.upp.sttAmount
       })
 
@@ -82,7 +87,7 @@ Page({
   selectStorehouse: function(e) {
     this.setData({
       ["storehouse.index"]: e.detail.value,
-      slectedStoreHouseId: this.data.storehouse.idList[e.detail.value]
+      purchaseWarehouse: this.data.storehouse.idList[e.detail.value]
     })
   },
   edit() {
@@ -107,7 +112,7 @@ Page({
       return
     }
     wx.navigateTo({
-      url: '/pages/common/selectReceiveAddress/selectReceiveAddress?setData=infos.address'
+      url: '/pages/common/selectReceiveAddress/selectReceiveAddress?addressKey=address.address&phoneNumberKey=address.telephone&receiverKey=address.consigneeName'
     })
   },
   dateChange(e) {
@@ -182,4 +187,130 @@ Page({
       totalAmount: e.detail.totalAmount
     })
   },
+
+  formSubmit(e) {
+    var formData = e.detail.value
+    var data = this.data
+    var list = data.goodsList
+    var info = data.infos
+    var address = data.address
+
+
+    if (!formData.supplier) {
+      app.showToast("请选择供应商")
+      return
+    }
+    if (!formData.buyer) {
+      app.showToast("请选择采购员")
+      return
+    }
+    if (!formData.storehouse) {
+      app.showToast("请选择仓库")
+      return
+    }
+    if (!formData.receiveAddress) {
+      app.showToast("请选择收货地址")
+      return
+    }
+    if (!formData.receiver) {
+      app.showToast("请填写收货人姓名")
+      return
+    }
+    if (!formData.phoneNumber) {
+      app.showToast("请填写收货人电话号")
+      return
+    }
+    if (formData.length === 0) {
+      app.showToast("请先添加商品")
+      return
+    }
+
+
+    var paramas = {
+      upperpartOrder: JSON.stringify([{
+        orderNo: info.orderNo,
+        supplyNo: info.supplyNo,
+        supplyName: info.supplyName,
+        buySalesMan: formData.buyer,
+        insertDate: "", //*
+        deliveryDate: null, //*
+        billingAmount: "0.00", //*
+        orderStatus: this.data.oprateType,
+        sttAmount: data.totalPrice,
+        sttMode: "--选择结算方式--", //*
+        remark: formData.remark,
+        adsaleWay: "", //  *           
+        adsaleWayAcct: "", //*
+        adsalePerson: "", //*
+        buyOperator: info.buyOperator,
+        auditor: "", //*
+        oando: info.oando,
+        getGoodsDate: formData.receiveDate,
+        hdGoods: "", //*
+        lgtNums: "", //*
+        cpdOrder: "", //*
+        purchaseWarehouse: data.purchaseWarehouse,
+        invoice: "0003", //*
+        orderTypeChoose: "01", //*
+        consignee: formData.receiver,
+        reflect: 0 //
+      }]),
+      list: JSON.stringify(list),
+      tBusAddress: JSON.stringify([{
+        orderNo: formData.orderId,
+        consigneeName: formData.receiver,
+        address: formData.receiveAddress,
+        telephone: formData.phoneNumber
+      }]),
+      isIncreaseGoodsNum: "no", //*
+      beforeGoodsNum: "", //*
+      beforeWareHouse: data.beforeWareHouse
+    }
+
+    console.log(paramas)
+
+    // app.http("savePurchaseOrderUpperAndLower", paramas, true).then(() => {
+    //   app.showToast("添加成功")
+    //   this.setData({
+    //     isLoad: false
+    //   })
+    //   wx.navigateBack({
+    //     delta: 1,
+    //   })
+    // })
+    //   .catch((e) => {
+    //     app.showToast(e)
+    //   })
+  },
+
+  confirmOrder(e) {
+    this.setData({
+      oprateType: "090001"
+    })
+  },
+  cancelOrder() {
+    app.http("cancelOrder", {
+      orderNo: this.data.infos.orderNo
+    }).then(data => {
+      app.showToast('取消订单成功')
+    }).catch(err => {
+      app.showToast(err)
+    })
+  },
+  split() {
+    app.showToast("暂不支持拆分")
+  },
+  confirmStorage() { 
+    this.setData({
+      oprateType: "090005"
+    })
+  },
+  return(){
+
+  },
+  payment(){
+    wx.navigateTo({
+      url: '/pages/purchase/payment/payment', 
+    })
+  }
 })

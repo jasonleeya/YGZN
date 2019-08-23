@@ -43,11 +43,11 @@ switch::after, switch::before {
 
 .cell {
   display: flex;
-  height: 100rpx;
+  height: 88rpx;
   position: relative;
   background-color: #fff;
   padding-left: 30rpx;
-  line-height: 100rpx;
+  line-height: 88rpx;
 }
 
 .cell-name {
@@ -59,7 +59,7 @@ switch::after, switch::before {
 }
 
 .cell input {
-  height: 100rpx;
+  height: 88rpx;
 }
 .cells-title{ 
   padding: 20rpx 30rpx;
@@ -70,6 +70,17 @@ switch::after, switch::before {
 .cell-icon{
   padding-right: 30rpx;
   padding-left: 20rpx;
+}
+.remarke-textarea {
+  width: 100vw;
+  height: 200rpx;
+  padding: 30rpx;
+  margin-bottom: 100rpx;
+  background-color: #fff;
+  /* z-index: -1; */
+}
+.bold{
+  font-weight: bold
 }
 .confirm-btn {
  position: relative;
