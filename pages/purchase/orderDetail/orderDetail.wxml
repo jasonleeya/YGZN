@@ -113,7 +113,7 @@
       </view>
 
       <view class="option">
-        <button class="bg-gradual-orange" wx:if="{{infos.orderStatus === '090003'}}" bindtap="payment">确认付款</button>
+        <button class="bg-gradual-orange" wx:if="{{infos.orderStatus === '090003'}}"  form-type="submit"  bindtap="payment">确认付款</button>
       </view>
 
       <view class="option">
@@ -129,7 +129,7 @@
       </view>
 
       <view class="option">
-        <button class="bg-gradual-orange">再次采购</button>
+        <button class="bg-gradual-orange" bindtap="purchaseAgain">再次采购</button>
       </view>
 
     </view>

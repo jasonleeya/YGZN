@@ -30,7 +30,8 @@ create(store, {
 
     popData: {},
     editingIndex: null,
-    isLoad: false
+    isLoad: false,
+    operateType:null,
   },
   onLoad() {
 
@@ -183,10 +184,16 @@ create(store, {
       url: '/pages/common/selectReceiveAddress/selectReceiveAddress?addressKey=receiveAddress&phoneNumberKey=phoneNumber&receiverKey=receiver'
     })
   },
+  obtianOperateType(e){
+   this.setData({
+     operateType: e.target.dataset.operateType
+   })
+  },
   formSubmit(e) {
     var info = e.detail.value
     var data = this.data
     var list = app.globalData.purchaseCartList
+    var operateType = this.data.operateType
 
     if (!info.supplier) {
       app.showToast("请选择供应商")
@@ -226,7 +233,7 @@ create(store, {
         insertDate: "", //*
         deliveryDate: null, //*
         billingAmount: "0.00", //*
-        orderStatus: "wait",
+        orderStatus: operateType === 'save' ? "wait" :'090001',
         sttAmount: data.totalPrice,
         sttMode: "--选择结算方式--", //*
         remark: info.remark,
@@ -265,9 +272,9 @@ create(store, {
         this.setData({
           isLoad: false
         })
-        wx.navigateBack({
-          delta: 1,
-        })
+      wx.redirectTo({
+        url: '/pages/purchase/orderDetail/orderDetail?orderNo=' + this.data.orderId,
+      })
       })
       .catch((e) => {
         app.showToast(e)

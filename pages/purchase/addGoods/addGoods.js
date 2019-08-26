@@ -19,11 +19,13 @@ create(store, {
     loadMore: false, //是否显示加载图标
     store: "",
     supplyNo: '',
+    supplyNoCopy:'',
     wareId: "",
     searchType: "",
     searchValue: "",
     isLoad: false,
     pageNo: 2,
+    storeList: []
   },
   onLoad(options) {
     this.setData({
@@ -91,53 +93,23 @@ create(store, {
     if (this.data.pageNo === 1) {
       this.load()
     }
+
+
     switch (this.data.searchType) {
       case "":
       case "我的仓库":
-        app.http("searchStockProduct", {
-            wareKey: "",
-            pageNo: this.data.pageNo,
-            pageSize: "10",
-            custNo: "",
-            searchKey: this.data.searchValue,
-          }).then(data => {
-            if (this.data.pageNo === 1) {
-              this.setData({
-                goodsList: data.list
-              })
-              this.load(false)
-            } else {
-              this.setData({
-                goodsList: this.data.goodsList.concat(data.list),
-                loadMore: false,
-              })
-            }
-          })
-          .catch(err => {
-            this.load(false)
-            this.setData({
-              loadMore: false
-            })
-            app.showToast(err)
-          })
+        this.setData({
+          supplyNoCopy: JSON.parse(JSON.stringify(this.data.supplyNo)),
+          supplyNo: ''
+        })
+        searchByStore(this)
 
         break
       case "供方仓库":
-        app.http("searchStockProduct", {
-          wareKey: "",
-          pageNo: this.data.pageNo,
-          pageSize: "10",
-          custNo: this.data.custNo,
-          searchKey: this.data.searchValue,
-        }).then(data => {
-          this.setData({
-            goodsList: data.list
-          })
-          this.load(false)
-        }).catch(err => {
-          this.load(false)
-          app.showToast(err)
+        this.setData({
+          supplyNo: this.data.supplyNoCopy 
         })
+        searchByStore(this)
 
         break
       case "全局搜索":
@@ -145,19 +117,72 @@ create(store, {
           catalogId: "",
           brandName: 1,
           pageIndex: this.data.pageNo,
-          pageSize: 10, 
+          pageSize: 10,
           simpleSeek: this.data.searchValue,
         }).then(data => {
           this.setData({
             goodsList: data.list
           })
-          
+
           this.load(false)
         }).catch(err => {
           this.load(false)
           app.showToast(err)
         })
         break
+    }
+
+    function searchByStore(that) {
+       
+      app.http("searchStockProduct", {
+          wareKey: "",
+          pageNo: that.data.pageNo,
+          pageSize: "10",
+          custNo: that.data.supplyNo,
+          searchKey: that.data.searchValue,
+        }).then(data => {
+          var queryString = []
+          var storeList = []
+          data.list.forEach(item => {
+            queryString.push(item.productUuid)
+          })
+          queryString.join(",")
+
+          app.http("getStockInBatch", {
+            productId: queryString,
+            repoId: that.data.wareId
+          }).then(d => {
+            if (that.data.pageNo === 1) {
+              that.setData({
+                storeList: d
+              })
+            } else {
+              that.setData({
+                storeList: that.data.storeList.concat(d)
+              })
+            }
+          })
+
+          if (that.data.pageNo === 1) {
+            that.setData({
+              goodsList: data.list
+            })
+            console.log(that.data.storeList)
+            that.load(false)
+          } else {
+            that.setData({
+              goodsList: that.data.goodsList.concat(data.list),
+              loadMore: false,
+            })
+          }
+        })
+        .catch(err => {
+          that.load(false)
+          that.setData({
+            loadMore: false
+          })
+          app.showToast(err)
+        })
     }
   },
   //监听滑动到底部
@@ -384,7 +409,7 @@ create(store, {
     var popData = this.data.popData
     var value = () => {
       var goodsDiscount = (parseFloat(popData.NTPSingle) / parseFloat(this.data.popDataCopy.NTPSingle)).toFixed(2)
-      if (goodsDiscount > 1) {
+      if (goodsDiscount > 1 || String(goodsDiscount) === 'Infinity' || isNaN(goodsDiscount)) {
         goodsDiscount = 1
       }
       return {

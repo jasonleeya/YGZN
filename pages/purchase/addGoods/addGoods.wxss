@@ -31,6 +31,9 @@
   font-size: 24rpx;
   word-break: break-all;
 }
+.goods-store{
+  font-size: 24rpx;
+}
 
 .add-goods {
   width: 60rpx;

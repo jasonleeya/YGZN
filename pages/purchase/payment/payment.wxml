@@ -1,14 +1,14 @@
 <view class="payment">
   <view class="cell border-bt">
     <view class="cell-name">订单总金额</view>
-    <view class="cell-value text-red bold">￥666.00</view>
+    <view class="cell-value text-red bold">￥{{orderAmount}}</view>
   </view>
 
   <view class="cell border-bt">
     <view class="cell-name">邮费
       <text class="text-red">*</text>
     </view>
-    <view class="cell-value text-red bold">￥66.00</view>
+    <view class="cell-value text-red bold">￥{{postage}}</view>
   </view>
 
   <view class="cell border-bt">
@@ -27,37 +27,38 @@
   <view class="cell border-bt" wx:if="{{paymentMethods.index==='0'}}">
     <view class="cell-name">预存款余额
     </view>
-    <view class="cell-value text-red bold">￥78999.00</view>
+    <view class="cell-value text-red bold">￥{{preDeposit}}</view>
   </view>
 
   <view class="cell border-bt" wx:if="{{paymentMethods.index==='1'}}">
     <view class="cell-name">信用余额
     </view>
-    <view class="cell-value text-red bold">￥78999.00</view>
+    <view class="cell-value text-red bold">￥{{credits}}</view>
   </view>
 
   <view class="cell border-bt" wx:if="{{paymentMethods.index==='2'}}">
     <view class="cell-name">收款方</view>
-    <view class="cell-value text-gray bold">请选择收款方</view>
-    <view class="cell-icon cuIcon-right"></view>
+     <view class="cell-value  bold">{{payee?payee:'对方暂未填写收款信息'}}</view>
+    <!-- <view class="cell-value text-gray bold">请选择收款方</view>
+    <view class="cell-icon cuIcon-right"></view> -->
   </view>
 
   <view class="cell border-bt" wx:if="{{paymentMethods.index==='2'}}">
     <view class="cell-name">开户行</view>
-    <view class="cell-value bold">中国人民银行</view>
+    <view class="cell-value bold">{{bank?bank:'对方暂未填写收款信息'}}</view>
   </view>
 
   <view class="cell border-bt" wx:if="{{paymentMethods.index==='2'}}">
     <view class="cell-name">收款账号</view>
-    <view class="cell-value bold">111111111111111</view>
+    <view class="cell-value bold">{{payeeAccount?payeeAccount:'对方暂未填写收款信息'}}</view>
   </view>
   <view class="cells-title" wx:if="{{paymentMethods.index==='2'}}">备注</view>
   <textarea class="remarke-textarea" placeholder="请填写备注信息" wx:if="{{paymentMethods.index==='2'}}" />
 
   <view class="operate">
     <button class="text-gray">稍后支付</button>
-    <button class="theme-bgc" wx:if="{{paymentMethods.index==='2'}}">我已汇款</button>
-    <button class="theme-bgc" wx:if="{{paymentMethods.index==='0'||paymentMethods.index==='1'}}">我已支付</button>
+    <button class="theme-bgc" wx:if="{{paymentMethods.index==='2'}}"  bindtap="pay">我已汇款</button>
+    <button class="theme-bgc" wx:if="{{paymentMethods.index==='0'||paymentMethods.index==='1'}}" bindtap="pay">我已支付</button>
   </view>
 
 </view>

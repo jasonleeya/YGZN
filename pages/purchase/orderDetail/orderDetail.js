@@ -23,7 +23,8 @@ Page({
     showEditPop: false,
     popData: {},
     editingIndex: null,
-    oprateType: null
+    oprateType: null,
+    paramas: {}
   },
 
   /**
@@ -267,25 +268,32 @@ Page({
       beforeWareHouse: data.beforeWareHouse
     }
 
-    console.log(paramas)
+    this.setData({
+      paramas: paramas
+    })
+    if (this.data.infos.orderStatus === "090003") {
+      return
+    }
 
-    // app.http("savePurchaseOrderUpperAndLower", paramas, true).then(() => {
-    //   app.showToast("添加成功")
-    //   this.setData({
-    //     isLoad: false
-    //   })
-    //   wx.navigateBack({
-    //     delta: 1,
-    //   })
-    // })
-    //   .catch((e) => {
-    //     app.showToast(e)
-    //   })
+    // console.log(paramas)
+
+    app.http("savePurchaseOrderUpperAndLower", paramas, true).then(() => {
+        app.showToast("添加成功")
+        this.setData({
+          isLoad: false
+        })
+        wx.redirectTo({
+          url: '/pages/purchase/orderDetail/orderDetail?orderNo=' + info.orderNo,
+        })
+      })
+      .catch((e) => {
+        app.showToast(e)
+      })
   },
 
   confirmOrder(e) {
     this.setData({
-      oprateType: "090001"
+      oprateType: "090003"
     })
   },
   cancelOrder() {
@@ -300,17 +308,25 @@ Page({
   split() {
     app.showToast("暂不支持拆分")
   },
-  confirmStorage() { 
+  confirmStorage() {
     this.setData({
       oprateType: "090005"
     })
   },
-  return(){
+  return () {
 
   },
-  payment(){
+  purchaseAgain() {
+    app.http("homeMessage", { orderNo: this.data.infos.orderNo}).then(()=>{
+      app.showToast("再次采购成功")
+    }).catch(err=>{
+      app.showToast(err)
+    })
+  },
+  payment() {
+    var infos = this.data.infos
     wx.navigateTo({
-      url: '/pages/purchase/payment/payment', 
+      url: '/pages/purchase/payment/payment?supplyNo=' + infos.supplyNo + '&customerNo=' + infos.custNo + '&orderNoArr=' + infos.orderNo
     })
   }
 })

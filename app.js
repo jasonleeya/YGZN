@@ -114,7 +114,7 @@ App({
             return;
           }
           if (res.data.success === false) {
-            reject(res.data.info);
+            reject(res.data.msg);
             return;
           }
           if (isShowLogs) {

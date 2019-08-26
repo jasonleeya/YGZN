@@ -179,7 +179,8 @@ create(store, {
         orderType += item.oando === "up" ? "线上/" : item.oando === "down" ? "线下/" : ""
         orderType += item.hdGoods ? "代发货/" : ""
         orderType += String.call(this, item.remark).indexOf("已提前入库") > -1 ? "已拆分/" : ""
-        orderType += parseInt(item.orderStatus) > parseInt("090002") ? item.isPaid ? "已支付/" : "信用/" : ""
+        // orderType += parseInt(item.orderStatus) > parseInt("090002") ? item.isPaid ? "已支付/" : "信用/" : ""
+        orderType += item.orderStatus === "090002" || item.orderStatus === "090004" || item.orderStatus === "090005" ? (item.isPaid ? "已支付/" : "信用/"):""
         orderType += item.typeOfGoods === "002" ? "有退货/" : ""
         orderType += item.showPayBtn === "yes" && item.orderStatus === "090003" ? "已汇款/" : ""
         item.orderType = orderType.slice(0, orderType.length - 1)

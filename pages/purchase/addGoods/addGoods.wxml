@@ -9,7 +9,8 @@
       <view class="goods-info">
         <view class="goods-name">{{item.brandName}}/{{item.productName}}</view>
         <view class="goods-type text-gray">{{item.brandCode}}</view>
-        <view class="goods-stocks text-green">库存：{{item.stock}}（{{item.productUnit  }}）</view>
+        <text class="text-gray goods-store" space="emsp">预售数量:{{storeList[index].purchaseQty}} 在购数量:{{storeList[index].kc}}</text>
+        <view class="goods-stocks text-green">库存：{{item.stock}}（{{item.productUnit}}）</view>
       </view>
       <view class="add-goods cuIcon-add shadow bg-blue" bindtap='showPop' data-index="{{index}}"></view>
     </view>
