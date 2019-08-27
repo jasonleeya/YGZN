@@ -71,12 +71,12 @@ create(store, {
     })
   },
   scrollToBottom() {
-    if (!this.data.isLoad) {
-      this.setData({
-        currentPage: this.data.currentPage + 1
-      })
-      this.getList()
-    }
+    // if (!this.data.isLoad) {
+    //   this.setData({
+    //     currentPage: this.data.currentPage + 1
+    //   })
+    //   this.getList()
+    // }
   },
   //新增供应商
   addSupplier() {

@@ -7,14 +7,26 @@ create(store, {
    */
   data: {
     curTab: "home",
-    messageCount: store.data.messageCount,
-    interval:null
+    messageCount: null,
+    interval: null
   },
 
   onLoad() {
-   
+  
     app.checkLogin()
- 
+
+  },
+  onShow(){ 
+    let taht=this
+    taht.setData({
+      messageCount: app.globalData.unreadMsgCount
+    })
+    app.watchGloabalData("unreadMsgCount", function (value) { 
+      taht.setData({
+        messageCount: app.globalData.unreadMsgCount
+      })
+    })
+  
   },
   //  切换tab
   NavChange(e) {

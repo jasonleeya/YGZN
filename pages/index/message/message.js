@@ -1,4 +1,5 @@
 import create from '../../../utils/create'
+let app = getApp()
 create({
   /**
    * 组件的属性列表
@@ -66,6 +67,17 @@ create({
       }
     ],
     topList: []
+  },
+
+  lifetimes: {
+    ready() {
+      app.http("selectReminderMessageByEnterpriseId", {
+        pageSize: 10000,
+        pageNum: 1
+      }).then(data=>{
+        console.log(JSON.parse(data.t))
+      })
+    }
   },
 
   /**
@@ -186,7 +198,7 @@ create({
       }
 
     },
-    scrollToBottom() { 
+    scrollToBottom() {
       this.setData({
         isLoad: true
       })

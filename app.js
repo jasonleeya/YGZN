@@ -6,6 +6,7 @@ App({
     userInfo: null,
     interval: null,
     homeMessage: null,
+    unreadMsgCount:0,
     companies: null,
     //purchase
     purchaseCartList: [],
@@ -27,9 +28,11 @@ App({
         currPage = pages[pages.length - 1];
       }
       if (currPage.route !== "pages/login/login") {
-        that.http("homeMessage", {}).then(data => {
-
+        that.http("homeMessage").then(data => { 
+          that.globalData.homeMessage = data.list
+          that.globalData.unreadMsgCount = data.infoBody 
         }).catch(err => {
+          console.log(err)
           wx.removeStorageSync("token")
           wx.showModal({
             title: '重新登录',
@@ -113,7 +116,7 @@ App({
             return;
           }
           if (res.data.success === false) {
-            reject(res.data.msg);
+            reject(res.data.msg || res.data.info);
             return;
           }
           if (isShowLogs) {

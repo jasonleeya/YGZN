@@ -170,7 +170,7 @@ create(store, {
       custNo: this.data.custNo,
       productId: this.data.goodsList[index].productUuid
     }).then(data => {
-      if (data.infoBody.discount === null) {
+      if (data.infoBody.discount === null || data.infoBody.discount === 0 || data.infoBody.discount === "") {
         data.infoBody.discount = 10
       }
       this.setData({

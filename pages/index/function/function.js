@@ -250,8 +250,7 @@ Component({
       let that = this
       if (app.globalData.homeMessage) {
         getMessage()
-        app.watchGloabalData("homeMessage", function (value) {
-          // if(!app.globalData.homeMessage){return}
+        app.watchGloabalData("homeMessage", function (value) { 
           getMessage()
         })
       }
@@ -280,6 +279,7 @@ Component({
     detached() {
       clearInterval(this.data.interval)
     }
+    
 
   },
 

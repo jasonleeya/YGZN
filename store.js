@@ -9,7 +9,7 @@ import selectSeller from "./pages/sales/selectSeller/store.js"
 
 export default {
   data: {
-    messageCount: 5, //未读消息数
+    // messageCount: 5, //未读消息数
     showOrderpage: false, //是否显示开单层
 
     addGoods: addGoods.data,
