@@ -8,9 +8,9 @@ App({
     homeMessage: null,
     companies: null,
     //purchase
-    purchaseCartList:[],
-    purchaseTotalPrice:0, 
-    purchaseTotalAmount:0,
+    purchaseCartList: [],
+    purchaseTotalPrice: 0,
+    purchaseTotalAmount: 0,
     //sales
     salesCartList: [],
     salesTotalPrice: 0,
@@ -28,23 +28,22 @@ App({
       }
       if (currPage.route !== "pages/login/login") {
         that.http("homeMessage", {}).then(data => {
-          that.globalData.homeMessage = data.list
-          if (data.infoBody === null) {
-            wx.showModal({
-              title: '重新登录',
-              content: '身份信息已过期,请重新登录',
-              showCancel:false,
-              success(res) {
-                if (res.confirm) {
-                  wx.redirectTo({
-                    url: '/pages/login/login',
-                  })
-                }  
-              }
-            })
 
-            wx.removeStorageSync("token")
-          }
+        }).catch(err => {
+          wx.removeStorageSync("token")
+          wx.showModal({
+            title: '重新登录',
+            content: '身份信息已过期,请重新登录',
+            showCancel: false,
+            success(res) {
+              if (res.confirm) {
+                wx.redirectTo({
+                  url: '/pages/login/login',
+                })
+              }
+            }
+          })
+
         })
       }
     }, 5000)
@@ -54,10 +53,10 @@ App({
   },
 
   iniData() {
-    
+
   },
 
-  showToast(text,duration=2000) {
+  showToast(text, duration = 2000) {
     wx.showToast({
       title: String(text),
       icon: 'none',
@@ -89,8 +88,8 @@ App({
   },
 
 
-  http(alias, data = {}, isShowLogs = false,needToken=true) {
-    if (needToken){
+  http(alias, data = {}, isShowLogs = false, needToken = true) {
+    if (needToken) {
       var token = wx.getStorageSync("token")
       data.token = token
     }

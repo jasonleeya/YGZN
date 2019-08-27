@@ -10,6 +10,16 @@ Component({
     justLink: {
       type: Boolean,
       value: false
+    },
+    types: {
+      type: Array,
+      value: [{
+        name: "我的仓库"
+      }, {
+        name: "供方仓库"
+      }, {
+        name: "全局搜索"
+      }]
     }
   },
   options: {
@@ -24,13 +34,7 @@ Component({
     isShowDorpdown: false,
     searchTypes: {
       select: 0,
-      list: [{
-        name: "我的仓库"
-      }, {
-        name: "供方仓库"
-      }, {
-        name: "全局搜索"
-      }]
+      list: []
     }
   },
 
@@ -41,6 +45,11 @@ Component({
     // attached() {
     //   this.triggerEvent("searchType", this.data.searchTypes.list[0])
     // },
+    attached() {
+      this.setData({
+        ["searchTypes.list"]: this.data.types
+      })
+    }
   },
 
 

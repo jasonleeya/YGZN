@@ -21,9 +21,9 @@ create(store, {
     var pages = getCurrentPages()
     var prevPage = pages[pages.length - 2]
     prevPage.setData({
-      supplier: this.data.supplierList[e.currentTarget.dataset.index].customer.supplyName,
-      supplyNo: this.data.supplierList[e.currentTarget.dataset.index].customer.supplyNo,
-      customerType: this.data.supplierList[e.currentTarget.dataset.index].customer.customerType
+      supplier: this.data.supplierList[e.currentTarget.dataset.index].supplyName,
+      supplyNo: this.data.supplierList[e.currentTarget.dataset.index].supplyNo,
+      customerType: this.data.supplierList[e.currentTarget.dataset.index].customerType
     })
     wx.navigateBack()
   },
@@ -54,11 +54,9 @@ create(store, {
     this.setData({
       isLoad: true,
     })
-    app.http("getSupplyList", {
-      pageNo: this.data.currentPage,
-      pageSize: 15,
-      keyword: this.data.searchValue,
-      status: "1,2"
+    app.http("getPurchasingSupplyNew", { 
+      pageSize: 1000,
+      keyword: this.data.searchValue, 
     }).then(data => {
       if (data.list) {
         this.setData({

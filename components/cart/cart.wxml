@@ -13,7 +13,7 @@
     <view class="goods-item cu-item solid-bottom  {{modalName=='move-box-'+ index?'move-cur':''}}" wx:for="{{goodsList}}" wx:key bindtouchstart="ListTouchStart" bindtouchmove="ListTouchMove" bindtouchend="ListTouchEnd" data-target="move-box-{{index}}">
       <view class="goods-pic"> 
          <!-- <previewImage  class="solid" src="{{item[picUrlKey]}}" w="140rpx" h="140rpx" /> -->
-      <previewImage  class="solid" src="http://img4.imgtn.bdimg.com/it/u=2022307077,2423689529&fm=15&gp=0.jpg" w="140rpx" h="140rpx" />
+      <previewImage  class="solid" src="{{item[picUrlKey]}}" w="140rpx" h="140rpx" />
        
       </view>
       <view class="goods-info"  bindtap="getIndex" data-index="{{index}}">

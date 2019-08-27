@@ -1,7 +1,8 @@
 {
   "usingComponents": {
     "search": "/components/search/search",
-    "cart": "/components/cart/cart"
+    "cart": "/components/cart/cart",
+    "editGoodsInfo": "/components/editGoodsInfo/editGoodsInfo"
   },
   "navigationBarBackgroundColor": "#317EFE",
   "navigationBarTextStyle": "white",

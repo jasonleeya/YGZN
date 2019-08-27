@@ -36,7 +36,8 @@ const alias = {
   custOrderPay:"14000/imatchOrder/acceptbill/custOrderPay",
   homeMessage:"14000/imatchOrder/bubble/homeMessage",
   fetchSaleProductInfo: "14000/imatchProduct/stockCurrent/fetchSaleProductInfo",
-  getStockInBatch:"14000/imatchProduct/stockCurrent/getStockInBatch",
+  getStockInBatch:"14000/imatchProduct/stockCurrent/getStockInBatch", 
+  saleDiscount:"14000/imatchProduct/product/discount/saleDiscount",
 }
 export default function(name) {
   return BASE_URL + alias[name]

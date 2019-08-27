@@ -306,15 +306,20 @@ Page({
     })
   },
   split() {
-    app.showToast("暂不支持拆分")
+    app.showToast("暂不支持")
   },
   confirmStorage() {
     this.setData({
       oprateType: "090005"
     })
   },
-  return () {
-
+  returnGoods () {
+    app.showToast("暂不支持")
+  },
+  confirmSend(){
+    this.setData({
+      oprateType: "090004"
+    })
   },
   purchaseAgain() {
     app.http("homeMessage", { orderNo: this.data.infos.orderNo}).then(()=>{

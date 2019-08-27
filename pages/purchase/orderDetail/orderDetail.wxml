@@ -105,11 +105,15 @@
       </view>
 
       <view class="option">
-        <button class="bg-gradual-orange" wx:if="{{ infos.orderStatus!=='090005'&&infos.orderStatus!=='090008'}}" hidden="{{infos.orderStatus==='090004'&&infos.oando === 'up'}}" bindtap="cancelOrder">取消订单</button>
+        <button class="bg-gradual-orange" wx:if="{{ infos.orderStatus!=='090005'&&infos.orderStatus!=='090008'}}" hidden="{{infos.orderStatus==='090004'||infos.orderStatus==='090002'?infos.oando === 'up'?true:false:false}}" bindtap="cancelOrder">取消订单</button>
       </view>
 
       <view class="option">
         <button class="bg-gradual-orange" wx:if="{{infos.orderStatus === 'wait'}}" form-type="submit" bindtap="confirmOrder">确认订单</button>
+      </view>
+
+        <view class="option">
+        <button class="bg-gradual-orange" wx:if="{{infos.orderStatus === '090002'&&infos.oando === 'down'}}" form-type="submit" bindtap="confirmSend">确认订单</button>
       </view>
 
       <view class="option">
@@ -125,7 +129,7 @@
       </view>
 
       <view class="option">
-        <button class="bg-gradual-orange" wx:if="{{infos.orderStatus === '090005'}}" bindtap="return">退货</button>
+        <button class="bg-gradual-orange" wx:if="{{infos.orderStatus === '090005'}}" bindtap="returnGoods">退货</button>
       </view>
 
       <view class="option">

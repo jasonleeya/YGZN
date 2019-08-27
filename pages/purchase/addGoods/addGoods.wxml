@@ -4,7 +4,7 @@
   <view class="goods-list">
     <view class="goods-item solid-bottom" wx:for="{{goodsList}}" wx:key>
       <view class="goods-pic"> 
-          <previewImage  class="solid" src="http://img4.imgtn.bdimg.com/it/u=2022307077,2423689529&fm=15&gp=0.jpg" w="140rpx" h="140rpx" />
+          <previewImage  class="solid" src="{{item.imgPath}}" w="140rpx" h="140rpx" />
       </view>
       <view class="goods-info">
         <view class="goods-name">{{item.brandName}}/{{item.productName}}</view>

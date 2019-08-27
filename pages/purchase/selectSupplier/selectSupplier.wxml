@@ -10,24 +10,24 @@
       <view class="supplier-item" wx:for="{{supplierList}}" wx:key bindtap="chooseSupplier" data-index="{{index}}">
         <view class="supplier-header solid-bottom">
           <text class="cuIcon-friend name-icon"></text>
-          <text class="supplier-name">{{item.customer.supplyName}}</text>
-          <text class="supplier-type text-green">{{item.customer.approveStatus?"线上":"自建"}}</text>
+          <text class="supplier-name">{{item.supplyName}}</text>
+          <text class="supplier-type text-green">{{item.approveStatus?"线上":"自建"}}</text>
         </view>
         <view class="supplier-info">
           <view class="supplier-info-name text-gray">营业执照</view>
-          <view class="supplier-info-value">{{item.customer.blNumber}}</view>
+          <view class="supplier-info-value">{{item.blNumber}}</view>
         </view>
         <view class="supplier-info">
           <view class="supplier-info-name text-gray">客户类型</view>
-          <view class="supplier-info-value">{{item.customer.customerType==="1003"?"信用客户":item.customerType==="1003"?"信用客户":"普通客户"}}</view>
+          <view class="supplier-info-value">{{item.customerType==="1003"?"信用客户":item.Type==="1003"?"信用客户":"普通客户"}}</view>
         </view>
         <view class="supplier-info">
           <view class="supplier-info-name text-gray">联系人</view>
-          <view class="supplier-info-value">{{item.customer.supContact}}</view>
+          <view class="supplier-info-value">{{item.supContact}}</view>
         </view>
         <view class="supplier-info">
           <view class="supplier-info-name text-gray">联系电话</view>
-          <view class="supplier-info-value">{{item.customer.supPhone}}</view>
+          <view class="supplier-info-value">{{item.supPhone}}</view>
         </view>
       </view>
     </view>

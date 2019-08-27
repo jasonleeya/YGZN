@@ -18,8 +18,7 @@ create(store, {
     totalAmount: 0, //总量
     loadMore: false, //是否显示加载图标
     store: "",
-    supplyNo: '',
-    supplyNoCopy:'',
+    supplyNo: '', 
     wareId: "",
     searchType: "",
     searchValue: "",
@@ -54,6 +53,7 @@ create(store, {
 
   searchTypeChange(e) {
     this.setData({
+      pageNo: 1,
       searchType: e.detail.name
     })
     this.search()
@@ -98,18 +98,55 @@ create(store, {
     switch (this.data.searchType) {
       case "":
       case "我的仓库":
-        this.setData({
-          supplyNoCopy: JSON.parse(JSON.stringify(this.data.supplyNo)),
-          supplyNo: ''
-        })
-        searchByStore(this)
-
-        break
       case "供方仓库":
-        this.setData({
-          supplyNo: this.data.supplyNoCopy 
+        app.http("searchStockProduct", {
+          wareKey: "",
+          pageNo: this.data.pageNo,
+          pageSize: "10",
+          custNo: this.data.searchType === "供方仓库" ? this.data.supplyNo : '',
+          searchKey: this.data.searchValue,
+        }).then(data => {
+          var queryString = []
+          var storeList = []
+          data.list.forEach(item => {
+            queryString.push(item.productUuid)
+          })
+          queryString.join(",")
+
+          app.http("getStockInBatch", {
+            productId: queryString,
+            repoId: this.data.wareId
+          }).then(d => {
+            if (this.data.pageNo === 1) {
+              this.setData({
+                storeList: d
+              })
+            } else {
+              this.setData({
+                storeList: this.data.storeList.concat(d)
+              })
+            }
+          })
+
+          if (this.data.pageNo === 1) {
+            this.setData({
+              goodsList: data.list
+            })
+            this.load(false)
+          } else {
+            this.setData({
+              goodsList: this.data.goodsList.concat(data.list),
+              loadMore: false,
+            })
+          }
         })
-        searchByStore(this)
+          .catch(err => {
+            this.load(false)
+            this.setData({
+              loadMore: false
+            })
+            app.showToast(err)
+          })
 
         break
       case "全局搜索":
@@ -131,59 +168,7 @@ create(store, {
         })
         break
     }
-
-    function searchByStore(that) {
-       
-      app.http("searchStockProduct", {
-          wareKey: "",
-          pageNo: that.data.pageNo,
-          pageSize: "10",
-          custNo: that.data.supplyNo,
-          searchKey: that.data.searchValue,
-        }).then(data => {
-          var queryString = []
-          var storeList = []
-          data.list.forEach(item => {
-            queryString.push(item.productUuid)
-          })
-          queryString.join(",")
-
-          app.http("getStockInBatch", {
-            productId: queryString,
-            repoId: that.data.wareId
-          }).then(d => {
-            if (that.data.pageNo === 1) {
-              that.setData({
-                storeList: d
-              })
-            } else {
-              that.setData({
-                storeList: that.data.storeList.concat(d)
-              })
-            }
-          })
-
-          if (that.data.pageNo === 1) {
-            that.setData({
-              goodsList: data.list
-            })
-            console.log(that.data.storeList)
-            that.load(false)
-          } else {
-            that.setData({
-              goodsList: that.data.goodsList.concat(data.list),
-              loadMore: false,
-            })
-          }
-        })
-        .catch(err => {
-          that.load(false)
-          that.setData({
-            loadMore: false
-          })
-          app.showToast(err)
-        })
-    }
+ 
   },
   //监听滑动到底部
   scrollToBottom() {
@@ -205,16 +190,20 @@ create(store, {
     this.load()
 
     app.http("purchaseDiscount", {
-      supplyNo: this.data.supplyNo,
+      supplyNo: this.data.searchType === "供方仓库" ? '' : this.data.supplyNo,
       productId: this.data.goodsList[index].productUuid
     }).then(data => {
+      if (data.infoBody.discount===null){
+        data.infoBody.discount=10
+      }
       this.setData({
         isShowPop: true,
+        ['popData.facePrice']: data.infoBody.price.toFixed(2),
         ['popData.goodsCount']: this.data.goodsList[index].minCount,
-        ["popData.NTPSingle"]: parseFloat(data.infoBody.price).toFixed(2),
+        ["popData.NTPSingle"]: (parseFloat(data.infoBody.price) * (parseFloat(data.infoBody.discount) / 10)).toFixed(2),
         ["popData.taxRate"]: '13.00%',
-        ["popData.discountPrice"]: (parseFloat(data.infoBody.price) * 1.13).toFixed(2),
-        ["popData.sttAmount"]: (parseFloat(data.infoBody.price) * 1.13 * parseInt(this.data.goodsList[index].minCount)).toFixed(2)
+        ["popData.discountPrice"]: (parseFloat(data.infoBody.price) * 1.13 * (parseFloat(data.infoBody.discount) / 10)).toFixed(2),
+        ["popData.sttAmount"]: (parseFloat(data.infoBody.price) * 1.13 * parseInt(this.data.goodsList[index].minCount) * (parseFloat(data.infoBody.discount) / 10)).toFixed(2)
       })
 
       this.setData({
@@ -408,7 +397,7 @@ create(store, {
     var goods = this.data.goodsList[this.data.activeIndex]
     var popData = this.data.popData
     var value = () => {
-      var goodsDiscount = (parseFloat(popData.NTPSingle) / parseFloat(this.data.popDataCopy.NTPSingle)).toFixed(2)
+      var goodsDiscount = (parseFloat(popData.NTPSingle) / parseFloat(this.data.popData.facePrice)).toFixed(2)
       if (goodsDiscount > 1 || String(goodsDiscount) === 'Infinity' || isNaN(goodsDiscount)) {
         goodsDiscount = 1
       }
@@ -416,27 +405,27 @@ create(store, {
         brandNo: goods.brandCode,
         goodsUnit: goods.productUnit,
         goodsNo: goods.productUuid,
-        goodsName: goods.productName + "~" + goods.parameter,
-        facePrice: this.data.popDataCopy.NTPSingle,
+        goodsName: goods.productName,// + "~" + goods.parameter,
+        facePrice: this.data.popDataCopy.facePrice,
         minNums: this.data.popDataCopy.goodsCount,
         goodsDiscount: goodsDiscount,
         goodsBrand: goods.brandName,
         NTP: parseFloat(popData.NTPSingle) * parseInt(popData.goodsCount),
         taxRate: parseFloat(popData.taxRate),
-        billingAmount: parseFloat(this.data.popDataCopy.NTPSingle) * popData.goodsCount,
+        billingAmount: parseFloat(this.data.popDataCopy.facePrice) * parseInt(popData.goodsCount),
         sttAmount: (parseFloat(popData.discountPrice) * popData.goodsCount).toFixed(2),
         goodsCount: popData.goodsCount,
         remark: "",
         sourceOrder: "",
         tableKey: "",
-        pirctureWay: "",
+        pirctureWay: goods.imgPath,
         NTPSingle: popData.NTPSingle,
         discountPrice: popData.discountPrice,
         beforeSendNumsPurchase: "0",
         sortID: "",
 
         brandCode: goods.brandCode,
-        name: goods.brandName + "/" + goods.productName
+        name: goods.brandName + "/" + goods.productName, 
       }
     }
     var totalAmount = 0

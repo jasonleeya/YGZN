@@ -81,6 +81,7 @@ Page({
         var paramas = prevPage.data.paramas
         paramas.upperpartOrder = JSON.parse(paramas.upperpartOrder)
         paramas.upperpartOrder[0].orderStatus = "090002"
+        paramas.upperpartOrder[0].orderTypeChoose = "03"
         paramas.upperpartOrder = JSON.stringify(paramas.upperpartOrder)
         // console.log(paramas)
 

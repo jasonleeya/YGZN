@@ -238,6 +238,8 @@ Component({
       var data = this.data
       data.popData[data.noTaxTotalPrice] = parseFloat(data.popData[data.noTaxPriceKey]) * parseFloat(data.popData[data.amountKey])
       data.popData[data.goodsDiscount] = (parseFloat(data.popData[data.noTaxTotalPrice]) / parseFloat(this.data.popDataCopy[data.noTaxTotalPrice])).toFixed(2)
+
+      
       if (data.popData[data.goodsDiscount] > 1) {
         data.popData[data.goodsDiscount] = 1
       }

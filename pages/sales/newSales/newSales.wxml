@@ -34,24 +34,24 @@
       </view>
 
 
-  <view class="cell border-bt">
-      <view class="cell-name">收货所在地区</view>
-      <view class="cell-value">
-       <input name="region"  value="{{region?region[0]+'/'+region[1]+'/'+region[2]:''}}" disabled   placeholder="请选择客户或选择所在地区"></input>       
-      </view>
+      <view class="cell border-bt">
+        <view class="cell-name">收货所在地区</view>
+        <view class="cell-value">
+          <input name="region" value="{{region?region[0]+'/'+region[1]+'/'+region[2]:''}}" disabled placeholder="请选择客户或选择所在地区"></input>
+        </view>
         <picker mode="region" bindchange="regionChange" value="{{region}}">
-          <view class="picker">      
-             <view class="cuIcon-right cell-icon "></view> 
+          <view class="picker">
+            <view class="cuIcon-right cell-icon "></view>
           </view>
         </picker>
-     
-    </view>
-    <view class="cell border-bt ">
-      <view class="cell-name">收货详细地址</view>
-      <view class="cell-value ">
-        <input name="addressDetail" placeholder="请输入详细地址 " value="{{addressDetail}}"></input>
+
       </view>
-    </view>
+      <view class="cell border-bt ">
+        <view class="cell-name">收货详细地址</view>
+        <view class="cell-value ">
+          <input name="addressDetail" placeholder="请输入详细地址 " value="{{addressDetail}}"></input>
+        </view>
+      </view>
 
 
 
@@ -64,26 +64,35 @@
           </view>
         </picker>
       </view>
- 
+
       <view class="cell">
         <view class="cell-name">收货日期</view>
         <view class="cell-value">
-           <input name="receiveDate" value="{{receiveDate}}" disabled></input>
+          <input name="receiveDate" value="{{receiveDate}}" disabled></input>
         </view>
-         <picker mode="date" value="{{receiveDate}}" start="{{receiveDate}}" end="2100-09-01" bindchange="dateChange">
-            <view class="picker">
-                <view class="cuIcon-right  cell-icon"></view>
-            </view>
-          </picker>
-  
+        <picker mode="date" value="{{receiveDate}}" start="{{receiveDate}}" end="2100-09-01" bindchange="dateChange">
+          <view class="picker">
+            <view class="cuIcon-right  cell-icon"></view>
+          </view>
+        </picker>
+      </view>
+
+      <view class="cell border-bt ">
+        <view class="cell-name">物流号</view>
+        <view class="cell-value ">
+          <input name="addressDetail" placeholder="请输入物流编号(可不填)"></input>
+        </view>
       </view>
 
     </view>
     <view class="title add-goods">添加商品</view>
     <!-- 搜索 -->
-    <search bindtap="toAddGoods" justLink="{{true}}"/>
+    <search bindtap="toAddGoods" justLink="{{true}}" />
     <!-- 购物车 -->
-    <cart goodsList="{{goodsList}}" totalPrice="{{totalPrice}}" bind:changeData="getChangedData" goodsListUrl="{{'/pages/purchase/addGoods/addGoods?store=newSales'}}" />
+    <!-- <cart goodsList="{{goodsList}}" totalPrice="{{totalPrice}}" bind:changeData="getChangedData" goodsListUrl="{{'/pages/purchase/addGoods/addGoods?store=newSales'}}" /> -->
+    <cart goodsList="{{goodsList}}" totalPrice="{{totalPrice}}" picUrlKey="pirctureWay" nameKey="name" brandNameKey="goodsBrand" typeKey="brandCode" priceKey="discountPrice" amountKey="goodsCount" idKey="goodsNo" minNumKey="minNums" bind:changeAmount="getChangeAmount"
+      bind:getIndex="getEditGoodsId" bind:deleteGoods="deleteGoods" bind:changeTotalPriceAndAmount="priceAmountChange" />
+    <editGoodsInfo wx:if="{{showEditPop}}" popData="{{popData}}" bind:editedInfo="getEditedInfo" />
 
     <view class="title remake">备注</view>
     <textarea name="remark" class="remarke-textarea" placeholder="请填写备注信息" />

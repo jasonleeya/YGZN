@@ -31,18 +31,36 @@ create(store, {
     popData: {},
     editingIndex: null,
     isLoad: false,
-    operateType:null,
+    operateType: null,
   },
   onLoad() {
 
     //验证登录
     app.checkLogin()
     this.initData()
-    // this.store.data.newPurchase.receiveAddress = this.data.receiveAddress
+
     var date = new Date()
-    var nowDate = date.getFullYear() + "-" + (date.getMonth() + 1) + "-" + date.getDate()
+    var receiveDate = null
+    var year = date.getFullYear()
+    var month = date.getMonth() + 1
+    var day = date.getDate()
+    var monthLength = new Date(year, month, 0).getDate()
+    if (day + 4 <= monthLength) {
+      day = day + 4
+    } else {
+      day = 4 - (monthLength - day)
+      if (month === 12) {
+        month = 1
+        year = year + 1
+      } else {
+        month = month + 1
+      }
+    }
+    receiveDate = year + "-" + month + "-" + day
+
+
     this.setData({
-      receiveDate: nowDate
+      receiveDate: receiveDate
     })
   },
   onShow() {
@@ -60,10 +78,6 @@ create(store, {
   toAddGoods() {
     if (this.data.supplyNo === "") {
       app.showToast("请先选择供应商")
-      return
-    }
-    if (this.data.slectedStoreHouseId === "") {
-      app.showToast("请先选择仓库")
       return
     }
 
@@ -131,7 +145,14 @@ create(store, {
 
   //监听购物车组件信息的改变
   getChangeAmount(e) {
-    app.globalData.purchaseCartList[e.detail.index].goodsCount = e.detail.amount
+    var goods = app.globalData.purchaseCartList[e.detail.index]
+    var amount = e.detail.amount
+    goods.goodsCount = amount
+    goods.sttAmount = (parseInt(amount) * parseFloat(goods.discountPrice)).toFixed(2)
+    goods.NTP = parseInt(amount) * parseFloat(goods.NTPSingle)
+    goods.billingAmount = (parseInt(amount) * parseFloat(goods.facePrice)).toFixed(2)
+
+
   },
   deleteGoods(e) {
     var list = this.data.goodsList
@@ -144,7 +165,6 @@ create(store, {
   priceAmountChange(e) {
     app.globalData.purchaseTotalPrice = e.detail.totalPrice
     app.globalData.purchaseTotalAmount = e.detail.totalAmount
-    // console.log(app.globalData.purchaseTotalPrice, app.globalData.purchaseTotalAmount)
   },
   getEditGoodsId(e) {
     var index = e.detail.index
@@ -157,10 +177,20 @@ create(store, {
   getEditedInfo(e) {
     var totalPrice = 0
     var totalAmount = 0
+    var data = e.detail.data
+    data.billingAmount = parseFloat(data.facePrice) * parseInt(data.goodsCount)
+
+    var goodsDiscount = (parseFloat(data.NTPSingle) / parseFloat(data.facePrice)).toFixed(2)
+    if (goodsDiscount > 1 || String(goodsDiscount) === 'Infinity' || isNaN(goodsDiscount)) {
+      goodsDiscount = 1
+    }
+    data.goodsDiscount = goodsDiscount
+
+
     this.setData({
       showEditPop: false,
       popData: {},
-      ["goodsList[" + this.data.editingIndex + "]"]: e.detail.data
+      ["goodsList[" + this.data.editingIndex + "]"]: data
     })
     this.data.goodsList.forEach(item => {
       totalPrice = (parseFloat(totalPrice) + parseFloat(item.discountPrice) * parseInt(item.goodsCount)).toFixed(2)
@@ -184,10 +214,10 @@ create(store, {
       url: '/pages/common/selectReceiveAddress/selectReceiveAddress?addressKey=receiveAddress&phoneNumberKey=phoneNumber&receiverKey=receiver'
     })
   },
-  obtianOperateType(e){
-   this.setData({
-     operateType: e.target.dataset.operateType
-   })
+  obtianOperateType(e) {
+    this.setData({
+      operateType: e.target.dataset.operateType
+    })
   },
   formSubmit(e) {
     var info = e.detail.value
@@ -232,9 +262,9 @@ create(store, {
         buySalesMan: info.buyer,
         insertDate: "", //*
         deliveryDate: null, //*
-        billingAmount: "0.00", //*
-        orderStatus: operateType === 'save' ? "wait" :'090001',
-        sttAmount: data.totalPrice,
+        billingAmount: "", //*
+        orderStatus: operateType === 'save' ? "wait" : '090001',
+        sttAmount: app.globalData.purchaseTotalPrice,
         sttMode: "--选择结算方式--", //*
         remark: info.remark,
         adsaleWay: "", //  *           
@@ -272,9 +302,13 @@ create(store, {
         this.setData({
           isLoad: false
         })
-      wx.redirectTo({
-        url: '/pages/purchase/orderDetail/orderDetail?orderNo=' + this.data.orderId,
-      })
+        app.globalData.purchaseCartList = []
+        app.globalData.purchaseTotalPrice = 0
+        app.globalData.purchaseTotalAmount = 0
+
+        wx.redirectTo({
+          url: '/pages/purchase/orderDetail/orderDetail?orderNo=' + this.data.orderId,
+        })
       })
       .catch((e) => {
         app.showToast(e)
