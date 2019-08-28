@@ -9,7 +9,7 @@
       <view class="cell border-bt">
         <view class="cell-name">客户</view>
         <view></view>
-        <input name="customer" disabled class="cell-value {{customerName===null?'text-gray':''}}" placeholder="请选择或添加客户" value="{{customerName}}"></input>
+        <input name="custName" disabled class="cell-value {{customerName===null?'text-gray':''}}" placeholder="请选择或添加客户" value="{{customerName}}"></input>
         <view class="cuIcon-right  cell-icon" bindtap="selectCustomer"></view>
       </view>
 
@@ -65,6 +65,7 @@
         </picker>
       </view>
 
+
       <view class="cell">
         <view class="cell-name">收货日期</view>
         <view class="cell-value">
@@ -80,9 +81,17 @@
       <view class="cell border-bt ">
         <view class="cell-name">物流号</view>
         <view class="cell-value ">
-          <input name="addressDetail" placeholder="请输入物流编号(可不填)"></input>
+          <input name="lgtNums" placeholder="请输入物流编号(可不填)"></input>
         </view>
+
       </view>
+        <view class="cell border-bt">
+        <view class="cell-name">物流费用</view>
+        <view class="cell-value">
+          <input name="logisticsCost" type="number"  placeholder="请填写物流费用" value="{{logisticsCost}}"></input>
+        </view> 
+      </view>
+
 
     </view>
     <view class="title add-goods">添加商品</view>
@@ -98,9 +107,9 @@
     <textarea name="remark" class="remarke-textarea" placeholder="请填写备注信息" />
 
     <cover-view class="operating-options">
-      <cover-view class="save-order bg-orange">保存订单</cover-view>
+      <cover-view class="save-order bg-orange" bindtap="obtianOperateType" data-type="save">保存订单</cover-view>
       <cover-view class="comfirm-order">
-        <button class=" bg-red" form-type="submit">确认订单</button>
+        <button class=" bg-red" form-type="submit" bindtap="obtianOperateType" data-type="confirm">确认订单</button>
       </cover-view>
     </cover-view>
   </form>

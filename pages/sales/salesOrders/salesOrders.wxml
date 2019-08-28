@@ -1,10 +1,10 @@
 <view class="header">
   <view class="search">
-    <input class="search-input bg-gray" type="text" placeholder="请输入订单号、备注、供应商、业务员搜索"> </input>
-    <view class="iconfont iconsearch text-gray"></view>
+    <input class="search-input bg-gray"  placeholder="请输入订单号、备注、供应商、业务员搜索" bindfocus="searchFocus" bindblur="searchBlur" bindinput="searchInput"    value="{{searchValue}}"> </input>
+    <view class="iconfont iconsearch " bindtap="search"></view>
   </view>
   <view class="sort-methods solid">
-    <text class="sort-method {{selectingMothod===index?'theme-color':''}}" bindtap="chooseSortMethod" wx:for="{{sortMethodsList}}" wx:key data-index="{{index}}"><text class="sort-name">{{item.name}}  </text>
+    <text class="sort-method {{item.name==='订单状态'&&orderStatus!==''?'text-gray':''}} {{selectingMothod===index?'theme-color':''}}" bindtap="chooseSortMethod" wx:for="{{sortMethodsList}}" wx:key data-index="{{index}}"><text class="sort-name">{{item.name}}  </text>
     <text class="iconfont icondown"></text>
     </text>
   </view>
@@ -31,7 +31,7 @@
   <!-- 订单状态选择 -->
   <view class="drop-down solid" wx:if="{{selectingMothod===1}}">
     <view class="sort-options ">
-      <view wx:for="{{sortMethodsList[selectingMothod].options}}" bindtap="chooseOrderStatus" wx:key class="bg-gray sort-option {{sortMethodsList[selectingMothod].activeOption===index?'theme-bgc':''}}" data-index="{{index}}">{{item}}</view>
+      <view wx:for="{{sortMethodsList[selectingMothod].options}}" bindtap="chooseOrderStatus" wx:key class="bg-gray sort-option {{sortMethodsList[selectingMothod].activeOption===index?'theme-bgc':''}}" data-index="{{index}}">{{item.name}}</view>
     </view>
   </view>
 
@@ -51,7 +51,7 @@
     </view>
     <view class="person-change-page solid-top">
       <text class="pre-page cuIcon-back" bindtap="prePage"> 上一页</text>
-      <text class="cur-page">第{{personList.curPage}}页/共{{personList.personList}}页</text>
+      <text class="cur-page">第{{personList.curPage}}页/共{{personList.totalPages}}页</text>
       <text class="next-page" bindtap="nextPage">下一页<text class="cuIcon-right"></text></text>
     </view>
   </view>
@@ -59,18 +59,18 @@
 </view>
 
 <scroll-view class="content" scroll-y>
+<view class="empty" wx:if="{{orderList.length===0}}">暂无订单~</view>
   <view class="order-list">
-
-    <view class="order-item" wx:for="{{orderList}}" wx:key bindtap="seeDetail" data-id="{{index}}">
+    <view class="order-item" wx:for="{{orderList}}" wx:key bindtap="seeDetail" data-id="{{item.orderNo}}">
       <view class="order-header solid-bottom">
         <text class="order-id-icon cuIcon-text theme-color"></text>
-        <text class="order-id">订单号：{{item.id}}</text>
-        <text class="order-status text-{{item.status===1?'green':'red'}}">{{item.status===1?'已完成':item.status===2?'待付款':'待入库'}}</text>
+        <text class="order-id">订单号：{{item.orderNo}}</text>
+        <text class="order-status text-{{item.status==='已完成'?'green':'red'}}">{{item.status}}</text>
       </view>
       <view class="order-info-list">
         <view class="info-item">
           <view class="info-item-name text-gray">客户</view>
-          <view class="info-item-value">{{item.customer}}</view>
+          <view class="info-item-value">{{item.custName}}</view>
         </view>
         <view class="info-item">
           <view class="info-item-name text-gray">订单类型</view>
@@ -78,11 +78,11 @@
         </view>
         <view class="info-item">
           <view class="info-item-name text-gray">销售员</view>
-          <view class="info-item-value">{{item.seller}}</view>
+          <view class="info-item-value">{{item.buySalesMan}}</view>
         </view>
         <view class="info-item">
           <view class="info-item-name text-gray">订单金额</view>
-          <view class="info-item-value order-money">￥{{item.money}}</view>
+          <view class="info-item-value order-money">￥{{item.sttAmount}}</view>
         </view>
       </view>
     </view>

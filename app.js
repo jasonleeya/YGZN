@@ -8,6 +8,7 @@ App({
     homeMessage: null,
     unreadMsgCount:0,
     companies: null,
+    isShowModal:false,
     //purchase
     purchaseCartList: [],
     purchaseTotalPrice: 0,
@@ -33,20 +34,39 @@ App({
           that.globalData.unreadMsgCount = data.infoBody 
         }).catch(err => {
           console.log(err)
-          wx.removeStorageSync("token")
-          wx.showModal({
-            title: '重新登录',
-            content: '身份信息已过期,请重新登录',
-            showCancel: false,
-            success(res) {
-              if (res.confirm) {
-                wx.redirectTo({
-                  url: '/pages/login/login',
+          switch (err){
+            case"无效token":
+              wx.removeStorageSync("token")
+              wx.showModal({
+                title: '重新登录',
+                content: '身份信息已过期,请重新登录',
+                showCancel: false,
+                success(res) {
+                  if (res.confirm) {
+                    wx.redirectTo({
+                      url: '/pages/login/login',
+                    })
+                  }
+                }
+              })
+              break
+            case"网络错误":
+            case "服务器忙，请稍后重试":
+              if (!that.globalData.isShowModal){
+                that.globalData.isShowModal = true
+                wx.showModal({
+                  title: '网络请求失败',
+                  content: err,
+                  showCancel: false,
+                  success(){
+                    that.globalData.isShowModal=false
+                  }
                 })
               }
-            }
-          })
-
+           
+            break
+            
+          }
         })
       }
     }, 5000)
@@ -92,6 +112,7 @@ App({
 
 
   http(alias, data = {}, isShowLogs = false, needToken = true) {
+    let that=this
     if (needToken) {
       var token = wx.getStorageSync("token")
       data.token = token
@@ -112,6 +133,7 @@ App({
         },
         success: function(res) {
           if (res.statusCode != 200) {
+            // that.showToast("网络请求失败,请检查网络状态")
             reject('服务器忙，请稍后重试');
             return;
           }

@@ -33,8 +33,11 @@ create(store, {
     })
   },
   selectedSeller(e) {
-    var selectedName =
-      this.store.data.newSales.seller = e.detail
+    var pages = getCurrentPages()
+    var prevPage = pages[pages.length - 2]
+    prevPage.setData({
+      seller: e.detail
+    })
     wx.navigateBack()
   }
 });

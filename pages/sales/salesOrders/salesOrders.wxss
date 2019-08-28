@@ -15,6 +15,7 @@
   background-color: #fff;
   padding-top: 20rpx;
   position: relative;
+  width: 100vw;
 }
 
 .search-input {
@@ -48,7 +49,8 @@
 
 .sort-method {
   position: relative;
-  width: calc((100vw - 60rpx) / 4);
+  /* width: calc((100vw - 60rpx) / 4); */
+  margin-right: 20rpx;
   text-align: center;
   display: inline-block;
   height: 100rpx;
@@ -168,4 +170,11 @@
 
 .order-money {
   font-weight: bold;
+}
+.empty{
+  position: fixed;
+  width: 100vw;
+  top: 50%;
+  transform: translateY(-50%);
+  text-align: center;
 }

@@ -7,7 +7,7 @@ create(store, {
    */
   data: {
     curTab: "home",
-    messageCount: null,
+    messageCount: 0,
     interval: null
   },
 
@@ -18,10 +18,8 @@ create(store, {
   },
   onShow(){ 
     let taht=this
-    taht.setData({
-      messageCount: app.globalData.unreadMsgCount
-    })
-    app.watchGloabalData("unreadMsgCount", function (value) { 
+     
+    app.watchGloabalData("unreadMsgCount", function (value) {  
       taht.setData({
         messageCount: app.globalData.unreadMsgCount
       })

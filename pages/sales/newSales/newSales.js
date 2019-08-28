@@ -24,15 +24,17 @@ create(store, {
     phoneNumber: "",
     receiveAddress: "",
     receiveDate: "",
-    region: "",
-    addressDetail: ""
+    address: "",
+    region: '',
+    addressDetail: "",
+    operateType:""
   },
 
   onLoad() {
     //验证登录
     app.checkLogin()
-    this.initData() 
-     
+    this.initData()
+
     var date = new Date()
     var receiveDate = null
     var year = date.getFullYear()
@@ -140,20 +142,18 @@ create(store, {
   },
 
   //监听购物车组件信息的改变
- getChangeAmount(e) {  
-   var goods = app.globalData.salesCartList[e.detail.index]
-   var amount = e.detail.amount
-   goods.goodsCount = amount
-   goods.sttAmount = (parseInt(amount) * parseFloat(goods.discountPrice)).toFixed(2)
-   goods.NTP = (parseInt(amount) * parseFloat(goods.NTPSingle)).toFixed(2)
+  getChangeAmount(e) {
+    var goods = app.globalData.salesCartList[e.detail.index]
+    var amount = e.detail.amount
+    goods.goodsCount = amount
+    goods.sttAmount = (parseInt(amount) * parseFloat(goods.discountPrice)).toFixed(2)
+    goods.NTP = (parseInt(amount) * parseFloat(goods.NTPSingle)).toFixed(2)
   },
   deleteGoods(e) {
-    var list = this.data.goodsList
-    list.splice(e.detail.index, 1)
-    this.setData({
-      goodsList: list
-    })
     app.globalData.salesCartList.splice(e.detail.index, 1)
+    this.setData({
+      goodsList: app.globalData.salesCartList
+    })
   },
   priceAmountChange(e) {
     app.globalData.salesTotalPrice = e.detail.totalPrice
@@ -187,7 +187,7 @@ create(store, {
       ["goodsList[" + this.data.editingIndex + "]"]: data
     })
 
-    
+
     this.data.goodsList.forEach(item => {
       totalPrice = (parseFloat(totalPrice) + parseFloat(item.discountPrice) * parseInt(item.goodsCount)).toFixed(2)
       totalAmount = parseInt(totalAmount) + parseInt(item.goodsCount)
@@ -214,21 +214,61 @@ create(store, {
       url: '/pages/common/addReceiveAdress/addReceiveAdress?adress=' + this.data.receiveAddress + "&store=newSales.receiveAddress",
     })
   },
-  formSubmit(e) {
+  obtianOperateType(e) {
+    this.setData({
+      operateType: e.target.dataset.type
+    })
+  },
+  formSubmit(e) { 
     var info = e.detail.value
-    var data = this.data 
+    var data = this.data
+    var list = app.globalData.salesCartList
+    var billingAmount = 0
+    list.forEach(item => {
+      billingAmount += parseFloat(item.billingAmount)
+    })
+
+    if (!data.custNo) {
+      app.showToast("请选择客户")
+      return
+    }
+    if (!data.seller) {
+      app.showToast("请选择销售员")
+      return
+    }
+    // if (!info.storehouse) {
+    //   app.showToast("请选择仓库")
+    //   return
+    // }
+    if (!info.region||!info.addressDetail) {
+      app.showToast("请填写收货地址")
+      return
+    }
+    if (!info.receiver) {
+      app.showToast("请填写收货人姓名")
+      return
+    }
+    if (!info.phoneNumber) {
+      app.showToast("请填写收货人电话号")
+      return
+    }
+    if (list.length === 0) {
+      app.showToast("请先添加商品")
+      return
+    }
+
 
     var paramas = {
-      upperpartOrder: {
+      upperpartOrder: JSON.stringify([{
         orderNo: info.orderId,
         custNo: data.custNo,
-        custName: data.custName,
+        custName: info.custName,
         sellSalesMan: data.seller,
-        insertDate: '', //
-        deliveryDate: '', //
-        billingAmount: '500.00', //
-        orderStatus: '090003', //
-        sttAmount: '508.50', //
+        insertDate: new Date().toISOString(), //
+        deliveryDate: new Date(info.receiveDate).toISOString(), //
+        billingAmount: billingAmount, //
+        orderStatus: operateType === 'save' ?'090001':'090003', //
+        sttAmount: app.globalData.salesTotalPrice, //
         sttMode: '', //
         remark: info.remark,
         buyOperator: wx.getStorageSync("userInfo")[0].userName,
@@ -236,17 +276,27 @@ create(store, {
         oando: 'down', //---
         getGoodsDate: info.receiveDate,
         hdGoods: '0', //
-        lgtNums: '', //
+        lgtNums: info.lgtNums, //
         cpdOrder: '', //
-        saleWarehouse: '233113894401343488', //---
+        saleWarehouse: data.slectedStoreHouseId, //---
         invoice: '0003', //
         orderTypeChoose: '01', //
-        logisticsCost: '0.00', //
+        logisticsCost: parseFloat(info.logisticsCost).toFixed(2), //
         consignor: '', //
         reflect: '0' //
-      }
+      }]),
+      list: JSON.stringify(list),
+      tBusAddress: JSON.stringify([{
+        orderNo: info.orderId,
+        consigneeName: info.receiver,
+        address: "【" +info.region+ "】" + info.addressDetail,
+        telephone: info.phoneNumber
+      }]),
+      isOrNotReduceGoodsNum: 'no',
+      beforeGoodsNum: "",
+      beforeWareHouse: "",
     }
-    console.log(app.globalData.salesCartList)
+    app.http("saveSaleOrderUpperAndLower",paramas,true)
   },
 
 })

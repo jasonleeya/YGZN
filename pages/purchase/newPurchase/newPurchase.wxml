@@ -48,10 +48,15 @@
         <view class="cell-name">联系电话</view>
         <view class="cell-value">
           <input name="phoneNumber" type="number" value="{{phoneNumber}}" maxlength="11"></input>
-        </view>
-        <!-- <view class="cuIcon-right  cell-icon"></view> -->
+        </view> 
       </view>
 
+  <view class="cell border-bt">
+        <view class="cell-name">物流费用</view>
+        <view class="cell-value">
+          <input name="logisticsCost" type="number" placeholder="请填写物流费用" value="{{logisticsCost}}"></input>
+        </view> 
+      </view>
 
 
       <view class="cell">
@@ -73,7 +78,7 @@
     <cart goodsList="{{goodsList}}" totalPrice="{{totalPrice}}" picUrlKey="pirctureWay" nameKey="name" brandNameKey="goodsBrand" typeKey="brandCode" priceKey="discountPrice" amountKey="goodsCount" idKey="goodsNo" minNumKey="minNums" bind:changeAmount="getChangeAmount"
       bind:getIndex="getEditGoodsId" bind:deleteGoods="deleteGoods" bind:changeTotalPriceAndAmount="priceAmountChange" />
 
-    <editGoodsInfo wx:if="{{showEditPop}}" popData="{{popData}}" bind:editedInfo="getEditedInfo" />
+    <editGoodsInfo wx:if="{{showEditPop}}" popData="{{popData}}" bind:closePop="closePop" bind:editedInfo="getEditedInfo" />
 
     <view class="title remake">备注</view>
     <textarea name="remark" class="remarke-textarea" placeholder="请填写备注信息" />

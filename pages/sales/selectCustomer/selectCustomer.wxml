@@ -1,6 +1,6 @@
 <view class="header-search">
   <view class="input-wrapper">
-    <view class="search-icon cuIcon-search {{isSearchFocus?'theme-color':''}}" bindtap="search"></view>
+    <view class="search-icon cuIcon-search text-gray" bindtap="search"></view>
     <input class="bg-gray" placeholder="客户名称、拼音首字母搜索" bindblur="searchBlur" bindfocus="searchFocus" bindinput="searchInput"></input>
   </view>
   <view class="add" bindtap="add">新增</view>

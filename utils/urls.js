@@ -1,5 +1,5 @@
-// const BASE_URL = "http://192.168.3.101:"
-const BASE_URL = "http://47.104.86.230:"
+const BASE_URL = "http://192.168.3.101:"
+// const BASE_URL = "http://47.104.86.230:"
 
 const alias = {
   loginAuthenticate: "26000/netgate-user/loginAuthenticate",
@@ -38,7 +38,10 @@ const alias = {
   fetchSaleProductInfo: "14000/imatchProduct/stockCurrent/fetchSaleProductInfo",
   getStockInBatch:"14000/imatchProduct/stockCurrent/getStockInBatch", 
   saleDiscount:"14000/imatchProduct/product/discount/saleDiscount",
-  selectReminderMessageByEnterpriseId:"26000/netgate-article/selectReminderMessageByEnterpriseId"
+  selectReminderMessageByEnterpriseId:"26000/netgate-article/selectReminderMessageByEnterpriseId",
+  saveSaleOrderUpperAndLower: "14000/imatchOrder/reOrder/saveSaleOrderUpperAndLower",
+  querySaleUpp: "14000/imatchOrder/reOrder/querySaleUpp",
+  queryBackUpp:"14000/imatchOrder/reOrder/queryBackUpp"
 }
 export default function(name) {
   return BASE_URL + alias[name]

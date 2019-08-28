@@ -16,7 +16,7 @@ Component({
       type: String,
       value: "NTPSingle"
     },
-    noTaxTotalPrice: {
+    noTaxTotalPriceKey: {
       type: String,
       value: "NTP"
     },
@@ -34,7 +34,7 @@ Component({
     },
     goodsDiscountKey: {
       type: String,
-      value: "sttAmount"
+      value: "goodsDiscount"
     },
 
   },
@@ -229,20 +229,18 @@ Component({
 
     },
     addCancel() {
-      this.setData({
-        isShowPop: false
-      })
+      this.triggerEvent("closePop")
     },
 
     addConfirm() {
       var data = this.data
-      data.popData[data.noTaxTotalPrice] = parseFloat(data.popData[data.noTaxPriceKey]) * parseFloat(data.popData[data.amountKey])
-      data.popData[data.goodsDiscount] = (parseFloat(data.popData[data.noTaxTotalPrice]) / parseFloat(this.data.popDataCopy[data.noTaxTotalPrice])).toFixed(2)
-
+      data.popData[data.noTaxTotalPriceKey] = parseFloat(data.popData[data.noTaxPriceKey]) * parseFloat(data.popData[data.amountKey])
+      data.popData[data.goodsDiscountKey] = (parseFloat(data.popData[data.noTaxTotalPriceKey]) / parseFloat(this.data.popDataCopy[data.noTaxTotalPriceKey])).toFixed(2)
+      data.popData[data.taxKey] = parseFloat(parseFloat(data.popData[data.taxKey]).toFixed(2))
       
-      if (data.popData[data.goodsDiscount] > 1) {
-        data.popData[data.goodsDiscount] = 1
-      }
+      if (data.popData[data.goodsDiscountKey] > 1) {
+        data.popData[data.goodsDiscountKey] = 1
+      } 
       this.triggerEvent("editedInfo", {
         data: this.data.popData
       })

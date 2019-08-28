@@ -148,19 +148,21 @@ create(store, {
     var goods = app.globalData.purchaseCartList[e.detail.index]
     var amount = e.detail.amount
     goods.goodsCount = amount
-    goods.sttAmount = (parseInt(amount) * parseFloat(goods.discountPrice)).toFixed(2)
+    // goods.sttAmount = (parseInt(amount) * parseFloat(goods.discountPrice)).toFixed(2)
     goods.NTP = parseInt(amount) * parseFloat(goods.NTPSingle)
     goods.billingAmount = (parseInt(amount) * parseFloat(goods.facePrice)).toFixed(2)
 
 
   },
   deleteGoods(e) {
-    var list = this.data.goodsList
-    list.splice(e.detail.index, 1)
-    this.setData({
-      goodsList: list
-    })
+ 
+   
     app.globalData.purchaseCartList.splice(e.detail.index, 1)
+    this.setData({
+      goodsList: app.globalData.purchaseCartList
+    })
+
+
   },
   priceAmountChange(e) {
     app.globalData.purchaseTotalPrice = e.detail.totalPrice
@@ -202,6 +204,11 @@ create(store, {
     app.globalData.purchaseTotalPrice = totalPrice
     app.globalData.purchaseTotalAmount = totalAmount
   },
+  closePop(){
+    this.setData({
+      showEditPop:false
+    })
+  },
 
   dateChange(e) {
     this.setData({
@@ -224,6 +231,11 @@ create(store, {
     var data = this.data
     var list = app.globalData.purchaseCartList
     var operateType = this.data.operateType
+    var billingAmount = 0
+    list.forEach(item=>{
+      billingAmount += parseFloat(item.billingAmount)
+    })
+   
 
     if (!info.supplier) {
       app.showToast("请选择供应商")
@@ -254,15 +266,17 @@ create(store, {
       return
     }
 
+
+
     var paramas = {
       upperpartOrder: JSON.stringify([{
         orderNo: info.orderId,
         supplyNo: data.supplyNo,
         supplyName: info.supplier,
         buySalesMan: info.buyer,
-        insertDate: "", //*
+        insertDate: new Date().toISOString(), //*
         deliveryDate: null, //*
-        billingAmount: "", //*
+        billingAmount: billingAmount, //*
         orderStatus: operateType === 'save' ? "wait" : '090001',
         sttAmount: app.globalData.purchaseTotalPrice,
         sttMode: "--选择结算方式--", //*
@@ -281,7 +295,8 @@ create(store, {
         invoice: "0003", //*
         orderTypeChoose: "01", //*
         consignee: info.receiver,
-        reflect: 0 //
+        reflect: 0, //
+        logisticsCost: parseFloat(info.logisticsCost).toFixed(2)
       }]),
       list: JSON.stringify(list),
       tBusAddress: JSON.stringify([{
@@ -297,6 +312,12 @@ create(store, {
     this.setData({
       isLoad: true
     })
+// console.log(paramas)
+//     this.setData({
+//       isLoad: false
+//     })
+// return
+
     app.http("savePurchaseOrderUpperAndLower", paramas, true).then(() => {
         app.showToast("添加成功")
         this.setData({
