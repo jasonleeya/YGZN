@@ -11,6 +11,7 @@ create(store, {
     customerName: null,
     customerNo: null,
     custNo: null,
+    approveStatus:null,
     storehouse: {
       list: [],
       idList: [],
@@ -145,9 +146,9 @@ create(store, {
   getChangeAmount(e) {
     var goods = app.globalData.salesCartList[e.detail.index]
     var amount = e.detail.amount
-    goods.goodsCount = amount
-    goods.sttAmount = (parseInt(amount) * parseFloat(goods.discountPrice)).toFixed(2)
+    goods.goodsCount = amount 
     goods.NTP = (parseInt(amount) * parseFloat(goods.NTPSingle)).toFixed(2)
+    goods.billingAmount = ((parseInt(amount) * parseFloat(goods.facePrice))).toFixed(2)
   },
   deleteGoods(e) {
     app.globalData.salesCartList.splice(e.detail.index, 1)
@@ -267,13 +268,13 @@ create(store, {
         insertDate: new Date().toISOString(), //
         deliveryDate: new Date(info.receiveDate).toISOString(), //
         billingAmount: billingAmount, //
-        orderStatus: operateType === 'save' ?'090001':'090003', //
-        sttAmount: app.globalData.salesTotalPrice, //
+        orderStatus: data.operateType === 'save' ?'090001':'090003', //
+        sttAmount: ""+data.totalPrice, //
         sttMode: '', //
         remark: info.remark,
         buyOperator: wx.getStorageSync("userInfo")[0].userName,
         auditor: '', //
-        oando: 'down', //---
+        oando: data.approveStatus===1?"up":"down", //---
         getGoodsDate: info.receiveDate,
         hdGoods: '0', //
         lgtNums: info.lgtNums, //

@@ -142,5 +142,5 @@
 
   </form>
 
-</scroll-view>
-<editGoodsInfo wx:if="{{showEditPop}}" popData="{{popData}}" noTaxPriceKey="ntpsingle" bind:editedInfo="getEditedInfo" />
+</scroll-view> 
+<editGoodsInfo wx:if="{{showEditPop}}" popData="{{popData}}" noTaxPriceKey="ntpsingle" noTaxTotalPriceKey="ntp" bind:editedInfo="getEditedInfo" />

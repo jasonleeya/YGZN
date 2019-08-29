@@ -469,7 +469,7 @@ Page({
   //查看详情
   seeDetail(e) {
     wx.navigateTo({
-      url: '../orderDetail/orderDetail?orderNo=' + e.currentTarget.dataset.id
+      url: '../orderDetail/orderDetail?orderNo=' + e.currentTarget.dataset.id + "&orderType=" + e.currentTarget.dataset.type
     })
   },
 

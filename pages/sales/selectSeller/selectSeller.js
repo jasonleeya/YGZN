@@ -4,7 +4,8 @@ var app = getApp()
 
 create(store, {
   data: {
-    sellerList: []
+    sellerList: [],
+    setData:""
   },
   onShow() {
     app.http("queryAllUsingSalesman", { pageSize: 1000 }).then(data => {
@@ -13,6 +14,11 @@ create(store, {
       })
     })
  
+  },
+  onLoad(opt){
+    this.setData({
+      setData:opt.setData
+    })
   },
   compare(pro) {
     return function (obj1, obj2) {
@@ -36,7 +42,7 @@ create(store, {
     var pages = getCurrentPages()
     var prevPage = pages[pages.length - 2]
     prevPage.setData({
-      seller: e.detail
+      [this.data.setData]: e.detail
     })
     wx.navigateBack()
   }

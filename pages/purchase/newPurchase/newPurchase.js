@@ -14,7 +14,7 @@ create(store, {
     supplier: "",
     supplyNo: "",
     customerType: "",
-
+    approveStatus:"",
     buyer: "",
     receiver: "",
     phoneNumber: "",

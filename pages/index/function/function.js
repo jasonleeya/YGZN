@@ -247,10 +247,11 @@ Component({
       let that = this
       if (app.globalData.homeMessage) {
         getMessage()
-        app.watchGloabalData("homeMessage", function(value) {  
-          getMessage()
-        })
       }
+      app.watchGloabalData("homeMessage", function (value) {
+        getMessage()
+      })
+     
 
 
       function getMessage() {

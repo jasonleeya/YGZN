@@ -20,10 +20,12 @@ create(store, {
   chooseSupplier(e) {
     var pages = getCurrentPages()
     var prevPage = pages[pages.length - 2]
+    var data = this.data.supplierList[e.currentTarget.dataset.index]
     prevPage.setData({
-      supplier: this.data.supplierList[e.currentTarget.dataset.index].supplyName,
-      supplyNo: this.data.supplierList[e.currentTarget.dataset.index].supplyNo,
-      customerType: this.data.supplierList[e.currentTarget.dataset.index].customerType
+      supplier: data.supplyName,
+      supplyNo: data.supplyNo,
+      customerType: data.customerType,
+      approveStatus: data.approveStatus
     })
     wx.navigateBack()
   },

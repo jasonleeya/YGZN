@@ -42,7 +42,7 @@ create(store, {
     var totalPrice = 0
     cartList.forEach(item => {
       totalAmount = parseInt(totalAmount) + parseInt(item.goodsCount)
-      totalPrice = parseFloat(totalPrice) + parseFloat(item.sttAmount)
+      totalPrice = (parseFloat(totalPrice) + parseFloat(item.sttAmount)).toFixed(2)
     })
     this.setData({
       totalPrice: totalPrice,

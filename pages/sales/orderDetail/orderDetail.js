@@ -12,19 +12,22 @@ Page({
     infos: {},
     address: {},
     canEdit: false,
-    purchaseWarehouse: null,
+    saleWarehouse: null,
     beforeWareHouse: null,
-    buyer: null,
+    sellSalesMan: null,
     storehouse: {
       list: [],
       idList: [],
       index: null
     },
+    region: '',
+    addressDetail: "",
     showEditPop: false,
     popData: {},
     editingIndex: null,
     oprateType: null,
-    paramas: {}
+    paramas: {},
+    dorderType: "",
   },
 
   /**
@@ -37,14 +40,33 @@ Page({
     app.http("queryByOrderNo", {
       orderNo: options.orderNo
     }, false, false).then(data => {
+
+
+      var ad = data.infoBody.address.address
+      var reg = ad.match(/【.*】/)[0]
+      var region = reg.replace("【", "").replace("】", "")
+      var addressDetail = ad.replace(reg, "")
+
       this.setData({
+        orderType: options.orderType,
         infos: data.infoBody.upp,
+        region: region.split("/"),
+        addressDetail: addressDetail,
         address: data.infoBody.address,
         goodsList: data.infoBody.lows,
-        purchaseWarehouse: data.infoBody.upp.purchaseWarehouse,
-        beforeWareHouse: JSON.parse(JSON.stringify(data.infoBody.upp.purchaseWarehouse)),
+        saleWarehouse: data.infoBody.upp.saleWarehouse,
+        beforeWareHouse: JSON.parse(JSON.stringify(data.infoBody.upp.saleWarehouse)),
         totalPrice: data.infoBody.upp.sttAmount
       })
+
+      var list = data.infoBody.lows
+      list.forEach(item => {
+        item.NTP = item.ntp
+        item.NTPsingle = item.ntpsingle
+      })
+
+      app.globalData.salesCartList = list
+
 
       app.http("getWarehouse").then(wareHouse => {
         var list = []
@@ -54,7 +76,7 @@ Page({
           list.push(item.name)
           idList.push(item.tableKey)
 
-          if (item.tableKey === this.data.purchaseWarehouse) {
+          if (item.tableKey === this.data.saleWarehouse) {
 
             index = wareHouse.list.indexOf(item)
           }
@@ -80,19 +102,34 @@ Page({
   onReady: function() {
 
   },
+  onShow() {
+    var list = app.globalData.salesCartList
+    if (list.length > 0) {
+      list.forEach(item => {
+        item.ntp = item.NTP
+        item.ntpsingle = item.NTPsingle
+      })
+      this.setData({
+        goodsList: list,
+        // totalPrice: app.globalData.salesTotalPrice,
+        // totalAmount: app.globalData.salesTotalAmount,
+      })
+    }
+
+  },
   orderLogs() {
-    wx.navigateTo({
-      url: '/pages/purchase/orderLogs/orderLogs',
-    })
+    // wx.navigateTo({
+    //   url: '/pages/purchase/orderLogs/orderLogs',
+    // })
   },
   selectStorehouse: function(e) {
     this.setData({
       ["storehouse.index"]: e.detail.value,
-      purchaseWarehouse: this.data.storehouse.idList[e.detail.value]
+      saleWarehouse: this.data.storehouse.idList[e.detail.value]
     })
   },
   edit() {
-    if (this.data.infos.orderStatus === "wait" || this.data.infos.orderStatus === "090001") {
+    if (this.data.infos.orderStatus === "090001") {
       this.setData({
         canEdit: true
       })
@@ -100,11 +137,11 @@ Page({
   },
   // {{(canEdit&&infos.orderStatus==='wait')||(canEdit&&infos.orderStatus==='090001'&&infos.oando==='down')?'':'text-gray'}}
   selectBuyer() {
-    if (!this.data.canEdit || (!this.data.canEdit && this.data.infos.orderStatus === '090001' && this.data.infos.oando === 'down')) {
+    if (!this.data.canEdit) {
       return
     }
     wx.navigateTo({
-      url: '/pages/purchase/selectBuyer/selectBuyer?setData=infos.buySalesMan',
+      url: '/pages/sales/selectSeller/selectSeller?setData=infos.sellSalesMan',
     })
   },
 
@@ -121,7 +158,39 @@ Page({
       ["infos.receiveTime"]: e.detail.value
     })
   },
+  regionChange(e) {
+    this.setData({
+      region: e.detail.value
+    })
+  },
 
+  /////////////
+  getChangeAmount(e) {
+    var index = e.detail.index
+    var goods = this.data.goodsList[index]
+    var amount = e.detail.amount
+    this.setData({
+      ["goodsList[" + index + "].goodsCount"]: amount,
+      ["goodsList[" + index + "].sttAmount"]: (parseInt(amount) * parseFloat(this.data.goodsList[index].discountPrice)).toFixed,
+      ["goodsList[" + index + "].ntp"]: parseInt(amount) * parseFloat(goods.ntpsingle),
+      ["goodsList[" + index + "].billingAmount"]: (parseInt(amount) * parseFloat(goods.facePrice)).toFixed(2)
+    })
+
+  },
+  deleteGoods(e) {
+    var list = this.data.goodsList
+
+    list.splice(e.detail.index, 1)
+    this.setData({
+      goodsList: list
+    })
+  },
+  priceAmountChange(e) {
+    this.setData({
+      totalPrice: e.detail.totalPrice,
+      totalAmount: e.detail.totalAmount
+    })
+  },
 
   getEditGoodsId(e) {
     if (!this.data.canEdit) {
@@ -140,11 +209,20 @@ Page({
     }
     var totalPrice = 0
     var totalAmount = 0
-    e.detail.data.taxRate = parseFloat(e.detail.data.taxRate)
+    var data = e.detail.data
+    data.billingAmount = parseFloat(data.facePrice) * parseInt(data.goodsCount)
+
+    var goodsDiscount = (parseFloat(data.ntpsingle) / parseFloat(data.facePrice)).toFixed(2)
+    if (goodsDiscount > 1 || String(goodsDiscount) === 'Infinity' || isNaN(goodsDiscount)) {
+      goodsDiscount = 1
+    }
+    data.goodsDiscount = goodsDiscount
+
+
     this.setData({
       showEditPop: false,
       popData: {},
-      ["goodsList[" + this.data.editingIndex + "]"]: e.detail.data
+      ["goodsList[" + this.data.editingIndex + "]"]: data
     })
     this.data.goodsList.forEach(item => {
       totalPrice = (parseFloat(totalPrice) + parseFloat(item.discountPrice) * parseInt(item.goodsCount)).toFixed(2)
@@ -153,41 +231,15 @@ Page({
     this.setData({
       totalPrice: totalPrice
     })
-    app.globalData.purchaseTotalPrice = totalPrice
-    app.globalData.purchaseTotalAmount = totalAmount
+
+  },
+  closePop() {
+    this.setData({
+      showEditPop: false
+    })
   },
 
 
-  getChangeAmount(e) {
-    if (!this.data.canEdit) {
-      return
-    }
-    // app.globalData.purchaseCartList[e.detail.index].goodsCount = e.detail.amount
-    var index = e.detail.index
-    this.setData({
-      ["goodsList[" + index + "].goodsCount"]: e.detail.amount,
-      ["goodsList[" + index + "].sttAmount"]: (parseInt(e.detail.amount) * parseFloat(this.data.goodsList[index].discountPrice)).toFixed(2)
-    })
-  },
-  deleteGoods(e) {
-    if (!this.data.canEdit) {
-      return
-    }
-    var list = this.data.goodsList
-    list.splice(e.detail.index, 1)
-    this.setData({
-      goodsList: list
-    })
-  },
-  priceAmountChange(e) {
-    if (!this.data.canEdit) {
-      return
-    }
-    this.setData({
-      totalPrice: e.detail.totalPrice,
-      totalAmount: e.detail.totalAmount
-    })
-  },
 
   formSubmit(e) {
     var formData = e.detail.value
@@ -196,20 +248,33 @@ Page({
     var info = data.infos
     var address = data.address
 
+    var billingAmount = 0
+    list.forEach(item => {
+      billingAmount += parseFloat(item.billingAmount)
+    })
+    list.forEach(item=>{
+      item.goodsCount+=""
+      item.sttAmount+=""
+      item.discountPrice+=""
+      item.facePrice+=""
+      item.billingAmount+=""
+      item.NTPSingle+=""
+      item.NTP+=""
+    })
 
-    if (!formData.supplier) {
-      app.showToast("请选择供应商")
+    if (!formData.custName) {
+      app.showToast("请选择客户")
       return
     }
-    if (!formData.buyer) {
-      app.showToast("请选择采购员")
+    if (!formData.sellSalesMan) {
+      app.showToast("请选择销售员")
       return
     }
     if (!formData.storehouse) {
       app.showToast("请选择仓库")
       return
     }
-    if (!formData.receiveAddress) {
+    if (!formData.region || !formData.addressDetail) {
       app.showToast("请选择收货地址")
       return
     }
@@ -229,41 +294,41 @@ Page({
 
     var paramas = {
       upperpartOrder: JSON.stringify([{
-        orderNo: info.orderNo,
-        supplyNo: info.supplyNo,
-        supplyName: info.supplyName,
-        buySalesMan: formData.buyer,
-        insertDate: "", //*
-        deliveryDate: null, //*
-        billingAmount: "0.00", //*
-        orderStatus: this.data.oprateType,
-        sttAmount: data.totalPrice,
-        sttMode: "--选择结算方式--", //*
-        remark: formData.remark,
-        adsaleWay: "", //  *           
-        adsaleWayAcct: "", //*
-        adsalePerson: "", //*
+
+        orderNo: info.orderId,
+        custNo: info.custNo,
+        custName: info.custName,
+        sellSalesMan: formData.sellSalesMan,
+        insertDate: info.insertDate, 
+        deliveryDate: info.deliveryDate,
+        billingAmount: billingAmount+"",
+        orderStatus: "090003",
+        sttAmount: data.totalPrice + "", 
+        sttMode: "",
+        remark: info.remark === null ? "" : info.remark,
         buyOperator: info.buyOperator,
-        auditor: "", //*
-        oando: info.oando,
-        getGoodsDate: formData.receiveDate,
-        hdGoods: "", //*
-        lgtNums: "", //*
-        cpdOrder: "", //*
-        purchaseWarehouse: data.purchaseWarehouse,
-        invoice: "0003", //*
-        orderTypeChoose: "01", //*
-        consignee: formData.receiver,
-        reflect: 0 //
+        auditor: "",
+        oando: info.oando, 
+        isPaid: null,
+        getGoodsDate: info.receiveDate,
+        hdGoods: "0",
+        lgtNums: "",
+        cpdOrder: "",
+        saleWarehouse: data.saleWarehouse,
+        invoice: "0003",
+        orderTypeChoose: "01",
+        logisticsCost: info.logisticsCost,
+        consignor: info.consignor === null ? "" : info.consignor,
+        reflect: 0,
       }]),
       list: JSON.stringify(list),
       tBusAddress: JSON.stringify([{
         orderNo: formData.orderId,
         consigneeName: formData.receiver,
-        address: formData.receiveAddress,
+        address: "【" + formData.region + "】" + formData.addressDetail,
         telephone: formData.phoneNumber
       }]),
-      isIncreaseGoodsNum: "no", //*
+      isIncreaseGoodsNum: "yes", //*
       beforeGoodsNum: "", //*
       beforeWareHouse: data.beforeWareHouse
     }
@@ -271,26 +336,43 @@ Page({
     this.setData({
       paramas: paramas
     })
-    if (this.data.infos.orderStatus === "090003") {
-      return
-    }
-
+    // if (this.data.infos.orderStatus === "090003") {
+    //   return
+    // }
+    // this.setData({
+    //   isLoad: false
+    // })
     // console.log(paramas)
+    // return
 
-    app.http("savePurchaseOrderUpperAndLower", paramas, true).then(() => {
+    app.http("saveSaleOrderUpperAndLower", paramas, true).then(() => {
         app.showToast("添加成功")
         this.setData({
           isLoad: false
         })
         wx.redirectTo({
-          url: '/pages/purchase/orderDetail/orderDetail?orderNo=' + info.orderNo,
+          url: '/pages/sales/orderDetail/orderDetail?orderNo=' + info.orderNo,
         })
       })
       .catch((e) => {
         app.showToast(e)
       })
   },
+  addGoods() {
+    // var list = this.data.goodsList
+    // list .forEach(item=>{
+    //   item.NTP=item.ntp
+    //   item.NTPsingle = item.ntpsingle
+    // })
+    // app.globalData.salesCartList = list
+    // salesTotalPrice: 0,
+    //   salesTotalAmount: 0,
 
+    wx.navigateTo({
+      url: "/pages/sales/addGoods/addGoods?custNo="
+    })
+
+  },
   confirmOrder(e) {
     this.setData({
       oprateType: "090003"
@@ -313,18 +395,20 @@ Page({
       oprateType: "090005"
     })
   },
-  returnGoods () {
+  returnGoods() {
     app.showToast("暂不支持")
   },
-  confirmSend(){
+  confirmSend() {
     this.setData({
       oprateType: "090004"
     })
   },
   purchaseAgain() {
-    app.http("homeMessage", { orderNo: this.data.infos.orderNo}).then(()=>{
+    app.http("homeMessage", {
+      orderNo: this.data.infos.orderNo
+    }).then(() => {
       app.showToast("再次采购成功")
-    }).catch(err=>{
+    }).catch(err => {
       app.showToast(err)
     })
   },

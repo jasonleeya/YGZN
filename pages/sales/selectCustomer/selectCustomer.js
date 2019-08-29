@@ -57,7 +57,8 @@ create(store, {
       seller: data.salesman,
       receiver: data.primaryContact,
       phoneNumber: data.contactPhone,
-      address: data.address
+      address: data.address,
+      approveStatus: data.approveStatus
     })
 
     wx.navigateBack()

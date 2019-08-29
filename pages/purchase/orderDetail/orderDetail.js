@@ -122,6 +122,33 @@ Page({
     })
   },
 
+  ////////////
+  getChangeAmount(e) { 
+    var index = e.detail.index
+    var goods = this.data.goodsList[index]
+    var amount = e.detail.amount
+    this.setData({
+      ["goodsList[" + index + "].goodsCount"]: amount,
+      ["goodsList[" + index + "].sttAmount"]: (parseInt(amount) * parseFloat(this.data.goodsList[index].discountPrice)).toFixed,
+      ["goodsList[" + index + "].ntp"]: parseInt(amount) * parseFloat(goods.ntpsingle),
+      ["goodsList[" + index + "].billingAmount"]: (parseInt(amount) * parseFloat(goods.facePrice)).toFixed(2)
+    })
+
+  },
+  deleteGoods(e) {
+    var list = this.data.goodsList
+
+    list.splice(e.detail.index, 1)
+    this.setData({
+      goodsList: list
+    })
+  },
+  priceAmountChange(e) {
+    this.setData({
+      totalPrice: e.detail.totalPrice,
+      totalAmount: e.detail.totalAmount
+    })
+  },
 
   getEditGoodsId(e) {
     if (!this.data.canEdit) {
@@ -140,11 +167,20 @@ Page({
     }
     var totalPrice = 0
     var totalAmount = 0
-    e.detail.data.taxRate = parseFloat(e.detail.data.taxRate)
+    var data = e.detail.data
+    data.billingAmount = parseFloat(data.facePrice) * parseInt(data.goodsCount)
+
+    var goodsDiscount = (parseFloat(data.ntpsingle) / parseFloat(data.facePrice)).toFixed(2)
+    if (goodsDiscount > 1 || String(goodsDiscount) === 'Infinity' || isNaN(goodsDiscount)) {
+      goodsDiscount = 1
+    }
+    data.goodsDiscount = goodsDiscount
+
+
     this.setData({
       showEditPop: false,
       popData: {},
-      ["goodsList[" + this.data.editingIndex + "]"]: e.detail.data
+      ["goodsList[" + this.data.editingIndex + "]"]: data
     })
     this.data.goodsList.forEach(item => {
       totalPrice = (parseFloat(totalPrice) + parseFloat(item.discountPrice) * parseInt(item.goodsCount)).toFixed(2)
@@ -153,41 +189,15 @@ Page({
     this.setData({
       totalPrice: totalPrice
     })
-    app.globalData.purchaseTotalPrice = totalPrice
-    app.globalData.purchaseTotalAmount = totalAmount
+ 
+  },
+  closePop() {
+    this.setData({
+      showEditPop: false
+    })
+    
   },
 
-
-  getChangeAmount(e) {
-    if (!this.data.canEdit) {
-      return
-    }
-    // app.globalData.purchaseCartList[e.detail.index].goodsCount = e.detail.amount
-    var index = e.detail.index
-    this.setData({
-      ["goodsList[" + index + "].goodsCount"]: e.detail.amount,
-      ["goodsList[" + index + "].sttAmount"]: (parseInt(e.detail.amount) * parseFloat(this.data.goodsList[index].discountPrice)).toFixed(2)
-    })
-  },
-  deleteGoods(e) {
-    if (!this.data.canEdit) {
-      return
-    }
-    var list = this.data.goodsList
-    list.splice(e.detail.index, 1)
-    this.setData({
-      goodsList: list
-    })
-  },
-  priceAmountChange(e) {
-    if (!this.data.canEdit) {
-      return
-    }
-    this.setData({
-      totalPrice: e.detail.totalPrice,
-      totalAmount: e.detail.totalAmount
-    })
-  },
 
   formSubmit(e) {
     var formData = e.detail.value
@@ -313,18 +323,20 @@ Page({
       oprateType: "090005"
     })
   },
-  returnGoods () {
+  returnGoods() {
     app.showToast("暂不支持")
   },
-  confirmSend(){
+  confirmSend() {
     this.setData({
       oprateType: "090004"
     })
   },
   purchaseAgain() {
-    app.http("homeMessage", { orderNo: this.data.infos.orderNo}).then(()=>{
+    app.http("homeMessage", {
+      orderNo: this.data.infos.orderNo
+    }).then(() => {
       app.showToast("再次采购成功")
-    }).catch(err=>{
+    }).catch(err => {
       app.showToast(err)
     })
   },
