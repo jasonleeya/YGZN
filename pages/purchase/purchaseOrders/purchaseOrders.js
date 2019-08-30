@@ -79,9 +79,15 @@ create(store, {
     sortStartTime: "",
     sortEndTime: "",
     orderStatus: "",
-    timeOut: null
+    timeOut: null,
+    isAllOrder:false
   },
   onLoad(options) {
+    if (options.isAllOrder==='1'){
+      this.setData({
+        isAllOrder:true
+      })
+    }
     this.setData({
       orderStatus: options.orderStatus
     })
@@ -239,7 +245,7 @@ create(store, {
   //展开列表
   chooseSortMethod(e) {
     var index = e.target.dataset.index
-    if (this.data.sortMethodsList[index].name === "订单状态" && this.data.orderStatus !== '') {
+    if (this.data.sortMethodsList[index].name === "订单状态" && !this.data.isAllOrder) {
       return
     }
     this.setData({

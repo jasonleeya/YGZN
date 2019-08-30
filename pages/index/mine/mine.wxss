@@ -145,8 +145,8 @@ todo-item {
   z-index: 2000;
 }
 
-.toggle-account-pop-wrappper scroll-view {
-  max-height: 50vh;
+.mine-scroll {
+  max-height: 100vh;
 }
 
 .toggle-account-pop {

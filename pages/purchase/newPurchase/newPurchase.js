@@ -89,6 +89,10 @@ create(store, {
 
   },
   initData() {
+    app.globalData.purchaseCartList = []
+    app.globalData.purchaseTotalPrice = 0
+    app.globalData.purchaseTotalAmount = 0
+    
     app.http("getOrderNo").then(data => {
       this.setData({
         orderId: data
@@ -148,7 +152,7 @@ create(store, {
     var goods = app.globalData.purchaseCartList[e.detail.index]
     var amount = e.detail.amount
     goods.goodsCount = amount
-    // goods.sttAmount = (parseInt(amount) * parseFloat(goods.discountPrice)).toFixed(2)
+    goods.sttAmount = (parseInt(amount) * parseFloat(goods.discountPrice)).toFixed(2)
     goods.NTP = parseInt(amount) * parseFloat(goods.NTPSingle)
     goods.billingAmount = (parseInt(amount) * parseFloat(goods.facePrice)).toFixed(2)
 

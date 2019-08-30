@@ -1,48 +1,55 @@
-const BASE_URL = "http://192.168.3.101:"
+// const BASE_URL = "http://192.168.3.101:"
 // const BASE_URL = "http://47.104.86.230:"
 
+// const BASE_URL = "http://192.168.3.101:14000"
+// const BASE_URL_WX = "http://192.168.3.101:26000"
+
+const BASE_URL =  "https://gateway.imatchas.com"
+const BASE_URL_WX ="https://wx.imatchas.com"
+
 const alias = {
-  loginAuthenticate: "26000/netgate-user/loginAuthenticate",
-  homeMessage: "14000/imatchOrder/bubble/homeMessage",
-  getUserByCustNo: "14000/imatchUser/user/getUserByCustNo",
-  queryCompany: "14000/imatchUser/user/queryCompany",
-  toggleAccount: "26000/netgate-user/switchLogin",
-  getOrderNo: "14000/imatchOrder/order/getOrderNo",
-  getDtfAddress: "14000/imatchUser/user/getDtfAddress",
-  updateUserAddress: "14000/imatchUser/user/updateUserAddress",
-  updateUserDftAddress: "14000/imatchUser/user/updateUserDftAddress",
-  getPurchasingSupplyNew: "14000/imatchUser/agency/getPurchasingSupplyNew",
-  getSupplyList: "14000/imatchUser/agency/getSupplyList",
-  addProvider: "14000/imatchUser/agency/addProvider",
-  queryAllUsingSalesman: "14000/imatchUser/user/queryAllUsingSalesman",
-  findRoles: "14000/imatchPower/findRoles",
-  queryAllGrade: "14000/imatchUser/user/queryAllGrade",
-  insertSalesman: "14000/imatchUser/user/insertSalesman",
-  searchStockProduct: "14000/imatchProduct/stockCurrent/searchStockProduct",
-  searchProductNew:"14000/imatchProduct/product/searchProductNew",
-  getWarehouse: "14000/imatchUser/agency/getWarehouse", 
-  purchaseDiscount: "14000/imatchProduct/product/discount/purchaseDiscount",
-  queryPurchaseUpp: "14000/imatchOrder/reOrder/queryPurchaseUpp",
-  queryPurchaseBackUpp: "14000/imatchOrder/reOrder/queryPurchaseBackUpp",
-  queryByOrderNo: "14000/imatchOrder/reOrder/queryByOrderNo",
-  savePurchaseOrderUpperAndLower:"14000/imatchOrder/reOrder/savePurchaseOrderUpperAndLower",
-  queryCustomer: "14000/imatchUser/user/queryCustomer", 
-  addCustomer: "14000/imatchUser/user/addCustomer",
-  getDftAddress: "14000/imatchUser/agency/getDftAddress",
-  cancelOrder: "14000/imatchOrder/reOrder/cancelOrder",
-  getOrderPayByOrderNoCost:"14000/imatchOrder/acceptbill/getOrderPayByOrderNoCost",
-  getSupplyAccount:"14000/imatchUser/agency/getSupplyAccount",
-  orderPayByOrderNo: "14000/imatchOrder/acceptbill/orderPayByOrderNo",
-  custOrderPay:"14000/imatchOrder/acceptbill/custOrderPay",
-  homeMessage:"14000/imatchOrder/bubble/homeMessage",
-  fetchSaleProductInfo: "14000/imatchProduct/stockCurrent/fetchSaleProductInfo",
-  getStockInBatch:"14000/imatchProduct/stockCurrent/getStockInBatch", 
-  saleDiscount:"14000/imatchProduct/product/discount/saleDiscount",
-  selectReminderMessageByEnterpriseId:"26000/netgate-article/selectReminderMessageByEnterpriseId",
-  saveSaleOrderUpperAndLower: "14000/imatchOrder/reOrder/saveSaleOrderUpperAndLower",
-  querySaleUpp: "14000/imatchOrder/reOrder/querySaleUpp",
-  queryBackUpp:"14000/imatchOrder/reOrder/queryBackUpp"
+  loginAuthenticate: BASE_URL_WX+"/netgate-user/loginAuthenticate",
+  homeMessage: BASE_URL+"/imatchOrder/bubble/homeMessage",
+  getUserByCustNo: BASE_URL+"/imatchUser/user/getUserByCustNo",
+  queryCompany: BASE_URL+"/imatchUser/user/queryCompany",
+  toggleAccount: BASE_URL_WX+"/netgate-user/switchLogin",
+  getOrderNo: BASE_URL+"/imatchOrder/order/getOrderNo",
+  getDtfAddress: BASE_URL+"/imatchUser/user/getDtfAddress",
+  updateUserAddress: BASE_URL+"/imatchUser/user/updateUserAddress",
+  updateUserDftAddress: BASE_URL+"/imatchUser/user/updateUserDftAddress",
+  getPurchasingSupplyNew: BASE_URL+"/imatchUser/agency/getPurchasingSupplyNew",
+  getSupplyList: BASE_URL+"/imatchUser/agency/getSupplyList",
+  addProvider: BASE_URL+"/imatchUser/agency/addProvider",
+  queryAllUsingSalesman: BASE_URL+"/imatchUser/user/queryAllUsingSalesman",
+  findRoles: BASE_URL+"/imatchPower/findRoles",
+  queryAllGrade: BASE_URL+"/imatchUser/user/queryAllGrade",
+  insertSalesman: BASE_URL+"/imatchUser/user/insertSalesman",
+  searchStockProduct: BASE_URL+"/imatchProduct/stockCurrent/searchStockProduct",
+  searchProductNew:BASE_URL+"/imatchProduct/product/searchProductNew",
+  getWarehouse: BASE_URL+"/imatchUser/agency/getWarehouse", 
+  purchaseDiscount: BASE_URL+"/imatchProduct/product/discount/purchaseDiscount",
+  queryPurchaseUpp: BASE_URL+"/imatchOrder/reOrder/queryPurchaseUpp",
+  queryPurchaseBackUpp: BASE_URL+"/imatchOrder/reOrder/queryPurchaseBackUpp",
+  queryByOrderNo: BASE_URL+"/imatchOrder/reOrder/queryByOrderNo",
+  savePurchaseOrderUpperAndLower:BASE_URL+"/imatchOrder/reOrder/savePurchaseOrderUpperAndLower",
+  queryCustomer: BASE_URL+"/imatchUser/user/queryCustomer", 
+  addCustomer: BASE_URL+"/imatchUser/user/addCustomer",
+  getDftAddress: BASE_URL+"/imatchUser/agency/getDftAddress",
+  cancelOrder: BASE_URL+"/imatchOrder/reOrder/cancelOrder",
+  getOrderPayByOrderNoCost:BASE_URL+"/imatchOrder/acceptbill/getOrderPayByOrderNoCost",
+  getSupplyAccount:BASE_URL+"/imatchUser/agency/getSupplyAccount",
+  orderPayByOrderNo: BASE_URL+"/imatchOrder/acceptbill/orderPayByOrderNo",
+  custOrderPay:BASE_URL+"/imatchOrder/acceptbill/custOrderPay",
+  homeMessage:BASE_URL+"/imatchOrder/bubble/homeMessage",
+  fetchSaleProductInfo: BASE_URL+"/imatchProduct/stockCurrent/fetchSaleProductInfo",
+  getStockInBatch:BASE_URL+"/imatchProduct/stockCurrent/getStockInBatch", 
+  saleDiscount:BASE_URL+"/imatchProduct/product/discount/saleDiscount",
+  selectReminderMessageByEnterpriseId: BASE_URL_WX+"/netgate-article/selectReminderMessageByEnterpriseId",
+  saveSaleOrderUpperAndLower: BASE_URL+"/imatchOrder/reOrder/saveSaleOrderUpperAndLower",
+  querySaleUpp: BASE_URL+"/imatchOrder/reOrder/querySaleUpp",
+  queryBackUpp:BASE_URL+"/imatchOrder/reOrder/queryBackUpp",
+  againOrder:BASE_URL+"/imatchOrder/reOrder/againOrder"
 }
 export default function(name) {
-  return BASE_URL + alias[name]
+  return alias[name]
 }

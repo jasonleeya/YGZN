@@ -23,8 +23,9 @@ Page({
     showEditPop: false,
     popData: {},
     editingIndex: null,
-    oprateType: null,
-    paramas: {}
+    orderStatus: null,
+    paramas: {},
+    formEvent: {},
   },
 
   /**
@@ -80,6 +81,7 @@ Page({
   onReady: function() {
 
   },
+
   orderLogs() {
     wx.navigateTo({
       url: '/pages/purchase/orderLogs/orderLogs',
@@ -123,15 +125,22 @@ Page({
   },
 
   ////////////
-  getChangeAmount(e) { 
+  getChangeAmount(e) {
     var index = e.detail.index
     var goods = this.data.goodsList[index]
     var amount = e.detail.amount
+
+    var goodsDiscount = (parseFloat(data.ntpsingle) / parseFloat(goods.facePrice)).toFixed(2)
+    if (goodsDiscount > 1 || String(goodsDiscount) === 'Infinity' || isNaN(goodsDiscount)) {
+      goodsDiscount = 1
+    }
+
     this.setData({
       ["goodsList[" + index + "].goodsCount"]: amount,
-      ["goodsList[" + index + "].sttAmount"]: (parseInt(amount) * parseFloat(this.data.goodsList[index].discountPrice)).toFixed,
+      ["goodsList[" + index + "].sttAmount"]: (parseInt(amount) * parseFloat(goods.discountPrice)).toFixed(2),
       ["goodsList[" + index + "].ntp"]: parseInt(amount) * parseFloat(goods.ntpsingle),
-      ["goodsList[" + index + "].billingAmount"]: (parseInt(amount) * parseFloat(goods.facePrice)).toFixed(2)
+      ["goodsList[" + index + "].billingAmount"]: (parseInt(amount) * parseFloat(goods.facePrice)).toFixed(2),
+      ["goodsList[" + index + "].goodsDiscount"]: goodsDiscount
     })
 
   },
@@ -189,23 +198,32 @@ Page({
     this.setData({
       totalPrice: totalPrice
     })
- 
+
   },
   closePop() {
     this.setData({
       showEditPop: false
     })
-    
+
   },
 
 
   formSubmit(e) {
+    this.setData({
+      formEvent: e
+    })
+  },
+  submit(e){
     var formData = e.detail.value
     var data = this.data
     var list = data.goodsList
     var info = data.infos
     var address = data.address
 
+    var billingAmount = 0
+    list.forEach(item => {
+      billingAmount += parseFloat(item.billingAmount)
+    })
 
     if (!formData.supplier) {
       app.showToast("请选择供应商")
@@ -245,8 +263,8 @@ Page({
         buySalesMan: formData.buyer,
         insertDate: "", //*
         deliveryDate: null, //*
-        billingAmount: "0.00", //*
-        orderStatus: this.data.oprateType,
+        billingAmount: billingAmount, //*
+        orderStatus: this.data.orderStatus,
         sttAmount: data.totalPrice,
         sttMode: "--选择结算方式--", //*
         remark: formData.remark,
@@ -288,14 +306,15 @@ Page({
     // console.log(paramas)
 
     app.http("savePurchaseOrderUpperAndLower", paramas, true).then(() => {
-        app.showToast("添加成功")
-        this.setData({
-          isLoad: false
-        })
-        wx.redirectTo({
-          url: '/pages/purchase/orderDetail/orderDetail?orderNo=' + info.orderNo,
-        })
+      app.showToast("添加成功")
+      this.setData({
+        isLoad: false
       })
+
+      wx.redirectTo({
+        url: '/pages/purchase/orderDetail/orderDetail?orderNo=' + info.orderNo,
+      })
+    })
       .catch((e) => {
         app.showToast(e)
       })
@@ -303,24 +322,46 @@ Page({
 
   confirmOrder(e) {
     this.setData({
-      oprateType: "090003"
+      orderStatus: "090003"
+    })
+    let that = this
+    wx.showModal({
+      title: '是否确认订单?',
+      content: '',
+      success() {
+        that.submit(that.data.formEvent)
+      }
     })
   },
   cancelOrder() {
-    app.http("cancelOrder", {
-      orderNo: this.data.infos.orderNo
-    }).then(data => {
-      app.showToast('取消订单成功')
-    }).catch(err => {
-      app.showToast(err)
+    wx.showModal({
+      title: '确定取消订单吗',
+      success(){
+        app.http("cancelOrder", {
+          orderNo: this.data.infos.orderNo
+        }).then(data => {
+          app.showToast('取消订单成功')
+        }).catch(err => {
+          app.showToast(err)
+        })
+      }
     })
+ 
   },
   split() {
     app.showToast("暂不支持")
   },
   confirmStorage() {
     this.setData({
-      oprateType: "090005"
+      orderStatus: "090005"
+    })
+    let that = this
+    wx.showModal({
+      title: '确定入库吗?',
+      content: '',
+      success() {
+        that.submit(that.data.formEvent)
+      }
     })
   },
   returnGoods() {
@@ -328,11 +369,19 @@ Page({
   },
   confirmSend() {
     this.setData({
-      oprateType: "090004"
+      orderStatus: "090004"
+    })
+    let that = this
+    wx.showModal({
+      title: '确定出库吗?',
+      content: '',
+      success() {
+        that.submit(that.data.formEvent)
+      }
     })
   },
   purchaseAgain() {
-    app.http("homeMessage", {
+    app.http("againOrder", {
       orderNo: this.data.infos.orderNo
     }).then(() => {
       app.showToast("再次采购成功")
@@ -341,9 +390,12 @@ Page({
     })
   },
   payment() {
-    var infos = this.data.infos
-    wx.navigateTo({
-      url: '/pages/purchase/payment/payment?supplyNo=' + infos.supplyNo + '&customerNo=' + infos.custNo + '&orderNoArr=' + infos.orderNo
-    })
+  var infos = this.data.infos
+    setTimeout(() => {
+      this.submit(this.data.formEvent)
+      wx.navigateTo({
+        url: '/pages/purchase/payment/payment?supplyNo=' + infos.supplyNo + '&customerNo=' + infos.custNo + '&orderNoArr=' + infos.orderNo
+      })
+    }, 100)
   }
 })

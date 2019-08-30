@@ -101,7 +101,7 @@
       </view>
       <view class="cell-icon cuIcon-right {{canEdit&&infos.orderStatus==='090001'&& infos.oando === 'down'?'':'text-gray'}}"></view>
     </view> -->
-    
+
     <!-- <view class="cell border-bt cell-gutter-bt">
       <view class="cell-name">物流费用</view>
       <view class="cell-value">
@@ -117,23 +117,23 @@
     <view class="title remake">备注</view>
     <textarea name="remark" class="remarke-textarea" placeholder="请填写备注信息" />
 
- 
+
     <view class="operating-options">
       <view class="option" wx:if="{{infos.orderStatus === '090001'}}">
-        <button class="bg-gradual-orange" form-type="submit" bindtap="confirmOrder">确认订单</button>
+        <button class="bg-gradual-orange" form-type="submit" bindtap="confirmOrder" data-type="confirm">确认订单</button>
       </view>
 
       <view class="option">
-        <button class="bg-gradual-orange">再次销售</button>
+        <button class="bg-gradual-orange" bindtap="saleAgain">再次销售</button>
       </view>
 
 
       <view class="option" hidden="{{infos.oando === 'up'?infos.orderStatus === '090002'||infos.orderStatus === '090004'||infos.orderStatus === '090005'?true:false:false}}">
-        <button class="bg-gradual-orange">取消订单</button>
+        <button class="bg-gradual-orange" bindtap="cancelOrder">取消订单</button>
       </view>
 
       <view class="option" hidden="{{infos.orderStatus === '090004'||infos.orderStatus === '090005'}}">
-        <button class="bg-gradual-orange">拆分订单</button>
+        <button class="bg-gradual-orange" bindtap="splitOrder">拆分订单</button>
       </view>
 
       <view class="option" hidden="{{canEdit}}" wx:if="{{infos.orderStatus === '090001'}}">
@@ -141,15 +141,19 @@
       </view>
 
       <view class="option" wx:if="{{infos.orderStatus === '090004'&&infos.oando === 'down'}}">
-        <button class="bg-gradual-orange">手动收货</button>
+        <button class="bg-gradual-orange" bindtap="confirmStorage" form-type="submit">手动收货</button>
       </view>
 
       <view class="option" wx:if="{{infos.orderStatus === '090002'}}">
-        <button class="bg-gradual-orange">确认出库</button>
+        <button class="bg-gradual-orange" bindtap="confirmSend" form-type="submit">确认出库</button>
       </view>
 
       <view class="option" wx:if="{{infos.orderStatus === '090001'&&infos.oando === 'up'?true:infos.orderStatus === '090003'&&infos.oando === 'down'?true:false}}">
-        <button class="bg-gradual-orange">收款</button>
+        <button class="bg-gradual-orange" bindtap="payment" form-type="submit">收款</button>
+      </view>
+
+      <view class="option">
+        <button class="bg-gradual-orange"   wx:if="{{infos.orderStatus === '090005'}}" bindtap="returnGoods">退货</button>
       </view>
     </view>
 

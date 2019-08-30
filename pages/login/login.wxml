@@ -6,7 +6,7 @@
   </view>
   <view class="input-wrapper {{passwordError?'animation-shake error':''}}">
     <text class="login-input-icon cuIcon-lock {{activeInput==='password'?'theme-color':''}}"></text>
-    <input type="number" bindfocus="passwordFocus" bindinput="passwordInput" placeholder="请输入密码" password="{{!isPasswordVisible}}"></input>
+    <input  bindfocus="passwordFocus" bindinput="passwordInput" placeholder="请输入密码" password="{{!isPasswordVisible}}"></input>
     <text class="login-input-icon cuIcon-attentionforbid{{!isPasswordVisible?'fill':''}} {{!isPasswordVisible?'theme-color':''}}" bindtap="togglePasswordVisibleState"></text>
   </view>
   <view class="terms text-gray">登陆即视为同意

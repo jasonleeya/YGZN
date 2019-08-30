@@ -75,7 +75,44 @@ create({
         pageSize: 10000,
         pageNum: 1
       }).then(data=>{
-        // console.log(JSON.parse(data.t))
+        var msgList = JSON.parse(data.t.list)
+        // msgList.forEach(msg=>{ 
+        //   if (msg.content.search("<b class='sale'>")>0){
+        //     msg.type="销售订单"
+        //   }
+        //   if (msg.content.search("<b class='purchase'>") > 0) {
+        //     msg.type = "采购订单"
+        //   }
+        //   if (msg.content.search("取消了订单")>0){
+        //     msg.operate="-已取消"
+        //     msg.head = "订单取消"
+        //   }
+        //   if (msg.content.search("24小时未付款，取消了订单")){
+        //     msg.operate = "-逾期自动取消"
+        //     msg.head = "订单取消"
+        //   }
+        //   if (msg.content.search("申请为客户")) {
+        //     msg.operate = "申请成为我的客户"
+        //     msg.head = "客户申请"
+        //   }
+        //   if (msg.content.search("提交了一个新的订单")) {
+        //     msg.operate = "新增-"
+        //     msg.head = "新增订单"
+        //   }
+        //   if (msg.content.search("已经发货")) {
+        //     msg.operate = "-已发货"
+        //     msg.head = "订单发货"
+        //   }
+        //   if (msg.content.search("已确认订单")) {
+        //     msg.operate = "-已确认"
+        //     msg.head = "订单确认"
+        //   }
+        //   if (msg.content.search("提交 操作")) {
+        //     msg.operate = "提交"
+        //     msg.head = "订单确认"
+        //   }
+        // })
+
       })
     }
   },

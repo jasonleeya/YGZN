@@ -32,6 +32,7 @@ create(store, {
   },
 
   onLoad() {
+   
     //验证登录
     app.checkLogin()
     this.initData()
@@ -87,6 +88,10 @@ create(store, {
     }
   },
   initData() {
+    app.globalData.salesCartList = []
+    app.globalData.salesTotalPrice = 0
+    app.globalData.salesTotalAmount = 0
+    
     app.http("getOrderNo").then(data => {
       this.setData({
         orderId: data
@@ -122,7 +127,7 @@ create(store, {
   },
   selectSeller() {
     wx.navigateTo({
-      url: '/pages/sales/selectSeller/selectSeller',
+      url: '/pages/sales/selectSeller/selectSeller?setData=seller',
     })
   },
   toAddGoods() {
@@ -147,6 +152,7 @@ create(store, {
     var goods = app.globalData.salesCartList[e.detail.index]
     var amount = e.detail.amount
     goods.goodsCount = amount 
+    goods.sttAmount = (parseInt(amount) * parseFloat(goods.discountPrice)).toFixed(2)
     goods.NTP = (parseInt(amount) * parseFloat(goods.NTPSingle)).toFixed(2)
     goods.billingAmount = ((parseInt(amount) * parseFloat(goods.facePrice))).toFixed(2)
   },
@@ -297,7 +303,22 @@ create(store, {
       beforeGoodsNum: "",
       beforeWareHouse: "",
     }
-    app.http("saveSaleOrderUpperAndLower",paramas,true)
+    app.http("saveSaleOrderUpperAndLower", paramas).then(() => {
+      app.showToast("添加成功")
+      this.setData({
+        isLoad: false
+      })
+      app.globalData.salesCartList = []
+      app.globalData.salesTotalPrice = 0
+      app.globalData.salesTotalAmount = 0
+
+      wx.redirectTo({
+        url: '/pages/sales/orderDetail/orderDetail?orderNo=' + this.data.orderId,
+      })
+    })
+      .catch((e) => {
+        app.showToast(e)
+      })
   },
 
 })

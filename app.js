@@ -6,9 +6,8 @@ App({
     userInfo: null,
     interval: null,
     homeMessage: null,
-    unreadMsgCount:0,
-    companies: null,
-    isShowModal:false,
+    unreadMsgCount: 0, 
+    isShowModal: false,
     //purchase
     purchaseCartList: [],
     purchaseTotalPrice: 0,
@@ -29,43 +28,48 @@ App({
         currPage = pages[pages.length - 1];
       }
       if (currPage.route !== "pages/login/login") {
-        that.http("homeMessage").then(data => { 
+        that.http("homeMessage").then(data => {
           that.globalData.homeMessage = data.list
-          that.globalData.unreadMsgCount = data.infoBody 
+          that.globalData.unreadMsgCount = data.infoBody
         }).catch(err => {
           console.log(err)
-          switch (err){
-            case"无效token":
+          switch (err) {
+            case "无效token":
               wx.removeStorageSync("token")
-              wx.showModal({
-                title: '重新登录',
-                content: '身份信息已过期,请重新登录',
-                showCancel: false,
-                success(res) {
-                  if (res.confirm) {
-                    wx.redirectTo({
-                      url: '/pages/login/login',
-                    })
+              console.log(!that.globalData.isShowModal)
+              if (!that.globalData.isShowModal) {
+                that.globalData.isShowModal = true
+                wx.showModal({
+                  title: '重新登录',
+                  content: '身份信息已过期,请重新登录',
+                  showCancel: false,
+                  success(res) {
+                    that.globalData.isShowModal = false
+                    if (res.confirm) {
+                      wx.redirectTo({
+                        url: '/pages/login/login',
+                      })
+                    }
                   }
-                }
-              })
+                })
+              }
               break
-            case"网络错误":
+            case "网络错误":
             case "服务器忙，请稍后重试":
-              if (!that.globalData.isShowModal){
+              if (!that.globalData.isShowModal) {
                 that.globalData.isShowModal = true
                 wx.showModal({
                   title: '网络请求失败',
                   content: err,
                   showCancel: false,
-                  success(){
-                    that.globalData.isShowModal=false
+                  success() {
+                    that.globalData.isShowModal = false
                   }
                 })
               }
-           
-            break
-            
+
+              break
+
           }
         })
       }
@@ -112,7 +116,7 @@ App({
 
 
   http(alias, data = {}, isShowLogs = false, needToken = true) {
-    let that=this
+    let that = this
     if (needToken) {
       var token = wx.getStorageSync("token")
       data.token = token

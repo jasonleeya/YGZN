@@ -17,6 +17,8 @@ Component({
   data: {
     userInfo: {},
     companies: [],
+    currentCompanyIndex: 0,
+    activeIndex: 0,
     todoList: [{
       name: "采购单",
       count: 5,
@@ -68,45 +70,32 @@ Component({
         name: '代理品牌管理',
         icon: '',
         link: ''
-      },]
+      } ]
     ]
   },
 
   lifetimes: {
     attached() {
       let that = this
+      if (wx.getStorageSync("currentCompanyIndex")){
+        this.setData({
+          currentCompanyIndex: wx.getStorageSync("currentCompanyIndex")
+        })
+      } 
+      
       app.http("getUserByCustNo", {
         flag: true
-      }, true).then(data => {
-        app.globalData.userInfo = data.list
-        wx.setStorageSync("userInfo", data.list)
+      }, ).then(data => { 
         that.setData({
           userInfo: data.list[0]
         })
-      })
-      app.http("queryCompany", {}, true).then(data => {
-        app.globalData.companies = data.list
-        that.setData({
-          companies: data.list
-        })
-        data.list.forEach(item => {
-          if (item[1] === that.data.userInfo.queryNo) {
-            that.setData({
-              ["userInfo.currentCompany"]: item[0],
-              ["userInfo.idCopy"]: JSON.parse(JSON.stringify(that.data.userInfo.queryNo))
-            })
-          }
+
+        app.http("queryCompany").then(data => {
+          that.setData({
+            companies: data.list
+          })
         })
       })
-
-
-
-
-
-
-
-
-
 
 
     },
@@ -120,34 +109,29 @@ Component({
     },
     showToggleAccountPop() {
       this.setData({
-        showToggleAccountPop: true
+        showToggleAccountPop: true,
+        activeIndex: this.data.currentCompanyIndex
       })
     },
     toggleAccount(e) {
+
       this.setData({
-        ["userInfo.idCopy"]: e.currentTarget.dataset.id
+        activeIndex: e.currentTarget.dataset.index
       })
     },
     toggleAccountCancel() {
       this.setData({
         showToggleAccountPop: false,
-        ["userInfo.idCopy"]: this.data.userInfo.queryNo
       })
     },
     toggleAccountConfirm() {
       app.http("toggleAccount", {
-        id: this.data.userInfo.idCopy
+        id: this.data.companies[this.data.activeIndex][1]
       }, true)
-      var currentCompany = ""
-      this.data.companies.forEach(item => {
-        if (item[1] === this.data.userInfo.idCopy) {
-          currentCompany = item[0]
-        }
-      })
+      wx.setStorageSync("currentCompanyIndex", this.data.activeIndex)
       this.setData({
+        currentCompanyIndex: this.data.activeIndex,
         showToggleAccountPop: false,
-        ["userInfo.queryNo"]: this.data.userInfo.idCopy,
-        ["userInfo.currentCompany"]: currentCompany
       })
     },
 

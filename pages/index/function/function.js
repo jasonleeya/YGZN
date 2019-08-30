@@ -31,7 +31,7 @@ Component({
     list: [{
       name: "采购管理",
       subTitle: '全部订单',
-      subtitleLink: '/pages/purchase/purchaseOrders/purchaseOrders?orderStatus=',
+      subtitleLink: '/pages/purchase/purchaseOrders/purchaseOrders?orderStatus=&isAllOrder=1',
       id: 0,
       items: [{
         value: "新增采购",
@@ -78,7 +78,7 @@ Component({
       name: "销售管理",
       id: 1,
       subTitle: '全部订单',
-        subtitleLink: '/pages/sales/salesOrders/salesOrders?orderStatus=',
+        subtitleLink: '/pages/sales/salesOrders/salesOrders?orderStatus=&isAllOrder=1',
       items: [{
         value: "新增销售",
         icon: "iconcart",
