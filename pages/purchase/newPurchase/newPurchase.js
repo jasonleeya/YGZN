@@ -72,7 +72,7 @@ create(store, {
 
     this.setData({
       goodsList: app.globalData.purchaseCartList,
-      totalPrice: totalPrice
+      totalPrice: totalPrice.toFixed(2)
     })
   },
   toAddGoods() {
@@ -282,7 +282,7 @@ create(store, {
         deliveryDate: null, //*
         billingAmount: billingAmount, //*
         orderStatus: operateType === 'save' ? "wait" : '090001',
-        sttAmount: app.globalData.purchaseTotalPrice,
+        sttAmount: data.totalPrice,
         sttMode: "--选择结算方式--", //*
         remark: info.remark,
         adsaleWay: "", //  *           

@@ -52,12 +52,12 @@
 			"list": []
 		},
 		"miniprogram": {
-			"current": -1,
+			"current": 0,
 			"list": [
 				{
-					"id": -1,
-					"name": "pages/purchase/payment/payment",
-					"pathName": "pages/purchase/payment/payment",
+					"id": 0,
+					"name": "pages/common/LogisticsInfo/LogisticsInfo",
+					"pathName": "pages/common/LogisticsInfo/LogisticsInfo",
 					"query": "",
 					"scene": null
 				}

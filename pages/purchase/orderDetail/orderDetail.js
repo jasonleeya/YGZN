@@ -160,9 +160,12 @@ Page({
   },
 
   getEditGoodsId(e) {
-    if (!this.data.canEdit) {
-      return
-    }
+    // if (!this.data.canEdit) {
+    //   return
+    // }
+    //
+ 
+
     var index = e.detail.index
     this.setData({
       editingIndex: index,
@@ -172,8 +175,14 @@ Page({
   },
   getEditedInfo(e) {
     if (!this.data.canEdit) {
+      app.showToast("不能修改")
+      this.setData({
+        showEditPop: false
+      })
       return
     }
+ 
+
     var totalPrice = 0
     var totalAmount = 0
     var data = e.detail.data

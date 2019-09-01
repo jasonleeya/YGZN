@@ -56,6 +56,7 @@ App({
               break
             case "网络错误":
             case "服务器忙，请稍后重试":
+            break   ///////////
               if (!that.globalData.isShowModal) {
                 that.globalData.isShowModal = true
                 wx.showModal({

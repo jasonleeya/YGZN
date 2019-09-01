@@ -1,0 +1,17 @@
+<view class="logistics-info">
+  <view class="tiemline-item">
+    <view class="cuIcon-radioboxfill icon theme-color"></view>
+    <view class="time">2019/9/1 22:20</view>
+    <view class="content">物流物流物流物流物流物流物流物流物流物流</view>
+  </view>
+   <view class="tiemline-item">
+    <view class="cuIcon-radioboxfill icon theme-color"></view>
+    <view class="time">2019/9/1 22:20</view>
+    <view class="content">物流物流物流物流物流物流物流物流物流物流</view>
+  </view>
+   <view class="tiemline-item">
+    <view class="cuIcon-radioboxfill icon theme-color"></view>
+    <view class="time">2019/9/1 22:20</view>
+    <view class="content">物流物流物流物流物流物流物流物流物流物流</view>
+  </view>
+</view>

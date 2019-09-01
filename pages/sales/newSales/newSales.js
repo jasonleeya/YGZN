@@ -63,7 +63,7 @@ create(store, {
     var cartList = app.globalData.salesCartList
     var totalPrice = 0
     cartList.forEach(item => {
-      totalPrice = parseFloat(totalPrice) + parseFloat(item.sttAmount)
+      totalPrice = parseFloat(totalPrice) + parseFloat(item.sttAmount).toFixed(2)
     })
 
     this.setData({
@@ -275,7 +275,7 @@ create(store, {
         deliveryDate: new Date(info.receiveDate).toISOString(), //
         billingAmount: billingAmount, //
         orderStatus: data.operateType === 'save' ?'090001':'090003', //
-        sttAmount: ""+data.totalPrice, //
+        sttAmount:  data.totalPrice, //
         sttMode: '', //
         remark: info.remark,
         buyOperator: wx.getStorageSync("userInfo")[0].userName,

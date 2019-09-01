@@ -26,7 +26,8 @@
     "pages/sales/orderLogs/orderLogs",
     "pages/sales/addGoods/addGoods",
     "pages/purchase/payment/payment",
-    "pages/sales/payment/payment"
+    "pages/sales/payment/payment",
+    "pages/common/LogisticsInfo/LogisticsInfo"
   ],
   "window": {
     "backgroundTextStyle": "light",
