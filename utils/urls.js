@@ -52,7 +52,7 @@ const alias = {
 
   getIdentify:BASE_URL+"/imatchUser/agency/getIdentify",
   bindingAccount: BASE_URL_WX +"/netgate-user/bindingAccount",
-  getLogistics: BASE_URL +"/imatchUser/agency/getLogistics"
+  getLogistics: BASE_URL +"/imatchUser/agency/getLogistics", 
 }
 export default function(name) {
   return alias[name]

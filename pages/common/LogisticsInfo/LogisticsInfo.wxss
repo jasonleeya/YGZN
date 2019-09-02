@@ -4,11 +4,12 @@
   padding: 30rpx;
   border-radius: 10rpx;
   background-color: #fff;
+  display: flex;
 }
 
 .delivery-status {
   font-size: 40rpx;
-  margin-bottom: 10rpx;
+  margin-bottom: 20rpx;
 }
 
 .info-lsit {
@@ -17,20 +18,68 @@
   border-radius: 10rpx;
   background-color: #fff;
 }
-.info-head{
+
+.info-head {
   padding: 30rpx;
 }
-.list{
+
+.list {
   padding: 30rpx;
 }
-.item{
-  display: flex; 
+
+.item {
+  display: flex;
 }
-.time{ 
+
+.date {
   height: 100%;
-  margin-right: 20rpx;
+  width: 80rpx;
+  text-align: right;
+  margin-right: 30rpx;
+  color: var(--gray);
 }
-.content{
-  padding:  0 0 20rpx 20rpx;
-  border-left: 1rpx solid var(--gray)
+.time{
+font-size:24rpx; 
+}
+
+.content {
+  flex: 1;
+  padding: 0 0 40rpx 30rpx;
+  border-left: 1rpx solid var(--gray);
+  position: relative;
+  color: var(--gray);
+}
+
+.item:last-child .content {
+  border-left-color: #fff;
+}
+
+.content::before {
+  content: "\e60f";
+  font-family: iconfont;
+  display: block;
+  position: absolute;
+  width: 30rpx;
+  height: 30rpx;
+  left: -14rpx;
+  background-color: #fff;
+}
+.item:first-child .date{
+  color: var(--black)
+}
+.item:first-child .content{
+    color: var(--black)
+}
+.item:first-child  .content::before {
+  content: "\e611";
+  color: var(--red);
+}
+
+.head-pic image {
+  width: 150rpx;
+  height: 150rpx;
+}
+
+.head-info {
+  padding-left: 20rpx;
 }

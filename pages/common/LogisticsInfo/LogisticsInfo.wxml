@@ -1,28 +1,29 @@
 <view class="logistics-info">
   <view class="head">
-    <view class="delivery-status">物流状态
-      <text class="text-red">{{"派送中"}}</text>
+    <view class="head-pic">
+      <image src="https://ss3.bdstatic.com/yrwDcj7w0QhBkMak8IuT_XF5ehU5bvGh7c50/logopic/28eeb387da1855b111c2cbf2a213d3e7_fullsize.jpg@s_1,w_484,h_484"></image>
     </view>
-    <view class="text-gray">承运公司: {{"顺丰快递"}}</view>
-    <view class="text-gray">物流单号: {{"1111111111"}}</view>
+    <view class="head-info">
+      <view class="delivery-status">物流状态
+        <text class="text-red">{{statusStr}}</text>
+      </view>
+      <view class="text-gray">承运公司: {{expName}}</view>
+      <view class="text-gray">物流单号: {{lgtNums}}</view>
+    </view>
   </view>
   <view class="info-lsit">
     <view class="info-head solid-bottom">
-      本数据由{{"顺丰快递"}}提供
+      本数据由{{expName}}提供
     </view>
     <view class="list">
-      <view class="item">
-        <view class="time">2019</view>
-        <view class="content"> 1111 1111 1111 1111 1111 1111 1111 1111 1111 1111 1111 1111 1111 1111 1111 1111 1111</view>
+      <view class="item" wx:for="{{list}}" wx:key>
+        <view class="date">
+          <view class="day">{{item.dayStr}}</view>
+          <view class="time">{{item.timeStr}}</view>
+        </view>
+        <view class="content">{{item.status}}</view>
       </view>
-      <view class="item">
-        <view class="time">2019</view>
-        <view class="content"> 1111</view>
-      </view>
-      <view class="item">
-        <view class="time">2019</view>
-        <view class="content"> 1111</view>
-      </view>
+   
     </view>
   </view>
 </view>
