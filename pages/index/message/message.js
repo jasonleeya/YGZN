@@ -75,7 +75,7 @@ create({
         pageSize: 10000,
         pageNum: 1
       }).then(data=>{
-        var msgList = JSON.parse(data.t.list)
+       // var msgList = JSON.parse(data.t.list)
         // msgList.forEach(msg=>{ 
         //   if (msg.content.search("<b class='sale'>")>0){
         //     msg.type="销售订单"

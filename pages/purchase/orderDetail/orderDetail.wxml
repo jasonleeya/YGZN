@@ -78,7 +78,7 @@
         <view class="cell-value text-gray">
           出库时请输入物流订单号
         </view>
-        <view class="cell-icon cuIcon-right {{canEdit&&infos.orderStatus==='wait'?'':'text-gray'}}"></view>
+        <view class="cell-icon cuIcon-right {{canEdit&&infos.orderStatus==='wait'?'':'text-gray'}}" bindtap="seeLogisticsInfo"></view>
       </view>
 
 
@@ -143,4 +143,4 @@
   </form>
 
 </scroll-view> 
-<editGoodsInfo wx:if="{{showEditPop}}" popData="{{popData}}" noTaxPriceKey="ntpsingle" noTaxTotalPriceKey="ntp" bind:editedInfo="getEditedInfo" />
+<editGoodsInfo wx:if="{{showEditPop}}" popData="{{popData}}" noTaxPriceKey="ntpsingle" noTaxTotalPriceKey="ntp" bind:editedInfo="getEditedInfo" bind:closePop="closePop"/>

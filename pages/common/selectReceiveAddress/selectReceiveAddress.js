@@ -21,7 +21,7 @@ Page({
     })
   },
   onShow: function() {
-
+    app.setTitle("选择地址")
 
     var address = ""
     app.http("getDtfAddress").then(data => {

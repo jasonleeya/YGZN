@@ -29,11 +29,11 @@ create(store, {
 
   },
   onLoad(options) {
+    app.setTitle("添加商品")
     this.setData({
       custNo: options.custNo
     })
-    //验证登录
-    app.checkLogin()
+ 
   },
   //进入页面初始化数据
   onShow() {

@@ -48,7 +48,11 @@ const alias = {
   saveSaleOrderUpperAndLower: BASE_URL+"/imatchOrder/reOrder/saveSaleOrderUpperAndLower",
   querySaleUpp: BASE_URL+"/imatchOrder/reOrder/querySaleUpp",
   queryBackUpp:BASE_URL+"/imatchOrder/reOrder/queryBackUpp",
-  againOrder:BASE_URL+"/imatchOrder/reOrder/againOrder"
+  againOrder:BASE_URL+"/imatchOrder/reOrder/againOrder",
+
+  getIdentify:BASE_URL+"/imatchUser/agency/getIdentify",
+  bindingAccount: BASE_URL_WX +"/netgate-user/bindingAccount",
+  getLogistics: BASE_URL +"/imatchUser/agency/getLogistics"
 }
 export default function(name) {
   return alias[name]

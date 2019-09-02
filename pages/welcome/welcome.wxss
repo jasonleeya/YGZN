@@ -1,0 +1,16 @@
+.initial-bg{
+  width: 100vw;
+  height: 100vh;
+  background-color: var(--themeColor);
+  position: relative
+}
+.text{
+  font-size: 40rpx;
+  color: #fff;
+  font-style: italic;
+  font-weight: bold; 
+  position: absolute;
+ top: 50%;
+ left: 50%;
+ transform:translate(-50%,-50%);
+}

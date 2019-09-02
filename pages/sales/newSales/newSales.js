@@ -32,9 +32,8 @@ create(store, {
   },
 
   onLoad() {
-   
-    //验证登录
-    app.checkLogin()
+    app.setTitle("新增销售单")
+ 
     this.initData()
 
     var date = new Date()

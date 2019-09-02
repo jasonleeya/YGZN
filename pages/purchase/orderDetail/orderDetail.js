@@ -33,8 +33,7 @@ Page({
    */
 
   onLoad: function(options) {
-    //验证登录
-    app.checkLogin()
+    app.setTitle("采购订单详情")
     app.http("queryByOrderNo", {
       orderNo: options.orderNo
     }, false, false).then(data => {
@@ -164,7 +163,7 @@ Page({
     //   return
     // }
     //
- 
+
 
     var index = e.detail.index
     this.setData({
@@ -181,7 +180,7 @@ Page({
       })
       return
     }
- 
+
 
     var totalPrice = 0
     var totalAmount = 0
@@ -216,13 +215,17 @@ Page({
 
   },
 
-
+  seeLogisticsInfo() {
+    wx.navigateTo({
+      url: '/pages/common/LogisticsInfo/LogisticsInfo'
+    })
+  },
   formSubmit(e) {
     this.setData({
       formEvent: e
     })
   },
-  submit(e){
+  submit(e) {
     var formData = e.detail.value
     var data = this.data
     var list = data.goodsList
@@ -315,15 +318,15 @@ Page({
     // console.log(paramas)
 
     app.http("savePurchaseOrderUpperAndLower", paramas, true).then(() => {
-      app.showToast("添加成功")
-      this.setData({
-        isLoad: false
-      })
+        app.showToast("添加成功")
+        this.setData({
+          isLoad: false
+        })
 
-      wx.redirectTo({
-        url: '/pages/purchase/orderDetail/orderDetail?orderNo=' + info.orderNo,
+        wx.redirectTo({
+          url: '/pages/purchase/orderDetail/orderDetail?orderNo=' + info.orderNo,
+        })
       })
-    })
       .catch((e) => {
         app.showToast(e)
       })
@@ -345,7 +348,7 @@ Page({
   cancelOrder() {
     wx.showModal({
       title: '确定取消订单吗',
-      success(){
+      success() {
         app.http("cancelOrder", {
           orderNo: this.data.infos.orderNo
         }).then(data => {
@@ -355,7 +358,7 @@ Page({
         })
       }
     })
- 
+
   },
   split() {
     app.showToast("暂不支持")
@@ -399,7 +402,7 @@ Page({
     })
   },
   payment() {
-  var infos = this.data.infos
+    var infos = this.data.infos
     setTimeout(() => {
       this.submit(this.data.formEvent)
       wx.navigateTo({

@@ -13,7 +13,7 @@ create(store, {
 
   onLoad() {
   
-    app.checkLogin()
+   app.setTitle()
 
   },
   onShow(){ 

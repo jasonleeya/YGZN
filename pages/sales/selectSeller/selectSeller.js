@@ -16,6 +16,7 @@ create(store, {
  
   },
   onLoad(opt){
+    app.setTitle("选择销售员")
     this.setData({
       setData:opt.setData
     })

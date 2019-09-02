@@ -1,17 +1,28 @@
 <view class="logistics-info">
-  <view class="tiemline-item">
-    <view class="cuIcon-radioboxfill icon theme-color"></view>
-    <view class="time">2019/9/1 22:20</view>
-    <view class="content">物流物流物流物流物流物流物流物流物流物流</view>
+  <view class="head">
+    <view class="delivery-status">物流状态
+      <text class="text-red">{{"派送中"}}</text>
+    </view>
+    <view class="text-gray">承运公司: {{"顺丰快递"}}</view>
+    <view class="text-gray">物流单号: {{"1111111111"}}</view>
   </view>
-   <view class="tiemline-item">
-    <view class="cuIcon-radioboxfill icon theme-color"></view>
-    <view class="time">2019/9/1 22:20</view>
-    <view class="content">物流物流物流物流物流物流物流物流物流物流</view>
-  </view>
-   <view class="tiemline-item">
-    <view class="cuIcon-radioboxfill icon theme-color"></view>
-    <view class="time">2019/9/1 22:20</view>
-    <view class="content">物流物流物流物流物流物流物流物流物流物流</view>
+  <view class="info-lsit">
+    <view class="info-head solid-bottom">
+      本数据由{{"顺丰快递"}}提供
+    </view>
+    <view class="list">
+      <view class="item">
+        <view class="time">2019</view>
+        <view class="content"> 1111 1111 1111 1111 1111 1111 1111 1111 1111 1111 1111 1111 1111 1111 1111 1111 1111</view>
+      </view>
+      <view class="item">
+        <view class="time">2019</view>
+        <view class="content"> 1111</view>
+      </view>
+      <view class="item">
+        <view class="time">2019</view>
+        <view class="content"> 1111</view>
+      </view>
+    </view>
   </view>
 </view>

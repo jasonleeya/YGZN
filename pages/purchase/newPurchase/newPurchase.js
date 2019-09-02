@@ -34,9 +34,8 @@ create(store, {
     operateType: null,
   },
   onLoad() {
-
-    //验证登录
-    app.checkLogin()
+    app.setTitle("新增采购")
+ 
     this.initData()
 
     var date = new Date()

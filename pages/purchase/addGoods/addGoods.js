@@ -27,13 +27,13 @@ create(store, {
     storeList: []
   },
   onLoad(options) {
+    app.setTitle("添加商品")
     this.setData({
       store: options.store,
       supplyNo: options.supplyNo,
       wareId: options.wareId
     })
-    //验证登录
-    app.checkLogin()
+ 
   },
   //进入页面初始化数据
   onShow() {

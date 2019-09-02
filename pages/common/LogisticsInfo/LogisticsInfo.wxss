@@ -1,56 +1,36 @@
-.logistics-info {
-  border-left: 1px solid var(--gray);
-  margin-left: 40rpx;
-  padding-left: 10rpx;
-}
-
-.tiemline-item {
+.head {
+  width: calc(100vw - 60rpx);
+  margin: 30rpx auto;
   padding: 30rpx;
-  position: relative;
-}
-
-/* .tiemline-item::before {
-  content: "";
-  display: block;
-  position: absolute;
-  left: -32.5rpx;
-  top: 22.5rpx;
-  width: 30rpx;
-  height: 30rpx;
-  border-radius: 25rpx;
-  background-color: var(--themeColor);
-  border: 10rpx solid #f1f1f1;
-}
-
-.tiemline-item::after {
-  content: "";
-  display: block;
-  position: absolute;
-  left: -17.5rpx;
-  top: 36rpx;
-  width: 20rpx;
-  height: 20rpx;
   border-radius: 10rpx;
-  background-color: #f1f1f1;
-} */
-
-.icon{
-  position: absolute;
-  font-size: 30rpx;
-  border: 5rpx solid #f1f1f1;
-  width: 40rpx;
-  height: 40rpx;
-  left: -27.5rpx;
-  top:22.5rpx;
-  background-color: #f1f1f1; 
-}
-.content {
-  background-color: var(--themeColor);
-  color: #fff;
-  padding: 20rpx;
+  background-color: #fff;
 }
 
-.time {
-  color: var(--gray);
-  margin-bottom: 20rpx;
+.delivery-status {
+  font-size: 40rpx;
+  margin-bottom: 10rpx;
+}
+
+.info-lsit {
+  width: calc(100vw - 60rpx);
+  margin: 30rpx auto;
+  border-radius: 10rpx;
+  background-color: #fff;
+}
+.info-head{
+  padding: 30rpx;
+}
+.list{
+  padding: 30rpx;
+}
+.item{
+  display: flex; 
+}
+.time{ 
+  height: 100%;
+  margin-right: 20rpx;
+}
+.content{
+  padding:  0 0 20rpx 20rpx;
+  border-left: 1rpx solid var(--gray)
 }

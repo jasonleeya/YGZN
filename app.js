@@ -4,9 +4,10 @@ App({
   globalData: {
     token: "",
     userInfo: null,
+    companies: [],
     interval: null,
     homeMessage: null,
-    unreadMsgCount: 0, 
+    unreadMsgCount: 0,
     isShowModal: false,
     //purchase
     purchaseCartList: [],
@@ -18,8 +19,11 @@ App({
     salesTotalAmount: 0,
   },
 
+  onLaunch() {
+
+
+  },
   onShow: function() {
-    this.iniData()
     let that = this
     this.globalData.interval = setInterval(function() {
       let pages = getCurrentPages();
@@ -27,7 +31,7 @@ App({
       if (pages.length) {
         currPage = pages[pages.length - 1];
       }
-      if (currPage.route !== "pages/login/login") {
+      if (currPage.route !== "pages/login/login" && currPage.route !== "pages/welcome/welcome") {
         that.http("homeMessage").then(data => {
           that.globalData.homeMessage = data.list
           that.globalData.unreadMsgCount = data.infoBody
@@ -35,28 +39,66 @@ App({
           console.log(err)
           switch (err) {
             case "无效token":
-              wx.removeStorageSync("token")
-              console.log(!that.globalData.isShowModal)
-              if (!that.globalData.isShowModal) {
-                that.globalData.isShowModal = true
-                wx.showModal({
-                  title: '重新登录',
-                  content: '身份信息已过期,请重新登录',
-                  showCancel: false,
-                  success(res) {
-                    that.globalData.isShowModal = false
-                    if (res.confirm) {
-                      wx.redirectTo({
-                        url: '/pages/login/login',
-                      })
+              wx.showModal({
+                content: '此账号已在其他地方登陆,需重新验证',
+                success: () => {
+                  wx.login({
+                    success(res) {
+                      if (res.code) {
+                        that.http("loginAuthenticate", {
+                          username: res.code,
+                          loginType: 2
+                        }, true, false).then(data => {
+                          console.log(data)
+                          if (data.success === false) {
+                            wx.showModal({
+                              title: '',
+                              content: '请先绑定/注册账号',
+                              showCancel: false,
+                              success: function(res) {
+                                wx.navigateTo({
+                                  url: '/pages/login/login?openId=' + data.info,
+                                })
+                              }
+                            })
+                          } else {
+                            wx.setStorageSync("token", data.info)
+                            that.globalData.token = data.info
+                            wx.redirectTo({
+                              url: '/pages/index/index'
+                            })
+                          }
+                        })
+
+                      } else {
+                        app.showToast("微信验证失败")
+                      }
                     }
-                  }
-                })
-              }
+                  })
+
+                }
+              })
+
+              // if (!that.globalData.isShowModal) {
+              //   that.globalData.isShowModal = true
+              //   wx.showModal({
+              //     title: '重新登录',
+              //     content: '身份信息已过期,请重新登录',
+              //     showCancel: false,
+              //     success(res) {
+              //       that.globalData.isShowModal = false
+              //       if (res.confirm) { 
+              //         wx.removeStorageSync("token")
+              //         wx.redirectTo({
+              //           url: '/pages/login/login',
+              //         })
+              //       }
+              //     }
+              //   })
+              // }
               break
             case "网络错误":
             case "服务器忙，请稍后重试":
-            break   ///////////
               if (!that.globalData.isShowModal) {
                 that.globalData.isShowModal = true
                 wx.showModal({
@@ -80,9 +122,38 @@ App({
     clearInterval(this.globalData.interval)
   },
 
-  iniData() {
+  setTitle(pre = "") {
+    if (pre !== "") {
+      pre = pre + "-"
+    }
+    var currentCompanyIndex = wx.getStorageSync("currentCompanyIndex")
+
+    if (this.globalData.companies.length === 0) {
+      this.http("queryCompany").then(data => {
+        this.globalData.companies = data.list
+        setCompony(data.list)
+      })
+    } else {
+      setCompony(this.globalData.companies)
+    }
+
+    function setCompony(companies) {
+      if (currentCompanyIndex === "") {
+        wx.setStorageSync("currentCompanyIndex", 0)
+        wx.setNavigationBarTitle({
+          title: pre + companies[0][0]
+        })
+      } else {
+        wx.setNavigationBarTitle({
+          title: pre + companies[currentCompanyIndex][0]
+        })
+
+      }
+    }
+
 
   },
+
 
   showToast(text, duration = 2000) {
     wx.showToast({
@@ -91,13 +162,13 @@ App({
       duration: duration
     })
   },
-  checkLogin() {
-    if (!wx.getStorageSync("token")) {
-      wx.redirectTo({
-        url: '/pages/login/login',
-      })
-    }
-  },
+  // checkLogin() {
+  //   if (!wx.getStorageSync("token")) {
+  //     wx.redirectTo({
+  //       url: '/pages/login/login',
+  //     })
+  //   }
+  // },
 
 
   watchGloabalData(key, callback) {
@@ -142,7 +213,7 @@ App({
             reject('服务器忙，请稍后重试');
             return;
           }
-          if (res.data.success === false) {
+          if (res.data.success === false && alias !== 'loginAuthenticate') {
             reject(res.data.msg || res.data.info);
             return;
           }

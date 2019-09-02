@@ -16,6 +16,7 @@ Page({
     payee: null
   },
   onLoad: function(options) {
+    app.setTitle("支付")
     this.setData({
       supplyNo: options.supplyNo,
       customerNo: options.customerNo,

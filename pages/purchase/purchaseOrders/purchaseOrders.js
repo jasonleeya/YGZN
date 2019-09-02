@@ -83,6 +83,7 @@ create(store, {
     isAllOrder:false
   },
   onLoad(options) {
+    app.setTitle("采购订单")
     if (options.isAllOrder==='1'){
       this.setData({
         isAllOrder:true

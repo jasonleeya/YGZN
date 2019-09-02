@@ -14,7 +14,9 @@ create(store, {
     searchValue: "",
     timeOut: null
   },
-  onLoad() {},
+  onLoad() {
+    app.setTitle("选择客户")
+  },
   onShow() {
     this.getList()
   },

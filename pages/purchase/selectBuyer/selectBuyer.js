@@ -8,6 +8,7 @@ create(store, {
     setData:null
   },
   onLoad(options){
+    app.setTitle("选择采购员")
     this.setData({
       setData:options.setData
     })

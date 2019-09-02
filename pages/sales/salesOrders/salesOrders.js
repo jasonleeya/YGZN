@@ -83,6 +83,7 @@ Page({
     isAllOrder:false
   },
   onLoad(options) {
+    app.setTitle("销售订单")
     if (options.isAllOrder === '1') {
       this.setData({
         isAllOrder: true

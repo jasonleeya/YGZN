@@ -35,18 +35,20 @@
     */
 
    onLoad: function(options) {
-     //验证登录
-     app.checkLogin()
+     app.setTitle("销售单详情")
      app.http("queryByOrderNo", {
        orderNo: options.orderNo
      }, false, false).then(data => {
 
+       var region = ""
+       var addressDetail = ""
 
-       var ad = data.infoBody.address.address
-       var reg = ad.match(/【.*】/)[0]
-       var region = reg.replace("【", "").replace("】", "")
-       var addressDetail = ad.replace(reg, "")
-
+       if (data.infoBody.address) {
+         var ad = data.infoBody.address.address
+         var reg = ad.match(/【.*】/)[0]
+         region = reg.replace("【", "").replace("】", "")
+         addressDetail = ad.replace(reg, "")
+       }
        this.setData({
          infos: data.infoBody.upp,
          region: region.split("/"),
@@ -167,12 +169,12 @@
      var index = e.detail.index
      var goods = this.data.goodsList[index]
      var amount = e.detail.amount
-     
+
      var goodsDiscount = (parseFloat(data.ntpsingle) / parseFloat(goods.facePrice)).toFixed(2)
      if (goodsDiscount > 1 || String(goodsDiscount) === 'Infinity' || isNaN(goodsDiscount)) {
        goodsDiscount = 1
      }
-      
+
      this.setData({
        ["goodsList[" + index + "].goodsCount"]: amount,
        ["goodsList[" + index + "].sttAmount"]: (parseInt(amount) * parseFloat(goods.discountPrice)).toFixed(2),
@@ -199,9 +201,9 @@
    },
 
    getEditGoodsId(e) {
-    //  if (!this.data.canEdit) {
-    //    return
-    //  }
+     //  if (!this.data.canEdit) {
+     //    return
+     //  }
      var index = e.detail.index
      this.setData({
        editingIndex: index,
@@ -217,7 +219,7 @@
        })
        return
      }
-  
+
      var totalPrice = 0
      var totalAmount = 0
      var data = e.detail.data
@@ -341,14 +343,14 @@
    },
    payment() {
      var infos = this.data.infos
-   setTimeout(()=>{
-     this.submit(this.data.formEvent)
-     wx.navigateTo({
-       url: '/pages/sales/payment/payment?supplyNo=' + infos.supplyNo + '&customerNo=' + infos.custNo + '&orderNoArr=' + infos.orderNo
-     })
-   },100)
+     setTimeout(() => {
+       this.submit(this.data.formEvent)
+       wx.navigateTo({
+         url: '/pages/sales/payment/payment?supplyNo=' + infos.supplyNo + '&customerNo=' + infos.custNo + '&orderNoArr=' + infos.orderNo
+       })
+     }, 100)
    },
-   returnGoods(){
+   returnGoods() {
      app.showToast("暂不支持")
    },
 

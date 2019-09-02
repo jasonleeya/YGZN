@@ -24,7 +24,7 @@ create(store, {
    * 生命周期函数--监听页面加载
    */
   onLoad: function(options) {
-
+    app.setTitle("添加销售员")
   },
   addSubmit(e) {
     if (!e.detail.value.position) {

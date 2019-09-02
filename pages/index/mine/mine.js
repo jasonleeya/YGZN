@@ -129,6 +129,7 @@ Component({
         id: this.data.companies[this.data.activeIndex][1]
       }, true)
       wx.setStorageSync("currentCompanyIndex", this.data.activeIndex)
+      app.setTitle()
       this.setData({
         currentCompanyIndex: this.data.activeIndex,
         showToggleAccountPop: false,
