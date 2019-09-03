@@ -15,6 +15,14 @@ create(store, {
   
    app.setTitle()
 
+    app.http("queryCompany").then(data => {
+      app.globalData.companies = data.list
+
+      app.http("toggleAccount", {
+        id: data.list[wx.getStorageSync("currentCompanyIndex")][1]
+      }, true)
+
+    })
   },
   onShow(){ 
     let taht=this

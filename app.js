@@ -17,13 +17,9 @@ App({
     salesCartList: [],
     salesTotalPrice: 0,
     salesTotalAmount: 0,
-  },
-
-  onLaunch() {
-
-
-  },
+  }, 
   onShow: function() {
+   
     let that = this
     this.globalData.interval = setInterval(function() {
       let pages = getCurrentPages();
@@ -137,7 +133,7 @@ App({
       setCompony(this.globalData.companies)
     }
 
-    function setCompony(companies) {
+    function setCompony(companies) { 
       if (currentCompanyIndex === "") {
         wx.setStorageSync("currentCompanyIndex", 0)
         wx.setNavigationBarTitle({

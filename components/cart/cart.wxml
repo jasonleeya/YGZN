@@ -9,16 +9,16 @@
   </view>
 
   <view class="goods-list cu-list">
-  <view  wx:if="{{goodsList.length===0}}" class="no-goods">你还没用添加商品，赶紧去添加吧~</view>
+    <view wx:if="{{goodsList.length===0}}" class="no-goods">你还没用添加商品，赶紧去添加吧~</view>
     <view class="goods-item cu-item solid-bottom  {{modalName=='move-box-'+ index?'move-cur':''}}" wx:for="{{goodsList}}" wx:key bindtouchstart="ListTouchStart" bindtouchmove="ListTouchMove" bindtouchend="ListTouchEnd" data-target="move-box-{{index}}">
-      <view class="goods-pic"> 
-         <!-- <previewImage  class="solid" src="{{item[picUrlKey]}}" w="140rpx" h="140rpx" /> -->
-      <previewImage  class="solid" src="{{item[picUrlKey]}}" w="140rpx" h="140rpx" />
-       
+      <view class="goods-pic">
+        <!-- <previewImage  class="solid" src="{{item[picUrlKey]}}" w="140rpx" h="140rpx" /> -->
+        <previewImage class="solid" src="{{item[picUrlKey]}}" w="140rpx" h="140rpx" />
+
       </view>
-      <view class="goods-info"  bindtap="getIndex" data-index="{{index}}">
+      <view class="goods-info" bindtap="seeGoodsDetail" data-index="{{index}}">
         <view class="goods-name">
-         {{item.brandNameKey}}/{{item[nameKey]}}
+          {{item.brandNameKey}}/{{item[nameKey]}}
         </view>
         <view class="goods-type text-gray">
           {{item[typeKey]}}
@@ -27,16 +27,20 @@
           ￥{{item[priceKey]}}
         </view>
       </view>
-      <view class="choosed-amount" wx:if="{{editable===true}}">
-        <view class="choosed-amount-wrapper solid">
+     
+      <view class="choosed-amount">
+
+       <view class="operate-btn"  bindtap="operate" data-index="{{index}}">{{operateType}}</view>
+
+        <view class="choosed-amount-wrapper solid" wx:if="{{editable===true}}">
           <view class="plus-amount bg-gray" bindtap="plusGoods" data-index="{{index}}" data-id="{{item[idKey]}}">+</view>
           <!-- <view class="amount solid">{{item.amount}}</view> -->
           <input type="number" class="amount" value="{{item[amountKey]}}" data-index="{{index}}" data-id="{{item[idKey]}}" bindinput="amountInput" bindblur="amountBlur"></input>
           <view class="minus-amount bg-gray" bindtap="minusGoods" data-index="{{index}}" data-id="{{item[idKey]}}">-</view>
         </view>
+        <view class="amount-show" wx:if="{{editable===false}}">
+          <text class="cuIcon-close"></text>{{item[amountKey]}}</view>
       </view>
-<view class="amount"  wx:if="{{editable===false}}"><text class="cuIcon-close"></text>{{item[amountKey]}}</view>
-      
 
       <view class="move">
         <view class="bg-red" bindtap='slideToDelete' data-delete-index="{{index}}" data-delete-id="{{item[idKey]}}">删除</view>

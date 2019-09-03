@@ -1,4 +1,4 @@
-<view class="logistics-info">
+<view class="logistics-info" wx:if="{{list.length>0}}">
   <view class="head">
     <view class="head-pic">
       <image src="https://ss3.bdstatic.com/yrwDcj7w0QhBkMak8IuT_XF5ehU5bvGh7c50/logopic/28eeb387da1855b111c2cbf2a213d3e7_fullsize.jpg@s_1,w_484,h_484"></image>
@@ -21,9 +21,10 @@
           <view class="day">{{item.dayStr}}</view>
           <view class="time">{{item.timeStr}}</view>
         </view>
-        <view class="content">{{item.status}}</view>
+        <rich-text class="content" nodes="{{item.status}}"></rich-text> 
       </view>
    
     </view>
   </view>
 </view>
+  <view class="empty"  wx:if="{{list.length===0}}">没有这个商品的物流信息~</view>

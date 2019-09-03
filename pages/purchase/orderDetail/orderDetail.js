@@ -129,7 +129,7 @@ Page({
     var goods = this.data.goodsList[index]
     var amount = e.detail.amount
 
-    var goodsDiscount = (parseFloat(data.ntpsingle) / parseFloat(goods.facePrice)).toFixed(2)
+    var goodsDiscount = (parseFloat(goods.ntpsingle) / parseFloat(goods.facePrice)).toFixed(2)
     if (goodsDiscount > 1 || String(goodsDiscount) === 'Infinity' || isNaN(goodsDiscount)) {
       goodsDiscount = 1
     }
@@ -158,7 +158,7 @@ Page({
     })
   },
 
-  getEditGoodsId(e) {
+  operate(e) {
     // if (!this.data.canEdit) {
     //   return
     // }
@@ -174,7 +174,7 @@ Page({
   },
   getEditedInfo(e) {
     if (!this.data.canEdit) {
-      app.showToast("不能修改")
+      app.showToast("不能修改此订单或先点击修改订单", 4000)
       this.setData({
         showEditPop: false
       })
@@ -220,6 +220,16 @@ Page({
       url: '/pages/common/LogisticsInfo/LogisticsInfo'
     })
   },
+
+  goodsDetail(e) {
+    var index = e.detail.index
+    console.log(this.data.goodsList[index].goodsNo, this.data.purchaseWarehouse) 
+    wx.navigateTo({
+      url: '/pages/product/productOperate/productOperate?operateType=view&goodsNo=' + this.data.goodsList[index].goodsNo + "&wareKey=" + this.data.purchaseWarehouse
+    })
+
+  },
+
   formSubmit(e) {
     this.setData({
       formEvent: e

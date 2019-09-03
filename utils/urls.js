@@ -1,11 +1,11 @@
 // const BASE_URL = "http://192.168.3.101:"
 // const BASE_URL = "http://47.104.86.230:"
 
-// const BASE_URL = "http://192.168.3.101:14000"
-// const BASE_URL_WX = "http://192.168.3.101:26000"
+const BASE_URL = "http://192.168.3.101:14000"
+const BASE_URL_WX = "http://192.168.3.101:26000"
 
-const BASE_URL =  "https://gateway.imatchas.com"
-const BASE_URL_WX ="https://wx.imatchas.com"
+// const BASE_URL =  "https://gateway.imatchas.com"
+// const BASE_URL_WX ="https://wx.imatchas.com"
 
 const alias = {
   loginAuthenticate: BASE_URL_WX+"/netgate-user/loginAuthenticate",
@@ -53,6 +53,7 @@ const alias = {
   getIdentify:BASE_URL+"/imatchUser/agency/getIdentify",
   bindingAccount: BASE_URL_WX +"/netgate-user/bindingAccount",
   getLogistics: BASE_URL +"/imatchUser/agency/getLogistics", 
+  queryStock: BASE_URL + "/imatchProduct/stockCurrent/queryStock"
 }
 export default function(name) {
   return alias[name]

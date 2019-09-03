@@ -9,7 +9,7 @@ Page({
     list: [],
     expName: "",
     lgtNums: "4300191466177",
-    statusStr: "未知"
+    statusStr: "未知",
   },
 
   /**
@@ -27,37 +27,41 @@ Page({
       list.forEach(item => {
         item.dayStr = new Date(item.time).toLocaleDateString().substr(5, 8).replace("/", "-")
         item.timeStr = new Date(item.time).toTimeString().substr(0, 8)
+        // item.status.replace(/(1[3456789]\d{9})/g, "<a href='tel:$1'>$1</a>)")
+        item.status = item.status.replace(/(1[3456789]\d{9})/g, "<span style='color:red;'>$1</span>")
       })
       this.setData({
         list: list
       })
-      var status = list[0].status
-      if (status.search("签收") > 0) {
-        this.setData({
-          statusStr: '已签收'
-        })
+      // 0：快递收件(揽件)1.在途中 2.正在派件 3.已签收 4.派送失败 5.疑难件 6.退件签收  */
+      var statusStr = ""
+      switch (data.result.deliverystatus) {
+        case "0":
+          statusStr = "已揽件"
+          break
+        case "1":
+          statusStr = "运输中"
+          break
+        case "2":
+          statusStr = "正在派件"
+          break
+        case "3":
+          statusStr = "已签收"
+          break
+        case "4":
+          statusStr = "派送失败"
+          break
+        case "5":
+          statusStr = "疑难件"
+          break
+        case "6":
+          statusStr = "退件签收"
+          break
       }
-      if (status.search("派件员") > 0) {
-        this.setData({
-          statusStr: '派送中'
-        })
-      }
-      if (status.search("发往") > 0) {
-        this.setData({
-          statusStr: '运输中'
-        })
-      }
-      if (status.search("揽收") > 0) {
-        this.setData({
-          statusStr: '已揽件'
-        })
-      }
-      if (status.search("包裹等待揽收") > 0) {
-        this.setData({
-          statusStr: '已发货'
-        })
-      }
-     
+      this.setData({
+        statusStr
+      })
+
     })
   },
 

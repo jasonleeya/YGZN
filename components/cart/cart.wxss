@@ -37,6 +37,9 @@
 .goods-name {
   font-size: 30rpx;
   margin-bottom: 10rpx;
+  white-space: normal;
+  text-overflow: ellipsis;
+  word-break: normal;
 }
 
 .goods-type {
@@ -54,6 +57,8 @@
   display: flex;
   align-items: flex-end;
   width: 180rpx;
+  flex-direction: column;
+  justify-content: space-between
 }
 
 .choosed-amount-wrapper {
@@ -76,7 +81,14 @@
   height: 50rpx;
   width: 80rpx;
   padding: 0 10rpx;
-  text-align: center
+  text-align: center;
+}
+
+.amount-show {
+  width: 180rpx;
+  line-height: 50rpx;
+  height: 50rpx;
+  text-align: right;
 }
 
 .cu-list>.cu-item {
@@ -97,4 +109,14 @@
   height: 100rpx;
   text-align: center;
   line-height: 100rpx;
+}
+
+.operate-btn {
+  border: 1rpx solid var(--red);
+  border-radius: 25rpx;
+  height: 50rpx;
+  line-height: 50rpx;
+  padding: 0 20rpx;
+  color: var(--red);
+
 }

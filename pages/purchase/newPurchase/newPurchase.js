@@ -171,7 +171,7 @@ create(store, {
     app.globalData.purchaseTotalPrice = e.detail.totalPrice
     app.globalData.purchaseTotalAmount = e.detail.totalAmount
   },
-  getEditGoodsId(e) {
+  operate(e) {
     var index = e.detail.index
     this.setData({
       editingIndex: index,
@@ -179,6 +179,12 @@ create(store, {
       popData: this.data.goodsList[index]
     })
   },
+  goodsDetail(e) {
+    var index = e.detail.index
+    console.log(index)
+  },
+
+  
   getEditedInfo(e) {
     var totalPrice = 0
     var totalAmount = 0

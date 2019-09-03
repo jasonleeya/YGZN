@@ -88,7 +88,8 @@
     <search bindtap="toSearch" />
     <!-- 购物车 -->
     <cart goodsList="{{goodsList}}" totalPrice="{{totalPrice}}" picUrlKey="pirctureWay" nameKey="goodsName" brandNameKey="goodsBrand" typeKey="brandNo" priceKey="discountPrice" amountKey="goodsCount" idKey="goodsNo" minNumKey="minNums" bind:changeAmount="getChangeAmount"
-      bind:deleteGoods="deleteGoods" bind:getIndex="getEditGoodsId" bind:changeTotalPriceAndAmount="priceAmountChange" editable="{{canEdit}}" />
+      bind:deleteGoods="deleteGoods"   bind:operate="operate"  bind:changeTotalPriceAndAmount="priceAmountChange" editable="{{canEdit}}" 
+      operateType="{{infos.orderStatus === 'wait'||infos.orderStatus === '090001'&& infos.oando === 'down'?'修改':'查看'}}" bind:goodsDetail="goodsDetail"/>
     <view class="title remake">备注</view>
     <textarea name="remark" class="remarke-textarea" placeholder="请填写备注信息" />
 

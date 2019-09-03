@@ -170,7 +170,7 @@
      var goods = this.data.goodsList[index]
      var amount = e.detail.amount
 
-     var goodsDiscount = (parseFloat(data.ntpsingle) / parseFloat(goods.facePrice)).toFixed(2)
+     var goodsDiscount = (parseFloat(goods.ntpsingle) / parseFloat(goods.facePrice)).toFixed(2)
      if (goodsDiscount > 1 || String(goodsDiscount) === 'Infinity' || isNaN(goodsDiscount)) {
        goodsDiscount = 1
      }
@@ -200,7 +200,7 @@
      })
    },
 
-   getEditGoodsId(e) {
+   operate(e) {
      //  if (!this.data.canEdit) {
      //    return
      //  }
@@ -213,7 +213,7 @@
    },
    getEditedInfo(e) {
      if (!this.data.canEdit) {
-       app.showToast("不能修改")
+       app.showToast("不能修改此订单或先点击修改订单", 4000)
        this.setData({
          showEditPop: false
        })
@@ -353,7 +353,10 @@
    returnGoods() {
      app.showToast("暂不支持")
    },
-
+   goodsDetail(e) {
+     var index = e.detail.index
+     console.log(index)
+   },
    formSubmit(e) {
      this.setData({
        formEvent: e

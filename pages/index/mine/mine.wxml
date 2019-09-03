@@ -1,6 +1,6 @@
 <scroll-view class="mine-scroll" scroll-y>
   <view class="mine-header">
-    <image src="../../../imgs/9924.png" mode="scaleToFill" class="header-bg"></image>
+    <image src="https://lsj97-1300009684.cos.ap-chengdu.myqcloud.com/9924.png" mode="scaleToFill" class="header-bg"></image>
     <view class="header-content">
       <image class="user-avatar" src="https://ss3.bdstatic.com/70cFv8Sh_Q1YnxGkpoWK1HF6hhy/it/u=2922170376,2371336021&fm=27&gp=0.jpg"></image>
       <view class="user-info">

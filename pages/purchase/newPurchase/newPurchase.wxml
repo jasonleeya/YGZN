@@ -76,7 +76,7 @@
     <search bindtap="toAddGoods" justLink="{{true}}" />
     <!-- 购物车 -->
     <cart goodsList="{{goodsList}}" totalPrice="{{totalPrice}}" picUrlKey="pirctureWay" nameKey="name" brandNameKey="goodsBrand" typeKey="brandCode" priceKey="discountPrice" amountKey="goodsCount" idKey="goodsNo" minNumKey="minNums" bind:changeAmount="getChangeAmount"
-      bind:getIndex="getEditGoodsId" bind:deleteGoods="deleteGoods" bind:changeTotalPriceAndAmount="priceAmountChange" />
+      bind:operate="operate" bind:deleteGoods="deleteGoods" bind:changeTotalPriceAndAmount="priceAmountChange" bind:goodsDetail="goodsDetail" />
 
     <editGoodsInfo wx:if="{{showEditPop}}" popData="{{popData}}" bind:closePop="closePop" bind:editedInfo="getEditedInfo" />
 

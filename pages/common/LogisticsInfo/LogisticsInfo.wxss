@@ -39,7 +39,7 @@
   color: var(--gray);
 }
 .time{
-font-size:24rpx; 
+font-size:22rpx; 
 }
 
 .content {
@@ -82,4 +82,10 @@ font-size:24rpx;
 
 .head-info {
   padding-left: 20rpx;
+}
+.empty{
+  width: 100vw;
+  height: 100vh;
+  line-height: 100vh;
+  text-align: center;
 }

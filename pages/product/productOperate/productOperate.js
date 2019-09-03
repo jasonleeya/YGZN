@@ -6,7 +6,7 @@ create(store, {
   /**
    * 页面的初始数据
    */
-  data: {
+  data: { 
     quantifier: {
       list: ['个', '只', '条'],
       picked: null,
@@ -27,19 +27,51 @@ create(store, {
     barCode: "",
     operateType: "",
     editData: {},
-    editId:null,
-    canEdit:true,
+    editId: null,
+    canEdit: true,
+    goodsNo: "",
+    wareKey: ""
   },
 
   /**
    * 生命周期函数--监听页面加载
    */
-  onLoad: function(options) { 
-    if (options.operateType === "edit") {
-      var editId = options.editId 
+  onLoad: function(options) {
+    if (options.operateType === "view") {
       this.setData({
-        operateType:'edit',
-        canEdit:false,
+        canEdit: false,
+        operateType:"view"
+      })
+      app.http("queryStock", {
+        searchKey: options.goodsNo,
+        wareKey: '',
+        pageNo: 1,
+        pageSize: 15,
+        brandName: "",
+        stockStatus: ""
+      }).then((data)=>{
+        var obj = data.list[0]
+        obj.defaultTime = obj.defaultTime === null ? 7 : obj.defaultTime
+        for(let i in obj){
+          if (obj[i] === null || obj[i] === ""){
+            obj[i]="无"
+          }
+          if (obj[i] === 0) {
+            obj[i] = "0"
+          }
+        }
+        
+        this.setData({
+          editData: obj
+        })
+      })
+    }
+
+    if (options.operateType === "edit") {
+      var editId = options.editId
+      this.setData({
+        operateType: 'edit',
+        canEdit: false,
         editId: editId,
         editData: this.store.data.productManage.productList[editId],
         uploadPicUrl: this.store.data.productManage.productList[editId].pic
@@ -47,7 +79,7 @@ create(store, {
     }
   },
   pick: function(e) {
-    if(!this.data.canEdit){
+    if (!this.data.canEdit) {
       return
     }
     var name = e.currentTarget.dataset.name
@@ -77,7 +109,7 @@ create(store, {
     }
     this.setData({
       uploadPicUrl: "",
-      ["editData.pic"]:""
+      ["editData.pic"]: ""
     })
   },
   scan() {
@@ -97,7 +129,7 @@ create(store, {
     })
   },
   formSubmit(e) {
-      if(!this.data.canEdit){
+    if (!this.data.canEdit) {
       return
     }
     var data = e.detail.value
@@ -127,18 +159,18 @@ create(store, {
     data.type = "---"
     data.pic = this.data.uploadPicUrl
 
-    if (this.data.operateType==="edit"){
+    if (this.data.operateType === "edit") {
       this.store.data.productManage.productList[this.data.editId] = e.detail.value
-    }else{
+    } else {
       this.store.data.productManage.productList.push(e.detail.value)
     }
     console.log(this.store.data.productManage.productList)
 
     wx.navigateBack()
   },
-  allowEdit(){ 
+  allowEdit() {
     this.setData({
-      canEdit:true
+      canEdit: true
     })
   }
 })

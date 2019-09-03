@@ -1,4 +1,4 @@
-.initial-bg{
+/* .initial-bg{
   width: 100vw;
   height: 100vh;
   background-color: var(--themeColor);
@@ -13,4 +13,8 @@
  top: 50%;
  left: 50%;
  transform:translate(-50%,-50%);
+} */
+image{
+  width: 100vw;
+  height: 100vh;
 }

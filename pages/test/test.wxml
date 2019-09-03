@@ -1,3 +1,0 @@
-<form bindsubmit="formSubmit">
-<input placeholder="111"></input>
-<button form-type="submit">111</button></form>

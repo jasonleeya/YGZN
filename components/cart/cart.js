@@ -48,6 +48,10 @@ Component({
     minNumKey: {
       type: String,
       value: ""
+    },
+    operateType: {
+      type: String,
+      value: "编辑"
     }
   },
   options: {
@@ -58,7 +62,7 @@ Component({
    */
   data: {},
   ready() {
-   
+
   },
 
   pageLifetimes: {
@@ -130,15 +134,7 @@ Component({
             index: index
           })
         }
-      }
-
-
-
-
-
-
-
-
+      } 
     },
     /**
      * 重新计算总价和总量并保存到store中
@@ -148,7 +144,7 @@ Component({
       var totalPrice = 0
       var totalAmount = 0
 
- 
+
 
       this.data.goodsList.forEach(item => {
         if (isNaN(parseInt(item[this.data.amountKey]))) {
@@ -220,8 +216,15 @@ Component({
       this.computeTotalPriceTotalAmount()
     },
 
-    getIndex(e){ 
-      this.triggerEvent("getIndex", { index: e.currentTarget.dataset.index})
+    operate(e) {
+      this.triggerEvent("operate", {
+        index: e.currentTarget.dataset.index
+      })
+    },
+    seeGoodsDetail(e){
+      this.triggerEvent("goodsDetail", {
+        index: e.currentTarget.dataset.index
+      })
     },
 
     // ListTouch触摸开始

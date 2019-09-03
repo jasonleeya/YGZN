@@ -1,6 +1,7 @@
 <view class="initial-bg">
-  <view class="text">
+  <!-- <view class="text">
     <view>Imatchas</view>
     <view>企业助手</view>
-  </view>
+  </view> -->
+  <image src="https://lsj97-1300009684.cos.ap-chengdu.myqcloud.com/%E5%90%AF%E5%8A%A8%E9%A1%B5.jpg"></image>
 </view>
