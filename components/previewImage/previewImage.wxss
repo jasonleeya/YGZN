@@ -1,1 +1,9 @@
-/* components/previewImage/previewImage.wxss */
+.preview-image {
+  position: relative;
+}
+
+.image {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%)
+}

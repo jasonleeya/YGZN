@@ -355,7 +355,10 @@
    },
    goodsDetail(e) {
      var index = e.detail.index
-     console.log(index)
+     wx.navigateTo({
+       url: '/pages/product/productOperate/productOperate?operateType=view&orderType=sale&goodsNo=' + this.data.goodsList[index].goodsNo + "&wareKey=" + this.data.saleWarehouse
+     })
+
    },
    formSubmit(e) {
      this.setData({

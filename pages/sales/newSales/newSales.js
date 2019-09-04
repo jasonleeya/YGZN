@@ -136,7 +136,7 @@ create(store, {
     }
 
     wx.navigateTo({
-      url: "/pages/sales/addGoods/addGoods?custNo=" + this.data.custNo
+      url: "/pages/sales/addGoods/addGoods?custNo=" + this.data.custNo + "&wareId=" + this.data.slectedStoreHouseId,
     })
 
   },
@@ -176,7 +176,10 @@ create(store, {
   },
   goodsDetail(e) {
     var index = e.detail.index
-    console.log(index)
+    wx.navigateTo({
+      url: '/pages/product/productOperate/productOperate?operateType=view&orderType=sale&goodsNo=' + this.data.goodsList[index].goodsNo + "&wareKey=" + this.data.slectedStoreHouseId
+    })
+
   },
 
   getEditedInfo(e) {

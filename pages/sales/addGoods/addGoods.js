@@ -31,7 +31,8 @@ create(store, {
   onLoad(options) {
     app.setTitle("添加商品")
     this.setData({
-      custNo: options.custNo
+      custNo: options.custNo,
+      wareId: options.wareId
     })
  
   },
@@ -147,6 +148,15 @@ create(store, {
 
     }
   },
+
+  goodsDetail(e) {
+    var index = e.currentTarget.dataset.index
+    wx.navigateTo({
+      url: '/pages/product/productOperate/productOperate?operateType=view&orderType=sale&goodsNo=' + this.data.goodsList[index].productUuid + "&wareKey=" + this.data.wareId
+    })
+  },
+
+
   //监听滑动到底部
   scrollToBottom() {
     if (this.data.loadMore) {

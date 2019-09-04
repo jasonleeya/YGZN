@@ -21,19 +21,19 @@ Component({
     activeIndex: 0,
     todoList: [{
       name: "采购单",
-      count: 5,
+      count: 0,
       color: 'red',
       icon: '',
       link: ''
     }, {
       name: "销售单",
-      count: 3,
+      count: 0,
       color: 'orange',
       icon: '',
       link: ''
     }, {
       name: "调拨单",
-      count: 1,
+      count: 0,
       color: 'blue',
       icon: '',
       link: ''

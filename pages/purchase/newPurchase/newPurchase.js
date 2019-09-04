@@ -180,10 +180,13 @@ create(store, {
     })
   },
   goodsDetail(e) {
-    var index = e.detail.index
-    console.log(index)
-  },
+    console.log(e)
+    var index = e.detail.index  
+    wx.navigateTo({
+      url: '/pages/product/productOperate/productOperate?operateType=view&orderType=purchase&goodsNo=' + this.data.goodsList[index].goodsNo + "&wareKey=" + this.data.slectedStoreHouseId
+    })
 
+  },
   
   getEditedInfo(e) {
     var totalPrice = 0

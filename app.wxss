@@ -98,3 +98,43 @@ switch::after, switch::before {
 transform: translateX(0rpx);
 
 }
+
+.card {
+  width: calc(100vw - 60rpx);
+  margin: 30rpx auto;
+  background-color: #fff;
+  border-radius: 15rpx;
+}
+
+.card-head {
+  display: flex;
+  justify-content: space-between;
+  padding: 30rpx;
+  border-bottom: 1rpx solid #eee;
+}
+
+.card-title {
+  display: flex;
+  font-size: 32rpx;
+  line-height: 40rpx;
+}
+
+.card-subtitle {
+  line-height: 40rpx;
+}
+
+.card-icon {
+  margin-right: 5rpx;
+}
+
+.card-content {
+  padding: 0 30rpx 30rpx 30rpx;
+}
+.card-item{
+  display: flex;
+  justify-content: space-between;
+  margin-top: 20rpx;
+}
+.card-name{
+  color: var(--gray);
+}

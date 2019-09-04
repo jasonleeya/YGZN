@@ -71,6 +71,7 @@ create({
 
   lifetimes: {
     ready() {
+      app.showToast("暂未实现消息功能")
       app.http("selectReminderMessageByEnterpriseId", {
         pageSize: 10000,
         pageNum: 1

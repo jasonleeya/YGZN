@@ -14,7 +14,7 @@
     "pages/purchase/orderLogs/orderLogs",
     "pages/purchase/addGoods/addGoods",
     "pages/product/productManage/productManage",
-    "pages/product/productOperate/productOperate", 
+    "pages/product/productOperate/productOperate",
     "pages/sales/newSales/newSales",
     "pages/sales/selectSeller/selectSeller",
     "pages/sales/selectCustomer/selectCustomer",
@@ -27,8 +27,9 @@
     "pages/sales/addGoods/addGoods",
     "pages/purchase/payment/payment",
     "pages/sales/payment/payment",
-    "pages/common/LogisticsInfo/LogisticsInfo" 
-
+    "pages/common/LogisticsInfo/LogisticsInfo",
+    "pages/product/goodsInAndOut/goodsInAndOut",
+    "pages/product/goodsPurchaseOrSaleRecord/goodsPurchaseOrSaleRecord"
   ],
   "window": {
     "backgroundTextStyle": "light",

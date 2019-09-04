@@ -46,48 +46,48 @@ Component({
         icon: '',
         link: ''
       },
-      {
-        title: '公司',
-        titleEn: 'Company',
-        color: 'mauve',
-        icon: '',
-        link: ''
-      },
-      {
-        title: '统计',
-        titleEn: 'Statistics',
-        color: 'purple',
-        icon: '',
-        link: ''
-      },
-      {
-        title: '资源',
-        titleEn: 'Resource',
-        color: 'brown',
-        icon: '',
-        link: ''
-      },
-      {
-        title: '产品',
-        titleEn: 'Product',
-        color: 'pink',
-        icon: '',
-        link: ''
-      },
-      {
-        title: '发票',
-        titleEn: 'Invoice',
-        color: 'orange',
-        icon: '',
-        link: ''
-      },
-      {
-        title: '财务',
-        titleEn: 'Finance',
-        color: 'red',
-        icon: '',
-        link: ''
-      },
+      // {
+      //   title: '公司',
+      //   titleEn: 'Company',
+      //   color: 'mauve',
+      //   icon: '',
+      //   link: ''
+      // },
+      // {
+      //   title: '统计',
+      //   titleEn: 'Statistics',
+      //   color: 'purple',
+      //   icon: '',
+      //   link: ''
+      // },
+      // {
+      //   title: '资源',
+      //   titleEn: 'Resource',
+      //   color: 'brown',
+      //   icon: '',
+      //   link: ''
+      // },
+      // {
+      //   title: '产品',
+      //   titleEn: 'Product',
+      //   color: 'pink',
+      //   icon: '',
+      //   link: ''
+      // },
+      // {
+      //   title: '发票',
+      //   titleEn: 'Invoice',
+      //   color: 'orange',
+      //   icon: '',
+      //   link: ''
+      // },
+      // {
+      //   title: '财务',
+      //   titleEn: 'Finance',
+      //   color: 'red',
+      //   icon: '',
+      //   link: ''
+      // },
     ]
   },
 

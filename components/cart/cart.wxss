@@ -20,11 +20,11 @@
 .goods-pic {
   margin-right: 20rpx;
 }
-
+/* 
 .goods-pic image {
   width: 140rpx;
   height: 140rpx;
-}
+} */
 
 .goods-info {
   display: flex;

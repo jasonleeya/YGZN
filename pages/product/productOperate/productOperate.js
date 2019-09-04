@@ -6,7 +6,7 @@ create(store, {
   /**
    * 页面的初始数据
    */
-  data: { 
+  data: {
     quantifier: {
       list: ['个', '只', '条'],
       picked: null,
@@ -26,6 +26,7 @@ create(store, {
     uploadPicUrl: "",
     barCode: "",
     operateType: "",
+    orderType: "all",
     editData: {},
     editId: null,
     canEdit: true,
@@ -37,30 +38,50 @@ create(store, {
    * 生命周期函数--监听页面加载
    */
   onLoad: function(options) {
+    app.setTitle("商品信息")
     if (options.operateType === "view") {
       this.setData({
         canEdit: false,
-        operateType:"view"
+        operateType: "view",
+        goodsNo: options.goodsNo,
+        wareKey: options.wareKey
       })
+      switch (options.orderType) {
+        case "purchase":
+          this.setData({
+            orderType: "purchase"
+          })
+          break
+        case "sale":
+          this.setData({
+            orderType: "sale"
+          })
+          break
+        default:
+          this.setData({
+            orderType: "all"
+          })
+      }
+
       app.http("queryStock", {
         searchKey: options.goodsNo,
-        wareKey: '',
+        wareKey: options.wareKey,
         pageNo: 1,
         pageSize: 15,
         brandName: "",
         stockStatus: ""
-      }).then((data)=>{
+      }).then((data) => {
         var obj = data.list[0]
         obj.defaultTime = obj.defaultTime === null ? 7 : obj.defaultTime
-        for(let i in obj){
-          if (obj[i] === null || obj[i] === ""){
-            obj[i]="无"
+        for (let i in obj) {
+          if (obj[i] === null || obj[i] === "") {
+            obj[i] = "无"
           }
           if (obj[i] === 0) {
             obj[i] = "0"
           }
         }
-        
+
         this.setData({
           editData: obj
         })
@@ -172,5 +193,29 @@ create(store, {
     this.setData({
       canEdit: true
     })
-  }
+  }, 
+  buySellRecord() {
+
+    switch (this.data.orderType) {
+      case "all":
+        wx.navigateTo({
+          url: "/pages/product/goodsInAndOut/goodsInAndOut?wareHouse=" + this.data.wareKey + "&goodsNo=" + this.data.goodsNo
+        })
+        break
+      case "purchase":
+        wx.navigateTo({
+          url: "/pages/product/goodsPurchaseOrSaleRecord/goodsPurchaseOrSaleRecord?orderType=purchase&wareHouse=" + this.data.wareKey + "&goodsNo=" + this.data.goodsNo
+        })
+        break
+      case "sale":
+        wx.navigateTo({
+          url: "/pages/product/goodsPurchaseOrSaleRecord/goodsPurchaseOrSaleRecord?orderType=sale&wareHouse=" + this.data.wareKey + "&goodsNo=" + this.data.goodsNo
+        })
+        break
+    }
+
+
+  },
+
+
 })

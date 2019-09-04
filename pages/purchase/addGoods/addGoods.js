@@ -18,7 +18,7 @@ create(store, {
     totalAmount: 0, //总量
     loadMore: false, //是否显示加载图标
     store: "",
-    supplyNo: '', 
+    supplyNo: '',
     wareId: "",
     searchType: "",
     searchValue: "",
@@ -33,7 +33,7 @@ create(store, {
       supplyNo: options.supplyNo,
       wareId: options.wareId
     })
- 
+
   },
   //进入页面初始化数据
   onShow() {
@@ -100,46 +100,46 @@ create(store, {
       case "我的仓库":
       case "供方仓库":
         app.http("searchStockProduct", {
-          wareKey: "",
-          pageNo: this.data.pageNo,
-          pageSize: "10",
-          custNo: this.data.searchType === "供方仓库" ? this.data.supplyNo : '',
-          searchKey: this.data.searchValue,
-        }).then(data => {
-          var queryString = []
-          var storeList = []
-          data.list.forEach(item => {
-            queryString.push(item.productUuid)
-          })
-          queryString.join(",")
+            wareKey: "",
+            pageNo: this.data.pageNo,
+            pageSize: "10",
+            custNo: this.data.searchType === "供方仓库" ? this.data.supplyNo : '',
+            searchKey: this.data.searchValue,
+          }).then(data => {
+            var queryString = []
+            var storeList = []
+            data.list.forEach(item => {
+              queryString.push(item.productUuid)
+            })
+            queryString.join(",")
 
-          app.http("getStockInBatch", {
-            productId: queryString,
-            repoId: this.data.wareId
-          }).then(d => {
+            app.http("getStockInBatch", {
+              productId: queryString,
+              repoId: this.data.wareId
+            }).then(d => {
+              if (this.data.pageNo === 1) {
+                this.setData({
+                  storeList: d
+                })
+              } else {
+                this.setData({
+                  storeList: this.data.storeList.concat(d)
+                })
+              }
+            })
+
             if (this.data.pageNo === 1) {
               this.setData({
-                storeList: d
+                goodsList: data.list
               })
+              this.load(false)
             } else {
               this.setData({
-                storeList: this.data.storeList.concat(d)
+                goodsList: this.data.goodsList.concat(data.list),
+                loadMore: false,
               })
             }
           })
-
-          if (this.data.pageNo === 1) {
-            this.setData({
-              goodsList: data.list
-            })
-            this.load(false)
-          } else {
-            this.setData({
-              goodsList: this.data.goodsList.concat(data.list),
-              loadMore: false,
-            })
-          }
-        })
           .catch(err => {
             this.load(false)
             this.setData({
@@ -168,8 +168,16 @@ create(store, {
         })
         break
     }
- 
+
   },
+
+  goodsDetail(e) {
+    var index = e.currentTarget.dataset.index
+    wx.navigateTo({
+      url: '/pages/product/productOperate/productOperate?operateType=view&orderType=purchase&goodsNo=' + this.data.goodsList[index].productUuid + "&wareKey=" + this.data.wareId
+    })
+  },
+
   //监听滑动到底部
   scrollToBottom() {
     if (this.data.loadMore) {
@@ -193,8 +201,8 @@ create(store, {
       supplyNo: this.data.searchType === "供方仓库" ? '' : this.data.supplyNo,
       productId: this.data.goodsList[index].productUuid
     }).then(data => {
-      if (data.infoBody.discount===null){
-        data.infoBody.discount=10
+      if (data.infoBody.discount === null) {
+        data.infoBody.discount = 10
       }
       this.setData({
         isShowPop: true,
@@ -405,7 +413,7 @@ create(store, {
         brandNo: goods.brandCode,
         goodsUnit: goods.productUnit,
         goodsNo: goods.productUuid,
-        goodsName: goods.productName,// + "~" + goods.parameter,
+        goodsName: goods.productName, // + "~" + goods.parameter,
         facePrice: this.data.popDataCopy.facePrice,
         minNums: this.data.popDataCopy.goodsCount,
         goodsDiscount: goodsDiscount,
@@ -425,7 +433,7 @@ create(store, {
         sortID: "",
 
         brandCode: goods.brandCode,
-        name: goods.brandName + "/" + goods.productName, 
+        name: goods.brandName + "/" + goods.productName,
       }
     }
     var totalAmount = 0

@@ -1,0 +1,26 @@
+<view class="card" wx:for="{{orderList}}" wx:key wx:if="{{orderList.length>0}}">
+  <view class="card-head">
+    <view class="card-title">
+      <view class="card-icon cuIcon-text theme-color order-icon"></view> 订单号:{{item.orderNo}}</view>
+    <view class="card-subtitle text-gray">{{item.goodsDealTimeSale}}</view>
+  </view>
+  <view class="card-content" >
+    <view class="card-item">
+      <view class="card-name">{{orderType==='purchase'?'供应商':'客户'}}</view>
+      <view class="card-value">{{orderType==='purchase'?item.supplyName:item.custmerName}}</view>
+    </view>
+    <view class="card-item">
+      <view class="card-name">{{orderType==='purchase'?'采购':'销售'}}单价</view>
+      <view class="card-value">{{item.discountPrice}}</view>
+    </view>
+    <view class="card-item">
+      <view class="card-name">{{orderType==='purchase'?'采购':'销售'}}数量</view>
+      <view class="card-value">{{item.goodsCount}}{{item.goodsUnit}}</view>
+    </view>
+     <view class="card-item">
+      <view class="card-name">税率</view>
+      <view class="card-value bold">{{item.taxRate}}%</view>
+    </view>
+  </view>
+</view>
+<view class="empty" wx:if="{{orderList.length===0}}">没有该商品的{{orderType==='purchase'?'采购':'销售'}}记录~</view>

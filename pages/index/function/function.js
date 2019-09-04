@@ -117,127 +117,133 @@ Component({
         icon: "iconcart",
           link: "/pages/sales/salesOrders/salesOrders?orderStatus=back",
       }]
-    }, {
-      name: "公司管理",
-      id: 2,
-      items: [{
-        value: "新增采购",
-        icon: "iconcart",
-        link: ""
-      }, {
-        value: "新增采购",
-        icon: "iconcart",
-        link: ""
-      }, {
-        value: "新增采购",
-        icon: "iconcart",
-        link: ""
-      }, {
-        value: "新增采购",
-        icon: "iconcart",
-        link: ""
-      }, {
-        value: "新增采购",
-        icon: "iconcart",
-        link: ""
-      }]
-    }, {
-      name: "统计管理",
-      id: 3,
-      items: [{
-        value: "新增采购",
-        icon: "iconcart",
-        link: ""
-      }, {
-        value: "新增采购",
-        icon: "iconcart",
-        link: ""
-      }, {
-        value: "新增采购",
-        icon: "iconcart",
-        link: ""
-      }, {
-        value: "新增采购",
-        icon: "iconcart",
-        link: ""
-      }, {
-        value: "新增采购",
-        icon: "iconcart",
-        link: ""
-      }]
-    }, {
+    },
+    //  {
+    //   name: "公司管理",
+    //   id: 2,
+    //   items: [{
+    //     value: "新增采购",
+    //     icon: "iconcart",
+    //     link: ""
+    //   }, {
+    //     value: "新增采购",
+    //     icon: "iconcart",
+    //     link: ""
+    //   }, {
+    //     value: "新增采购",
+    //     icon: "iconcart",
+    //     link: ""
+    //   }, {
+    //     value: "新增采购",
+    //     icon: "iconcart",
+    //     link: ""
+    //   }, {
+    //     value: "新增采购",
+    //     icon: "iconcart",
+    //     link: ""
+    //   }]
+    // }, {
+    //   name: "统计管理",
+    //   id: 3,
+    //   items: [{
+    //     value: "新增采购",
+    //     icon: "iconcart",
+    //     link: ""
+    //   }, {
+    //     value: "新增采购",
+    //     icon: "iconcart",
+    //     link: ""
+    //   }, {
+    //     value: "新增采购",
+    //     icon: "iconcart",
+    //     link: ""
+    //   }, {
+    //     value: "新增采购",
+    //     icon: "iconcart",
+    //     link: ""
+    //   }, {
+    //     value: "新增采购",
+    //     icon: "iconcart",
+    //     link: ""
+    //   }]
+    // }, 
+    {
       name: "产品管理",
       id: 4,
       items: [{
         value: "产品管理",
         icon: "iconcart",
         link: "/pages/product/productManage/productManage",
-      }, {
-        value: "新增采购",
-        icon: "iconcart",
-        link: ""
-      }, {
-        value: "新增采购",
-        icon: "iconcart",
-        link: ""
-      }, {
-        value: "新增采购",
-        icon: "iconcart",
-        link: ""
-      }, {
-        value: "新增采购",
-        icon: "iconcart",
-        link: ""
-      }]
-    }, {
-      name: "资源管理",
-      id: 5,
-      items: [{
-        value: "新增采购",
-        icon: "iconcart",
-        link: ""
-      }, {
-        value: "新增采购",
-        icon: "iconcart",
-        link: ""
-      }, {
-        value: "新增采购",
-        icon: "iconcart",
-        link: ""
-      }, {
-        value: "新增采购",
-        icon: "iconcart",
-        link: ""
-      }, {
-        value: "新增采购",
-        icon: "iconcart",
-        link: ""
-      }]
-    }, {
-      name: "财务管理",
-      id: 6,
-      items: [{
-        value: "新增采购",
-        icon: "iconcart",
-        link: ""
-      }, {
-        value: "新增采购",
-        icon: "iconcart",
-        link: ""
-      }, {
-        value: "新增采购",
-        icon: "iconcart",
-        link: ""
-      }, {
-        value: "新增采购",
-        icon: "iconcart",
-        link: ""
-      }, {
-        value: "新增采购",
-        icon: "iconcart",
-        link: ""
-      }]
-    }],
+      }, 
+      // {
+      //   value: "新增采购",
+      //   icon: "iconcart",
+      //   link: ""
+      // }, {
+      //   value: "新增采购",
+      //   icon: "iconcart",
+      //   link: ""
+      // }, {
+      //   value: "新增采购",
+      //   icon: "iconcart",
+      //   link: ""
+      // }, {
+      //   value: "新增采购",
+      //   icon: "iconcart",
+      //   link: ""
+      // }
+      ]
+    }, 
+    // {
+    //   name: "资源管理",
+    //   id: 5,
+    //   items: [{
+    //     value: "新增采购",
+    //     icon: "iconcart",
+    //     link: ""
+    //   }, {
+    //     value: "新增采购",
+    //     icon: "iconcart",
+    //     link: ""
+    //   }, {
+    //     value: "新增采购",
+    //     icon: "iconcart",
+    //     link: ""
+    //   }, {
+    //     value: "新增采购",
+    //     icon: "iconcart",
+    //     link: ""
+    //   }, {
+    //     value: "新增采购",
+    //     icon: "iconcart",
+    //     link: ""
+    //   }]
+    // }, {
+    //   name: "财务管理",
+    //   id: 6,
+    //   items: [{
+    //     value: "新增采购",
+    //     icon: "iconcart",
+    //     link: ""
+    //   }, {
+    //     value: "新增采购",
+    //     icon: "iconcart",
+    //     link: ""
+    //   }, {
+    //     value: "新增采购",
+    //     icon: "iconcart",
+    //     link: ""
+    //   }, {
+    //     value: "新增采购",
+    //     icon: "iconcart",
+    //     link: ""
+    //   }, {
+    //     value: "新增采购",
+    //     icon: "iconcart",
+    //     link: ""
+    //   }]
+    // }
+    ],
     load: true,
     interval: null
   },

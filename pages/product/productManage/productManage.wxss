@@ -2,9 +2,7 @@
   height: calc(100vh - 100rpx);
 }
 
-.product-pic image {
-  width: 140rpx;
-  height: 140rpx;
+.product-pic {
   margin-right: 20rpx;
 }
 
