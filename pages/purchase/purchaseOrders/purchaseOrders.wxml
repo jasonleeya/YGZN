@@ -14,12 +14,12 @@
       <view wx:for="{{sortMethodsList[selectingMothod].options}}" bindtap="chooseTimeRange" wx:key class="bg-gray sort-option {{sortMethodsList[selectingMothod].activeOption===index?'theme-bgc':''}}" data-index="{{index}}">{{item}}</view>
     </view>
     <view class="date-picker" wx:if="{{customTimeRange.isShow}}">
-      <picker mode="date" class=" solid-top solid-right" value="{{customTimeRange.startDate}}" start="2000-1-1"  end="{{customTimeRange.endDate}}" bindchange="startDateChange">
+      <picker mode="date" class=" solid-top solid-right" value="{{customTimeRange.startDate}}"   end="{{customTimeRange.endDate}}" bindchange="startDateChange">
         <view class="picker">
          开始：<text class="cuIcon-calendar"></text>{{customTimeRange.startDate}}
         </view>
       </picker>
-      <picker mode="date" wx:if="{{customTimeRange.isShow}}" class=" solid-top" value="{{customTimeRange.endDate}}" start="2000-1-1" end="{{customTimeRange.nowDate}}" bindchange="endDateChange">
+      <picker mode="date" wx:if="{{customTimeRange.isShow}}" class=" solid-top" value="{{customTimeRange.endDate}}" end="{{customTimeRange.nowDate}}" bindchange="endDateChange">
         <view class="picker">
          结束：<text class="cuIcon-calendar"></text>{{customTimeRange.endDate}}
         </view>

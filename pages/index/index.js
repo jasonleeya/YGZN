@@ -20,7 +20,7 @@ create(store, {
 
       app.http("toggleAccount", {
         id: data.list[wx.getStorageSync("currentCompanyIndex")][1]
-      }, true)
+      })
 
     })
   },

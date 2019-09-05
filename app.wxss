@@ -60,6 +60,7 @@ switch::after, switch::before {
 
 .cell input {
   height: 88rpx;
+  padding-right: 40rpx;
 }
 .cells-title{ 
   padding: 20rpx 30rpx;

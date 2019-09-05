@@ -1,27 +1,27 @@
-<search/>
-<scroll-view scroll-y class="product-manage-scroll">
+<search types="{{storeHouseList}}" bind:searchType="searchType" />
+<scroll-view scroll-y class="product-manage-scroll" bindscrolltolower="reachBottom">
   <view class="product-list cu-list">
-
-    <view class="product-item solid-bottom cu-item {{modalName=='move-box-'+ index?'move-cur':''}}" wx:for="{{productList}}" wx:key bindtap="editProductInfo" data-index="{{index}}" bindtouchstart="ListTouchStart" bindtouchmove="ListTouchMove" bindtouchend="ListTouchEnd" data-target="move-box-{{index}}">
+    <view class="product-item solid-bottom cu-item {{modalName=='move-box-'+ index?'move-cur':''}}" wx:for="{{productList}}" wx:key bindtap="editProductInfo" data-index="{{index}}" bindtouchstart="ListTouchStart" bindtouchmove="ListTouchMove" bindtouchend="ListTouchEnd"
+      data-target="move-box-{{index}}">
       <view class="product-pic">
-        <previewImage src="{{item.pic}}" w="{{'140rpx'}}" h="{{'140rpx'}}" />
+        <previewImage src="{{item.imgPath}}" w="{{'140rpx'}}" h="{{'140rpx'}}" />
       </view>
       <view class="product-info">
-        <view class="product-name">{{item.brand+'/'+item.productName}}</view>
-        <view class="product-type text-gray">{{item.type}}</view>
+        <view class="product-name">{{item.brandName+'/'+item.productName}}</view>
+        <view class="product-type text-gray">{{item.description}}</view>
         <view class="product-price">
           <text class="text-gray">面价:</text>
-          <text class="text-red margin-right">￥{{item.negotiablePrice}}</text>
+          <text class="text-red margin-right">￥{{item.noTaxPrice}}</text>
           <text class="text-gray">销售价:</text>
-          <text class="text-red">￥{{item.sellingPrice}}</text>
+          <text class="text-red">￥{{item.price}}</text>
         </view>
-        <view class="stock {{item.stock>10?'text-green':'text-red'}}">库存:{{item.safeStock}}({{item.quantifier}})</view>
+        <view class="stock {{item.curQty>0?'text-green':'text-red'}}">库存:{{item.curQty}}({{item.unitCode}})</view>
       </view>
       <view class="move">
         <view class="bg-red" data-index="{{index}}" catchtap="deleteItem">删除</view>
       </view>
     </view>
-
+     <view class="cu-load  {{isLoad?'loading':'over'}}" wx:if="{{isLoad}}"></view>
   </view>
 </scroll-view>
 <view class="add-btn cuIcon-add shadow bg-blue" bindtap="addProduct"></view>

@@ -29,9 +29,9 @@ create(store, {
     orderType: "all",
     editData: {},
     editId: null,
-    canEdit: true,
+    canEdit: false,
     goodsNo: "",
-    wareKey: ""
+    wareKey: "",
   },
 
   /**
@@ -71,8 +71,14 @@ create(store, {
         brandName: "",
         stockStatus: ""
       }).then((data) => {
+        if (data.list.length === 0) {
+          app.showToast("无该商品信息")
+          setTimeout(()=>{
+            wx.navigateBack()
+          },2000)
+        }
         var obj = data.list[0]
-        obj.defaultTime = obj.defaultTime === null ? 7 : obj.defaultTime
+        obj.defaultTime = obj.defaultTime === null ? 0 : obj.defaultTime
         for (let i in obj) {
           if (obj[i] === null || obj[i] === "") {
             obj[i] = "无"
@@ -90,14 +96,32 @@ create(store, {
 
     if (options.operateType === "edit") {
       var editId = options.editId
+      var pages = getCurrentPages()
+      var prePage = getCurrentPages()[pages.length - 2]
+      var goodsInfo = prePage.data.productList[editId]
+
+      goodsInfo.defaultTime = goodsInfo.defaultTime === null ? 0 : goodsInfo.defaultTime
+      for (let i in goodsInfo) {
+        if (goodsInfo[i] === null || goodsInfo[i] === "") {
+          goodsInfo[i] = "无"
+        }
+        if (goodsInfo[i] === 0) {
+          goodsInfo[i] = "0"
+        }
+      }
       this.setData({
+        editData: goodsInfo,
         operateType: 'edit',
-        canEdit: false,
         editId: editId,
-        editData: this.store.data.productManage.productList[editId],
-        uploadPicUrl: this.store.data.productManage.productList[editId].pic
       })
     }
+    if (options.operateType === "add") {
+      this.setData({
+        canEdit: true,
+        operateType: "add"
+      })
+    }
+
   },
   pick: function(e) {
     if (!this.data.canEdit) {
@@ -112,6 +136,8 @@ create(store, {
     if (!this.data.canEdit) {
       return
     }
+    app.showToast("暂不支持操作图片")
+    return
     let that = this
     wx.chooseImage({
       count: 1,
@@ -128,6 +154,9 @@ create(store, {
     if (!this.data.canEdit) {
       return
     }
+    app.showToast("暂不支持操作图片")
+    return
+
     this.setData({
       uploadPicUrl: "",
       ["editData.pic"]: ""
@@ -140,6 +169,12 @@ create(store, {
     let that = this
     wx.scanCode({
       success(res) {
+        console.log(res.result)
+        if (that.data.operateType === "edit") {
+          that.setData({
+            ["editData.brandCode"]: res.result
+          })
+        }
         that.setData({
           barCode: res.result
         })
@@ -153,47 +188,97 @@ create(store, {
     if (!this.data.canEdit) {
       return
     }
-    var data = e.detail.value
-    if (!data.brand) {
+    var editData = this.data.editData
+    var formData = e.detail.value
+
+    if (!formData.brandName) {
       app.showToast("请填写品牌")
       return
     }
-    if (!data.brandId) {
+    if (!formData.brandCode) {
       app.showToast("请填写品牌代码")
       return
     }
-    if (!data.quantifier) {
-      app.showToast("请填写单位")
+    if (!formData.unitCode) {
+      app.showToast("请填写或选择单位")
       return
     }
-    if (!data.receiptDay) {
-      app.showToast("请填写默认到货天数")
+    if (!formData.defaultTime) {
+      app.showToast("请填写或选择默认到货天数")
       return
     }
-    if (!data.safeStock) {
-      app.showToast("请填写安全库存")
+    if (!formData.warnQty) {
+      app.showToast("请填写或选择安全库存")
       return
     }
 
-    data.negotiablePrice = "0.00"
-    data.sellingPrice = "0.00"
-    data.type = "---"
-    data.pic = this.data.uploadPicUrl
+
 
     if (this.data.operateType === "edit") {
-      this.store.data.productManage.productList[this.data.editId] = e.detail.value
-    } else {
-      this.store.data.productManage.productList.push(e.detail.value)
-    }
-    console.log(this.store.data.productManage.productList)
+      var params = {
+        itemKey: editData.itemKey,
+        wareKey: editData.wareKey,
+        shelfPosition: formData.shelfPosition,
+        brandCode: formData.brandCode,
+        unitCode: formData.unitCode,
+        description: formData.description,
+        productName: formData.productName,
+        minCount: formData.minCount,
+        defaultTime: formData.defaultTime,
+        innerCode: formData.innerCode,
+        brandName: formData.brandName,
+        flag: false
+      }
 
-    wx.navigateBack()
+      app.http("updateWareItem", params).then(res => {
+        if (res.success === true) {
+          app.showToast("修改成功")
+          setTimeout(() => {
+            wx.navigateBack()
+          }, 1000)
+          
+        } else {
+          app.showToast("修改失败")
+        }
+      }).catch(err => {
+        app.showToast(err)
+      })
+    }
+    if (this.data.operateType === "add") {
+      var pages = getCurrentPages()
+      var storeHouseId = pages[pages.length - 2].data.selectedStoreHouseId
+      var paramas = {
+        itemKey: '',
+        wareKey: storeHouseId,
+        shelfPosition: formData.shelfPosition,
+        brandCode: formData.brandCode,
+        unitCode: formData.unitCode,
+        description: formData.description,
+        productName: formData.productName,
+        minCount: formData.minCount,
+        defaultTime: formData.defaultTime,
+        innerCode: formData.innerCode,
+        brandName: formData.brandName
+      }
+      app.http("addWareItem", paramas).then(res => {
+        if (res.success === true) {
+          app.showToast("添加成功")
+          setTimeout(() => { 
+            wx.navigateBack()
+          }, 1000) 
+        } else {
+          app.showToast("添加失败")
+        }
+      }).catch(err => {
+        app.showToast(err)
+      })
+    }
   },
   allowEdit() {
     this.setData({
       canEdit: true
     })
-  }, 
+  },
   buySellRecord() {
 
     switch (this.data.orderType) {

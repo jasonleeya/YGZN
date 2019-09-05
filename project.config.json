@@ -81,6 +81,12 @@
 					"pathName": "pages/product/goodsPurchaseOrSaleRecord/goodsPurchaseOrSaleRecord",
 					"query": "",
 					"scene": null
+				},
+				{
+					"id": -1,
+					"name": "pages/product/goodsInAndOut/goodsInAndOut",
+					"pathName": "pages/product/goodsInAndOut/goodsInAndOut",
+					"scene": null
 				}
 			]
 		}

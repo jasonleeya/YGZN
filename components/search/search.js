@@ -19,7 +19,12 @@ Component({
         name: "供方仓库"
       }, {
         name: "全局搜索"
-      }]
+      }],
+      observer(v) {
+       this.setData({
+        ["searchTypes.list"]: this.data.types
+      })
+      }
     }
   },
   options: {
@@ -34,10 +39,10 @@ Component({
     isShowDorpdown: false,
     searchTypes: {
       select: 0,
-      list: []
+      list: [] 
     }
   },
-
+  
   /**
    * 组件的方法列表
    */
@@ -45,10 +50,8 @@ Component({
     // attached() {
     //   this.triggerEvent("searchType", this.data.searchTypes.list[0])
     // },
-    attached() {
-      this.setData({
-        ["searchTypes.list"]: this.data.types
-      })
+    ready() { 
+     
     }
   },
 

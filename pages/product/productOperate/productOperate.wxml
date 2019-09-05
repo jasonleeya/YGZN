@@ -5,16 +5,17 @@
         <text class="text-red">*</text>
       </view>
       <view class="cell-value">
-        <input name="brand" placeholder="请填写品牌" value="{{editData.brandName}}" disabled="{{!canEdit}}"></input>
+        <input name="brandName" placeholder="请填写品牌" value="{{editData.brandName}}" disabled="{{!canEdit}}"></input>
       </view>
     </view>
-    <view class="cell">  
+    <view class="cell">
       <view class="cell-name">品牌代码
         <text class="text-red">*</text>
       </view>
-      <view class="cell-value">
-        <input name="brandId" placeholder="请填写品牌代码" value="{{editData.brandCode}}" disabled="{{!canEdit}}"></input>
+      <view class="cell-value"> 
+        <input name="brandCode" placeholder="请填写品牌代码" value="{{editData.brandCode?editData.brandCode:barCode}}" disabled="{{!canEdit}}"></input>
       </view>
+      <view class="cell-icon scan iconfont iconscan theme-color" bindtap="scan" hidden="{{operateType === 'view'}}"></view>
     </view>
     <view class="cells-title">商品图片</view>
     <view class="product-pic cell-gutter-bt">
@@ -25,7 +26,7 @@
     <view class="cell border-bt">
       <view class="cell-name">自定义代码</view>
       <view class="cell-value">
-        <input name="customCode" placeholder="请填写自定义代码" value="{{editData.innerCode}}" disabled="{{!canEdit}}"></input>
+        <input name="innerCode" placeholder="请填写自定义代码" value="{{editData.innerCode}}" disabled="{{!canEdit}}"></input>
       </view>
     </view>
     <view class="cell border-bt">
@@ -34,29 +35,31 @@
         <input name="productName" placeholder="请填写产品名称" value="{{editData.productName}}" disabled="{{!canEdit}}"></input>
       </view>
     </view>
+<!-- 
     <view class="cell border-bt" hidden="{{operateType === 'view'}}">
       <view class="cell-name">条形码</view>
       <view class="cell-value">
         <input name="barCode" placeholder="请填写条形码或扫描条形码" value="{{editData.barCode?editData.barCode:barCode}}" disabled="{{!canEdit}}"></input>
       </view>
       <view class="cell-icon scan iconfont iconscan theme-color" bindtap="scan"></view>
-    </view>
+    </view> -->
+
     <view class="cell cell-gutter-bt">
       <view class="cell-name">规格</view>
       <view class="cell-value">
-        <input name="format" placeholder="请填写规格" value="{{editData.description}}" disabled="{{!canEdit}}"></input>
+        <input name="description" placeholder="请填写规格" value="{{editData.description}}" disabled="{{!canEdit}}"></input>
       </view>
     </view>
     <view class="cell border-bt">
       <view class="cell-name">最小包装量</view>
       <view class="cell-value">
-        <input name="minPackageAmount" placeholder="请填写最小包装量" type="number" value="{{editData.minCount}}" disabled="{{!canEdit}}"></input>
+        <input name="minCount" placeholder="请填写最小包装量" type="number" value="{{editData.minCount}}" disabled="{{!canEdit}}"></input>
       </view>
     </view>
     <view class="cell border-bt">
       <view class="cell-name">货架编号</view>
       <view class="cell-value">
-        <input name="shelfId" placeholder="请填写货架编号" value="{{editData.shelfPosition}}" disabled="{{!canEdit}}"></input>
+        <input name="shelfPosition" placeholder="请填写货架编号" value="{{editData.shelfPosition}}" disabled="{{!canEdit}}"></input>
       </view>
     </view>
     <view class="cell border-bt">
@@ -64,9 +67,9 @@
         <text class="text-red">*</text>
       </view>
       <view class="cell-value">
-        <input name="quantifier" placeholder="请填写或者单位" value="{{editData.unitCode?editData.unitCode:quantifier.list[quantifier.picked]}}" disabled="{{!canEdit}}"></input>
+        <input name="unitCode" placeholder="请填写或者单位" value="{{editData.unitCode?editData.unitCode:quantifier.list[quantifier.picked]}}" disabled="{{!canEdit}}"></input>
       </view>
-      <picker bindchange="pick" data-name="quantifier" value="{{quantifier.list[quantifier.picked]}}" range="{{quantifier.list}}">
+      <picker bindchange="pick"  disabled="{{!canEdit}}" data-name="quantifier" value="{{quantifier.list[quantifier.picked]}}" range="{{quantifier.list}}">
         <view class="picker">
           <view class="cell-icon cuIcon-right"></view>
         </view>
@@ -78,9 +81,9 @@
         <text class="text-red">*</text>
       </view>
       <view class="cell-value">
-        <input name="receiptDay" placeholder="请填写到货天数" type="number" value="{{editData.defaultTime?editData.defaultTime:receiptDay.list[receiptDay.picked]}}" disabled="{{!canEdit}}"></input>
+        <input name="defaultTime" placeholder="请填写到货天数" type="number" value="{{editData.defaultTime?editData.defaultTime:receiptDay.list[receiptDay.picked]}}" disabled="{{!canEdit}}"></input>
       </view>
-      <picker bindchange="pick" data-name="receiptDay" value="{{receiptDay.list[receiptDay.picked]}}" range="{{receiptDay.list}}">
+      <picker bindchange="pick"  disabled="{{!canEdit}}" data-name="receiptDay" value="{{receiptDay.list[receiptDay.picked]}}" range="{{receiptDay.list}}">
         <view class="picker">
           <view class="cell-icon cuIcon-right"></view>
         </view>
@@ -92,9 +95,9 @@
         <text class="text-red">*</text>
       </view>
       <view class="cell-value">
-        <input name="safeStock" placeholder="请填写安全库存" type="number" value="{{editData.warnQty?editData.warnQty:safeStock.list[safeStock.picked]}}" disabled="{{!canEdit}}"></input>
+        <input name="warnQty" placeholder="请填写安全库存" type="number" value="{{editData.warnQty?editData.warnQty:safeStock.list[safeStock.picked]}}" disabled="{{!canEdit}}"></input>
       </view>
-      <picker bindchange="pick" data-name="safeStock" value="{{safeStock.list[safeStock.picked]}}" range="{{safeStock.list}}">
+      <picker bindchange="pick"  disabled="{{!canEdit}}" data-name="safeStock" value="{{safeStock.list[safeStock.picked]}}" range="{{safeStock.list}}">
         <view class="picker">
           <view class="cell-icon cuIcon-right"></view>
         </view>
@@ -103,9 +106,9 @@
     <view class="cell">
       <view class="cell-name">库存透明度</view>
       <view class="cell-value">
-        <input name="stockTransparency" placeholder="请设置库存透明度" type="number" value="{{editData.maxShowQty?editData.maxShowQty:stockTransparency.list[stockTransparency.picked]}}" disabled="{{!canEdit}}"></input>
+        <input name="maxShowQty" placeholder="请设置库存透明度" type="number" value="{{editData.maxShowQty?editData.maxShowQty:stockTransparency.list[stockTransparency.picked]}}" disabled="{{!canEdit}}"></input>
       </view>
-      <picker bindchange="pick" data-name="stockTransparency" value="{{stockTransparency.list[stockTransparency.picked]}}" range="{{stockTransparency.list}}">
+      <picker bindchange="pick"  disabled="{{!canEdit}}" data-name="stockTransparency" value="{{stockTransparency.list[stockTransparency.picked]}}" range="{{stockTransparency.list}}">
         <view class="picker">
           <view class="cell-icon cuIcon-right"></view>
         </view>
@@ -118,8 +121,8 @@
       <view wx:if="{{canEdit}}" class="operate bg-gradual-orange save-btn">
         <button form-type="submit">保存</button>
       </view>
-      <view wx:if="{{!canEdit}}" hidden="operateType==='view'" class="operate bg-gradual-orange" bindtap="allowEdit">编辑商品</view>
-      <view class="operate bg-gradual-orange" bindtap="buySellRecord">{{orderType==="all"?"出入库明细":orderType==="purchase"?"采购记录":"销售记录"}}</view>
+      <view hidden="{{operateType==='view'||canEdit}}" class="operate bg-gradual-orange" bindtap="allowEdit">编辑商品</view>
+      <view hidden="{{operateType==='add'}}" class="operate bg-gradual-orange" bindtap="buySellRecord">{{orderType==="all"?"出入库明细":orderType==="purchase"?"采购记录":"销售记录"}}</view>
     </view>
   </form>
 </scroll-view>

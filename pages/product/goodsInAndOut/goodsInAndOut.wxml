@@ -1,2 +1,33 @@
-<!--pages/product/goodsInAndOut/goodsInAndOut.wxml-->
-<text>pages/product/goodsInAndOut/goodsInAndOut.wxml</text>
+<view class="goods-in-and-out">
+  <view class="header">
+    <view class="order-limits solid-bottom">
+      <view class="limit {{choosedType==='all'?'theme-bgc':'bg-gray'}}" bindtap="limitType" data-type="all">全部明细</view>
+      <view class="limit {{choosedType==='out'?'theme-bgc':'bg-gray'}}" bindtap="limitType" data-type="out">出库明细</view>
+      <view class="limit {{choosedType==='in'?'theme-bgc':'bg-gray'}}" bindtap="limitType" data-type="in">入库明细</view>
+      <view class="limit {{choosedTimeRange!=='allTime'?'theme-bgc':'bg-gray'}}" bindtap="limitType" data-type="time">日期范围
+        <text class="cuIcon-{{isShowTimeFloat?'un':''}}fold" data-type="time"></text>
+      </view>
+    </view>
+
+    <view class="float" wx:if="{{isShowTimeFloat}}">
+      <view class="time-limits">
+        <view class="time {{choosedTimeRange==='allTime'?'theme-bgc':'bg-gray'}}" bindtap="timeLimit" data-type="allTime">全部时间</view>
+        <view class="time {{choosedTimeRange==='today'?'theme-bgc':'bg-gray'}}" bindtap="timeLimit" data-type="today">今日</view>
+        <view class="time {{choosedTimeRange==='lastWeek'?'theme-bgc':'bg-gray'}}" bindtap="timeLimit" data-type="lastWeek">最近一周</view>
+        <view class="time {{choosedTimeRange==='lastMonth'?'theme-bgc':'bg-gray'}}" bindtap="timeLimit" data-type="lastMonth">最近一月</view>
+        <view class="time {{choosedTimeRange==='customerDate'?'theme-bgc':'bg-gray'}}" bindtap="timeLimit" data-type="customerDate">自定义</view>
+      </view>
+
+      <view class="customer-date-choose" wx:if="{{isShowTimePicker}}">
+        <picker class="date-picker solid-right solid-top" mode="date" end="{{today}}" value="{{timeRange.start}}" bindchange="startDateChange">
+          <view class="picker-text">开始:
+            <text class="cuIcon-calendar"></text>{{timeRange.start}}</view>
+        </picker>
+        <picker class="date-picker solid-top" mode="date" end="{{today}}" value="{{timeRange.end}}" bindchange="endDateChange">
+          <view class="picker-text">结束:
+            <text class="cuIcon-calendar"></text>{{timeRange.end}}</view>
+        </picker>
+      </view>
+    </view>
+  </view>
+</view>

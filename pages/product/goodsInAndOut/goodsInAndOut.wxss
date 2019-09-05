@@ -1,1 +1,46 @@
-/* pages/product/goodsInAndOut/goodsInAndOut.wxss */
+.order-limits, .time-limits {
+  display: flex;
+  padding: 20rpx 30rpx;
+  /* justify-content: space-between; *//* height: 100rpx; */
+  align-items: center;
+  background-color: #fff;
+  flex-wrap: wrap;
+}
+
+.order-limits {
+  justify-content: space-between;
+}
+.time-limits{
+  padding-bottom: 0
+}
+
+.limit, .time {
+  height: 60rpx;
+  padding: 0 20rpx;
+  border-radius: 30rpx;
+  line-height: 60rpx;
+}
+
+.time {
+  margin-right: 15rpx;
+  margin-bottom: 20rpx;
+}
+
+.float {
+  width: 100vw;
+  background-color: #fff;
+}
+
+.customer-date-choose {
+  display: flex;
+}
+
+.date-picker {
+  height: 60rpx;
+  width: 50vw;
+}
+
+.picker-text {
+  line-height: 60rpx;
+  text-align: center;
+}
