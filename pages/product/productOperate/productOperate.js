@@ -8,7 +8,7 @@ create(store, {
    */
   data: {
     quantifier: {
-      list: ['个', '只', '条'],
+      list: ['个', '片', '条','盒', '只'],
       picked: null,
     },
     receiptDay: {
@@ -284,7 +284,7 @@ create(store, {
     switch (this.data.orderType) {
       case "all":
         wx.navigateTo({
-          url: "/pages/product/goodsInAndOut/goodsInAndOut?wareHouse=" + this.data.wareKey + "&goodsNo=" + this.data.goodsNo
+          url: "/pages/product/goodsInAndOut/goodsInAndOut?wareHouse=" + this.data.editData.wareKey + "&goodsNo=" + this.data.editData.itemKey
         })
         break
       case "purchase":

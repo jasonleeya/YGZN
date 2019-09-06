@@ -15,38 +15,20 @@ create({
   data: {
     routate: null,
     orderList: [{
-        name: 'item1',
-        icon: ""
+        name: '新增采购',
+        icon: "",
+      link:"/pages/purchase/newPurchase/newPurchase"
       },
       {
-        name: 'item2',
-        icon: ""
+        name: '新增销售',
+        icon: "",
+        link: "/pages/sales/newSales/newSales"
       },
       {
-        name: 'item3',
-        icon: ""
-      },
-      {
-        name: 'item4',
-        icon: ""
-      },
-      {
-        name: 'item5',
-        icon: ""
-      },
-      {
-        name: 'item6',
-        icon: ""
-      }, {
-        name: 'item7',
-        icon: ""
-      }, {
-        name: 'item8',
-        icon: ""
-      }, {
-        name: 'item9',
-        icon: ""
-      },
+        name: '产品管理',
+        icon: "",
+        link:"/pages/product/productManage/productManage"
+      } 
     ]
   },
   /**
@@ -76,6 +58,12 @@ create({
 
 
   methods: {
+    jump(e) {
+      console.log(e)
+      wx.navigateTo({
+        url: e.currentTarget.dataset.link
+      })
+    },
     CloseOrder() {
       var btnAni = wx.createAnimation({ timingFunction: "linear"})
       btnAni.rotate(90).step({

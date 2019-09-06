@@ -10,8 +10,9 @@
 .order-limits {
   justify-content: space-between;
 }
-.time-limits{
-  padding-bottom: 0
+
+.time-limits {
+  padding-bottom: 0;
 }
 
 .limit, .time {
@@ -43,4 +44,14 @@
 .picker-text {
   line-height: 60rpx;
   text-align: center;
+}
+
+.empty {
+  width: 100vw;
+  height: 100vh;
+  line-height: 100vh;
+  text-align: center;
+  position: fixed;
+  top: 0;
+  z-index: -99
 }

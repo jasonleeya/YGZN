@@ -1,4 +1,4 @@
-// pages/home/home.js
+  // pages/home/home.js
 Component({
   /**
    * 组件的属性列表
@@ -37,14 +37,14 @@ Component({
         titleEn: 'Purcjase',
         color: 'blue',
         icon: '',
-        link: ''
+        link: '/pages/sales/salesOrders/salesOrders'
       },
       {
         title: '销售',
         titleEn: 'Sales',
         color: 'cyan',
         icon: '',
-        link: ''
+        link: '/pages/purchase/purchaseOrders/purchaseOrders'
       },
       // {
       //   title: '公司',
@@ -67,13 +67,13 @@ Component({
       //   icon: '',
       //   link: ''
       // },
-      // {
-      //   title: '产品',
-      //   titleEn: 'Product',
-      //   color: 'pink',
-      //   icon: '',
-      //   link: ''
-      // },
+      {
+        title: '产品',
+        titleEn: 'Product',
+        color: 'pink',
+        icon: '',
+        link: '/pages/product/productManage/productManage'
+      },
       // {
       //   title: '发票',
       //   titleEn: 'Invoice',
@@ -95,6 +95,11 @@ Component({
    * 组件的方法列表
    */
   methods: {
-
+    jump(e){
+      console.log(e)
+      wx.navigateTo({
+        url: e.currentTarget.dataset.link 
+      })
+    }
   }
 })

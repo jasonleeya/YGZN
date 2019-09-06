@@ -93,81 +93,79 @@ create(store, {
     if (this.data.pageNo === 1) {
       this.load()
     }
+    var urlAlias = ""
+    var params = {}
 
 
     switch (this.data.searchType) {
       case "":
       case "我的仓库":
       case "供方仓库":
-        app.http("searchStockProduct", {
-            wareKey: "",
-            pageNo: this.data.pageNo,
-            pageSize: "10",
-            custNo: this.data.searchType === "供方仓库" ? this.data.supplyNo : '',
-            searchKey: this.data.searchValue,
-          }).then(data => {
-            var queryString = []
-            var storeList = []
-            data.list.forEach(item => {
-              queryString.push(item.productUuid)
-            })
-            queryString.join(",")
-
-            app.http("getStockInBatch", {
-              productId: queryString,
-              repoId: this.data.wareId
-            }).then(d => {
-              if (this.data.pageNo === 1) {
-                this.setData({
-                  storeList: d
-                })
-              } else {
-                this.setData({
-                  storeList: this.data.storeList.concat(d)
-                })
-              }
-            })
-
-            if (this.data.pageNo === 1) {
-              this.setData({
-                goodsList: data.list
-              })
-              this.load(false)
-            } else {
-              this.setData({
-                goodsList: this.data.goodsList.concat(data.list),
-                loadMore: false,
-              })
-            }
-          })
-          .catch(err => {
-            this.load(false)
-            this.setData({
-              loadMore: false
-            })
-            app.showToast(err)
-          })
-
+        urlAlias = "searchStockProduct"
+        params = {
+          wareKey: "",
+          pageNo: this.data.pageNo,
+          pageSize: "10",
+          custNo: this.data.searchType === "供方仓库" ? this.data.supplyNo : '',
+          searchKey: this.data.searchValue,
+        }
         break
       case "全局搜索":
-        app.http("searchProductNew", {
+        urlAlias = "searchProductNew"
+        params = {
           catalogId: "",
           brandName: 1,
           pageIndex: this.data.pageNo,
           pageSize: 10,
           simpleSeek: this.data.searchValue,
-        }).then(data => {
-          this.setData({
-            goodsList: data.list
-          })
-
-          this.load(false)
-        }).catch(err => {
-          this.load(false)
-          app.showToast(err)
-        })
+        }
         break
     }
+    app.http(urlAlias, params).then(data => {
+      var queryString = []
+      var storeList = []
+      data.list.forEach(item => {
+        queryString.push(item.productUuid)  
+        for(let key in item){
+          item[key] = String(item[key]).replace(/(\<b style='color:red'\>)|\<\/b\>/g, "") 
+        }
+      })
+      queryString.join(",")
+
+      app.http("getStockInBatch", {
+        productId: queryString,
+        repoId: this.data.wareId
+      }).then(d => {
+        if (this.data.pageNo === 1) {
+          this.setData({
+            storeList: d
+          })
+        } else {
+          this.setData({
+            storeList: this.data.storeList.concat(d)
+          })
+        }
+      })
+
+      if (this.data.pageNo === 1) {
+        this.setData({
+          goodsList: data.list
+        })
+        this.load(false)
+      } else {
+        this.setData({
+          goodsList: this.data.goodsList.concat(data.list),
+          loadMore: false,
+        })
+      }
+    })
+      .catch(err => {
+        this.load(false)
+        this.setData({
+          loadMore: false
+        })
+        app.showToast(err)
+      })
 
   },
 

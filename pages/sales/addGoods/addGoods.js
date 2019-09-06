@@ -94,59 +94,57 @@ create(store, {
     if (this.data.pageNo === 1) {
       this.load()
     }
+    var urlAlias = ""
+    var params = {}
     switch (this.data.searchType) {
       case "":
-      case "我的仓库":
-        app.http("searchStockProduct", {
-            wareKey: "",
-            pageNo: this.data.pageNo,
-            pageSize: "10",
-            custNo: "",
-            searchKey: this.data.searchValue,
-          }).then(data => {
-            if (this.data.pageNo === 1) {
-              this.setData({
-                goodsList: data.list
-              })
-              this.load(false)
-            } else {
-              this.setData({
-                goodsList: this.data.goodsList.concat(data.list),
-                loadMore: false,
-              })
-            }
-          })
-          .catch(err => {
-            this.load(false)
-            this.setData({
-              loadMore: false
-            })
-            app.showToast(err)
-          })
-
+      case "供方仓库":
+        urlAlias = "searchStockProduct"
+        params = {
+          wareKey: "",
+          pageNo: this.data.pageNo,
+          pageSize: "10",
+          custNo: "",
+          searchKey: this.data.searchValue,
+        }
         break
       case "全局搜索":
-        app.showToast("暂不支持")
-        this.load(false)
-        // app.http("searchStockProduct", {
-        //   wareKey: "",
-        //   pageNo: this.data.pageNo,
-        //   pageSize: "10",
-        //   custNo: this.data.custNo,
-        //   searchKey: this.data.searchValue,
-        // }).then(data => {
-        //   this.setData({
-        //     goodsList: data.list
-        //   })
-        //   this.load(false)
-        // }).catch(err => {
-        //   this.load(false)
-        //   app.showToast(err)
-        // })
-
+        urlAlias = "searchProductNew"
+        params = {
+          catalogId: "",
+          brandName: 1,
+          pageIndex: this.data.pageNo,
+          pageSize: 10,
+          simpleSeek: this.data.searchValue,
+        }
         break
-
     }
+    app.http(urlAlias, params).then(data => {
+      data.list.forEach(item=>{
+        for (let key in item) {
+          item[key] = String(item[key]).replace(/(\<b style='color:red'\>)|\<\/b\>/g, "")
+        }
+      })
+    
+      if (this.data.pageNo === 1) {
+        this.setData({
+          goodsList: data.list
+        })
+        this.load(false)
+      } else {
+        this.setData({
+          goodsList: this.data.goodsList.concat(data.list),
+          loadMore: false,
+        })
+      }
+    })
+      .catch(err => {
+        this.load(false)
+        this.setData({
+          loadMore: false
+        })
+        app.showToast(err)
+      })
   },
 
   goodsDetail(e) {

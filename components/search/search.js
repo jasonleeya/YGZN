@@ -21,9 +21,11 @@ Component({
         name: "全局搜索"
       }],
       observer(v) {
-       this.setData({
-        ["searchTypes.list"]: this.data.types
-      })
+        if (v) {
+          this.setData({
+            ["searchTypes.list"]: this.data.types
+          })}
+      
       }
     }
   },
@@ -47,9 +49,13 @@ Component({
    * 组件的方法列表
    */
   lifetimes: {
-    // attached() {
-    //   this.triggerEvent("searchType", this.data.searchTypes.list[0])
-    // },
+    attached() {
+      this.setData({
+        ["searchTypes.list"]: this.data.types
+      })
+    
+      // this.triggerEvent("searchType", this.data.searchTypes.list[0])
+    },
     ready() { 
      
     }

@@ -2,6 +2,7 @@ let app = getApp()
 Page({
 
   data: {
+    orderList:[],
     today: new Date().toLocaleDateString().replace(/\//g, "-"),
     timeRange: {
       start: "",
@@ -11,10 +12,38 @@ Page({
     choosedTimeRange: "allTime",
     isShowTimePicker: false,
     isShowTimeFloat: false,
+    wareKey: "",
+    itemKey: "",
   },
 
   onLoad: function(options) {
+    this.setData({
+      wareKey: options.wareHouse,
+      itemKey: options.goodsNo
+    })
+    this.getList()
 
+
+  },
+  getList(){
+    var paramas = {
+      itemKey: this.data.itemKey,
+      wareKey: this.data.wareKey,
+      startTime: this.data.timeRange.start,
+      endTime: this.data.timeRange.end,
+      pageNo: 1,
+      pageSize: 10000,
+      inOrOut: this.data.choosedType === "out" ? "1" : this.data.choosedType==="in"?"2":""
+
+    }
+    app.http("queryStockDetail", paramas).then(data => {
+        data.list.forEach(item=>{
+          item.tranTime = new Date(item.tranTime ).toLocaleDateString().replace(/\//g, "-")
+        })
+      this.setData({
+        orderList:data.list
+      })
+    })
   },
   limitType(e) {
     var type = e.target.dataset.type
@@ -23,12 +52,14 @@ Page({
       this.setData({
         isShowTimeFloat: !this.data.isShowTimeFloat
       })
+      return
     } else {
       this.setData({
-        choosedType: type, 
-        isShowTimeFloat:false
+        choosedType: type,
+        isShowTimeFloat: false
       })
     }
+    this.getList()
   },
   timeLimit(e) {
     var type = e.target.dataset.type
@@ -57,13 +88,13 @@ Page({
             ["timeRange.end"]: "",
           })
           break
-        case"today":
+        case "today":
           this.setData({
             ["timeRange.start"]: this.data.today,
             ["timeRange.end"]: this.data.today,
           })
           break
-          case"lastWeek":
+        case "lastWeek":
           var date = new Date()
           var year = date.getFullYear()
           var mouth = date.getMonth() + 1
@@ -76,7 +107,7 @@ Page({
             if (mouth === 1) {
               mouth = 12
               year = year - 1
-            } else (
+            } else(
               mouth = mouth - 1
             )
 
@@ -87,7 +118,7 @@ Page({
             ["timeRange.end"]: this.data.today,
           })
           break
-          case"lastMonth":
+        case "lastMonth":
           var date = new Date()
           var year = date.getFullYear()
           var month = date.getMonth() + 1
@@ -107,10 +138,8 @@ Page({
           })
           break
       }
-
-
-     
     }
+    this.getList()
   },
   startDateChange(e) {
     var value = e.detail.value
@@ -120,6 +149,7 @@ Page({
     this.setData({
       ["timeRange.start"]: value
     })
+    this.getList()
   },
   endDateChange(e) {
     var value = e.detail.value
@@ -129,5 +159,6 @@ Page({
     this.setData({
       ["timeRange.end"]: value
     })
+    this.getList()
   }
 })
