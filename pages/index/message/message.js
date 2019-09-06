@@ -15,106 +15,15 @@ create({
    * 组件的初始数据
    */
   data: {
-    messageList: [{
-        id: 0,
-        icon: '发货通知',
-        type: 1,
-        title: '采购订单已发货',
-        content: 'EWRWRWWER已经确认订单，订单',
-        time: '14:05',
-        status: 0,
-        setTop: false,
-      },
-      {
-        id: 1,
-        icon: '系统公告',
-        type: 2,
-        title: '系统公告',
-        content: '企业助手升级为全新2.0版本，新增功能',
-        time: '2017-7-17',
-        status: 0,
-        setTop: false,
-      },
-      {
-        id: 2,
-        icon: '滞销产品',
-        type: 3,
-        title: '新增滞销商品',
-        content: '本月新增滞销商品，请及时处理',
-        time: '2017-7-15',
-        status: 0,
-        setTop: false,
-      },
-      {
-        id: 3,
-        icon: '付款通知',
-        type: 4,
-        title: '客户已付款',
-        content: '销售订单2013695555客户已付款，请注意查收',
-        time: '2017-6-10',
-        status: 0,
-        setTop: false,
-      },
-      {
-        id: 4,
-        icon: '审核通知',
-        type: 5,
-        title: '采购单已审核',
-        content: '您提交的采购单，主管已审核通过',
-        time: '2017-2-17',
-        status: 0,
-        setTop: false,
-      }
-    ],
-    topList: []
+    msgList: [],
+    topList: [],
+    curPage: 1,
+    totalPage: null
   },
 
   lifetimes: {
-    ready() {
-      app.showToast("暂未实现消息功能")
-      app.http("selectReminderMessageByEnterpriseId", {
-        pageSize: 10000,
-        pageNum: 1
-      }).then(data=>{
-       // var msgList = JSON.parse(data.t.list)
-        // msgList.forEach(msg=>{ 
-        //   if (msg.content.search("<b class='sale'>")>0){
-        //     msg.type="销售订单"
-        //   }
-        //   if (msg.content.search("<b class='purchase'>") > 0) {
-        //     msg.type = "采购订单"
-        //   }
-        //   if (msg.content.search("取消了订单")>0){
-        //     msg.operate="-已取消"
-        //     msg.head = "订单取消"
-        //   }
-        //   if (msg.content.search("24小时未付款，取消了订单")){
-        //     msg.operate = "-逾期自动取消"
-        //     msg.head = "订单取消"
-        //   }
-        //   if (msg.content.search("申请为客户")) {
-        //     msg.operate = "申请成为我的客户"
-        //     msg.head = "客户申请"
-        //   }
-        //   if (msg.content.search("提交了一个新的订单")) {
-        //     msg.operate = "新增-"
-        //     msg.head = "新增订单"
-        //   }
-        //   if (msg.content.search("已经发货")) {
-        //     msg.operate = "-已发货"
-        //     msg.head = "订单发货"
-        //   }
-        //   if (msg.content.search("已确认订单")) {
-        //     msg.operate = "-已确认"
-        //     msg.head = "订单确认"
-        //   }
-        //   if (msg.content.search("提交 操作")) {
-        //     msg.operate = "提交"
-        //     msg.head = "订单确认"
-        //   }
-        // })
-
-      })
+    ready() { 
+      this.getList()
     }
   },
 
@@ -122,6 +31,118 @@ create({
    * 组件的方法列表
    */
   methods: {
+
+    getList() {
+      this.setData({
+        isLoad: true
+      })
+      app.http("selectReminderMessageByEnterpriseId", {
+        pageSize: 15,
+        pageNum: this.data.curPage
+      }).then(data => {
+        var msgList = JSON.parse(data.t)
+        console.log(msgList)
+        this.setData({
+          isLoad: false,
+          totalPage: msgList.totalPages
+        })
+        msgList.list.forEach(msg => {
+          var time = new Date(parseInt(msg.messageDate)) 
+          msg.time = time.toLocaleDateString().replace(/\//g, "-") + " " + time.toTimeString().substr(0,9)
+
+          if (msg.content.search("<b class='sale'>") > 0) {
+            msg.msgType = "销售订单-"
+          } else if (msg.content.search("<b class='purchase'>") > 0) {
+            msg.msgType = "采购订单-"
+          } else {
+            msg.msgType = "其他消息-"
+            msg.head = "其他消息"
+          }
+          msg.content = msg.content.replace(/(<b class='purchase'>)|(<b class='sale'>)|(<\/b>)|(<b>)|(<i>)|(<\/i>)/g,"")
+
+          if (msg.content.search("取消了订单") > 0) {
+            msg.operate = "已取消"
+            msg.head = "订单取消"
+          }
+          if (msg.content.search("24小时未付款，取消了订单") > 0) {
+            msg.operate = "逾期自动取消"
+            msg.head = "订单取消"
+          }
+          if (msg.content.search("申请为客户") > 0) {
+            msg.operate = "申请成为我的客户"
+            msg.head = "申请通知"
+          }
+          if (msg.content.search("通过你客户的申请") > 0) {
+            msg.operate = "客户申请通过"
+            msg.head = "申请通知"
+          }
+          if (msg.content.search("拒绝了你客户的申请") > 0) {
+            msg.operate = "客户申请未通过"
+            msg.head = "申请通知"
+          }
+          if (msg.content.search("申请为供应商") > 0) {
+            msg.operate = "申请成为供应商"
+            msg.head = "申请通知"
+          }
+          if (msg.content.search("提交") > 0) {
+            msg.operate = "新增-"
+            msg.head = "新增订单"
+          }
+          if (msg.content.search("发货") > 0) {
+            msg.operate = "已发货"
+            msg.head = "订单发货"
+          }
+          if (msg.content.search("确认") > 0) {
+            msg.operate = "已确认"
+            msg.head = "订单确认"
+          }
+          if (msg.content.search("收货") > 0) {
+            msg.operate = "已收货"
+            msg.head = "订单收货"
+          }
+          if (msg.content.search("付款") > 0) {
+            msg.operate = "已付款"
+            msg.head = "订单付款"
+          }
+          if (msg.content.search("审批") > 0) {
+            msg.operate = "待审批"
+            msg.head = "订单审批"
+          }
+          if (msg.content.search("出库") > 0) {
+            msg.operate = "已出库"
+            msg.head = "订单出库"
+          }
+          if (msg.content.search("收款") > 0) {
+            msg.operate = "已收款"
+            msg.head = "订单收款"
+          }
+          if (msg.content.search("提交") > 0) {
+            msg.operate = "已提交"
+            msg.head = "订单提交"
+          }
+        })
+        if (parseInt(this.data.totalPage) > parseInt(this.data.curPage)){
+          this.setData({
+            msgList: this.data.msgList.concat(msgList.list)
+          })
+        }
+        
+      })
+    },
+    scrollToBottom() {
+      if (this.data.isLoad) {
+        return
+      } 
+      if (parseInt(this.data.totalPage) > parseInt(this.data.curPage)) {
+        this.setData({
+          curPage: this.data.curPage + 1
+        })
+      } else {
+        app.showToast("没有更多消息了")
+      }
+
+      this.getList()
+    },
     // ListTouch触摸开始
     ListTouchStart(e) {
       this.setData({
@@ -156,6 +177,8 @@ create({
     },
     // 置顶
     SetTop(e) {
+      app.showToast("该功能正在开发中")
+      return
       var newTopList = this.data.topList
       var newMessageList = this.data.messageList
       var index = e.target.dataset.setTopIndex
@@ -191,6 +214,8 @@ create({
     },
     // 删除项
     Delete(e) {
+      app.showToast("该功能正在开发中")
+      return
       var newMessageList = this.data.messageList
       var newTopList = this.data.topList
       var index = e.target.dataset.deleteIndex
@@ -212,6 +237,8 @@ create({
     },
     // 设置已读
     SetRead(e) {
+      app.showToast("该功能正在开发中")
+      return
       console.log(e)
       var newMessageList = this.data.messageList
       var newTopList = this.data.topList
@@ -236,15 +263,6 @@ create({
       }
 
     },
-    scrollToBottom() {
-      this.setData({
-        isLoad: true
-      })
-      setTimeout(() => {
-        this.setData({
-          isLoad: false
-        })
-      }, 2000)
-    }
+
   },
 })

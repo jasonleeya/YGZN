@@ -15,19 +15,19 @@ Component({
   data: {
     salesData: [{
       title: '今日销售金额',
-      money: '8,000.00'
+      money: '8,888.88'
     },
     {
       title: '月销售金额',
-      money: '4,000.00'
+      money: '8,8888.00'
     },
     {
       title: '月采购金额',
-      money: '3,000.00'
+      money: '8,888.00'
     },
     {
       title: '月出库金额',
-      money: '2,000.00'
+      money: '8,888.00'
     },
     ],
 
@@ -37,14 +37,14 @@ Component({
         titleEn: 'Purcjase',
         color: 'blue',
         icon: '',
-        link: '/pages/sales/salesOrders/salesOrders'
+        link: '/pages/sales/salesOrders/salesOrders?orderStatus=&isAllOrder=1'
       },
       {
         title: '销售',
         titleEn: 'Sales',
         color: 'cyan',
         icon: '',
-        link: '/pages/purchase/purchaseOrders/purchaseOrders'
+        link: '/pages/purchase/purchaseOrders/purchaseOrders?orderStatus=&isAllOrder=1'
       },
       // {
       //   title: '公司',
@@ -99,6 +99,11 @@ Component({
       console.log(e)
       wx.navigateTo({
         url: e.currentTarget.dataset.link 
+      })
+    },
+    toProductManage(){
+      wx.navigateTo({
+        url: "/pages/product/productManage/productManage"
       })
     }
   }

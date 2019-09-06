@@ -29,7 +29,7 @@
     </view>
     <view class="action  {{curTab==='mine'?'theme-color':'text-gray'}}" bindtap="NavChange"  data-link="mine">
       <view class="cuIcon-my">
-        <view class="cu-tag badge"></view>
+        <!-- <view class="cu-tag badge"></view> -->
       </view>
       我的
     </view>

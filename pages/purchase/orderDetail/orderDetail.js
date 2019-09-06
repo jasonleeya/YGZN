@@ -26,6 +26,7 @@ Page({
     orderStatus: null,
     paramas: {},
     formEvent: {},
+    orderTypeStr:""
   },
 
   /**
@@ -34,6 +35,9 @@ Page({
 
   onLoad: function(options) {
     app.setTitle("采购订单详情")
+    this.setData({
+      orderTypeStr: options.orderTypeStr
+    })
     app.http("queryByOrderNo", {
       orderNo: options.orderNo
     }, false, false).then(data => {
@@ -214,10 +218,14 @@ Page({
     })
 
   },
-
+  lgtInput(e){
+   this.setData({
+     ['infos.lgtNums']:e.detail.value
+   })
+  },
   seeLogisticsInfo() {
     wx.navigateTo({
-      url: '/pages/common/LogisticsInfo/LogisticsInfo'
+      url: '/pages/common/LogisticsInfo/LogisticsInfo?lgtNums=' + this.data.infos.lgtNums
     })
   },
 

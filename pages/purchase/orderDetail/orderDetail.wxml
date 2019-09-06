@@ -69,14 +69,14 @@
       <view class="cell border-bt">
         <view class="cell-name">订单状态</view>
         <view class="cell-value text-gray">
-          线上订单/信用订单
+             {{orderTypeStr}}
         </view>
       </view>
 
-      <view class="cell border-bt">
+      <view class="cell border-bt" hidden="{{infos.orderStatus==='wait'||infos.orderStatus==='090001'||infos.orderStatus==='090003'}}">
         <view class="cell-name">物流单号</view>
-        <view class="cell-value text-gray">
-          出库时请输入物流订单号
+        <view class="cell-value">
+          <input name="phoneNumber" type="lgtNums" value="{{infos.lgtNums}}" placeholder="出库时请输入物流订单号" bindinput="lgtInput"></input>
         </view>
         <view class="cell-icon cuIcon-right {{canEdit&&infos.orderStatus==='wait'?'':'text-gray'}}" bindtap="seeLogisticsInfo"></view>
       </view>
@@ -88,8 +88,8 @@
     <search bindtap="toSearch" />
     <!-- 购物车 -->
     <cart goodsList="{{goodsList}}" totalPrice="{{totalPrice}}" picUrlKey="pirctureWay" nameKey="goodsName" brandNameKey="goodsBrand" typeKey="brandNo" priceKey="discountPrice" amountKey="goodsCount" idKey="goodsNo" minNumKey="minNums" bind:changeAmount="getChangeAmount"
-      bind:deleteGoods="deleteGoods"   bind:operate="operate"  bind:changeTotalPriceAndAmount="priceAmountChange" editable="{{canEdit}}" 
-      operateType="{{infos.orderStatus === 'wait'||infos.orderStatus === '090001'&& infos.oando === 'down'?'修改':'查看'}}" bind:goodsDetail="goodsDetail"/>
+      bind:deleteGoods="deleteGoods" bind:operate="operate" bind:changeTotalPriceAndAmount="priceAmountChange" editable="{{canEdit}}" operateType="{{infos.orderStatus === 'wait'||infos.orderStatus === '090001'&& infos.oando === 'down'?'修改':'查看'}}" bind:goodsDetail="goodsDetail"
+    />
     <view class="title remake">备注</view>
     <textarea name="remark" class="remarke-textarea" placeholder="请填写备注信息" />
 
@@ -113,12 +113,12 @@
         <button class="bg-gradual-orange" wx:if="{{infos.orderStatus === 'wait'}}" form-type="submit" bindtap="confirmOrder">确认订单</button>
       </view>
 
-        <view class="option">
+      <view class="option">
         <button class="bg-gradual-orange" wx:if="{{infos.orderStatus === '090002'&&infos.oando === 'down'}}" form-type="submit" bindtap="confirmSend">确认订单</button>
       </view>
 
       <view class="option">
-        <button class="bg-gradual-orange" wx:if="{{infos.orderStatus === '090003'}}"  form-type="submit"  bindtap="payment">确认付款</button>
+        <button class="bg-gradual-orange" wx:if="{{infos.orderStatus === '090003'}}" form-type="submit" bindtap="payment">确认付款</button>
       </view>
 
       <view class="option">
@@ -126,7 +126,7 @@
       </view>
 
       <view class="option">
-        <button class="bg-gradual-orange" wx:if="{{infos.orderStatus === '090004'}}"  form-type="submit"  bindtap="confirmStorage">确认入库</button>
+        <button class="bg-gradual-orange" wx:if="{{infos.orderStatus === '090004'}}" form-type="submit" bindtap="confirmStorage">确认入库</button>
       </view>
 
       <view class="option">
@@ -143,5 +143,5 @@
 
   </form>
 
-</scroll-view> 
-<editGoodsInfo wx:if="{{showEditPop}}" popData="{{popData}}" noTaxPriceKey="ntpsingle" noTaxTotalPriceKey="ntp" bind:editedInfo="getEditedInfo" bind:closePop="closePop"/>
+</scroll-view>
+<editGoodsInfo wx:if="{{showEditPop}}" popData="{{popData}}" noTaxPriceKey="ntpsingle" noTaxTotalPriceKey="ntp" bind:editedInfo="getEditedInfo" bind:closePop="closePop" />

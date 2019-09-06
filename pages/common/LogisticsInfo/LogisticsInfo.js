@@ -7,8 +7,8 @@ Page({
    */
   data: {
     list: [],
-    expName: "",
-    lgtNums: "4300191466177",
+    expName: "", 
+    lgtNums: "",   //4300191466177 
     statusStr: "未知",
   },
 
@@ -17,8 +17,12 @@ Page({
    */
   onLoad: function(options) {
     app.setTitle("物流信息")
+
+    this.setData({
+      lgtNums: options.lgtNums
+    })
     app.http("getLogistics", {
-      lgtNums: this.data.lgtNums
+      lgtNums: options.lgtNums
     }).then(data => {
       this.setData({
         expName: data.result.expName

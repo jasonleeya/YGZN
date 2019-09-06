@@ -86,13 +86,21 @@
         <!-- <view class="cuIcon-right  cell-icon {{canEdit&&infos.orderStatus==='090001'&& infos.oando === 'down'?'':'text-gray'}}"></view> -->
       </view>
 
-      <view class="cell border-bt cell-gutter-bt">
+      <view class="cell border-bt">
         <view class="cell-name">订单状态</view>
         <view class="cell-value text-gray">
-          {{orderType}}
+          {{orderTypeStr}}
         </view>
       </view>
     </view>
+
+ <view class="cell border-bt" hidden="{{infos.orderStatus==='wait'||infos.orderStatus==='090001'||infos.orderStatus==='090003'}}">
+        <view class="cell-name">物流单号</view>
+        <view class="cell-value">
+          <input name="phoneNumber" disabled="{{infos.orderStatus!=='090002'}}" type="lgtNums" value="{{infos.lgtNums}}" placeholder="出库时请输入物流订单号" bindinput="lgtInput"></input>
+        </view>
+        <view class="cell-icon cuIcon-right {{canEdit&&infos.orderStatus==='wait'?'':'text-gray'}}" bindtap="seeLogisticsInfo"></view>
+      </view>
 
     <!-- <view class="cell border-bt">
       <view class="cell-name">物流单号</view>

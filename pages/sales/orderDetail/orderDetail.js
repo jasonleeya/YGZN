@@ -27,7 +27,8 @@
      paramas: {},
      orderStatus: "",
      formEvent: null,
-     paramas: {}
+     paramas: {},
+     orderTypeStr:""
    },
 
    /**
@@ -36,6 +37,7 @@
 
    onLoad: function(options) {
      app.setTitle("销售单详情")
+     this.setData({ orderTypeStr: options.orderTypeStr})
      app.http("queryByOrderNo", {
        orderNo: options.orderNo
      }, false, false).then(data => {
@@ -483,6 +485,11 @@
    },
 
 
+   seeLogisticsInfo() {
+     wx.navigateTo({
+       url: '/pages/common/LogisticsInfo/LogisticsInfo?lgtNums=' + this.data.infos.lgtNums
+     })
+   },
 
    addGoods() {
      // var list = this.data.goodsList
