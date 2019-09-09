@@ -6,13 +6,22 @@
   <view class='scroll-wrapper'>
     <!-- 销售额 -->
     <view class="sales theme-bgc shadow-warp">
-      <view class="sales-today-title">{{salesData[0].title}}</view>
-      <view class="sales-today-money">{{salesData[0].money}}</view>
+      <view class="sales-today-title">今日销售金额</view>
+      <view class="sales-today-money">{{todaySaleAmount}}</view>
       <view class="sales-items">
-        <view class="sales-item" wx:for="{{salesData}}" wx:key wx:if="{{index!==0}}">
-          <view class="item-money">{{item.money}}</view>
-          <view class="item-title">{{item.title}}</view>
+        <view class="sales-item" >
+          <view class="item-money">本月销售金额</view>
+          <view class="item-title">{{monthSaleAmount}}</view>
         </view>
+         <view class="sales-item" >
+          <view class="item-money">本月采购金额</view>
+          <view class="item-title">{{monthPurchaseAmount}}</view>
+        </view>
+         <view class="sales-item" >
+          <view class="item-money">本月销售数量</view>
+          <view class="item-title">{{monthSaleNum}}</view>
+        </view>
+        
       </view>
     </view>
 

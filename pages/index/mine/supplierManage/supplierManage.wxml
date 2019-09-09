@@ -1,0 +1,35 @@
+<view class="header-search">
+  <view class="input-wrapper">
+    <view class="search-icon cuIcon-search"></view>
+    <input class="bg-gray" placeholder="供应商名称、营业执照搜索" bindblur="searchBlur" bindfocus="searchFocus" bindinput="searchInput" value="{{searchValue}}"></input>
+  </view>
+  <view class="add-supplier" bindtap="addSupplier">新增</view>
+</view>
+<scroll-view scroll-y class="supplier-scroll-view" bindscrolltolower="scrollToBottom">
+    <view class="supplier-list">
+      <view class="supplier-item" wx:for="{{supplierList}}" wx:key bindtap="seeDetail" data-index="{{index}}">
+        <view class="supplier-header solid-bottom">
+          <text class="cuIcon-friend name-icon"></text>
+          <text class="supplier-name">{{item.supplyName}}</text>
+          <text class="supplier-type text-green">{{item.approveStatus?"线上":"自建"}}</text>
+        </view>
+        <view class="supplier-info">
+          <view class="supplier-info-name text-gray">营业执照</view>
+          <view class="supplier-info-value">{{item.blNumber}}</view>
+        </view>
+        <view class="supplier-info">
+          <view class="supplier-info-name text-gray">客户类型</view>
+          <view class="supplier-info-value">{{item.customerType==="1003"?"信用客户":item.Type==="1003"?"信用客户":"普通客户"}}</view>
+        </view>
+        <view class="supplier-info">
+          <view class="supplier-info-name text-gray">联系人</view>
+          <view class="supplier-info-value">{{item.supContact}}</view>
+        </view>
+        <view class="supplier-info">
+          <view class="supplier-info-name text-gray">联系电话</view>
+          <view class="supplier-info-value">{{item.supPhone}}</view>
+        </view>
+      </view>
+    </view>
+    <view class="cu-load bg-gray {{isLoad?'loading':'over'}}"></view>
+  </scroll-view>

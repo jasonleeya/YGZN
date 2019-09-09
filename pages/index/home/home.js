@@ -1,4 +1,4 @@
-  // pages/home/home.js
+let app=getApp()
 Component({
   /**
    * 组件的属性列表
@@ -13,24 +13,11 @@ Component({
    * 组件的初始数据
    */
   data: {
-    salesData: [{
-      title: '今日销售金额',
-      money: '8,888.88'
-    },
-    {
-      title: '月销售金额',
-      money: '8,8888.00'
-    },
-    {
-      title: '月采购金额',
-      money: '8,888.00'
-    },
-    {
-      title: '月出库金额',
-      money: '8,888.00'
-    },
-    ],
-
+     
+    monthPurchaseAmount: 0,
+    monthSaleAmount: 0,
+    monthSaleNum: 0,
+    todaySaleAmount: 0,
     projectData: [
       {
         title: '采购',
@@ -91,9 +78,19 @@ Component({
     ]
   },
 
-  /**
-   * 组件的方法列表
-   */
+  lifetimes:{
+  ready(){
+    app.http("fetchOrderAggregate").then(data=>{
+      var list=data.infoBody
+      this.setData({
+        monthPurchaseAmount: list.monthPurchaseAmount,
+        monthSaleAmount: list.monthSaleAmount,
+        monthSaleNum: list.monthSaleNum,
+        todaySaleAmount: list.todaySaleAmount
+      })
+    })
+  }
+},
   methods: {
     jump(e){
       console.log(e)

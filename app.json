@@ -2,6 +2,7 @@
   "pages": [
     "pages/welcome/welcome",
     "pages/index/index",
+    "pages/index/mine/supplierManage/supplierManage",
     "pages/common/selectReceiveAddress/selectReceiveAddress",
     "pages/login/login",
     "pages/purchase/selectSupplier/selectSupplier",
@@ -29,7 +30,8 @@
     "pages/sales/payment/payment",
     "pages/common/LogisticsInfo/LogisticsInfo",
     "pages/product/goodsInAndOut/goodsInAndOut",
-    "pages/product/goodsPurchaseOrSaleRecord/goodsPurchaseOrSaleRecord"
+    "pages/product/goodsPurchaseOrSaleRecord/goodsPurchaseOrSaleRecord",
+    "pages/index/mine/creditManage/creditManage"
   ],
   "window": {
     "backgroundTextStyle": "light",

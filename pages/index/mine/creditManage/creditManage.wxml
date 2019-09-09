@@ -1,0 +1,20 @@
+<view class="header">
+  <view class="search-and-add solid-bottom">
+    <view class="search">
+      <view class="search-icon cuIcon-search"></view>
+      <input class="search-input" placeholder="输入客户名称搜索"></input>
+    </view>
+    <button class="add-btn">新增</button>
+  </view>
+  <view class="limit solid-bottom">
+    <view class="limit-options theme-color">适用时间
+      <text class="options-icon cuIcon-triangledownfill"></text>
+    </view>
+    <view class="limit-options">额度类型
+      <text class="options-icon cuIcon-triangledownfill"></text>
+    </view>
+    <view class="limit-options">信用状态
+      <text class="options-icon cuIcon-triangledownfill"></text>
+    </view>
+  </view>
+</view>

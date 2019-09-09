@@ -57,11 +57,11 @@ Component({
       [{
         name: '供应商管理',
         icon: '',
-        link: ''
+        link: '/pages/index/mine/supplierManage/supplierManage'
       }, {
         name: '信用管理',
         icon: '',
-        link: ''
+          link: '/pages/index/mine/creditManage/creditManage'
       }, {
         name: '客户管理',
         icon: '',
@@ -101,6 +101,12 @@ Component({
     },
   },
   methods: {
+    jump(e){
+      console.log(e)
+      wx.navigateTo({
+        url: e.currentTarget.dataset.link,
+      })
+    },
     logout() {
       wx.removeStorageSync("token")
       wx.redirectTo({

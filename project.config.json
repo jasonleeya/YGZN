@@ -86,6 +86,13 @@
 					"id": -1,
 					"name": "pages/product/goodsInAndOut/goodsInAndOut",
 					"pathName": "pages/product/goodsInAndOut/goodsInAndOut",
+					"query": "",
+					"scene": null
+				},
+				{
+					"id": -1,
+					"name": "pages/index/mine/creditManage/creditManage",
+					"pathName": "pages/index/mine/creditManage/creditManage",
 					"scene": null
 				}
 			]
