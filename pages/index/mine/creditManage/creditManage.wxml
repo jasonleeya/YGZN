@@ -2,19 +2,53 @@
   <view class="search-and-add solid-bottom">
     <view class="search">
       <view class="search-icon cuIcon-search"></view>
-      <input class="search-input" placeholder="输入客户名称搜索"></input>
+      <input class="search-input" disabled placeholder="客户名称" value="{{customerName}}" bindtap="toSelectCostomer"></input>
     </view>
     <button class="add-btn">新增</button>
   </view>
   <view class="limit solid-bottom">
-    <view class="limit-options theme-color">适用时间
-      <text class="options-icon cuIcon-triangledownfill"></text>
+    <view class="limit-options {{limitType==='time'?'theme-color':''}}" bindtap="chooseLimitType" data-type="time">适用时间
+      <text class="options-icon cuIcon-triangledownfill" data-type="time"></text>
     </view>
-    <view class="limit-options">额度类型
-      <text class="options-icon cuIcon-triangledownfill"></text>
+    <view class="limit-options {{limitType==='amount'?'theme-color':''}}" bindtap="chooseLimitType" data-type="amount">额度类型
+      <text class="options-icon cuIcon-triangledownfill" data-type="amount"></text>
     </view>
-    <view class="limit-options">信用状态
-      <text class="options-icon cuIcon-triangledownfill"></text>
+    <view class="limit-options {{limitType==='credit'?'theme-color':''}}" bindtap="chooseLimitType" data-type="credit">信用状态
+      <text class="options-icon cuIcon-triangledownfill" data-type="credit"></text>
+    </view>
+  </view>
+  <view class="dorpdown">
+    <view class="time-range" wx:if="{{limitType==='time'}}">
+      <view class="time-range-btns solid-bottom">
+        <view class="time-range-btn {{timeRangeType==='all'?'theme-bgc':'bg-gray'}}" bindtap="chooseTimeRangeType" data-type="all">所有时间</view>
+        <view class="time-range-btn {{timeRangeType==='custom'?'theme-bgc':'bg-gray'}}" bindtap="chooseTimeRangeType" data-type="custom">自定义</view>
+      </view>
+      <view class="pickers" wx:if="{{timeRangeType==='custom'}}">
+        <!-- <picker class="picker solid-right" mode="date" value="{{timeRange.satart}}" bindchange="bindStartDateChange">
+          <view class="picker-str">
+            <text class="cuIcon-calendar"></text> {{timeRange.satart===""?"点击选择开始时间":timeRange.satart}}
+          </view>
+        </picker> -->
+        <picker class="picker" mode="date" value="{{validTime}}" bindchange="chooseValidTime">
+          <view class="picker-str">
+            <text class="cuIcon-calendar"></text> {{validTime}}
+          </view>
+        </picker>
+      </view>
+    </view>
+    <view class="amount-types" wx:if="{{limitType==='amount'}}">
+      <view class="amount-type {{amountType==='all'?'theme-bgc':'bg-gray'}}" bindtap="chooseAmountType" data-type="all">所有</view>
+      <view class="amount-type  {{amountType==='fixed'?'theme-bgc':'bg-gray'}}" bindtap="chooseAmountType" data-type="fixed">固定额度</view>
+      <view class="amount-type  {{amountType==='temp'?'theme-bgc':'bg-gray'}}" bindtap="chooseAmountType" data-type="temp">临时额度</view>
+    </view>
+    <view class="credit-types" wx:if="{{limitType==='credit'}}">
+      <view class="credit-type  {{creditType==='all'?'theme-bgc':'bg-gray'}}" bindtap="chooseCreditType" data-type="all">所有</view>
+      <view class="credit-type  {{creditType==='unChecked'?'theme-bgc':'bg-gray'}}" bindtap="chooseCreditType" data-type="unChecked">未审核</view>
+      <view class="credit-type  {{creditType==='checked'?'theme-bgc':'bg-gray'}}" bindtap="chooseCreditType" data-type="checked">已审核</view>
+      <view class="credit-type  {{creditType==='disable'?'theme-bgc':'bg-gray'}}" bindtap="chooseCreditType" data-type="disable">已停用</view>
     </view>
   </view>
 </view>
+<scroll-view class="scroll-view" scroll-y>
+  <view class="customer-list">111</view>
+</scroll-view>

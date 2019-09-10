@@ -26,7 +26,7 @@ Page({
     orderStatus: null,
     paramas: {},
     formEvent: {},
-    orderTypeStr:""
+    orderTypeStr: ""
   },
 
   /**
@@ -218,10 +218,10 @@ Page({
     })
 
   },
-  lgtInput(e){
-   this.setData({
-     ['infos.lgtNums']:e.detail.value
-   })
+  lgtInput(e) {
+    this.setData({
+      ['infos.lgtNums']: e.detail.value
+    })
   },
   seeLogisticsInfo() {
     wx.navigateTo({
@@ -230,7 +230,7 @@ Page({
   },
 
   goodsDetail(e) {
-    var index = e.detail.index 
+    var index = e.detail.index
     wx.navigateTo({
       url: '/pages/product/productOperate/productOperate?operateType=view&orderType=purchase&goodsNo=' + this.data.goodsList[index].goodsNo + "&wareKey=" + this.data.purchaseWarehouse
     })
@@ -357,7 +357,10 @@ Page({
     wx.showModal({
       title: '是否确认订单?',
       content: '',
-      success() {
+      success(res) {
+        if (res.cancel) {
+          return
+        }
         that.submit(that.data.formEvent)
       }
     })
@@ -365,7 +368,10 @@ Page({
   cancelOrder() {
     wx.showModal({
       title: '确定取消订单吗',
-      success() {
+      success(res) {
+        if (res.cancel) {
+          return
+        }
         app.http("cancelOrder", {
           orderNo: this.data.infos.orderNo
         }).then(data => {
@@ -388,7 +394,10 @@ Page({
     wx.showModal({
       title: '确定入库吗?',
       content: '',
-      success() {
+      success(res) {
+        if (res.cancel) {
+          return
+        }
         that.submit(that.data.formEvent)
       }
     })
@@ -404,19 +413,32 @@ Page({
     wx.showModal({
       title: '确定出库吗?',
       content: '',
-      success() {
+      success(res) {
+        if (res.cancel) {
+          return
+        }
         that.submit(that.data.formEvent)
       }
     })
   },
   purchaseAgain() {
-    app.http("againOrder", {
-      orderNo: this.data.infos.orderNo
-    }).then(() => {
-      app.showToast("再次采购成功")
-    }).catch(err => {
-      app.showToast(err)
+    wx.showModal({
+      title: '确定要再次采购吗',
+      content: '',
+      success:(res)=>{
+        if (res.cancel) {
+          return
+        }
+        app.http("againOrder", {
+          orderNo: this.data.infos.orderNo
+        }).then(() => {
+          app.showToast("再次采购成功")
+        }).catch(err => {
+          app.showToast(err)
+        })
+      }
     })
+
   },
   payment() {
     var infos = this.data.infos

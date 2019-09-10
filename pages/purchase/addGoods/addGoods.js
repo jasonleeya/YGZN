@@ -206,10 +206,10 @@ create(store, {
         isShowPop: true,
         ['popData.facePrice']: data.infoBody.price.toFixed(2),
         ['popData.goodsCount']: this.data.goodsList[index].minCount,
-        ["popData.NTPSingle"]: (parseFloat(data.infoBody.price) * (parseFloat(data.infoBody.discount) / 10)).toFixed(2),
+        ["popData.NTPSingle"]: data.infoBody.price.toFixed(2),
         ["popData.taxRate"]: '13.00%',
-        ["popData.discountPrice"]: (parseFloat(data.infoBody.price) * 1.13 * (parseFloat(data.infoBody.discount) / 10)).toFixed(2),
-        ["popData.sttAmount"]: (parseFloat(data.infoBody.price) * 1.13 * parseInt(this.data.goodsList[index].minCount) * (parseFloat(data.infoBody.discount) / 10)).toFixed(2)
+        ["popData.discountPrice"]: (parseFloat(data.infoBody.price) * 1.13).toFixed(2),
+        ["popData.sttAmount"]: (parseFloat(data.infoBody.price) * 1.13 * parseInt(this.data.goodsList[index].minCount)).toFixed(2)
       })
 
       this.setData({

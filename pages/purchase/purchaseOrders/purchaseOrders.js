@@ -471,8 +471,9 @@ create(store, {
   },
   //查看详情
   seeDetail(e) {
+    console.log(e.currentTarget.dataset)
     wx.navigateTo({
-      url: '../orderDetail/orderDetail?orderNo=' + e.currentTarget.dataset.id + "&orderTypeStr=" + this.data.orderType
+      url: '../orderDetail/orderDetail?orderNo=' + e.currentTarget.dataset.id + "&orderTypeStr=" + e.currentTarget.dataset.type
     })
   },
 

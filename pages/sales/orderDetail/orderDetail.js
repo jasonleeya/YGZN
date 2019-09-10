@@ -28,7 +28,7 @@
      orderStatus: "",
      formEvent: null,
      paramas: {},
-     orderTypeStr:""
+     orderTypeStr: ""
    },
 
    /**
@@ -37,7 +37,9 @@
 
    onLoad: function(options) {
      app.setTitle("销售单详情")
-     this.setData({ orderTypeStr: options.orderTypeStr})
+     this.setData({
+       orderTypeStr: options.orderTypeStr
+     })
      app.http("queryByOrderNo", {
        orderNo: options.orderNo
      }, false, false).then(data => {
@@ -47,13 +49,13 @@
 
        if (data.infoBody.address) {
          var ad = data.infoBody.address.address
-         var reg = ad.match(/【.*】/)[0]
+         var reg = ad.match(/【.*】/) === null ? "" : ad.match(/【.*】/)[0]
          region = reg.replace("【", "").replace("】", "")
          addressDetail = ad.replace(reg, "")
        }
        this.setData({
          infos: data.infoBody.upp,
-         region: region.split("/"),
+         region: region === "" ? "" : region.split("/"),
          addressDetail: addressDetail,
          address: data.infoBody.address,
          goodsList: data.infoBody.lows,
@@ -131,7 +133,7 @@
      })
    },
    edit() {
-     if (this.data.infos.orderStatus === "090001") {
+     if (this.data.infos.orderStatus === "090001" || this.data.infos.orderStatus ==='090002') {
        this.setData({
          canEdit: true
        })
@@ -261,7 +263,8 @@
      wx.showModal({
        title: '是否确认订单',
        content: '',
-       success() {
+       success(res) {
+         if (res.cancel) {return}
          that.submit(that.data.formEvent)
        }
      })
@@ -279,18 +282,29 @@
      app.showToast("暂不支持")
    },
    saleAgain() {
-     app.http("againOrder", {
-       orderNo: this.data.infos.orderNo
-     }).then(() => {
-       app.showToast("再次采购成功")
-     }).catch(err => {
-       app.showToast(err)
+     wx.showModal({
+       title: '确定要再次销售吗',
+       content: '',
+       success:(res)=> {
+         if (res.cancel) {
+           return
+         }
+         app.http("againOrder", {
+           orderNo: this.data.infos.orderNo
+         }).then(() => {
+           app.showToast("再次采购成功")
+         }).catch(err => {
+           app.showToast(err)
+         })
+       }
      })
+
    },
    cancelOrder() {
      wx.showModal({
        title: '确定取消订单吗',
-       success() {
+       success(res) {
+         if (res.cancel) { return }
          app.http("cancelOrder", {
            orderNo: this.data.infos.orderNo
          }).then(data => {
@@ -312,7 +326,8 @@
      wx.showModal({
        title: '确定要入库吗',
        content: '',
-       success() {
+       success(res) {
+         if (res.cancel) { return }
          that.submit(that.data.formEvent)
        }
      })
@@ -329,7 +344,8 @@
      wx.showModal({
        title: '确定要出库吗',
        content: '',
-       success() {
+       success(res) {
+         if (res.cancel) { return }
          that.submit(that.data.formEvent)
        }
      })

@@ -78,7 +78,7 @@ create(store, {
           },2000)
         }
         var obj = data.list[0]
-        obj.defaultTime = obj.defaultTime === null ? 0 : obj.defaultTime
+        obj.defaultTime = obj.defaultTime ? 0 : obj.defaultTime
         for (let i in obj) {
           if (obj[i] === null || obj[i] === "") {
             obj[i] = "无"

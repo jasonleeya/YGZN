@@ -24,6 +24,9 @@ Page({
     app.http("getLogistics", {
       lgtNums: options.lgtNums
     }).then(data => {
+      if (data.result.list.length===0){
+        return
+      }
       this.setData({
         expName: data.result.expName
       })

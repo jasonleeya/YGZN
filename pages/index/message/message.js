@@ -23,6 +23,7 @@ create({
 
   lifetimes: {
     ready() { 
+      app.showToast("消息功能暂未完善,敬请期待")
       this.getList()
     }
   },
@@ -31,7 +32,6 @@ create({
    * 组件的方法列表
    */
   methods: {
-
     getList() {
       this.setData({
         isLoad: true

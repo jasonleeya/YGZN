@@ -1,66 +1,114 @@
-// pages/index/mine/creditManage/creditManage.js
+let app = getApp()
 Page({
 
   /**
    * 页面的初始数据
    */
   data: {
-
+    customerList: [],
+    validTime: "",
+    limitType: "",
+    timeRangeType: "all",
+    amountType: "all",
+    creditType: "all",
+    custNo: "",
+    customerNo: ""
+  },
+  onLoad(options) {
+    this.setData({
+      ['timeRange.satart']: '',
+      ['timeRange.end']: ''
+    })
+    this.getList()
+  },
+  onShow() {
+    if (this.data.custNo !== "") {
+      this.getList()
+    }
   },
 
-  /**
-   * 生命周期函数--监听页面加载
-   */
-  onLoad: function (options) {
+  getList() {
+    var status = ""
+    switch (this.data.creditType) {
+      case "all":
+        status = -1
+        break
+      case "unChecked":
+        status = 0
+        break
+      case "checked":
+        status = 1
+        break
+      case "disable":
+        status = 2
+        break
+    }
+    app.http("getCustCreditList", {
+      pageNo: 0,
+      pageSize: 10,
+      custname: "",
+      custcode: this.data.custNo,
+      type: this.data.amountType === "all" ? "" : this.data.amountType,
+      status: status,
+      datestar: this.data.validTime
+    }).then(data => {
+      this.setData({
+        customerList: data.list
+      })
+    })
+  },
+  toSelectCostomer() {
+    wx.navigateTo({
+      url: '/pages/sales/selectCustomer/selectCustomer'
+    })
+  },
+  chooseLimitType(e) {
+    var type = e.target.dataset.type
+    if (type === this.data.limitType) {
+      this.setData({
+        limitType: ""
+      })
+    } else {
+      this.setData({
+        limitType: e.target.dataset.type
+      })
+    }
 
   },
-
-  /**
-   * 生命周期函数--监听页面初次渲染完成
-   */
-  onReady: function () {
-
+  chooseTimeRangeType(e) {
+    var type = e.target.dataset.type
+    if (type === "all") {
+      this.setData({
+        validTime: ""
+      })
+    } else {
+      this.setData({
+        validTime: new Date().toLocaleDateString().replace(/\//g, "-"),
+      })
+    }
+    this.getList()
+    this.setData({
+      timeRangeType: type
+    })
+  },
+  chooseValidTime(e) {
+    this.setData({
+      validTime: new Date().toLocaleDateString().replace(/\//g, "-"),
+    })
+    this.getList()
   },
 
-  /**
-   * 生命周期函数--监听页面显示
-   */
-  onShow: function () {
-
+  chooseAmountType(e) {
+    this.setData({
+      amountType: e.currentTarget.dataset.type
+    })
+    this.getList()
   },
-
-  /**
-   * 生命周期函数--监听页面隐藏
-   */
-  onHide: function () {
-
-  },
-
-  /**
-   * 生命周期函数--监听页面卸载
-   */
-  onUnload: function () {
-
-  },
-
-  /**
-   * 页面相关事件处理函数--监听用户下拉动作
-   */
-  onPullDownRefresh: function () {
-
-  },
-
-  /**
-   * 页面上拉触底事件的处理函数
-   */
-  onReachBottom: function () {
-
-  },
-
-  /**
-   * 用户点击右上角分享
-   */
-  onShareAppMessage: function () {
-
+  chooseCreditType(e) {
+    console.log(e)
+    this.setData({
+      creditType: e.currentTarget.dataset.type
+    })
+    this.getList()
   }
 })

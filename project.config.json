@@ -55,41 +55,6 @@
 			"current": -1,
 			"list": [
 				{
-					"id": 0,
-					"name": "pages/common/LogisticsInfo/LogisticsInfo",
-					"pathName": "pages/common/LogisticsInfo/LogisticsInfo",
-					"query": "",
-					"scene": null
-				},
-				{
-					"id": -1,
-					"name": "pages/welcome/welcome",
-					"pathName": "pages/welcome/welcome",
-					"query": "",
-					"scene": null
-				},
-				{
-					"id": -1,
-					"name": "pages/common/LogisticsInfo/LogisticsInfo",
-					"pathName": "pages/common/LogisticsInfo/LogisticsInfo",
-					"query": "",
-					"scene": null
-				},
-				{
-					"id": -1,
-					"name": "pages/product/goodsPurchaseOrSaleRecord/goodsPurchaseOrSaleRecord",
-					"pathName": "pages/product/goodsPurchaseOrSaleRecord/goodsPurchaseOrSaleRecord",
-					"query": "",
-					"scene": null
-				},
-				{
-					"id": -1,
-					"name": "pages/product/goodsInAndOut/goodsInAndOut",
-					"pathName": "pages/product/goodsInAndOut/goodsInAndOut",
-					"query": "",
-					"scene": null
-				},
-				{
 					"id": -1,
 					"name": "pages/index/mine/creditManage/creditManage",
 					"pathName": "pages/index/mine/creditManage/creditManage",

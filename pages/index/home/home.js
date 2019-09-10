@@ -21,7 +21,7 @@ Component({
     projectData: [
       {
         title: '采购',
-        titleEn: 'Purcjase',
+        titleEn: 'Purchase',
         color: 'blue',
         icon: '',
         link: '/pages/sales/salesOrders/salesOrders?orderStatus=&isAllOrder=1'
