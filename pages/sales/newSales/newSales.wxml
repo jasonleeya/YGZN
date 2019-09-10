@@ -81,7 +81,7 @@
       <view class="cell border-bt ">
         <view class="cell-name">物流号</view>
         <view class="cell-value ">
-          <input name="lgtNums" placeholder="请输入物流编号(可不填)"></input>
+          <input name="lgtNums" placeholder="请输入物流编号"></input>
         </view>
 
       </view>

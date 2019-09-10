@@ -48,27 +48,26 @@
         <view class="cell-name">联系电话</view>
         <view class="cell-value">
           <input name="phoneNumber" type="number" value="{{phoneNumber}}" maxlength="11"></input>
-        </view> 
+        </view>
       </view>
 
-  <view class="cell border-bt">
+      <view class="cell border-bt">
         <view class="cell-name">物流费用</view>
         <view class="cell-value">
           <input name="logisticsCost" type="number" placeholder="请填写物流费用" value="{{logisticsCost}}"></input>
-        </view> 
+        </view>
       </view>
 
 
       <view class="cell">
         <view class="cell-name">收货日期</view>
         <view class="cell-value">
-          <picker name="receiveDate" mode="date" value="{{receiveDate}}" start="{{receiveDate}}" end="2100-09-01" bindchange="dateChange">
-            <view class="picker">
-              {{receiveDate}}
-            </view>
-          </picker>
+          <input name="receiveDate" type="number" placeholder="请填写物流费用" value="{{receiveDate}}" disabled></input>
         </view>
-        <!-- <view class="cuIcon-right  cell-icon"></view> -->
+        <picker mode="date" value="{{receiveDate}}" start="{{receiveDate}}" end="2100-09-01" bindchange="dateChange">
+          <!-- {{receiveDate}} -->
+          <view class="cuIcon-right  cell-icon"></view>
+        </picker>
       </view>
     </view>
     <view class="title add-goods">添加商品</view>

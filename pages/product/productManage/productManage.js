@@ -10,6 +10,7 @@ create(store, {
     productList: [],
     storeHouseList: [],
     selectedStoreHouseId: "",
+    searchKey:"",
     totalPage: null,
     curPage: 1,
     isLoad: false,
@@ -37,16 +38,16 @@ create(store, {
     this.setData({
       isLoad: true
     })
-    if(page===1){
+    if (page === 1) {
       this.setData({
-        productList:[]
+        productList: []
       })
     }
     app.http("queryStock", {
       wareKey: storeHouseId,
       pageNo: page,
       pageSize: 15,
-      searchKey: "",
+      searchKey: this.data.searchKey,
       brandName: "",
       stockStatus: "",
     }, true).then(data => {
@@ -75,11 +76,17 @@ create(store, {
       productList: this.store.data.productManage.productList
     })
   },
+  getSearchValue(e) {
+    this.setData({
+      searchKey: e.detail
+    })
+    this.getList(this.data.selectedStoreHouseId)
+  },
   searchType(e) {
     this.setData({
       selectedStoreHouseId: e.detail.tableKey
     })
-    this.getList(e.detail.tableKey,1)
+    this.getList(e.detail.tableKey, 1)
   },
   reachBottom() {
     if (this.data.isLoad) {
@@ -87,10 +94,10 @@ create(store, {
     }
     if (this.data.curPage < this.data.totalPage) {
       this.setData({
-        curPage: this.data.curPage+1
+        curPage: this.data.curPage + 1
       })
-      this.getList(this.data.selectedStoreHouseId, this.data.curPage+1)
-    }else{
+      this.getList(this.data.selectedStoreHouseId, this.data.curPage + 1)
+    } else {
       app.showToast("没有更多数据了")
     }
   },

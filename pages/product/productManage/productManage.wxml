@@ -1,4 +1,4 @@
-<search types="{{storeHouseList}}" bind:searchType="searchType" />
+<search types="{{storeHouseList}}" bind:searchType="searchType" bind:value="getSearchValue"/>
 <scroll-view scroll-y class="product-manage-scroll" bindscrolltolower="reachBottom">
   <view class="product-list cu-list">
     <view class="product-item solid-bottom cu-item {{modalName=='move-box-'+ index?'move-cur':''}}" wx:for="{{productList}}" wx:key bindtap="editProductInfo" data-index="{{index}}" bindtouchstart="ListTouchStart" bindtouchmove="ListTouchMove" bindtouchend="ListTouchEnd"

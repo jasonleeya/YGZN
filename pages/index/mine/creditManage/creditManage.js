@@ -75,7 +75,7 @@ Page({
     }
 
   },
-  chooseTimeRangeType(e) {
+  chooseTimeRangeType(e) { 
     var type = e.target.dataset.type
     if (type === "all") {
       this.setData({
