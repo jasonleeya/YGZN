@@ -1,0 +1,11 @@
+ .credit-operate{
+   height: 100vh;
+   position: relative
+ }
+.confirm{ 
+  width: calc(100vw - 60rpx);
+  left: 50%;
+  transform: translateX(-50%);
+  bottom: 100rpx;
+  position: absolute
+}

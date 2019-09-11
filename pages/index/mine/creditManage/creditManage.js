@@ -12,7 +12,11 @@ Page({
     amountType: "all",
     creditType: "all",
     custNo: "",
-    customerNo: ""
+    customerName: "",
+    currPage: 0,
+    isLoad: false,
+    totalPages: null,
+    
   },
   onLoad(options) {
     this.setData({
@@ -27,7 +31,15 @@ Page({
     }
   },
 
-  getList() {
+  getList(replace=true) {
+    if (replace){
+      this.setData({
+        customerList:[]
+      })
+    }
+    this.setData({
+      isLoad: true
+    })
     var status = ""
     switch (this.data.creditType) {
       case "all":
@@ -52,8 +64,15 @@ Page({
       status: status,
       datestar: this.data.validTime
     }).then(data => {
+      var list=data.list
+      list.forEach(item=>{
+        item.begdate = new Date(item.begdate).toLocaleDateString().replace(/\//g, "-")
+        item.enddate = new Date(item.enddate).toLocaleDateString().replace(/\//g, "-")
+      })
       this.setData({
-        customerList: data.list
+        isLoad: false,
+        customerList: this.data.customerList.concat(list),
+        totalPages: data.totalPages
       })
     })
   },
@@ -61,6 +80,11 @@ Page({
     wx.navigateTo({
       url: '/pages/sales/selectCustomer/selectCustomer'
     })
+  },
+  add(){
+    wx.navigateTo({
+      url: '/pages/index/mine/creditOperate/creditOperate'
+    }) 
   },
   chooseLimitType(e) {
     var type = e.target.dataset.type
@@ -75,7 +99,7 @@ Page({
     }
 
   },
-  chooseTimeRangeType(e) { 
+  chooseTimeRangeType(e) {
     var type = e.target.dataset.type
     if (type === "all") {
       this.setData({
@@ -110,5 +134,21 @@ Page({
       creditType: e.currentTarget.dataset.type
     })
     this.getList()
+  },
+  scrollToLower() {
+    if (this.data.isLoad) {
+      return
+    } 
+    if (this.data.totalPages < this.data.currPage){
+      app.showToast("没有更多客户了")
+      this.setData({
+        isLoad:false
+      })
+      return
+    }
+    this.setData({
+      currPage:this.data.currPage+1, 
+    })
+    this.getList(false)
   }
 })

@@ -31,7 +31,8 @@
     "pages/common/LogisticsInfo/LogisticsInfo",
     "pages/product/goodsInAndOut/goodsInAndOut",
     "pages/product/goodsPurchaseOrSaleRecord/goodsPurchaseOrSaleRecord",
-    "pages/index/mine/creditManage/creditManage"
+    "pages/index/mine/creditManage/creditManage",
+    "pages/index/mine/creditOperate/creditOperate"
   ],
   "window": {
     "backgroundTextStyle": "light",

@@ -72,10 +72,11 @@ create(store, {
         stockStatus: ""
       }).then((data) => {
         if (data.list.length === 0) {
-          app.showToast("无该商品信息")
+          app.showToast("无该商品信息,两秒后自动返回上一页面")
           setTimeout(()=>{
             wx.navigateBack()
           },2000)
+          return
         }
         var obj = data.list[0]
         obj.defaultTime = obj.defaultTime ? 0 : obj.defaultTime

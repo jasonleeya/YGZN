@@ -30,7 +30,7 @@
       </view>
       <view class="add-aeceive-address  border-bt">
         <view class="cell-name">收货地址</view>
-        <input name="receiveAddress" hidden type="hidden" value="{{receiveAddress}}" disabled class="cell-value" bindtap="addAeceiveAddress"></input>
+        <input name="receiveAddress" hidden type="hidden" placeholder="请选择收货地址" value="{{receiveAddress}}" disabled class="cell-value" bindtap="addAeceiveAddress"></input>
         <view class="cell-value">
           {{receiveAddress}}
         </view>
@@ -39,7 +39,7 @@
       <view class="cell border-bt">
         <view class="cell-name">收货人</view>
         <view class="cell-value">
-          <input name="receiver" value="{{receiver}}"></input>
+          <input name="receiver" value="{{receiver}}"  placeholder="请选择收货地址或填写收货人"></input>
         </view>
         <!-- <view class="cuIcon-right  cell-icon"></view> -->
       </view>
@@ -47,7 +47,7 @@
       <view class="cell border-bt">
         <view class="cell-name">联系电话</view>
         <view class="cell-value">
-          <input name="phoneNumber" type="number" value="{{phoneNumber}}" maxlength="11"></input>
+          <input name="phoneNumber" type="number" value="{{phoneNumber}}" maxlength="11" placeholder="请选择收货地址或填写联系号码"></input>
         </view>
       </view>
 

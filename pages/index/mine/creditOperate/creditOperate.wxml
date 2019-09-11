@@ -1,0 +1,54 @@
+<view class="credit-operate">
+  <form bindsubmit="formSubmit">
+    <view class="cell solid-bottom">
+      <view class="cell-name">客户名称</view>
+      <view class="cell-value">
+        <input name="custname" value="{{customerName}}" placeholder="选择客户名称" disabled></input>
+      </view>
+      <view class="cell-icon cuIcon-right" bindtap="toSelectCostomer"></view>
+    </view>
+    <view class="cell solid-bottom">
+      <view class="cell-name">额度类型</view>
+      <view class="cell-value">
+        <input hidden name="type" value="{{creditType.idList[creditType.active]}}"></input>
+        <input value="{{creditType.list[creditType.active]}}" placeholder="请选择额度类型" disabled></input>
+      </view>
+      <picker bindchange="bindCreditTypeChange" value="{{creditType.active}}" range="{{creditType.list}}">
+        <view class="picker">
+          <view class="cell-icon cuIcon-right"></view>
+        </view>
+      </picker>
+
+    </view>
+    <view class="cell solid-bottom">
+      <view class="cell-name">信用额度</view>
+      <view class="cell-value">
+        <input name="credit" value="{{credit}}" placeholder="请输入信用额度" type="number"></input>
+      </view>
+    </view>
+    <view class="cell solid-bottom">
+      <view class="cell-name">开始日期</view>
+      <view class="cell-value">
+        <input name="begtime" value="{{begtime}}" placeholder="请选择开始日期" disabled></input>
+      </view>
+      <picker mode="date" value="{{begtime}}" bindchange="bindBegTimeChange">
+        <view class="picker">
+          <view class="cell-icon cuIcon-right"></view>
+        </view>
+      </picker>
+
+    </view>
+    <view class="cell solid-bottom">
+      <view class="cell-name">结束日期</view>
+      <view class="cell-value">
+        <input name="endtime" value="{{endtime}}" placeholder="请选择结束日期" disabled></input>
+      </view>
+     <picker mode="date" value="{{endtime}}" bindchange="bindEndTimeChange">
+        <view class="picker">
+          <view class="cell-icon cuIcon-right"></view>
+        </view>
+      </picker>
+    </view>
+    <button class="confirm theme-bgc" form-type="submit">申请</button>
+  </form>
+</view>

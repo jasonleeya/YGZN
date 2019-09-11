@@ -107,7 +107,7 @@ Component({
           this.computeTotalPriceTotalAmount()
 
         } else {
-          app.showToast("不能小于最小采购量")
+          app.showToast("不能小于最小采购量,如需删除该商品请左滑",3000)
         }
 
       } else {

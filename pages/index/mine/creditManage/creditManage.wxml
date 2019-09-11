@@ -3,9 +3,9 @@
     <view class="search-and-add solid-bottom">
       <view class="search">
         <view class="search-icon cuIcon-search"></view>
-        <input class="search-input" disabled placeholder="客户名称" value="{{customerName}}" bindtap="toSelectCostomer"></input>
+        <input class="search-input bg-gray" disabled placeholder="客户名称" value="{{customerName}}" bindtap="toSelectCostomer"></input>
       </view>
-      <button class="add-btn">新增</button>
+      <button class="add-btn" bindtap="add">新增</button>
     </view>
     <view class="limit solid-bottom">
       <view class="limit-options {{limitType==='time'?'theme-color':''}}" bindtap="chooseLimitType" data-type="time">适用时间
@@ -50,7 +50,35 @@
       </view>
     </view>
   </view>
-  <scroll-view class="scroll-view" scroll-y>
-    <view class="customer-list">111</view>
+  <scroll-view class="scroll-view" scroll-y bindscrolltolower="scrollToLower">
+    <view class="customer-list">
+      <view class="card" wx:for="{{customerList}}" wx:key>
+        <view class="card-head">
+          <view class="card-title">
+            <text class="card-icon cuIcon-cart"></text>{{item.custname}}</view>
+          <view class="card-subtitle">已审核</view>
+        </view>
+        <view class="card-content">
+          <view class="card-item">
+            <view class="card-name">额度类型</view>
+            <view class="card-value">固定额度</view>
+          </view>
+          <view class="card-item">
+            <view class="card-name">固定额度</view>
+            <view class="card-value text-red">￥{{item.credit}}</view>
+          </view>
+          <view class="card-item">
+            <view class="card-name">生效时间</view>
+            <view class="card-value">{{item.begdate}}</view>
+          </view>
+          <view class="card-item">
+            <view class="card-name">失效时间</view>
+            <view class="card-value">{{item.enddate}}</view>
+          </view>
+        </view>
+      </view>
+    </view>
+    
+<view class="cu-load  {{isLoad?'loading':'over'}}"></view>
   </scroll-view>
 </view>
