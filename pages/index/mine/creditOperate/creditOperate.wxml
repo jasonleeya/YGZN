@@ -43,12 +43,25 @@
       <view class="cell-value">
         <input name="endtime" value="{{endtime}}" placeholder="请选择结束日期" disabled></input>
       </view>
-     <picker mode="date" value="{{endtime}}" bindchange="bindEndTimeChange">
+      <picker mode="date" value="{{endtime}}" bindchange="bindEndTimeChange">
         <view class="picker">
           <view class="cell-icon cuIcon-right"></view>
         </view>
       </picker>
     </view>
-    <button class="confirm theme-bgc" form-type="submit">申请</button>
+    <view class="cell">
+      <view class="cell-name">是否启用</view>
+      <view class="cell-value"></view>
+      <view class="cell-icon">
+        <switch class="blue sm" bindchange="changeEnableStatus"></switch>
+
+      </view>
+    </view>
+    <view class="operate-btns">
+      <button>删除额度</button>
+      <button>删除额度</button>
+      <button>删除额度</button>
+    </view>
+    <button class="confirm theme-bgc" form-type="submit" wx:if="{{operateType==='add'}}">申请</button>
   </form>
 </view>

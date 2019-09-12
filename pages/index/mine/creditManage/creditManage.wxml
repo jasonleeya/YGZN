@@ -21,7 +21,7 @@
     <view class="dorpdown">
       <view class="time-range" wx:if="{{limitType==='time'}}">
         <view class="time-range-btns solid-bottom">
-          <view class="time-range-btn {{timeRangeType==='all'?'theme-bgc':'bg-gray'}}" bindtap="chooseTimeRangeType" data-type="all">所有时间</view>
+          <view class="time-range-btn {{timeRangeType==='all'?'theme-bgc':'bg-gray'}}" bindtap="chooseTimeRangeType" data-type="all">所有</view>
           <view class="time-range-btn {{timeRangeType==='custom'?'theme-bgc':'bg-gray'}}" bindtap="chooseTimeRangeType" data-type="custom">自定义</view>
         </view>
         <view class="pickers" wx:if="{{timeRangeType==='custom'}}">
@@ -52,19 +52,19 @@
   </view>
   <scroll-view class="scroll-view" scroll-y bindscrolltolower="scrollToLower">
     <view class="customer-list">
-      <view class="card" wx:for="{{customerList}}" wx:key>
+      <view class="card" wx:for="{{customerList}}" wx:key bindtap="toEdit" data-index="{{index}}">
         <view class="card-head">
           <view class="card-title">
             <text class="card-icon cuIcon-cart"></text>{{item.custname}}</view>
-          <view class="card-subtitle">已审核</view>
+          <view class="card-subtitle">{{item.statusStr}}</view>
         </view>
         <view class="card-content">
           <view class="card-item">
             <view class="card-name">额度类型</view>
-            <view class="card-value">固定额度</view>
+            <view class="card-value">{{item.type==='fixed'?'固定额度':'临时额度'}}</view>
           </view>
           <view class="card-item">
-            <view class="card-name">固定额度</view>
+            <view class="card-name">{{item.type==='fixed'?'固定额度':'临时额度'}}</view>
             <view class="card-value text-red">￥{{item.credit}}</view>
           </view>
           <view class="card-item">

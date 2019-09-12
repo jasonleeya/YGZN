@@ -1,4 +1,4 @@
-<view class="initial-bg">
+<view class="initial-bg" bindtap="startNow">
   <!-- <view class="text">
     <view>Imatchas</view>
     <view>企业助手</view>

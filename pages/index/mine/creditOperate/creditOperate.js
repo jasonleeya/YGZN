@@ -14,14 +14,42 @@ Page({
       active: 0,
       list: ["固定额度", "临时额度"],
       idList: ['fixed', 'temp']
-    }
+    },
+    operateType: "",
+    editIndex: ""
   },
 
   /**
    * 生命周期函数--监听页面加载
    */
   onLoad: function(options) {
-    app.showToast("该页面功能尚未完善")
+    switch (options.operateType) {
+      case "add":
+        this.setData({
+          operateType: "add"
+        })
+        break
+      case "edit":
+        var index = options.index
+        var pages = getCurrentPages()
+        var curPage = pages[pages.length - 2]
+        var prePageData = curPage.data.customerList[index]
+
+        this.setData({
+          operateType: "edit",
+          editIndex: index,
+
+          begtime: prePageData.begdate,
+          endtime: prePageData.enddate,
+          custcode: prePageData.custcode,
+          type: prePageData.type,
+          credit: prePageData.credit,
+          custNo: prePageData.custNo,
+          customerName: prePageData.custname,
+
+          ["creditType.active"]: this.data.creditType.idList.indexOf(prePageData.type) > -1 ? this.data.creditType.idList.indexOf(prePageData.type) : 0
+        })
+    }
   },
   toSelectCostomer() {
     wx.navigateTo({
@@ -51,6 +79,9 @@ Page({
       endtime: value
     })
 
+  },
+  changeEnableStatus(e) {
+    console.log(e)
   },
   formSubmit(e) {
     if (this.data.disable) {
@@ -85,7 +116,7 @@ Page({
         disable: true
       })
       app.showToast("添加成功")
-      setTimeout(() => {   
+      setTimeout(() => {
         wx.navigateBack()
       }, 2000)
     }).catch(err => {

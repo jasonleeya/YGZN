@@ -17,9 +17,9 @@ App({
     salesCartList: [],
     salesTotalPrice: 0,
     salesTotalAmount: 0,
-  }, 
+  },
   onShow: function() {
-   
+
     let that = this
     this.globalData.interval = setInterval(function() {
       let pages = getCurrentPages();
@@ -35,11 +35,17 @@ App({
           console.log(err)
           switch (err) {
             case "无效token":
+              if (that.globalData.isShowModal) {
+                return
+              }
+              that.globalData.isShowModal = true
               wx.showModal({
                 content: '此账号已在其他地方登陆,需重新验证',
+                showCancel:false,
                 success: () => {
                   wx.login({
                     success(res) {
+                      that.globalData.isShowModal=false
                       if (res.code) {
                         that.http("loginAuthenticate", {
                           username: res.code,
@@ -133,7 +139,7 @@ App({
       setCompony(this.globalData.companies)
     }
 
-    function setCompony(companies) { 
+    function setCompony(companies) {
       if (currentCompanyIndex === "") {
         wx.setStorageSync("currentCompanyIndex", 0)
         wx.setNavigationBarTitle({

@@ -19,6 +19,7 @@ Page({
     
   },
   onLoad(options) {
+    app.showToast("该页面尚未完善")
     this.setData({
       ['timeRange.satart']: '',
       ['timeRange.end']: ''
@@ -66,6 +67,20 @@ Page({
     }).then(data => {
       var list=data.list
       list.forEach(item=>{
+        switch(item.status){ 
+          case 0:
+            item.statusStr ="未审核"
+            break
+          case 1:
+            item.statusStr = "已审核"
+            break
+          case 2:
+            item.statusStr = "已停用"
+            break
+          case 3:
+            item.statusStr = "已过期"
+            break 
+        }
         item.begdate = new Date(item.begdate).toLocaleDateString().replace(/\//g, "-")
         item.enddate = new Date(item.enddate).toLocaleDateString().replace(/\//g, "-")
       })
@@ -83,7 +98,7 @@ Page({
   },
   add(){
     wx.navigateTo({
-      url: '/pages/index/mine/creditOperate/creditOperate'
+      url: '/pages/index/mine/creditOperate/creditOperate?operateType=add'
     }) 
   },
   chooseLimitType(e) {
@@ -150,5 +165,11 @@ Page({
       currPage:this.data.currPage+1, 
     })
     this.getList(false)
+  },
+  toEdit(e){
+    var index = e.currentTarget.dataset.index
+    wx.navigateTo({
+      url: '/pages/index/mine/creditOperate/creditOperate?operateType=edit&index='+index, 
+    })
   }
 })
