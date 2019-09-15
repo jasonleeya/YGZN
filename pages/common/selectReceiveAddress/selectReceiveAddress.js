@@ -1,4 +1,4 @@
-// pages/common/selectReceiveAddress/selectReceiveAddress.js
+import util from "../../../utils/util.js"
 let app = getApp()
 Page({
 
@@ -41,8 +41,20 @@ Page({
   edit(e) {
     var index = e.currentTarget.dataset.index
     var address = this.data.list[index]
-    wx.navigateTo({
-      url: '/pages/common/operateReceiveAddress/operateReceiveAddress?operateType=edit&consignee=' + address.consignee + '&telephone=' + address.telephone + '&region=' + address.region + '&address=' + address.address + "&dftStatus=" + address.dftStatus + "&tableKey=" + address.tableKey + "&custNo=" + address.custNo
+ wx.navigateTo({
+      // url: '/pages/common/operateReceiveAddress/operateReceiveAddress?operateType=edit&consignee=' + address.consignee + '&telephone=' + address.telephone + '&region=' + address.region + '&address=' + address.address + "&dftStatus=" + address.dftStatus + "&tableKey=" + address.tableKey + "&custNo=" + address.custNo
+      //对象转url
+      url: util.objToUrl({
+        operateType: "edit",
+        consignee: address.consignee,
+        telephone: address.telephone,
+        region: address.region,
+        address: address.address,
+        dftStatus: address.dftStatus,
+        tableKey: address.tableKey,
+        custNo: address.custNo
+      },"/pages/common/operateReceiveAddress/operateReceiveAddress")
+
     })
   },
   add() {
@@ -50,12 +62,13 @@ Page({
       url: '/pages/common/operateReceiveAddress/operateReceiveAddress?operateType=add'
     })
   },
+  //设置上个页面的收货信息data
   choose(e) {
     var index = e.currentTarget.dataset.index
     getCurrentPages()[getCurrentPages().length - 2].setData({
       [this.data.addressKey]: "【" + this.data.list[index].region + "】" + this.data.list[index].address,
       [this.data.phoneNumberKey]: this.data.list[index].telephone,
-      [this.data.receiverKey]: this.data.list[index].consignee, 
+      [this.data.receiverKey]: this.data.list[index].consignee,
     })
     wx.navigateBack({
       delta: 1,

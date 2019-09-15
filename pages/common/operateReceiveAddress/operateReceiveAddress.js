@@ -26,6 +26,7 @@ create(store, {
     // var region = options.adress.match(/【.+】/g)[0].replace("【", "").replace("】", "").split("/")
     // var detail = options.adress.split("】")[1]
 
+    //如果操作类型是edit,则加载数据
     if (options.operateType === "edit") {
       options.region = options.region.split("/")
       this.setData({

@@ -1,4 +1,5 @@
 import create from '../../../utils/create'
+import util from '../../../utils/util.js'
 let app = getApp()
 create({
   /**
@@ -36,6 +37,7 @@ create({
       this.setData({
         isLoad: true
       })
+      //获取消息
       app.http("selectReminderMessageByEnterpriseId", {
         pageSize: 15,
         pageNum: this.data.curPage
@@ -46,9 +48,8 @@ create({
           isLoad: false,
           totalPage: msgList.totalPages
         })
-        msgList.list.forEach(msg => {
-          var time = new Date(parseInt(msg.messageDate)) 
-          msg.time = time.toLocaleDateString().replace(/\//g, "-") + " " + time.toTimeString().substr(0,9)
+        msgList.list.forEach(msg => { 
+          msg.time = util.formatTime(new Date(parseInt(msg.messageDate)) )
 
           if (msg.content.search("<b class='sale'>") > 0) {
             msg.msgType = "销售订单-"

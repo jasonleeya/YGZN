@@ -12,8 +12,7 @@ Component({
   /**
    * 组件的初始数据
    */
-  data: {
-     
+  data: { 
     monthPurchaseAmount: 0,
     monthSaleAmount: 0,
     monthSaleNum: 0,
@@ -80,6 +79,7 @@ Component({
 
   lifetimes:{
   ready(){
+    //首页数据
     app.http("fetchOrderAggregate").then(data=>{
       var list=data.infoBody
       this.setData({

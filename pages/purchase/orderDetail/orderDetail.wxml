@@ -76,7 +76,7 @@
       <view class="cell border-bt" hidden="{{infos.orderStatus==='wait'||infos.orderStatus==='090001'||infos.orderStatus==='090003'}}">
         <view class="cell-name">物流单号</view>
         <view class="cell-value">
-          <input name="phoneNumber" type="lgtNums" value="{{infos.lgtNums}}" placeholder="出库时请输入物流订单号" bindinput="lgtInput"></input>
+          <input name="lgtNums" type="lgtNums" value="{{infos.lgtNums}}" placeholder="出库时请输入物流订单号" bindinput="lgtInput"></input>
         </view>
         <view class="cell-icon cuIcon-right {{canEdit&&infos.orderStatus==='wait'?'':'text-gray'}}" bindtap="seeLogisticsInfo"></view>
       </view>

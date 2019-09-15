@@ -64,7 +64,7 @@ Component({
   ready() {
 
   },
-
+  //当组件展示时计算显示的总量和总额
   pageLifetimes: {
     show() {
       this.computeTotalPriceTotalAmount()
@@ -78,11 +78,14 @@ Component({
     plusGoods(e) {
       var id = e.target.dataset.id
       var index = e.target.dataset.index
+      var amountKey = this.data.amountKey
+      //计算组件类的数量
       this.setData({
-        ["goodsList[" + index + "]." + this.data.amountKey]: parseInt(this.data.goodsList[index][this.data.amountKey]) + 1
+        ["goodsList[" + index + "]." + amountKey]: parseInt(this.data.goodsList[index][amountKey]) + 1
       })
+      //trigger变化后的数量和商品的index
       this.triggerEvent("changeAmount", {
-        amount: this.data.goodsList[index][this.data.amountKey],
+        amount: this.data.goodsList[index][amountKey],
         index: index
       })
       this.computeTotalPriceTotalAmount()
@@ -93,9 +96,10 @@ Component({
     minusGoods(e) {
       var id = e.target.dataset.id
       var index = e.target.dataset.index
-      var min = parseInt(this.data.goodsList[index][this.data.minNumKey])
+      var min = parseInt(this.data.goodsList[index][this.data.minNumKey]) //最小包装量
 
       if (!isNaN(min)) {
+        //数量不能小于最小包装量
         if (this.data.goodsList[index][this.data.amountKey] > min) {
           this.setData({
             ["goodsList[" + index + "]." + this.data.amountKey]: parseInt(this.data.goodsList[index][this.data.amountKey]) - 1
@@ -107,11 +111,10 @@ Component({
           this.computeTotalPriceTotalAmount()
 
         } else {
-          app.showToast("不能小于最小采购量,如需删除该商品请左滑",3000)
+          app.showToast("不能小于最小采购量,如需删除该商品请左滑", 3000)
         }
-
+        //没有最小包装量时不能小于0
       } else {
-
         if (this.data.goodsList[index][this.data.amountKey] > 0) {
           this.setData({
             ["goodsList[" + index + "]." + this.data.amountKey]: parseInt(this.data.goodsList[index][this.data.amountKey]) - 1
@@ -122,29 +125,19 @@ Component({
           })
           this.computeTotalPriceTotalAmount()
 
-        }
-
-        if (this.data.goodsList[index][this.data.amountKey] === 0) { //商品数量减少到0删除项
-          // var newList = this.data.goodsList
-          // newList.splice(index, 1)
-          // this.setData({
-          //   goodsList: newList
-          // })
+        } else { //商品数量减少到0删除项
           this.triggerEvent("deleteGoods", {
             index: index
           })
         }
-      } 
+      }
     },
     /**
-     * 重新计算总价和总量并保存到store中
+     * 计算总价和总量
      */
     computeTotalPriceTotalAmount() {
-
       var totalPrice = 0
       var totalAmount = 0
-
-
 
       this.data.goodsList.forEach(item => {
         if (isNaN(parseInt(item[this.data.amountKey]))) {
@@ -162,28 +155,23 @@ Component({
         totalAmount: totalAmount
       })
     },
-    // 左滑删除商品
+    // 左滑向父组件传递删除的index
     slideToDelete(e) {
       var deleteIndex = e.target.dataset.deleteIndex
-      // var newList = this.data.goodsList
-      // newList.splice(deleteIndex, 1)
-      // this.setData({
-      //   goodsList: newList
-      // })
       this.triggerEvent("deleteGoods", {
         index: deleteIndex
       })
       this.computeTotalPriceTotalAmount()
     },
+
+    //数量input
     amountInput(e) {
       var value = parseInt(e.detail.value)
-      var index = e.target.dataset.index
-
-
+      var index = e.target.dataset.inde
+      
       this.setData({
         ["goodsList[" + index + "]." + this.data.amountKey + ""]: value
       })
-
       this.triggerEvent("changeAmount", {
         amount: this.data.goodsList[index][this.data.amountKey],
         index: index
@@ -191,11 +179,13 @@ Component({
       this.computeTotalPriceTotalAmount()
 
     },
+    //失去焦点时判断是否小于最小包装量
     amountBlur(e) {
       var value = e.detail.value
       var index = e.target.dataset.index
       var newList = this.data.goodsList
       var min = parseInt(this.data.goodsList[index][this.data.minNumKey])
+      
       if (value === "") {
         value = 0
         e.detail.value = "0"
@@ -216,12 +206,14 @@ Component({
       this.computeTotalPriceTotalAmount()
     },
 
+    //让父组件弹出编辑弹窗
     operate(e) {
       this.triggerEvent("operate", {
         index: e.currentTarget.dataset.index
       })
     },
-    seeGoodsDetail(e){
+    //让父组件跳转商品详情页
+    seeGoodsDetail(e) {
       this.triggerEvent("goodsDetail", {
         index: e.currentTarget.dataset.index
       })

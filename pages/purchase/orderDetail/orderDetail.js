@@ -35,9 +35,11 @@ Page({
 
   onLoad: function(options) {
     app.setTitle("采购订单详情")
-    this.setData({
-      orderTypeStr: options.orderTypeStr
-    })
+    if(options.orderTypeStr){
+      this.setData({
+        orderTypeStr: options.orderTypeStr
+      })
+    } 
     app.http("queryByOrderNo", {
       orderNo: options.orderNo
     }, false, false).then(data => {
@@ -244,6 +246,7 @@ Page({
   },
   submit(e) {
     var formData = e.detail.value
+    console.log(formData)
     var data = this.data
     var list = data.goodsList
     var info = data.infos
@@ -341,7 +344,7 @@ Page({
         })
 
         wx.redirectTo({
-          url: '/pages/purchase/orderDetail/orderDetail?orderNo=' + info.orderNo,
+          url: '/pages/purchase/orderDetail/orderDetail?orderNo=' + info.orderNo + "&orderTypeStr=" +this.data.orderTypeStr,
         })
       })
       .catch((e) => {

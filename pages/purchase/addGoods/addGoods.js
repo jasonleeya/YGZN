@@ -273,7 +273,7 @@ create(store, {
   noTaxPriceInput(e) {
 
     this.setData({
-      ["popData.NTPSingle"]: parseFloat(e.detail.value),
+      ["popData.NTPSingle"]: e.detail.value,
     }) //含税价和总价跟着改变
     this.setData({
       ["popData.discountPrice"]: this.compute("discountPrice"),
@@ -356,7 +356,7 @@ create(store, {
    */
   containTaxPriceInput(e) {
     this.setData({
-      ["popData.discountPrice"]: parseFloat(e.detail.value),
+      ["popData.discountPrice"]: e.detail.value,
     })
     this.setData({
       ["popData.NTPSingle"]: this.compute("NTPSingle"),

@@ -20,6 +20,7 @@ Component({
       }, {
         name: "全局搜索"
       }],
+      //初始化搜索组件使不显示type bug解决方法,监听types的变化
       observer(v) {
         if (v) {
           this.setData({
@@ -53,8 +54,6 @@ Component({
       this.setData({
         ["searchTypes.list"]: this.data.types
       })
-    
-      // this.triggerEvent("searchType", this.data.searchTypes.list[0])
     },
     ready() { 
      
@@ -64,13 +63,7 @@ Component({
 
 
   methods: {
-    // toSearch() {
-    //   if (this.data.link) {
-    //     wx.navigateTo({
-    //       url: this.properties.link,
-    //     })
-    //   }
-    // },
+    //二维码扫描
     scan() {
       let that = this
       wx.scanCode({
@@ -81,6 +74,7 @@ Component({
         }
       })
     },
+    //展开搜索类型下拉选择
     toggleSearchType() {
       if (this.data.justLink) {
         return
@@ -89,7 +83,7 @@ Component({
         isShowDorpdown: !this.data.isShowDorpdown
       })
     },
-
+    //选择搜索类型
     selectSearchType(e) {
       this.setData({
         ["searchTypes.select"]: e.currentTarget.dataset.index,
@@ -97,7 +91,7 @@ Component({
       })
       this.triggerEvent("searchType", this.data.searchTypes.list[e.currentTarget.dataset.index])
     },
-
+    //限制input触发事件,500毫秒内不能重复
     input(e) {
       clearTimeout(this.data.timer)
       var timer = setTimeout(() => {
