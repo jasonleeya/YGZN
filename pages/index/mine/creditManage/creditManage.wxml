@@ -18,7 +18,7 @@
         <text class="options-icon cuIcon-triangledownfill" data-type="credit"></text>
       </view>
     </view>
-    <view class="dorpdown">
+    <view class="dorpdown solid-bottom">
       <view class="time-range" wx:if="{{limitType==='time'}}">
         <view class="time-range-btns solid-bottom">
           <view class="time-range-btn {{timeRangeType==='all'?'theme-bgc':'bg-gray'}}" bindtap="chooseTimeRangeType" data-type="all">所有</view>
@@ -79,6 +79,6 @@
       </view>
     </view>
     
-<view class="cu-load  {{isLoad?'loading':'over'}}"></view>
+<view class="cu-load  {{isLoad?'loading':'over'}}" wx:if="{{isLoad}}"></view>
   </scroll-view>
 </view>

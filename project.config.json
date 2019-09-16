@@ -58,6 +58,13 @@
 					"id": -1,
 					"name": "pages/index/mine/creditManage/creditManage",
 					"pathName": "pages/index/mine/creditManage/creditManage",
+					"query": "",
+					"scene": null
+				},
+				{
+					"id": -1,
+					"name": "pages/index/mine/creditOperate/creditOperate",
+					"pathName": "pages/index/mine/creditOperate/creditOperate",
 					"scene": null
 				}
 			]

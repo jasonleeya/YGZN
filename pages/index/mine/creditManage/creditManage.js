@@ -1,3 +1,4 @@
+import util from "../../../../utils/util.js"
 let app = getApp()
 Page({
 
@@ -16,10 +17,9 @@ Page({
     currPage: 0,
     isLoad: false,
     totalPages: null,
-    
+
   },
   onLoad(options) {
-    app.showToast("该页面尚未完善")
     this.setData({
       ['timeRange.satart']: '',
       ['timeRange.end']: ''
@@ -27,15 +27,13 @@ Page({
     this.getList()
   },
   onShow() {
-    if (this.data.custNo !== "") {
-      this.getList()
-    }
+    this.getList()
   },
 
-  getList(replace=true) {
-    if (replace){
+  getList(replace = true) {
+    if (replace) {
       this.setData({
-        customerList:[]
+        customerList: []
       })
     }
     this.setData({
@@ -65,11 +63,11 @@ Page({
       status: status,
       datestar: this.data.validTime
     }).then(data => {
-      var list=data.list
-      list.forEach(item=>{
-        switch(item.status){ 
+      var list = data.list
+      list.forEach(item => {
+        switch (item.status) {
           case 0:
-            item.statusStr ="未审核"
+            item.statusStr = "未审核"
             break
           case 1:
             item.statusStr = "已审核"
@@ -79,10 +77,10 @@ Page({
             break
           case 3:
             item.statusStr = "已过期"
-            break 
+            break
         }
-        item.begdate = new Date(item.begdate).toLocaleDateString().replace(/\//g, "-")
-        item.enddate = new Date(item.enddate).toLocaleDateString().replace(/\//g, "-")
+        item.begdate = util.formatTime(new Date(item.begdate)).substr(0,10)
+        item.enddate = util.formatTime(new Date(item.enddate)).substr(0, 10)
       })
       this.setData({
         isLoad: false,
@@ -96,10 +94,10 @@ Page({
       url: '/pages/sales/selectCustomer/selectCustomer'
     })
   },
-  add(){
+  add() {
     wx.navigateTo({
       url: '/pages/index/mine/creditOperate/creditOperate?operateType=add'
-    }) 
+    })
   },
   chooseLimitType(e) {
     var type = e.target.dataset.type
@@ -122,7 +120,7 @@ Page({
       })
     } else {
       this.setData({
-        validTime: new Date().toLocaleDateString().replace(/\//g, "-"),
+        validTime: util.formatTime(new Date()).substr(0,10)
       })
     }
     this.getList()
@@ -132,7 +130,7 @@ Page({
   },
   chooseValidTime(e) {
     this.setData({
-      validTime: new Date().toLocaleDateString().replace(/\//g, "-"),
+      validTime:util.formatTime(new Date(e.detail.value)).substr(0, 10) 
     })
     this.getList()
   },
@@ -153,23 +151,23 @@ Page({
   scrollToLower() {
     if (this.data.isLoad) {
       return
-    } 
-    if (this.data.totalPages < this.data.currPage){
+    }
+    if (parseInt(this.data.totalPages) === parseInt(this.data.currPage) + 1) {
       app.showToast("没有更多客户了")
       this.setData({
-        isLoad:false
+        isLoad: false
       })
       return
     }
     this.setData({
-      currPage:this.data.currPage+1, 
+      currPage: this.data.currPage + 1,
     })
     this.getList(false)
   },
-  toEdit(e){
+  toEdit(e) {
     var index = e.currentTarget.dataset.index
     wx.navigateTo({
-      url: '/pages/index/mine/creditOperate/creditOperate?operateType=edit&index='+index, 
+      url: '/pages/index/mine/creditOperate/creditOperate?operateType=edit&index=' + index,
     })
   }
 })

@@ -13,7 +13,7 @@
         <input hidden name="type" value="{{creditType.idList[creditType.active]}}"></input>
         <input value="{{creditType.list[creditType.active]}}" placeholder="请选择额度类型" disabled></input>
       </view>
-      <picker bindchange="bindCreditTypeChange" value="{{creditType.active}}" range="{{creditType.list}}">
+      <picker bindchange="bindCreditTypeChange" value="{{creditType.active}}" range="{{creditType.list}}" disabled="{{!canEdit&&operateType==='edit'}}">
         <view class="picker">
           <view class="cell-icon cuIcon-right"></view>
         </view>
@@ -23,7 +23,7 @@
     <view class="cell solid-bottom">
       <view class="cell-name">信用额度</view>
       <view class="cell-value">
-        <input name="credit" value="{{credit}}" placeholder="请输入信用额度" type="number"></input>
+        <input name="credit" value="{{credit}}" placeholder="请输入信用额度" type="number" disabled="{{!canEdit&&operateType==='edit'}}"></input>
       </view>
     </view>
     <view class="cell solid-bottom">
@@ -31,7 +31,7 @@
       <view class="cell-value">
         <input name="begtime" value="{{begtime}}" placeholder="请选择开始日期" disabled></input>
       </view>
-      <picker mode="date" value="{{begtime}}" bindchange="bindBegTimeChange">
+      <picker mode="date" value="{{begtime}}" bindchange="bindBegTimeChange" disabled="{{!canEdit&&operateType==='edit'}}">
         <view class="picker">
           <view class="cell-icon cuIcon-right"></view>
         </view>
@@ -43,25 +43,33 @@
       <view class="cell-value">
         <input name="endtime" value="{{endtime}}" placeholder="请选择结束日期" disabled></input>
       </view>
-      <picker mode="date" value="{{endtime}}" bindchange="bindEndTimeChange">
+      <picker mode="date" value="{{endtime}}" bindchange="bindEndTimeChange" disabled="{{!canEdit&&operateType==='edit'}}">
         <view class="picker">
           <view class="cell-icon cuIcon-right"></view>
         </view>
       </picker>
     </view>
-    <view class="cell">
+    <view class="cell" wx-if="{{status===1&&status!==2}}">
       <view class="cell-name">是否启用</view>
       <view class="cell-value"></view>
       <view class="cell-icon">
-        <switch class="blue sm" bindchange="changeEnableStatus"></switch>
+        <switch class="blue sm" bindchange="changeEnableStatus" checked="{{status!==2}}" disabled="{{switchDisable}}"></switch>
 
       </view>
     </view>
-    <view class="operate-btns">
-      <button>删除额度</button>
-      <button>删除额度</button>
-      <button>删除额度</button>
+    <view class="operate-btns" wx:if="{{operateType==='edit'&&status===0}}">
+      <view class="button-wrapper">
+        <button class="operate-btn bg-gradual-orange" bindtap="verify">审核通过</button>
+      </view>
+      <view class="button-wrapper">
+        <button class="operate-btn bg-gray"  form-type="submit" bindtap="editCredit">{{canEdit?"确认修改":"修改额度"}}</button>
+      </view>
+      <view class="button-wrapper">
+        <button class="operate-btn bg-gray" bindtap="delete">删除额度</button>
+      </view>
+
+
     </view>
-    <button class="confirm theme-bgc" form-type="submit" wx:if="{{operateType==='add'}}">申请</button>
+    <button class="confirm theme-bgc" form-type="submit" wx:if="{{operateType==='add'}}" bindtap="add">申请</button>
   </form>
 </view>

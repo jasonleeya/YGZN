@@ -59,8 +59,12 @@ const alias = {
   updateWareItem: BASE_URL + "/imatchProduct/stockCurrent/updateWareItem",
   addWareItem: BASE_URL + "/imatchProduct/stockCurrent/addWareItem",
   fetchOrderAggregate: BASE_URL + "/imatchOrder/reOrder/fetchOrderAggregate",
-  getCustCreditList: BASE_URL + "/imatchUser/credit/getCustCreditList", 
-  creditEdit: BASE_URL  +"/imatchUser/credit/edit", 
+  getCustCreditList: BASE_URL + "/imatchUser/credit/getCustCreditList",
+  creditEdit: BASE_URL + "/imatchUser/credit/edit",
+  creditStop: BASE_URL + "/imatchUser/credit/stop",
+  creditAuth: BASE_URL + "/imatchUser/credit/auth",
+  creditDel: BASE_URL + "/imatchUser/credit/del",
+  viewOrder: BASE_URL +"/imatchOrder/bubble/viewOrder"
 }
 export default function(name) {
   return alias[name]

@@ -37,6 +37,7 @@
 
    onLoad: function(options) {
      app.setTitle("销售单详情")
+     app.http("viewOrder", { orderNo: options.orderNo })
      this.setData({
        orderTypeStr: options.orderTypeStr
      })

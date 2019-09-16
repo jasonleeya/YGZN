@@ -35,6 +35,9 @@ Page({
 
   onLoad: function(options) {
     app.setTitle("采购订单详情")
+    //设为已读
+    app.http("viewOrder", { orderNo:options.orderNo})
+
     if(options.orderTypeStr){
       this.setData({
         orderTypeStr: options.orderTypeStr

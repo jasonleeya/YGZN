@@ -64,7 +64,7 @@
     <view class="order-item" wx:for="{{orderList}}" wx:key bindtap="seeDetail" data-id="{{item.orderNo}}" data-type="{{item.orderType}}">
       <view class="order-header solid-bottom">
         <text class="order-id-icon cuIcon-text theme-color"></text>
-        <text class="order-id">订单号：{{item.orderNo}}</text>
+        <text class="order-id {{item.isRead?'':'read'}}">订单号：{{item.orderNo}}</text>
         <text class="order-status text-{{item.status==='已完成'?'green':'red'}}">{{item.status}}</text>
       </view>
       <view class="order-info-list">

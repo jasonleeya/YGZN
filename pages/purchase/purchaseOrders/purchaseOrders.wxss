@@ -178,3 +178,7 @@
   transform: translateY(-50%);
   text-align: center;
 }
+.read{
+  font-weight: bold;
+  font-size: 30rpx;
+}

@@ -23,8 +23,7 @@ create({
   },
 
   lifetimes: {
-    ready() { 
-      app.showToast("消息功能暂未完善,敬请期待")
+    ready() {
       this.getList()
     }
   },
@@ -42,24 +41,31 @@ create({
         pageSize: 15,
         pageNum: this.data.curPage
       }).then(data => {
+        console.log(JSON.parse(data.t))
         var msgList = JSON.parse(data.t)
-        console.log(msgList)
+        // console.log(msgList)
         this.setData({
           isLoad: false,
           totalPage: msgList.totalPages
         })
-        msgList.list.forEach(msg => { 
-          msg.time = util.formatTime(new Date(parseInt(msg.messageDate)) )
+        msgList.list.forEach(msg => {
+          msg.time = util.formatTime(new Date(parseInt(msg.messageDate)))
 
           if (msg.content.search("<b class='sale'>") > 0) {
+            var match = msg.content.match(/<b class='sale'>(\d+(\-\d+)*)<\/b>/)
             msg.msgType = "销售订单-"
+            msg.orderNo = match === null ? "" : match[1]
+            msg.orderType = "sale"
           } else if (msg.content.search("<b class='purchase'>") > 0) {
+            var match = msg.content.match(/<b class='purchase'>(\d+(\-\d+)*)<\/b>/)
             msg.msgType = "采购订单-"
+            msg.orderNo = match === null ? "" : match[1]
+            msg.orderType = "purchase"
           } else {
             msg.msgType = "其他消息-"
             msg.head = "其他消息"
           }
-          msg.content = msg.content.replace(/(<b class='purchase'>)|(<b class='sale'>)|(<\/b>)|(<b>)|(<i>)|(<\/i>)/g,"")
+          msg.content = msg.content.replace(/(<b class='purchase'>)|(<b class='sale'>)|(<\/b>)|(<b>)|(<i>)|(<\/i>)/g, "")
 
           if (msg.content.search("取消了订单") > 0) {
             msg.operate = "已取消"
@@ -101,7 +107,7 @@ create({
             msg.operate = "已收货"
             msg.head = "订单收货"
           }
-          if (msg.content.search("付款") > 0) {
+          if (msg.content.search("已付款") > 0) {
             msg.operate = "已付款"
             msg.head = "订单付款"
           }
@@ -122,18 +128,33 @@ create({
             msg.head = "订单提交"
           }
         })
-        if (parseInt(this.data.totalPage) > parseInt(this.data.curPage)){
+        if (parseInt(this.data.totalPage) > parseInt(this.data.curPage)) {
           this.setData({
             msgList: this.data.msgList.concat(msgList.list)
           })
         }
-        
+      })
+    },
+    seeDetail(e) { 
+      if (e.currentTarget.dataset.orderDate < 1563190064000){
+        app.showToast("消息年代太久远不能查看")
+        return
+      }
+      wx.showModal({
+        title: "你确定要查看此" + (e.currentTarget.dataset.orderType === "sale" ? "销售" : "采购") + "单" + "吗",
+        content: e.currentTarget.dataset.orderNo,
+        success: (res) => {
+            if(res.cancel){return}
+            else{
+
+            }
+        }
       })
     },
     scrollToBottom() {
       if (this.data.isLoad) {
         return
-      } 
+      }
       if (parseInt(this.data.totalPage) > parseInt(this.data.curPage)) {
         this.setData({
           curPage: this.data.curPage + 1

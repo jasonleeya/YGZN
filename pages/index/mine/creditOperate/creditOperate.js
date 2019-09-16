@@ -16,7 +16,10 @@ Page({
       idList: ['fixed', 'temp']
     },
     operateType: "",
-    editIndex: ""
+    editIndex: "",
+    canEdit: false,
+    formEvent: {},
+    switchDisable: false
   },
 
   /**
@@ -46,22 +49,33 @@ Page({
           credit: prePageData.credit,
           custNo: prePageData.custNo,
           customerName: prePageData.custname,
+          status: prePageData.status,
+          tableKey: prePageData.tableKey,
 
           ["creditType.active"]: this.data.creditType.idList.indexOf(prePageData.type) > -1 ? this.data.creditType.idList.indexOf(prePageData.type) : 0
         })
     }
   },
   toSelectCostomer() {
+    if (!this.data.canEdit && this.data.operateType === 'edit') {
+      return
+    }
     wx.navigateTo({
       url: '/pages/sales/selectCustomer/selectCustomer'
     })
   },
   bindCreditTypeChange(e) {
+    if (!this.data.canEdit && this.data.operateType === 'edit') {
+      return
+    }
     this.setData({
       ["creditType.active"]: e.detail.value
     })
   },
   bindBegTimeChange(e) {
+    if (!this.data.canEdit && this.data.operateType === 'edit') {
+      return
+    }
     var value = e.detail.value
     if (new Date(this.data.endtime).getTime() < new Date(value).getTime()) {
       value = this.data.endtime
@@ -81,15 +95,101 @@ Page({
 
   },
   changeEnableStatus(e) {
-    console.log(e)
+    if (!e.detail.value) {
+      wx.showModal({
+        title: '确定要停用此信用额度吗',
+        content: '停用过后将不能启用',
+        showCancel: true,
+        success: (res) => {
+          if (res.cancel) {
+            return
+          }
+          this.setData({
+            switchDisable: true
+          })
+          app.http("creditStop", {
+            tableKey: this.data.tableKey
+          }).then(res => {
+            app.showToast("信用额度已停用")
+            setTimeout(() => {
+              wx.navigateBack()
+            }, 500)
+          }).catch(err => {
+            app.showToast(err)
+          })
+        }
+      })
+    }
+  },
+  verify() {
+    wx.showModal({
+      title: '确定审核此订单吗',
+      success: (res) => {
+        if (res.cancel) {
+          return
+        }
+        app.http("creditAuth", {
+          tableKey: this.data.tableKey
+        }).then(res => {
+          app.showToast("审核成功")
+          setTimeout(() => {
+            wx.navigateBack()
+          }, 500)
+        }).catch(err => {
+          app.showToast(err)
+        })
+      }
+    })
+  },
+  add() {
+    this.submit(this.data.formEvent)
+  },
+  editCredit() {
+    if (!this.data.canEdit) {
+      this.setData({
+        canEdit: true
+      })
+    } else {
+      this.submit(this.data.formEvent)
+    }
+
+  },
+  delete() {
+ wx.showModal({
+   title: '确定要删除此额度吗',
+   success: (res)=>{
+     if (res.cancel) {
+       return
+     }
+     app.http("creditDel", {
+       tableKey: this.data.tableKey
+     }).then(res => {
+       app.showToast("删除信用额度成功")
+       setTimeout(() => {
+         wx.navigateBack()
+       }, 500)
+
+     }).catch(err => {
+       app.showToast(err)
+     })
+   },
+ 
+ })
   },
   formSubmit(e) {
+    this.setData({
+      formEvent: e
+    })
+
+
+  },
+  submit(e) {
     if (this.data.disable) {
       return
     }
     var formData = e.detail.value
     formData.custcode = this.data.custNo
-    formData.tableKey = ""
+    formData.tableKey = this.data.operateType==="add"?"":this.data.tableKey
     if (formData.custname === "") {
       app.showToast("请选择客户")
       return
@@ -115,7 +215,7 @@ Page({
       this.setData({
         disable: true
       })
-      app.showToast("添加成功")
+      app.showToast(this.data.operateType === "add" ? "添加成功" : "修改成功")
       setTimeout(() => {
         wx.navigateBack()
       }, 2000)
@@ -123,5 +223,4 @@ Page({
       app.showToast(err)
     })
   }
-
 })
