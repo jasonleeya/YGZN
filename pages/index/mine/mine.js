@@ -65,17 +65,29 @@ Component({
       }, {
         name: '客户管理',
         icon: '',
-        link: ''
+          link: '/pages/index/mine/customerManage/customerManage'
       }, {
         name: '代理品牌管理',
         icon: '',
         link: ''
       } ]
-    ]
+    ],
+    isIphone:false
   },
 
   lifetimes: {
     attached() {
+      wx.getSystemInfo({
+        success:(res)=>{
+          if (res.system.search("iOS") > -1){
+            this.setData({
+              isIphone:true
+            })
+          } 
+        }
+      })
+
+
       let that = this
       if (wx.getStorageSync("currentCompanyIndex")){
         this.setData({

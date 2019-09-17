@@ -1,7 +1,7 @@
 <scroll-view class="mine-scroll" scroll-y>
   <view class="mine-header">
-    <!-- <image src="https://lsj97-1300009684.cos.ap-chengdu.myqcloud.com/9924.png" mode="scaleToFill" class="header-bg"></image> -->
-    <view class="wave-wrapper">
+    <image wx:if="{{isIphone}}" src="https://lsj97-1300009684.cos.ap-chengdu.myqcloud.com/9924.png" mode="scaleToFill" class="header-bg"></image>
+    <view class="wave-wrapper" wx:if="{{!isIphone}}">
       <view class="wave wave1"></view>
       <view class="wave wave2"></view>
       <view class="wave wave3"></view>

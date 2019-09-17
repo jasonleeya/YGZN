@@ -335,7 +335,7 @@ create(store, {
           sortEndTime: this.data.customTimeRange.nowDate,
         })
         //如果选择的起始时间和结束时间一致则只显示所选的那天,不一致则显示时间段
-        if (new Date(this.data.customTimeRange.startDate).getTime() === new Date(this.data.customTimeRange.endDate).getTime()) {
+        if (new Date(this.data.customTimeRange.startDate.replace(/-/g, "/")).getTime() === new Date(this.data.customTimeRange.endDate.replace(/-/g, "/")).getTime()) {
           this.setData({
             ["customTimeRange.isShow"]: true,
             ["sortMethodsList[" + this.data.selectingMothod + "].options[4]"]: this.data.customTimeRange.endDate
@@ -351,7 +351,7 @@ create(store, {
   },
   startDateChange(e) {
     //起始时间不能大于结束时间
-    if (new Date(e.detail.value).getTime() >= new Date(this.data.customTimeRange.endDate).getTime()) {
+    if (new Date(e.detail.value.replace(/-/g, "/")).getTime() >= new Date(this.data.customTimeRange.endDate.replace(/-/g, "/")).getTime()) {
       this.setData({
         ["customTimeRange.startDate"]: this.data.customTimeRange.endDate,
         ["sortMethodsList[" + this.data.selectingMothod + "].options[4]"]: this.data.customTimeRange.endDate
@@ -369,7 +369,7 @@ create(store, {
   },
   endDateChange(e) {
     //起始时间不能大于结束时间
-    if (new Date(e.detail.value).getTime() <= new Date(this.data.customTimeRange.startDate).getTime()) {
+    if (new Date(e.detail.value.replace(/-/g, "/")).getTime() <= new Date(this.data.customTimeRange.startDate.replace(/-/g, "/")).getTime()) {
       this.setData({
         ["customTimeRange.endDate"]: this.data.customTimeRange.startDate,
         ["sortMethodsList[" + this.data.selectingMothod + "].options[4]"]: this.data.customTimeRange.startDate

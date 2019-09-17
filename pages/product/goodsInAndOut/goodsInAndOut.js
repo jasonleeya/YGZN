@@ -1,5 +1,5 @@
 let app = getApp()
-Page({
+Page({ 
 
   data: {
     orderList:[],
@@ -38,7 +38,7 @@ Page({
     }
     app.http("queryStockDetail", paramas).then(data => {
         data.list.forEach(item=>{
-          item.tranTime = new Date(item.tranTime ).toLocaleDateString().replace(/\//g, "-")
+          item.tranTime = item.tranTime.match(/\d{4}-\d{2}-\d{2}/)
         })
       this.setData({
         orderList:data.list
@@ -143,7 +143,7 @@ Page({
   },
   startDateChange(e) {
     var value = e.detail.value
-    if (new Date(value) > new Date(this.data.timeRange.end)) {
+    if (new Date(value.replace(/-/g, "/")) > new Date(this.data.timeRange.end.replace(/-/g,"/"))) {
       value = this.data.timeRange.end
     }
     this.setData({
@@ -153,7 +153,7 @@ Page({
   },
   endDateChange(e) {
     var value = e.detail.value
-    if (new Date(value) < new Date(this.data.timeRange.start)) {
+    if (new Date(value.replace(/-/g, "/")) < new Date(this.data.timeRange.start.replace(/-/g, "/"))) {
       value = this.data.timeRange.start
     }
     this.setData({

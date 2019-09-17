@@ -26,9 +26,12 @@ Page({
       var list = data.result.list
       list.forEach(item => {
         //格式化时间
-        var date = new Date(item.time)
-        item.dayStr = (date.getMonth() + 1) + "-" + date.getDate()
-        item.timeStr = new Date(item.time).toTimeString().substr(0, 8)
+        // var date = new Date(item.time)
+        // item.dayStr = (date.getMonth() + 1) + "-" + date.getDate()
+        // item.timeStr = new Date(item.time).toTimeString().substr(0, 8)
+        //兼容苹果
+        item.dayStr = item.time.match(/\d{4}-(\d{2}-\d{2})/)[1]
+        item.timeStr = item.time.match(/\d{2}:\d{2}:\d{2}/)
         //正则匹配手机号并设置样式
         item.status = item.status.replace(/(1[3456789]\d{9})/g, "<span style='color:red;'>$1</span>")
       })

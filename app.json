@@ -32,7 +32,9 @@
     "pages/product/goodsInAndOut/goodsInAndOut",
     "pages/product/goodsPurchaseOrSaleRecord/goodsPurchaseOrSaleRecord",
     "pages/index/mine/creditManage/creditManage",
-    "pages/index/mine/creditOperate/creditOperate"
+    "pages/index/mine/creditOperate/creditOperate",
+    "pages/index/mine/customerManage/customerManage",
+    "pages/index/mine/customerOperate/customerOperate"
   ],
   "window": {
     "backgroundTextStyle": "light",

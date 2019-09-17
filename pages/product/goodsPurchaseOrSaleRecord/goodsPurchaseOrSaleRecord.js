@@ -21,8 +21,8 @@ Page({
           wareHouse: options.wareHouse
         }).then(data => {
           data.list.forEach(item => {
-            item.goodsDealTimeSale = new Date(item.goodsDealTimeSale).toLocaleDateString().replace(/\//g, "-")
-            item.goodsDealTimePurchase = new Date(item.goodsDealTimePurchase).toLocaleDateString().replace(/\//g, "-")
+            item.goodsDealTimeSale = item.goodsDealTimeSale.match(/\d{4}-\d{2}-\d{2}/)
+            item.goodsDealTimePurchase = item.goodsDealTimePurchase.match(/\d{4}-\d{2}-\d{2}/)
           })
           this.setData({
             orderList: data.list

@@ -91,7 +91,7 @@
       bind:deleteGoods="deleteGoods" bind:operate="operate" bind:changeTotalPriceAndAmount="priceAmountChange" editable="{{canEdit}}" operateType="{{infos.orderStatus === 'wait'||infos.orderStatus === '090001'&& infos.oando === 'down'?'修改':'查看'}}" bind:goodsDetail="goodsDetail"
     />
     <view class="title remake">备注</view>
-    <textarea name="remark" class="remarke-textarea" placeholder="请填写备注信息" />
+    <textarea name="remark" class="remarke-textarea" value="{{infos.remark}}" placeholder="请填写备注信息" />
 
 
     <view class="operating-options">

@@ -79,8 +79,10 @@ Page({
             item.statusStr = "已过期"
             break
         }
-        item.begdate = util.formatTime(new Date(item.begdate)).substr(0,10)
-        item.enddate = util.formatTime(new Date(item.enddate)).substr(0, 10)
+        // item.begdate = util.formatTime(new Date(item.begdate)).substr(0,10)
+        // item.enddate = util.formatTime(new Date(item.enddate)).substr(0, 10)
+        item.begdate = item.begdate.match(/\d{4}-\d{2}-\d{2}/)
+        item.enddate = item.enddate.match(/\d{4}-\d{2}-\d{2}/)
       })
       this.setData({
         isLoad: false,

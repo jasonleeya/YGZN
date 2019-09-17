@@ -16,7 +16,7 @@
       </view>
       <view class="goods-info" bindtap="seeGoodsDetail" data-index="{{index}}">
         <view class="goods-name">
-          {{item.brandNameKey}}/{{item[nameKey]}}
+          {{item[brandNameKey]}}/{{item[nameKey]}}
         </view>
         <view class="goods-type text-gray">
           {{item[typeKey]}}

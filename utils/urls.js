@@ -64,7 +64,8 @@ const alias = {
   creditStop: BASE_URL + "/imatchUser/credit/stop",
   creditAuth: BASE_URL + "/imatchUser/credit/auth",
   creditDel: BASE_URL + "/imatchUser/credit/del",
-  viewOrder: BASE_URL +"/imatchOrder/bubble/viewOrder"
+  viewOrder: BASE_URL +"/imatchOrder/bubble/viewOrder",
+  getCustomerList: BASE_URL + "/imatchUser/user/getCustomerList",
 }
 export default function(name) {
   return alias[name]
