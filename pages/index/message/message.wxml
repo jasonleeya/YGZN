@@ -1,9 +1,10 @@
 <scroll-view class='message-scroll' scroll-y bindscrolltolower="scrollToBottom">
-<view class="empty" wx:if="{{msgList.length===0}}">暂无消息~~
-</view>
+  <view class="empty" wx:if="{{msgList.length===0}}">暂无消息~~
+  </view>
   <!-- 置顶列表 -->
   <view class="cu-list menu-avatar">
-    <view class="cu-item message-item-set-top  {{modalName=='move-box-'+ index?'move-cur':''}}" wx:for="{{topList}}" wx:key bindtouchstart="ListTouchStart" bindtouchmove="ListTouchMove" bindtouchend="ListTouchEnd" data-target="move-box-{{index}}" bindtap="seeDetail" data-order-type="{{item.orderType}}" data-order-no="{{item.orderNo}}">
+    <view class="cu-item message-item-set-top  {{modalName=='move-box-'+ index?'move-cur':''}}" wx:for="{{topList}}" wx:key bindtouchstart="ListTouchStart" bindtouchmove="ListTouchMove" bindtouchend="ListTouchEnd" data-target="move-box-{{index}}" bindtap="seeDetail"
+      data-order-type="{{item.orderType}}" data-order-no="{{item.orderNo}}">
       <view class='message-type-icon bg-gradual-{{module.getColor(item.type-1)}}'>{{item.icon}}</view>
       <view class='message-content'>
         <text class='message-title'>{{item.msgType}}{{item.operate}}</text>
@@ -20,7 +21,8 @@
     </view>
 
     <!-- 普通列表 -->
-    <view class="cu-item message-item{{item.setTop?'-set-top':''}}  {{modalName=='move-box-'+ index?'move-cur':''}}" wx:for="{{msgList}}" wx:key bindtouchstart="ListTouchStart" bindtouchmove="ListTouchMove" bindtouchend="ListTouchEnd" data-target="move-box-{{index}}" bindtap="seeDetail" data-order-type="{{item.orderType}}" data-order-no="{{item.orderNo}}" data-order-date="{{item.messageDate}}">
+    <view class="cu-item message-item{{item.setTop?'-set-top':''}}  {{modalName=='move-box-'+ index?'move-cur':''}}" wx:for="{{msgList}}" wx:key bindtouchstart="ListTouchStart" bindtouchmove="ListTouchMove" bindtouchend="ListTouchEnd" bindtap="seeDetail"
+      data-target="move-box-{{index}}" data-order-type="{{item.orderType}}" data-order-no="{{item.orderNo}}" data-order-date="{{item.messageDate}}" data-content="{{item.content}}" data-id="{{item.id}}">
       <view class='message-type-icon bg-gradual-{{module.getColor(index)}}'>{{item.head}}</view>
       <view class='message-content'>
         <text class='message-title'>{{item.msgType}}{{item.operate}}</text>
@@ -31,7 +33,7 @@
 
       <view class="move">
         <view class="bg-grey" bindtap='SetTop' data-set-top-index="{{index}}">置顶</view>
-        <view class="bg-orange" wx:if="{{item.type==='0'}}" bindtap="SetRead" data-top='false' data-set-read-index="{{index}}">标为已读</view>
+        <view class="bg-orange" wx:if="{{item.type==='0'}}" catchtap="SetRead" data-id="{{item.id}}" data-top='false' data-set-read-index="{{index}}">标为已读</view>
         <view class="bg-red" bindtap='Delete' data-top='false' data-delete-index="{{index}}">删除</view>
       </view>
     </view>

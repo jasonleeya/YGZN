@@ -135,21 +135,48 @@ create({
         }
       })
     },
-    seeDetail(e) { 
-      if (e.currentTarget.dataset.orderDate < 1563190064000){
+    seeDetail(e) {
+      var dataset = e.currentTarget.dataset
+      if (dataset.orderDate < 1563190064000) {
         app.showToast("消息年代太久远不能查看")
         return
       }
-      wx.showModal({
-        title: "你确定要查看此" + (e.currentTarget.dataset.orderType === "sale" ? "销售" : "采购") + "单" + "吗",
-        content: e.currentTarget.dataset.orderNo,
-        success: (res) => {
-            if(res.cancel){return}
-            else{
-
+      if (dataset.orderType !== "sale" && dataset.orderType !== "purchase") {
+        wx.showModal({
+          title: '其他消息',
+          content: dataset.content,
+          showCancel: false,
+          success: function(res) {
+            app.http("updateReminderMessageTypeById", {
+              id: dataset.id
+            })
+          }
+        })
+      } else {
+        wx.showModal({
+          title: "你确定要查看此" + (dataset.orderType === "sale" ? "销售" : "采购") + "单" + "吗",
+          content: dataset.orderNo,
+          success: (res) => {
+            if (res.cancel) {
+              return
             }
-        }
-      })
+            app.http("updateReminderMessageTypeById", {
+              id: dataset.id
+            })
+            if (dataset.orderType === "sale") {
+              wx.navigateTo({
+                url: '/pages/sales/orderDetail/orderDetail?orderNo=' + dataset.orderNo
+              })
+            }
+            if (dataset.orderType === "purchase") {
+              wx.navigateTo({
+                url: '/pages/purchase/orderDetail/orderDetail?orderNo=' + dataset.orderNo
+              })
+            }
+
+          }
+        })
+      }
     },
     scrollToBottom() {
       if (this.data.isLoad) {
@@ -259,9 +286,13 @@ create({
     },
     // 设置已读
     SetRead(e) {
-      app.showToast("该功能正在开发中")
-      return
-      console.log(e)
+      // app.showToast("该功能正在开发中") 
+      app.http("updateReminderMessageTypeById", {
+        id: e.target.dataset.id
+      }).then(res => {
+        app.showToast("消息已设为已读")
+      })
+      return 
       var newMessageList = this.data.messageList
       var newTopList = this.data.topList
       if (e.target.dataset.top === "true") {

@@ -77,6 +77,7 @@ Component({
 
   lifetimes: {
     attached() {
+      app.showToast('该页面功能尚未完善')
       wx.getSystemInfo({
         success:(res)=>{
           if (res.system.search("iOS") > -1){

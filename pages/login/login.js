@@ -18,6 +18,11 @@ Page({
     secend: "获取验证码"
   },
   onLoad(opt) {
+    if(this.data.openId===""){
+      wx.navigateTo({
+        url: '/pages/welcome/welcome'
+      })
+    }
     this.setData({
       openId: opt.openId
     })
@@ -120,6 +125,8 @@ Page({
       wx.redirectTo({
         url: '/pages/index/index'
       })
+    }).catch(err=>{
+        app.showToast(err)
     })
 
 

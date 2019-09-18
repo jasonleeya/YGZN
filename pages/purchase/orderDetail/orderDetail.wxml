@@ -69,7 +69,7 @@
       <view class="cell border-bt">
         <view class="cell-name">订单状态</view>
         <view class="cell-value text-gray">
-             {{orderTypeStr}}
+             {{infos.orderType}}
         </view>
       </view>
 

@@ -35,7 +35,7 @@ Page({
       pageNo: 0,
       pageSize: 10000,
       status: '1,2',
-      grade:"" 
+      grade: this.data.selectedLevelIndex === "" ? "" : this.data.levelList[this.data.selectedLevelIndex].id
     }).then(data => {
       this.setData({
         customerList: data.list
@@ -53,8 +53,10 @@ Page({
       index = ""
     }
     this.setData({
-      selectedLevelIndex: index
+      selectedLevelIndex: index,
+      isShowLevelDropdown: !this.data.isShowLevelDropdown
     })
+    this.getList()
   },
   searchBlur(e) {},
   searchFocus(e) {},
@@ -96,4 +98,9 @@ Page({
       url: '/pages/sales/addCustomer/addCustomer',
     })
   },
+  seeDetail(e){
+    wx.navigateTo({
+      url: '/pages/index/mine/customerOperate/customerOperate?custNo=' + e.currentTarget.dataset.id+"&operateType=edit"
+    })
+  }
 })

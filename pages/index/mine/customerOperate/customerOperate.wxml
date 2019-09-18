@@ -1,2 +1,110 @@
-<!--pages/index/mine/customerOperate/customerOperate.wxml-->
-<text>pages/index/mine/customerOperate/customerOperate.wxml</text>
+<view class="search-header solid-bottom" wx:if="{{operateType==='add'}}">
+  <view class="search-icon cuIcon-search"></view>
+  <input class="bg-gray" placeholder="可搜索已认证的客户 申请后 需要用户通过" bindfocus="searchFocus" bindinput="searchInput" bindblur="searchBlur" value="{{searchInputValue}}"></input>
+  <view class="dropdowm-list" wx:if="{{showDropdown}}">
+    <view class="dropdown-item solid-bottom" wx:for="{{searchList}}" wx:key data-id="{{item.id}}" bindtap="chooseSearchItem">
+      <text class="dropdown-icon cuIcon-friend"></text>{{item.name}}</view>
+  </view>
+  <view class="dropdown-mask" bindtap="hiddenMask" wx:if="{{showDropdown}}"></view>
+</view>
+<scroll-view scroll-y>
+  <view class="add-supplier">
+    <form bindsubmit="addSubmit">
+      <view class="cell  border-bt">
+        <view class="cell-name">客户名称
+          <text class="text-red">*</text>
+        </view>
+        <view class="cell-value">
+          <input name="customerName" placeholder="{{operateType==='edit'?'无':'请输入客户名称'}}" value="{{formData.customerName}}" bindinput="customerNameInput"></input>
+        </view>
+      </view>
+      <view class="cell border-bt">
+        <view class="cell-name">名称缩写</view>
+        <view class="cell-value">
+          <input name="letter" placeholder="{{operateType==='edit'?'无':'请输入拼音缩写'}}" value="{{formData.letter}}"></input>
+        </view>
+      </view>
+      <view class="cell border-bt">
+        <view class="cell-name">收付款</view>
+        <view class="cell-value">
+        </view>
+        <view class="cell-icon cuIcon-right"></view>
+      </view>
+      <view class="cell margin-bt">
+        <view class="cell-name">对账单</view>
+        <view class="cell-value">
+        </view>
+        <view class="cell-icon cuIcon-right"></view>
+      </view>
+
+      <view class="cell  border-bt">
+        <view class="cell-name">首要联系人</view>
+        <view class="cell-value">
+          <input name="primaryContact" placeholder="{{operateType==='edit'?'无':'请输入联系人'}}" value="{{formData.primaryContact}}"></input>
+        </view>
+      </view>
+      <view class="cell  border-bt">
+        <view class="cell-name">联系人电话</view>
+        <view class="cell-value">
+          <input name="contactPhone" placeholder="{{operateType==='edit'?'无':'请输入手机号'}}" type="number" maxlength="11" value="{{formData.contactPhone}}"></input>
+        </view>
+      </view>
+      <view class="cell  border-bt">
+        <view class="cell-name">公司电话</view>
+        <view class="cell-value">
+          <input name="telephone" placeholder="{{operateType==='edit'?'无':'请输入公司电话'}}" type="number" maxlength="11" value="{{formData.telephone}}"></input>
+        </view>
+      </view>
+      <view class="cell margin-bt">
+        <view class="cell-name">客户等级</view>
+        <view class="cell-value">
+          <input name="customerLevel" placeholder="{{operateType==='edit'?'无':'请设置价格等级'}}" value="{{formData.customerLevel?formData.customerLevel:customerLevel.list[customerLevel.index]}}" disabled></input>
+        </view>
+        <picker bindchange="setLevel" value="{{customerLevel.index}}" range="{{customerLevel.list}}">
+          <view class="picker">
+            <view class="cell-icon cuIcon-right"></view>
+          </view>
+        </picker>
+      </view>
+
+      <view class="cell  border-bt">
+        <view class="cell-name">所在地区</view>
+        <view class="cell-value">
+          <input name="region" disabled placeholder="{{operateType==='edit'?'无':'请选择所在地区'}}" value="{{formData.region?formData.region:region.length===0?'':region[0] +'/'+ region[1] +'/'+  region[2]}}"></input>
+        </view>
+        <picker mode="region" bindchange="chooseRegion" value="{{region}}">
+          <view class="picker">
+            <view class="cell-icon cuIcon-right"></view>
+          </view>
+        </picker>
+      </view>
+
+      <view class="cell  border-bt">
+        <view class="cell-name">详细地址</view>
+        <view class="cell-value">
+          <input name="detailAddress" placeholder="{{operateType==='edit'?'无':'请输入详细地址'}}" value="{{formData.detailAddress}}"></input>
+        </view>
+      </view>
+
+      <view class="cell">
+        <view class="cell-name">业务员</view>
+        <view class="cell-value">
+          <input name="salesman" placeholder="{{operateType==='edit'?'无':'请设置业务员'}}" value="{{formData.salesman?formData.salesman:salesman.list[salesman.index]}}" disabled></input>
+        </view>
+        <picker bindchange="setSalesman" value="{{salesman.index}}" range="{{salesman.list}}">
+          <view class="picker">
+            <view class="cell-icon cuIcon-right"></view>
+          </view>
+        </picker>
+
+      </view>
+      <view class="cell  border-bt">
+        <view class="cell-name">备注</view>
+        <view class="cell-value">
+          <input name="remarks" placeholder="{{operateType==='edit'?'无':'请输入备注信息'}}" value="{{formData.remark}}"></input>
+        </view>
+      </view>
+      <button class="theme-bgc confirm-btn" form-type="submit" wx:if="{{operateType==='add'}}">添加</button>
+    </form>
+  </view>
+</scroll-view>

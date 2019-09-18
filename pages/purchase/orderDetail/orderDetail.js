@@ -26,7 +26,6 @@ Page({
     orderStatus: null,
     paramas: {},
     formEvent: {},
-    orderTypeStr: ""
   },
 
   /**
@@ -36,18 +35,29 @@ Page({
   onLoad: function(options) {
     app.setTitle("采购订单详情")
     //设为已读
-    app.http("viewOrder", { orderNo:options.orderNo})
-
-    if(options.orderTypeStr){
-      this.setData({
-        orderTypeStr: options.orderTypeStr
-      })
-    } 
+    app.http("viewOrder", {
+      orderNo: options.orderNo
+    })
+ 
     app.http("queryByOrderNo", {
       orderNo: options.orderNo
     }, false, false).then(data => {
+
+      var orderType = ''
+      var infos = data.infoBody.upp
+      orderType += infos.oando === "up" ? "线上/" : infos.oando === "down" ? "线下/" : ""
+      orderType += infos.hdGoods ? "代发货/" : ""
+      orderType += String.call(this, infos.remark).indexOf("已提前入库") > -1 ? "已拆分/" : ""
+      orderType += infos.orderStatus === "090002" || infos.orderStatus === "090004" || infos.orderStatus === "090005" ? (infos.isPaid ? "已支付/" : "信用/") : ""
+      orderType += infos.typeOfGoods === "002" ? "有退货/" : ""
+      orderType += infos.showPayBtn === "yes" && infos.orderStatus === "090003" ? "已汇款/" : ""
+      infos.orderType = orderType.slice(0, orderType.length - 1)
+
+
+
+
       this.setData({
-        infos: data.infoBody.upp,
+        infos: infos,
         address: data.infoBody.address,
         goodsList: data.infoBody.lows,
         purchaseWarehouse: data.infoBody.upp.purchaseWarehouse,
@@ -347,7 +357,7 @@ Page({
         })
 
         wx.redirectTo({
-          url: '/pages/purchase/orderDetail/orderDetail?orderNo=' + info.orderNo + "&orderTypeStr=" +this.data.orderTypeStr,
+          url: '/pages/purchase/orderDetail/orderDetail?orderNo=' + info.orderNo + "&orderTypeStr=" + this.data.orderTypeStr,
         })
       })
       .catch((e) => {
@@ -431,7 +441,7 @@ Page({
     wx.showModal({
       title: '确定要再次采购吗',
       content: '',
-      success:(res)=>{
+      success: (res) => {
         if (res.cancel) {
           return
         }

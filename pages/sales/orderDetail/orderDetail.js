@@ -27,8 +27,7 @@
      paramas: {},
      orderStatus: "",
      formEvent: null,
-     paramas: {},
-     orderTypeStr: ""
+     paramas: {}, 
    },
 
    /**
@@ -37,9 +36,8 @@
 
    onLoad: function(options) {
      app.setTitle("销售单详情")
-     app.http("viewOrder", { orderNo: options.orderNo })
-     this.setData({
-       orderTypeStr: options.orderTypeStr
+     app.http("viewOrder", {
+       orderNo: options.orderNo
      })
      app.http("queryByOrderNo", {
        orderNo: options.orderNo
@@ -54,8 +52,20 @@
          region = reg.replace("【", "").replace("】", "")
          addressDetail = ad.replace(reg, "")
        }
+
+       var orderType = ''
+       var infos = data.infoBody.upp
+         orderType += infos.oando === "up" ? "线上/" : infos.oando === "down" ? "线下/" : ""
+       orderType += infos.hdGoods ? "代发货/" : ""
+       orderType += infos.orderStatus === "090002" || infos.orderStatus === "090004" || infos.orderStatus === "090005" ? (infos.isPaid ? "已支付/" : "信用/") : ""
+       orderType += infos.typeOfGoods === "002" ? "有退货/" : ""
+       orderType += infos.showPayBtn === "yes" && infos.orderStatus === "090003" ? "已汇款/" : ""
+       orderType += infos.enoughStatus === 1 ? infos.orderStatus === "090001" || infos.orderStatus === "090002" ? "A(可出货)/" : infos.orderStatus === "090004" && infos.oando === "down" ? "A(可出货)/" : '' : ''
+       orderType += infos.enoughStatus === 2 ? infos.orderStatus === "090001" || infos.orderStatus === "090002" ? "P(库存不足)/" : infos.orderStatus === "090004" && infos.oando === "down" ? "P(库存不足)/" : '' : ''
+       infos.orderType = orderType.slice(0, orderType.length - 1)
+
        this.setData({
-         infos: data.infoBody.upp,
+         infos: infos,
          region: region === "" ? "" : region.split("/"),
          addressDetail: addressDetail,
          address: data.infoBody.address,
@@ -134,7 +144,7 @@
      })
    },
    edit() {
-     if (this.data.infos.orderStatus === "090001" || this.data.infos.orderStatus ==='090002') {
+     if (this.data.infos.orderStatus === "090001" || this.data.infos.orderStatus === '090002') {
        this.setData({
          canEdit: true
        })
@@ -265,7 +275,9 @@
        title: '是否确认订单',
        content: '',
        success(res) {
-         if (res.cancel) {return}
+         if (res.cancel) {
+           return
+         }
          that.submit(that.data.formEvent)
        }
      })
@@ -286,7 +298,7 @@
      wx.showModal({
        title: '确定要再次销售吗',
        content: '',
-       success:(res)=> {
+       success: (res) => {
          if (res.cancel) {
            return
          }
@@ -305,7 +317,9 @@
      wx.showModal({
        title: '确定取消订单吗',
        success(res) {
-         if (res.cancel) { return }
+         if (res.cancel) {
+           return
+         }
          app.http("cancelOrder", {
            orderNo: this.data.infos.orderNo
          }).then(data => {
@@ -328,7 +342,9 @@
        title: '确定要入库吗',
        content: '',
        success(res) {
-         if (res.cancel) { return }
+         if (res.cancel) {
+           return
+         }
          that.submit(that.data.formEvent)
        }
      })
@@ -346,7 +362,9 @@
        title: '确定要出库吗',
        content: '',
        success(res) {
-         if (res.cancel) { return }
+         if (res.cancel) {
+           return
+         }
          that.submit(that.data.formEvent)
        }
      })

@@ -66,6 +66,8 @@ const alias = {
   creditDel: BASE_URL + "/imatchUser/credit/del",
   viewOrder: BASE_URL +"/imatchOrder/bubble/viewOrder",
   getCustomerList: BASE_URL + "/imatchUser/user/getCustomerList",
+  getCustomerByCustomerNo: BASE_URL +"/imatchUser/agency/getCustomerByCustomerNo",
+  updateReminderMessageTypeById: BASE_URL_WX +"/netgate-article/updateReminderMessageTypeById",
 }
 export default function(name) {
   return alias[name]

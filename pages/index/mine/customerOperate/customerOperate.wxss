@@ -1,1 +1,68 @@
-/* pages/index/mine/customerOperate/customerOperate.wxss */
+.add-supplier {
+  height: calc(100vh - 100rpx);
+  position: relative;
+}
+
+.scroll-view {
+  height: calc(100vh - 200rpx);
+}
+
+.margin-bt {
+  margin-bottom: 30rpx;
+}
+
+.border-bt::after {
+  content: "";
+  width: calc(100vw - 30rpx);
+  height: 1rpx;
+  position: absolute;
+  bottom: 1rpx;
+  left: 30rpx;
+  background-color: #eee;
+}
+
+.search-header {
+  height: 100rpx;
+  background-color: #fff;
+  position: relative;
+  z-index: 99
+}
+.search-icon{
+  position: absolute;
+  top: 50%;
+  transform: translate(60rpx,-50%);
+  z-index: 99
+}
+.search-header input {
+  position: absolute;
+  width: calc(100vw - 60rpx);
+  height: 60rpx;
+  top: 50%;
+  left: 50%;
+  border-radius: 30rpx;
+  padding: 0 60rpx;
+  transform: translate(-50%, -50%);
+}
+.dropdowm-list{
+  position: absolute;
+  top: 100rpx;
+  z-index: 999;
+  width: 100vw;
+  background-color: #fff;
+}
+.dropdown-item{
+  height: 88rpx;
+  line-height: 88rpx;
+  padding-left: 30rpx
+}
+.dropdown-icon{
+  margin-right: 10rpx;
+}
+.dropdown-mask{
+  position: fixed;
+  width: 100vw;
+  height: calc(100vh - 100rpx);
+  top: 100rpx;
+  background-color: rgba(0, 0, 0, 0.2);
+  z-index: 9
+}
