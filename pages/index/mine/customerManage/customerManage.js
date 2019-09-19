@@ -16,6 +16,8 @@ Page({
     selectedLevelIndex: ""
   },
   onLoad() {
+    app.showToast('该页面功能尚未完善')
+
     app.setTitle("选择客户")
   },
   onShow() {
@@ -95,7 +97,7 @@ Page({
   add() {
 
     wx.navigateTo({
-      url: '/pages/sales/addCustomer/addCustomer',
+      url: '/pages/index/mine/customerOperate/customerOperate?operateType=add',
     })
   },
   seeDetail(e){

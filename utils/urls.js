@@ -68,6 +68,9 @@ const alias = {
   getCustomerList: BASE_URL + "/imatchUser/user/getCustomerList",
   getCustomerByCustomerNo: BASE_URL +"/imatchUser/agency/getCustomerByCustomerNo",
   updateReminderMessageTypeById: BASE_URL_WX +"/netgate-article/updateReminderMessageTypeById",
+  updateCustomer: BASE_URL +"/imatchUser/user/updateCustomer",
+  deleteCustomer: BASE_URL +"/imatchUser/agency/deleteCustomer",
+  searchApproveAgent: BASE_URL +"/imatchUser/user/searchApproveAgent"
 }
 export default function(name) {
   return alias[name]

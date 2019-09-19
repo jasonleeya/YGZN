@@ -23,14 +23,14 @@ Component({
         titleEn: 'Purchase',
         color: 'blue',
         icon: '',
-        link: '/pages/sales/salesOrders/salesOrders?orderStatus=&isAllOrder=1'
+        link: '/pages/purchase/purchaseOrders/purchaseOrders?orderStatus=&isAllOrder=1'
       },
       {
         title: '销售',
         titleEn: 'Sales',
         color: 'cyan',
         icon: '',
-        link: '/pages/purchase/purchaseOrders/purchaseOrders?orderStatus=&isAllOrder=1'
+        link: '/pages/sales/salesOrders/salesOrders?orderStatus=&isAllOrder=1'
       },
       // {
       //   title: '公司',

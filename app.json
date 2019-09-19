@@ -34,7 +34,10 @@
     "pages/index/mine/creditManage/creditManage",
     "pages/index/mine/creditOperate/creditOperate",
     "pages/index/mine/customerManage/customerManage",
-    "pages/index/mine/customerOperate/customerOperate"
+    "pages/index/mine/customerOperate/customerOperate",
+    "pages/index/mine/personalCenter/personalCenter",
+    "pages/index/mine/helpCenter/helpCenter",
+    "pages/index/mine/agentBrandManage/agentBrandManage"
   ],
   "window": {
     "backgroundTextStyle": "light",

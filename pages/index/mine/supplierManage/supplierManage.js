@@ -12,6 +12,7 @@ Page({
     timeOut: null,
   },
   onLoad() {
+    app.showToast('该页面功能尚未完善')
     app.setTitle("供应商管理")
   },
   onShow() {

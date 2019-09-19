@@ -1,6 +1,6 @@
 import chiniseToPinyin from "../../../../utils/chinese2pinyin.js"
 let app = getApp()
-Page( {
+Page({
 
   /**
    * 页面的初始数据
@@ -21,22 +21,19 @@ Page( {
     showDropdown: false,
     searchInputValue: "",
     searchList: [],
-    operateType:"edit"
+    operateType: "",
+    canEdit: false,
+    formEvent: {}
   },
   //
   /**
    * 生命周期函数--监听页面加载
    */
-  onLoad: function (options) {
+  onLoad: function(options) {
     app.setTitle("添加客户")
-    
-    app.http("getCustomerByCustomerNo", { customerNo:options.custNo}).then(data=>{
-      this.setData({
-        formData:data.list[0]
-      })
+    this.setData({
+      operateType: options.operateType
     })
-  },
-  onShow() {
     app.http("queryAllUsingSalesman").then(data => {
       var list = []
       data.list.forEach(item => {
@@ -59,9 +56,39 @@ Page( {
       })
     })
 
+    if (options.operateType === 'edit') {
+      app.http("getCustomerByCustomerNo", {
+        customerNo: options.custNo
+      }).then(data => {
+        var infos = data.list[0]
+        var gIndex = null
+        this.data.customerLevel.value.forEach((item, index) => {
+          if (item.id === infos.grade) {
+            gIndex = index
+          }
+        })
+
+
+
+
+
+
+
+        this.setData({
+          ["customerLevel.index"]: gIndex,
+          formData: infos
+        })
+      })
+    }
+
+
 
   },
-  setLevel: function (e) {
+  onShow() {
+
+
+  },
+  setLevel: function(e) {
     this.setData({
       ["customerLevel.index"]: e.detail.value
     })
@@ -71,8 +98,11 @@ Page( {
       ["salesman.index"]: e.detail.value
     })
   },
-  addSubmit(e) { 
-
+  submit(e) {
+    this.setData({
+      formEvent: e
+    })
+    return
     var formData = e.detail.value
 
     var grade = this.data.customerLevel.value[this.data.customerLevel.index].id
@@ -99,23 +129,25 @@ Page( {
   searchInput(e) {
     var value = e.detail.value
     if (value === "") {
-      this.setData({
-        searchList: []
-      })
-      return
+      returnz
     }
-    this.setData({
-      searchList: this.data.approvedCustomerList.filter(item => {
-        return item.name.match(value) || chiniseToPinyin(item.name)[0].match(value.toUpperCase())
+    app.http("searchApproveAgent", {
+      pageSize: 1000,
+      keyword: value
+    }).then(data => {
+      this.setData({
+        searchList: data.list
       })
     })
+
+
   },
-  searchBlur(e) {
-    this.setData({
-      searchInputValue: "",
-      searchList: []
-    })
-  },
+  // searchBlur(e) {
+  //   this.setData({
+  //     searchInputValue: "",
+  //     searchList: []
+  //   })
+  // },
   hiddenMask() {
     this.setData({
       showDropdown: false,
@@ -129,9 +161,9 @@ Page( {
   },
   chooseSearchItem(e) {
     this.setData({
-      formData: this.data.approvedCustomerList.filter(item => {
-        return item.id === e.currentTarget.dataset.id
-      })[0],
+      // formData: this.data.approvedCustomerList.filter(item => {
+      //   return item.id === e.currentTarget.dataset.id
+      // })[0],
       searchList: [],
       showDropdown: false
     })
@@ -140,5 +172,48 @@ Page( {
     this.setData({
       ['formData.pinyinInitial']: chiniseToPinyin(e.detail.value)[0]
     })
+  },
+  allowEdit() {
+    this.setData({
+      canEdit: true
+    })
+  },
+  confirmEdit() {
+    var paramas = this.data.formEvent.detail.value
+    paramas.customerNo = this.data.formData.customerNo
+    paramas.grade = this.data.customerLevel.value[this.data.customerLevel.index].id
+    paramas.customerType = "1001"
+    paramas.settlementDate = "30"
+    paramas.overdraftAmount = "0"
+
+    app.http("updateCustomer", paramas).then(res => {
+      app.showToast("修改成功")
+      setTimeout(() => {
+        wx.navigateBack()
+      }, 500)
+    }).catch(err => {
+      app.showToast(err)
+    })
+  },
+  delete() {
+    wx.showModal({
+      title: '你确定要删除此客户吗',
+      success: (res) => {
+        if (res.cancel) {
+          return
+        }
+        app.http("deleteCustomer", {
+          customerNo: this.data.formData.customerNo
+        }).then(res => {
+          app.showToast("删除成功")
+          setTimeout(() => {
+            wx.navigateBack()
+          }, 500)
+        }).catch(err => {
+          app.showToast(err)
+        })
+      }
+    })
+
   }
 })

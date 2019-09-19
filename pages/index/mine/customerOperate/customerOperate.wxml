@@ -3,25 +3,25 @@
   <input class="bg-gray" placeholder="可搜索已认证的客户 申请后 需要用户通过" bindfocus="searchFocus" bindinput="searchInput" bindblur="searchBlur" value="{{searchInputValue}}"></input>
   <view class="dropdowm-list" wx:if="{{showDropdown}}">
     <view class="dropdown-item solid-bottom" wx:for="{{searchList}}" wx:key data-id="{{item.id}}" bindtap="chooseSearchItem">
-      <text class="dropdown-icon cuIcon-friend"></text>{{item.name}}</view>
+      <text class="dropdown-icon cuIcon-friend"></text>{{item.userName}}</view>
   </view>
   <view class="dropdown-mask" bindtap="hiddenMask" wx:if="{{showDropdown}}"></view>
 </view>
 <scroll-view scroll-y>
   <view class="add-supplier">
-    <form bindsubmit="addSubmit">
+    <form bindsubmit="submit">
       <view class="cell  border-bt">
         <view class="cell-name">客户名称
           <text class="text-red">*</text>
         </view>
         <view class="cell-value">
-          <input name="customerName" placeholder="{{operateType==='edit'?'无':'请输入客户名称'}}" value="{{formData.customerName}}" bindinput="customerNameInput"></input>
+          <input name="customerName" placeholder="{{operateType==='edit'&&!canEdit?'无':'请输入客户名称'}}" value="{{formData.customerName}}" bindinput="customerNameInput" disabled="{{!canEdit}}"></input>
         </view>
       </view>
       <view class="cell border-bt">
         <view class="cell-name">名称缩写</view>
         <view class="cell-value">
-          <input name="letter" placeholder="{{operateType==='edit'?'无':'请输入拼音缩写'}}" value="{{formData.letter}}"></input>
+          <input name="letter" placeholder="{{operateType==='edit'&&!canEdit?'无':'请输入拼音缩写'}}" value="{{formData.letter}}" disabled="{{!canEdit}}"></input>
         </view>
       </view>
       <view class="cell border-bt">
@@ -40,58 +40,66 @@
       <view class="cell  border-bt">
         <view class="cell-name">首要联系人</view>
         <view class="cell-value">
-          <input name="primaryContact" placeholder="{{operateType==='edit'?'无':'请输入联系人'}}" value="{{formData.primaryContact}}"></input>
+          <input name="primaryContact" placeholder="{{operateType==='edit'&&!canEdit?'无':'请输入联系人'}}" value="{{formData.primaryContact}}" disabled="{{!canEdit}}"></input>
         </view>
       </view>
       <view class="cell  border-bt">
         <view class="cell-name">联系人电话</view>
         <view class="cell-value">
-          <input name="contactPhone" placeholder="{{operateType==='edit'?'无':'请输入手机号'}}" type="number" maxlength="11" value="{{formData.contactPhone}}"></input>
+          <input name="contactPhone" placeholder="{{operateType==='edit'&&!canEdit?'无':'请输入手机号'}}" type="number" maxlength="11" value="{{formData.contactPhone}}" disabled="{{!canEdit}}"></input>
         </view>
       </view>
       <view class="cell  border-bt">
         <view class="cell-name">公司电话</view>
         <view class="cell-value">
-          <input name="telephone" placeholder="{{operateType==='edit'?'无':'请输入公司电话'}}" type="number" maxlength="11" value="{{formData.telephone}}"></input>
+          <input name="telephone" placeholder="{{operateType==='edit'&&!canEdit?'无':'请输入公司电话'}}" type="number" maxlength="11" value="{{formData.telephone}}" disabled="{{!canEdit}}"></input>
         </view>
       </view>
       <view class="cell margin-bt">
         <view class="cell-name">客户等级</view>
         <view class="cell-value">
-          <input name="customerLevel" placeholder="{{operateType==='edit'?'无':'请设置价格等级'}}" value="{{formData.customerLevel?formData.customerLevel:customerLevel.list[customerLevel.index]}}" disabled></input>
+          <input name="customerLevel" placeholder="{{operateType==='edit'&&!canEdit?'无':'请设置价格等级'}}" value="{{formData.customerLevel?formData.customerLevel:customerLevel.list[customerLevel.index]}}" disabled></input>
         </view>
-        <picker bindchange="setLevel" value="{{customerLevel.index}}" range="{{customerLevel.list}}">
+        <picker bindchange="setLevel" value="{{customerLevel.index}}" range="{{customerLevel.list}}" disabled="{{!canEdit}}">
           <view class="picker">
             <view class="cell-icon cuIcon-right"></view>
           </view>
         </picker>
       </view>
 
-      <view class="cell  border-bt">
+      <view class="cell  border-bt" wx:if="{{operateType==='add'}}">
         <view class="cell-name">所在地区</view>
         <view class="cell-value">
-          <input name="region" disabled placeholder="{{operateType==='edit'?'无':'请选择所在地区'}}" value="{{formData.region?formData.region:region.length===0?'':region[0] +'/'+ region[1] +'/'+  region[2]}}"></input>
+          <input name="region" disabled placeholder="{{operateType==='edit'&&!canEdit?'无':'请选择所在地区'}}" value="{{formData.region?formData.region:region.length===0?'':region[0] +'/'+ region[1] +'/'+  region[2]}}"></input>
         </view>
-        <picker mode="region" bindchange="chooseRegion" value="{{region}}">
+        <picker mode="region" bindchange="chooseRegion" value="{{region}}" disabled="{{!canEdit}}">
           <view class="picker">
             <view class="cell-icon cuIcon-right"></view>
           </view>
         </picker>
       </view>
 
-      <view class="cell  border-bt">
+      <view class="cell  border-bt" wx:if="{{operateType==='add'}}">
         <view class="cell-name">详细地址</view>
         <view class="cell-value">
-          <input name="detailAddress" placeholder="{{operateType==='edit'?'无':'请输入详细地址'}}" value="{{formData.detailAddress}}"></input>
+          <input name="detailAddress" placeholder="{{operateType==='edit'&&!canEdit?'无':'请输入详细地址'}}" value="{{formData.detailAddress}}" disabled="{{!canEdit}}"></input>
         </view>
       </view>
 
-      <view class="cell">
+      <view class="cell  border-bt" wx:if="{{operateType==='edit'}}">
+        <view class="cell-name">地址</view>
+        <view class="cell-value">
+          <input name="address" placeholder="{{operateType==='edit'&&!canEdit?'无':'请输入地址'}}" value="{{formData.address}}" disabled="{{!canEdit}}"></input>
+        </view>
+      </view>
+
+
+      <view class="cell border-bt">
         <view class="cell-name">业务员</view>
         <view class="cell-value">
-          <input name="salesman" placeholder="{{operateType==='edit'?'无':'请设置业务员'}}" value="{{formData.salesman?formData.salesman:salesman.list[salesman.index]}}" disabled></input>
+          <input name="salesman" placeholder="{{operateType==='edit'&&!canEdit?'无':'请设置业务员'}}" value="{{formData.salesman?formData.salesman:salesman.list[salesman.index]}}" disabled></input>
         </view>
-        <picker bindchange="setSalesman" value="{{salesman.index}}" range="{{salesman.list}}">
+        <picker bindchange="setSalesman" value="{{salesman.index}}" range="{{salesman.list}}" disabled="{{!canEdit}}">
           <view class="picker">
             <view class="cell-icon cuIcon-right"></view>
           </view>
@@ -101,10 +109,22 @@
       <view class="cell  border-bt">
         <view class="cell-name">备注</view>
         <view class="cell-value">
-          <input name="remarks" placeholder="{{operateType==='edit'?'无':'请输入备注信息'}}" value="{{formData.remark}}"></input>
+          <input name="remarks" placeholder="{{operateType==='edit'&&!canEdit?'无':'请输入备注信息'}}" value="{{formData.remark}}" disabled="{{!canEdit}}"></input>
         </view>
       </view>
       <button class="theme-bgc confirm-btn" form-type="submit" wx:if="{{operateType==='add'}}">添加</button>
+
+      <view class="edit-btn" wx:if="{{operateType==='edit'}}">
+        <view class="btn-wrapper">
+          <button class="bg-white" form-type="submit" bindtap="delete">删除</button>
+        </view>
+        <view class="btn-wrapper"  wx:if="{{!canEdit}}" >
+          <button class="theme-bgc"bindtap="allowEdit">修改</button>
+        </view>
+        <view class="btn-wrapper" wx:if="{{canEdit}}">
+          <button class="theme-bgc"  form-type="submit" bindtap="confirmEdit">确认修改</button>
+        </view>
+      </view>
     </form>
   </view>
 </scroll-view>

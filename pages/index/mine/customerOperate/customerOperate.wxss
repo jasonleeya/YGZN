@@ -1,5 +1,4 @@
-.add-supplier {
-  height: calc(100vh - 100rpx);
+.add-supplier { 
   position: relative;
 }
 
@@ -25,14 +24,16 @@
   height: 100rpx;
   background-color: #fff;
   position: relative;
-  z-index: 99
+  z-index: 99;
 }
-.search-icon{
+
+.search-icon {
   position: absolute;
   top: 50%;
-  transform: translate(60rpx,-50%);
-  z-index: 99
+  transform: translate(60rpx, -50%);
+  z-index: 99;
 }
+
 .search-header input {
   position: absolute;
   width: calc(100vw - 60rpx);
@@ -43,26 +44,43 @@
   padding: 0 60rpx;
   transform: translate(-50%, -50%);
 }
-.dropdowm-list{
+
+.dropdowm-list {
   position: absolute;
   top: 100rpx;
   z-index: 999;
   width: 100vw;
   background-color: #fff;
 }
-.dropdown-item{
+
+.dropdown-item {
   height: 88rpx;
   line-height: 88rpx;
-  padding-left: 30rpx
+  padding-left: 30rpx;
 }
-.dropdown-icon{
+
+.dropdown-icon {
   margin-right: 10rpx;
 }
-.dropdown-mask{
+
+.dropdown-mask {
   position: fixed;
   width: 100vw;
   height: calc(100vh - 100rpx);
   top: 100rpx;
   background-color: rgba(0, 0, 0, 0.2);
-  z-index: 9
+  z-index: 9;
+}
+
+.edit-btn {
+  display: flex;
+  padding:  30rpx;
+  margin-top: 60rpx;
+  justify-content: space-between;
+}
+.btn-wrapper{ 
+  width: calc(50vw - 45rpx)
+}
+.edit-btn button {
+  width: 100%
 }

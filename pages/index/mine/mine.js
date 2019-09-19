@@ -48,11 +48,11 @@ Component({
       [{
         name: '个人中心',
         icon: '',
-        link: ''
+        link: '/pages/index/mine/personalCenter/personalCenter'
       }, {
         name: '帮助中心',
         icon: '',
-        link: ''
+          link: '/pages/index/mine/helpCenter/helpCenter'
       }],
       [{
         name: '供应商管理',
@@ -61,44 +61,43 @@ Component({
       }, {
         name: '信用管理',
         icon: '',
-          link: '/pages/index/mine/creditManage/creditManage'
+        link: '/pages/index/mine/creditManage/creditManage'
       }, {
         name: '客户管理',
         icon: '',
-          link: '/pages/index/mine/customerManage/customerManage'
+        link: '/pages/index/mine/customerManage/customerManage'
       }, {
         name: '代理品牌管理',
         icon: '',
-        link: ''
-      } ]
+          link: '/pages/index/mine/agentBrandManage/agentBrandManage'
+      }]
     ],
-    isIphone:false
+    isIphone: false
   },
 
   lifetimes: {
     attached() {
-      app.showToast('该页面功能尚未完善')
       wx.getSystemInfo({
-        success:(res)=>{
-          if (res.system.search("iOS") > -1){
+        success: (res) => {
+          if (res.system.search("iOS") > -1) {
             this.setData({
-              isIphone:true
+              isIphone: true
             })
-          } 
+          }
         }
       })
 
 
       let that = this
-      if (wx.getStorageSync("currentCompanyIndex")){
+      if (wx.getStorageSync("currentCompanyIndex")) {
         this.setData({
           currentCompanyIndex: wx.getStorageSync("currentCompanyIndex")
         })
-      } 
-      
+      }
+
       app.http("getUserByCustNo", {
         flag: true
-      }, ).then(data => { 
+      }, ).then(data => {
         that.setData({
           userInfo: data.list[0]
         })
@@ -114,7 +113,7 @@ Component({
     },
   },
   methods: {
-    jump(e){
+    jump(e) {
       console.log(e)
       wx.navigateTo({
         url: e.currentTarget.dataset.link,
