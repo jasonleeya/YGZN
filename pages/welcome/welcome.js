@@ -36,18 +36,18 @@ Page({
             } else {
               wx.setStorageSync("token", data.info)
               app.globalData.token = data.info
-              wx.redirectTo({
-                url: '/pages/index/index'
-              })
-
+           
               app.http("getUserByCustNo", {
                 flag: true
               }).then(data => {
                 app.globalData.userInfo = data.list
                 wx.setStorageSync("userInfo", data.list)
               })
+           
 
-
+              wx.redirectTo({
+                url: '/pages/index/index'
+              })
 
 
             }

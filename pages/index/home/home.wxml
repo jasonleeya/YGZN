@@ -5,7 +5,7 @@
   <scroll-view scroll-y class="scroll-body">
   <view class='scroll-wrapper'>
     <!-- 销售额 -->
-    <view class="sales theme-bgc shadow-warp">
+    <view class="sales theme-bgc shadow-warp" wx:if="{{auth.verify(userAuthCodes,'homeInfos')}}" >
       <view class="sales-today-title">今日销售金额</view>
       <view class="sales-today-money">{{todaySaleAmount}}</view>
       <view class="sales-items">
@@ -40,3 +40,4 @@
   </scroll-view>
 
 </view>
+ <wxs src="../../../utils/authCode.wxs" module="auth" /> 

@@ -1,5 +1,6 @@
 //app.js
-import urls from "./utils/urls.js"
+import urls from "./utils/urls.js" 
+
 App({
   globalData: {
     token: "",
@@ -17,9 +18,14 @@ App({
     salesCartList: [],
     salesTotalPrice: 0,
     salesTotalAmount: 0,
+    userAuthCodes:[]
   },
   onShow: function() {
 
+    this.http("findLabelId").then(data => {
+      this.globalData.userAuthCodes = data.list
+
+    })
     let that = this
     this.globalData.interval = setInterval(function() {
       let pages = getCurrentPages();
@@ -41,11 +47,11 @@ App({
               that.globalData.isShowModal = true
               wx.showModal({
                 content: '此账号已在其他地方登陆,需重新验证',
-                showCancel:false,
+                showCancel: false,
                 success: () => {
                   wx.login({
                     success(res) {
-                      that.globalData.isShowModal=false
+                      that.globalData.isShowModal = false
                       if (res.code) {
                         that.http("loginAuthenticate", {
                           username: res.code,
@@ -157,6 +163,7 @@ App({
   },
 
 
+
   showToast(text, duration = 2000) {
     wx.showToast({
       title: String(text),
@@ -230,7 +237,6 @@ App({
         complete: function(res) {}
       })
     })
-  }
-
+  },
 
 })

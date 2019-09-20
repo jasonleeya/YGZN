@@ -70,7 +70,9 @@ const alias = {
   updateReminderMessageTypeById: BASE_URL_WX +"/netgate-article/updateReminderMessageTypeById",
   updateCustomer: BASE_URL +"/imatchUser/user/updateCustomer",
   deleteCustomer: BASE_URL +"/imatchUser/agency/deleteCustomer",
-  searchApproveAgent: BASE_URL +"/imatchUser/user/searchApproveAgent"
+  searchApproveAgent: BASE_URL +"/imatchUser/user/searchApproveAgent",
+  addCustomer: BASE_URL +"/imatchUser/user/addCustomer",
+  findLabelId: BASE_URL +"/imatchPower/findLabelId",
 }
 export default function(name) {
   return alias[name]

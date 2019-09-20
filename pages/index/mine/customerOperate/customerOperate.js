@@ -34,6 +34,11 @@ Page({
     this.setData({
       operateType: options.operateType
     })
+    if (options.operateType === 'add') {
+      this.setData({
+        canEdit: true
+      })
+    }
     app.http("queryAllUsingSalesman").then(data => {
       var list = []
       data.list.forEach(item => {
@@ -68,21 +73,12 @@ Page({
           }
         })
 
-
-
-
-
-
-
         this.setData({
           ["customerLevel.index"]: gIndex,
           formData: infos
         })
       })
     }
-
-
-
   },
   onShow() {
 
@@ -129,7 +125,7 @@ Page({
   searchInput(e) {
     var value = e.detail.value
     if (value === "") {
-      returnz
+      return
     }
     app.http("searchApproveAgent", {
       pageSize: 1000,
@@ -142,35 +138,34 @@ Page({
 
 
   },
-  // searchBlur(e) {
-  //   this.setData({
-  //     searchInputValue: "",
-  //     searchList: []
-  //   })
-  // },
+  searchBlur(e) {
+    // this.setData({
+    //   searchInputValue: "",
+    //   searchList: []
+    // })
+  },
   hiddenMask() {
     this.setData({
       showDropdown: false,
-      searchList: []
     })
   },
   searchFocus() {
     this.setData({
+      searchInputValue: "",
+      searchList: [],
       showDropdown: true
     })
   },
   chooseSearchItem(e) {
     this.setData({
-      // formData: this.data.approvedCustomerList.filter(item => {
-      //   return item.id === e.currentTarget.dataset.id
-      // })[0],
-      searchList: [],
-      showDropdown: false
+      showDropdown: false,
+      ['formData.customerName']: this.data.searchList[e.target.dataset.index].userName,
+      ['formData.letter']: chiniseToPinyin(this.data.searchList[e.target.dataset.index].userName)[0]
     })
   },
   customerNameInput(e) {
     this.setData({
-      ['formData.pinyinInitial']: chiniseToPinyin(e.detail.value)[0]
+      ['formData.letter']: chiniseToPinyin(e.detail.value)[0]
     })
   },
   allowEdit() {
@@ -182,6 +177,7 @@ Page({
     var paramas = this.data.formEvent.detail.value
     paramas.customerNo = this.data.formData.customerNo
     paramas.grade = this.data.customerLevel.value[this.data.customerLevel.index].id
+    paramas.creditLine = '0.00'
     paramas.customerType = "1001"
     paramas.settlementDate = "30"
     paramas.overdraftAmount = "0"
@@ -214,6 +210,24 @@ Page({
         })
       }
     })
-
+  },
+ 
+  add() {
+    var paramas = this.data.formEvent.detail.value
+    paramas.customerNo = ""
+    paramas.grade = this.data.customerLevel.value[this.data.customerLevel.index].id
+    paramas. creditLine= '0.00'
+    paramas.customerType = "1001"
+    paramas.settlementDate = "30"
+    paramas.overdraftAmount = "0"
+    paramas.address = "【" + paramas.region + "】" + paramas.detailAddress
+    app.http("addCustomer", paramas).then(res => {
+      app.showToast("添加成功")
+      setTimeout(() => {
+        wx.navigateBack()
+      }, 500)
+    }).catch(err => {
+      app.showToast(err)
+    })
   }
 })

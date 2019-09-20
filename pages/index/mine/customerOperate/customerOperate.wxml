@@ -2,7 +2,7 @@
   <view class="search-icon cuIcon-search"></view>
   <input class="bg-gray" placeholder="可搜索已认证的客户 申请后 需要用户通过" bindfocus="searchFocus" bindinput="searchInput" bindblur="searchBlur" value="{{searchInputValue}}"></input>
   <view class="dropdowm-list" wx:if="{{showDropdown}}">
-    <view class="dropdown-item solid-bottom" wx:for="{{searchList}}" wx:key data-id="{{item.id}}" bindtap="chooseSearchItem">
+    <view class="dropdown-item solid-bottom" wx:for="{{searchList}}" wx:key data-index="{{index}}" bindtap="chooseSearchItem">
       <text class="dropdown-icon cuIcon-friend"></text>{{item.userName}}</view>
   </view>
   <view class="dropdown-mask" bindtap="hiddenMask" wx:if="{{showDropdown}}"></view>
@@ -24,13 +24,13 @@
           <input name="letter" placeholder="{{operateType==='edit'&&!canEdit?'无':'请输入拼音缩写'}}" value="{{formData.letter}}" disabled="{{!canEdit}}"></input>
         </view>
       </view>
-      <view class="cell border-bt">
+      <view class="cell border-bt" wx:if="{{operateType==='edit'}}">
         <view class="cell-name">收付款</view>
         <view class="cell-value">
         </view>
         <view class="cell-icon cuIcon-right"></view>
       </view>
-      <view class="cell margin-bt">
+      <view class="cell margin-bt" wx:if="{{operateType==='edit'}}">
         <view class="cell-name">对账单</view>
         <view class="cell-value">
         </view>
@@ -112,7 +112,7 @@
           <input name="remarks" placeholder="{{operateType==='edit'&&!canEdit?'无':'请输入备注信息'}}" value="{{formData.remark}}" disabled="{{!canEdit}}"></input>
         </view>
       </view>
-      <button class="theme-bgc confirm-btn" form-type="submit" wx:if="{{operateType==='add'}}">添加</button>
+      <button class="theme-bgc confirm-btn" form-type="submit" wx:if="{{operateType==='add'}}" bindtap="add">添加</button>
 
       <view class="edit-btn" wx:if="{{operateType==='edit'}}">
         <view class="btn-wrapper">

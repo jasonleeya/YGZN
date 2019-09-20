@@ -1,0 +1,6 @@
+var  authCodes={
+  homeInfos:"EGOa8c0a594afddf1e3673c"
+}
+module.exports.verify = function (userAuthCodes, authName) {
+  return userAuthCodes.indexOf(authCodes[authName])>-1
+}
