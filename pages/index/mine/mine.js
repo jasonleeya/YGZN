@@ -22,54 +22,54 @@ Component({
     todoList: [{
       name: "采购单",
       count: 0,
-      color: 'red',
-      icon: '',
+      color: 'green',
+      icon: 'iconkaidancaigou',
       link: ''
     }, {
       name: "销售单",
       count: 0,
       color: 'orange',
-      icon: '',
+      icon: 'icondingdan',
       link: ''
     }, {
       name: "调拨单",
       count: 0,
       color: 'blue',
-      icon: '',
+      icon: 'icondiaobodan  ',
       link: ''
     }, {
       name: "库存预警",
       count: 0,
-      color: 'green',
-      icon: '',
+      color: 'red',
+      icon: 'iconkucunyujing',
       link: ''
     }],
     optionList: [
       [{
         name: '个人中心',
-        icon: '',
+        icon: 'iconpersonal',
         link: '/pages/index/mine/personalCenter/personalCenter'
       }, {
         name: '帮助中心',
-        icon: '',
-          link: '/pages/index/mine/helpCenter/helpCenter'
+        icon: 'iconbangzhu',
+        link: '/pages/index/mine/helpCenter/helpCenter'
       }],
       [{
         name: '供应商管理',
-        icon: '',
+        icon: 'icongongyingshang1',
         link: '/pages/index/mine/supplierManage/supplierManage'
       }, {
         name: '信用管理',
-        icon: '',
+        icon: 'iconxinyong',
         link: '/pages/index/mine/creditManage/creditManage'
       }, {
         name: '客户管理',
-        icon: '',
+        icon: 'iconkehu',
         link: '/pages/index/mine/customerManage/customerManage'
       }, {
         name: '代理品牌管理',
-        icon: '',
-          link: '/pages/index/mine/agentBrandManage/agentBrandManage'
+        icon: 'icondaili',
+        link: '/pages/index/mine/agentBrandManage/agentBrandManage'
       }]
     ],
     isIphone: false

@@ -16,19 +16,19 @@ create({
     routate: null,
     orderList: [{
         name: '新增采购',
-        icon: "",
-      link:"/pages/purchase/newPurchase/newPurchase"
+        icon: "iconkaidancaigou",
+        link: "/pages/purchase/newPurchase/newPurchase"
       },
       {
         name: '新增销售',
-        icon: "",
+        icon: "iconkaidanxiaoshou",
         link: "/pages/sales/newSales/newSales"
       },
       {
         name: '产品管理',
-        icon: "",
-        link:"/pages/product/productManage/productManage"
-      } 
+        icon: "iconkaidanchanpinguanli",
+        link: "/pages/product/productManage/productManage"
+      }
     ]
   },
   /**
@@ -36,7 +36,9 @@ create({
    */
   ready() {
     // 开始动画
-    var btnAni = wx.createAnimation({ timingFunction:"linear"})
+    var btnAni = wx.createAnimation({
+      timingFunction: "linear"
+    })
     btnAni.rotate(45).step({
       duration: 300
     })
@@ -45,14 +47,16 @@ create({
     })
 
 
-    var listAni = wx.createAnimation({ timingFunction: "linear"})
+    var listAni = wx.createAnimation({
+      timingFunction: "linear"
+    })
     listAni.scale(1).step({
       duration: 300
     })
     this.setData({
       listAni: listAni.export()
     })
-    
+
 
   },
 
@@ -65,7 +69,9 @@ create({
       })
     },
     CloseOrder() {
-      var btnAni = wx.createAnimation({ timingFunction: "linear"})
+      var btnAni = wx.createAnimation({
+        timingFunction: "linear"
+      })
       btnAni.rotate(90).step({
         duration: 300
       })
@@ -74,7 +80,9 @@ create({
       })
 
 
-      var listAni = wx.createAnimation({ timingFunction: "linear"})
+      var listAni = wx.createAnimation({
+        timingFunction: "linear"
+      })
       listAni.translateY(300).scale(0.1).step({
         duration: 300
       })
@@ -83,12 +91,12 @@ create({
       })
 
 
-      setTimeout(function () {
+      setTimeout(function() {
         this.store.data.showOrderPage = false
         this.update()
         this.store.updateAll = true;
       }.bind(this), 300)
-  
+
     },
   },
 

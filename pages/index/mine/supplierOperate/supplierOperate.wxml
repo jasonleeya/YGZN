@@ -1,0 +1,61 @@
+<view class="add-supplier">
+  <form bindsubmit="addSubmit">
+    <view class="cell  border-bt">
+      <view class="cell-name">供应商名称</view>
+      <view class="cell-value">
+        <input name="company" placeholder="请填写供应商名称"></input>
+      </view>
+    </view>
+    <view class="cell margin-bt">
+      <view class="cell-name">营业执照</view>
+      <view class="cell-value">
+        <input name="businessLicenseId" placeholder="请填写公司营业执照"></input>
+      </view>
+    </view>
+    <view class="cell  border-bt">
+      <view class="cell-name">首要联系人</view>
+      <view class="cell-value">
+        <input name="contact" placeholder="请填写首要联系人姓名"></input>
+      </view>
+    </view>
+    <view class="cell  border-bt">
+      <view class="cell-name">联系人电话</view>
+      <view class="cell-value">
+        <input name="cantactPhoneNumber" maxlength="11"  placeholder="请填写首要联系人电话" type="number"></input>
+      </view>
+    </view>
+    <view class="cell  border-bt">
+      <view class="cell-name">公司电话</view>
+      <view class="cell-value">
+        <input name="companyPhoneNumber"  maxlength="11"  placeholder="请填写公司电话电话" type="number"></input>
+      </view>
+    </view>
+
+ <view class="cell border-bt">
+      <view class="cell-name">所在地区</view>
+      <view class="cell-value">
+        <picker name="region" mode="region" bindchange="regionChange" value="{{region}}">
+          <view class="picker">
+            <text wx:if="{{region!==''}}">{{region[0]}}-{{region[1]}}-{{region[2]}}</text>
+          <text class="text-gray " wx:if="{{region===''}}">请选择地区</text>
+          </view>
+        </picker>
+      </view>
+      <view class="cuIcon-right cell-icon "></view>
+    </view>
+    <view class="cell margin-bt ">
+      <view class="cell-name">详细地址</view>
+      <view class="cell-value ">
+        <input name="address" placeholder="请输入详细地址 " value="{{address}}"></input>
+      </view>
+    </view>
+    <view class="cell  border-bt">
+      <view class="cell-name">备注</view>
+      <view class="cell-value">
+        <input name="remark"  placeholder="请填写备注信息" type="number"></input>
+      </view>
+    </view>
+     <button class="theme-bgc confirm-btn"  form-type="submit">添加</button>
+  </form>
+ 
+</view>

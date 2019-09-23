@@ -80,6 +80,7 @@ Component({
 
   lifetimes:{
   ready(){
+    //将用户权限值保存于当前页面
     this.setData({
       userAuthCodes: app.globalData.userAuthCodes
     })

@@ -29,235 +29,235 @@ Component({
     curContent: null, //当前右边内容部分
     verticalNavTop: 0, //左边导航距顶部距离
     list: [{
-      name: "采购管理",
-      subTitle: '全部订单',
-      subtitleLink: '/pages/purchase/purchaseOrders/purchaseOrders?orderStatus=&isAllOrder=1',
-      id: 0,
-      items: [{
-        value: "新增采购",
-        icon: "iconcart",
-        link: '/pages/purchase/newPurchase/newPurchase',
-      }, {
-        value: "采购待审核",
-        icon: "iconcart",
-        link: "/pages/purchase/purchaseOrders/purchaseOrders?orderStatus=wait",
-      }, {
-        value: "采购待确认",
-        icon: "iconcart",
-        link: "/pages/purchase/purchaseOrders/purchaseOrders?orderStatus=090001",
-      }, {
-        value: "采购待付款",
-        icon: "iconcart",
-        link: "/pages/purchase/purchaseOrders/purchaseOrders?orderStatus=090003",
-        number: 0
-      }, {
-        value: "采购待发货",
-        icon: "iconcart",
-        link: "/pages/purchase/purchaseOrders/purchaseOrders?orderStatus=090002",
-      }, {
-        value: "采购待入库订单",
-        icon: "iconcart",
-        link: "/pages/purchase/purchaseOrders/purchaseOrders?orderStatus=090004",
-        number: 0
-      }, {
-        value: "采购已完成",
-        icon: "iconcart",
-        link: "/pages/purchase/purchaseOrders/purchaseOrders?orderStatus=090005",
-      }, {
-        value: "采购取消订单",
-        icon: "iconcart",
-        link: "/pages/purchase/purchaseOrders/purchaseOrders?orderStatus=090008",
-        number: 0
-      }, {
-        value: "采购退货列表",
-        icon: "iconcart",
-        link: "/pages/purchase/purchaseOrders/purchaseOrders?orderStatus=back",
+        name: "采购管理",
+        subTitle: '全部订单',
+        subtitleLink: '/pages/purchase/purchaseOrders/purchaseOrders?orderStatus=&isAllOrder=1',
+        id: 0,
+        items: [{
+          value: "新增采购",
+          icon: "icondingdan",
+          link: '/pages/purchase/newPurchase/newPurchase',
+        }, {
+          value: "采购待审核",
+          icon: "iconshenhe",
+          link: "/pages/purchase/purchaseOrders/purchaseOrders?orderStatus=wait",
+        }, {
+          value: "采购待确认",
+          icon: "iconqueren",
+          link: "/pages/purchase/purchaseOrders/purchaseOrders?orderStatus=090001",
+        }, {
+          value: "采购待付款",
+          icon: "iconfukuan",
+          link: "/pages/purchase/purchaseOrders/purchaseOrders?orderStatus=090003",
+          number: 0
+        }, {
+          value: "采购待发货",
+          icon: "iconfahuo",
+          link: "/pages/purchase/purchaseOrders/purchaseOrders?orderStatus=090002",
+        }, {
+          value: "采购待入库订单",
+          icon: "iconruku",
+          link: "/pages/purchase/purchaseOrders/purchaseOrders?orderStatus=090004",
+          number: 0
+        }, {
+          value: "采购已完成",
+          icon: "iconyiwancheng",
+          link: "/pages/purchase/purchaseOrders/purchaseOrders?orderStatus=090005",
+        }, {
+          value: "采购取消订单",
+          icon: "iconquxiaodingdan",
+          link: "/pages/purchase/purchaseOrders/purchaseOrders?orderStatus=090008",
+          number: 0
+        }, {
+          value: "采购退货列表",
+          icon: "icontuihuo",
+          link: "/pages/purchase/purchaseOrders/purchaseOrders?orderStatus=back",
 
-      }],
-    }, {
-      name: "销售管理",
-      id: 1,
-      subTitle: '全部订单',
+        }],
+      }, {
+        name: "销售管理",
+        id: 1,
+        subTitle: '全部订单',
         subtitleLink: '/pages/sales/salesOrders/salesOrders?orderStatus=&isAllOrder=1',
-      items: [{
-        value: "新增销售",
-        icon: "iconcart",
-        link: "/pages/sales/newSales/newSales",
-      }, {
-        value: "销售待确认订单",
-        icon: "iconcart",
+        items: [{
+          value: "新增销售",
+          icon: "icondingdan",
+          link: "/pages/sales/newSales/newSales",
+        }, {
+          value: "销售待确认订单",
+          icon: "iconqueren",
           link: "/pages/sales/salesOrders/salesOrders?orderStatus=090001",
-        number: 0
-      }, {
-        value: "销售待付款订单",
-        icon: "iconcart",
+          number: 0
+        }, {
+          value: "销售待付款订单",
+          icon: "iconfukuan",
           link: "/pages/sales/salesOrders/salesOrders?orderStatus=090003",
-        number: 0
-      }, {
-        value: "销售待发货订单",
-        icon: "iconcart",
+          number: 0
+        }, {
+          value: "销售待发货订单",
+          icon: "iconfahuo",
           link: "/pages/sales/salesOrders/salesOrders?orderStatus=090002",
-        number: 0
-      }, {
-        value: "销售待收货订单",
-        icon: "iconcart",
+          number: 0
+        }, {
+          value: "销售待收货订单",
+          icon: "iconshouhuo",
           link: "/pages/sales/salesOrders/salesOrders?orderStatus=090004",
-        number: 0
-      }, {
-        value: "销售已完成",
-        icon: "iconcart",
+          number: 0
+        }, {
+          value: "销售已完成",
+          icon: "iconyiwancheng",
           link: "/pages/sales/salesOrders/salesOrders?orderStatus=090005"
-      }, {
-        value: "销售取消订单",
-        icon: "iconcart",
+        }, {
+          value: "销售取消订单",
+          icon: "iconquxiaodingdan",
           link: "/pages/sales/salesOrders/salesOrders?orderStatus=090008",
-        number: 0
-      }, {
-        value: "销售退货列表",
-        icon: "iconcart",
+          number: 0
+        }, {
+          value: "销售退货列表",
+          icon: "icontuihuo",
           link: "/pages/sales/salesOrders/salesOrders?orderStatus=back",
-      }]
-    },
-    //  {
-    //   name: "公司管理",
-    //   id: 2,
-    //   items: [{
-    //     value: "新增采购",
-    //     icon: "iconcart",
-    //     link: ""
-    //   }, {
-    //     value: "新增采购",
-    //     icon: "iconcart",
-    //     link: ""
-    //   }, {
-    //     value: "新增采购",
-    //     icon: "iconcart",
-    //     link: ""
-    //   }, {
-    //     value: "新增采购",
-    //     icon: "iconcart",
-    //     link: ""
-    //   }, {
-    //     value: "新增采购",
-    //     icon: "iconcart",
-    //     link: ""
-    //   }]
-    // }, {
-    //   name: "统计管理",
-    //   id: 3,
-    //   items: [{
-    //     value: "新增采购",
-    //     icon: "iconcart",
-    //     link: ""
-    //   }, {
-    //     value: "新增采购",
-    //     icon: "iconcart",
-    //     link: ""
-    //   }, {
-    //     value: "新增采购",
-    //     icon: "iconcart",
-    //     link: ""
-    //   }, {
-    //     value: "新增采购",
-    //     icon: "iconcart",
-    //     link: ""
-    //   }, {
-    //     value: "新增采购",
-    //     icon: "iconcart",
-    //     link: ""
-    //   }]
-    // }, 
-    {
-      name: "产品管理",
-      id: 4,
-      items: [{
-        value: "产品管理",
-        icon: "iconcart",
-        link: "/pages/product/productManage/productManage",
-      }, 
+        }]
+      },
+      //  {
+      //   name: "公司管理",
+      //   id: 2,
+      //   items: [{
+      //     value: "新增采购",
+      //     icon: "iconcart",
+      //     link: ""
+      //   }, {
+      //     value: "新增采购",
+      //     icon: "iconcart",
+      //     link: ""
+      //   }, {
+      //     value: "新增采购",
+      //     icon: "iconcart",
+      //     link: ""
+      //   }, {
+      //     value: "新增采购",
+      //     icon: "iconcart",
+      //     link: ""
+      //   }, {
+      //     value: "新增采购",
+      //     icon: "iconcart",
+      //     link: ""
+      //   }]
+      // }, {
+      //   name: "统计管理",
+      //   id: 3,
+      //   items: [{
+      //     value: "新增采购",
+      //     icon: "iconcart",
+      //     link: ""
+      //   }, {
+      //     value: "新增采购",
+      //     icon: "iconcart",
+      //     link: ""
+      //   }, {
+      //     value: "新增采购",
+      //     icon: "iconcart",
+      //     link: ""
+      //   }, {
+      //     value: "新增采购",
+      //     icon: "iconcart",
+      //     link: ""
+      //   }, {
+      //     value: "新增采购",
+      //     icon: "iconcart",
+      //     link: ""
+      //   }]
+      // }, 
+      {
+        name: "产品管理",
+        id: 4,
+        items: [{
+            value: "产品管理",
+            icon: "iconchanpinguanli",
+            link: "/pages/product/productManage/productManage",
+          },
+          // {
+          //   value: "新增采购",
+          //   icon: "iconcart",
+          //   link: ""
+          // }, {
+          //   value: "新增采购",
+          //   icon: "iconcart",
+          //   link: ""
+          // }, {
+          //   value: "新增采购",
+          //   icon: "iconcart",
+          //   link: ""
+          // }, {
+          //   value: "新增采购",
+          //   icon: "iconcart",
+          //   link: ""
+          // }
+        ]
+      },
       // {
-      //   value: "新增采购",
-      //   icon: "iconcart",
-      //   link: ""
+      //   name: "资源管理",
+      //   id: 5,
+      //   items: [{
+      //     value: "新增采购",
+      //     icon: "iconcart",
+      //     link: ""
+      //   }, {
+      //     value: "新增采购",
+      //     icon: "iconcart",
+      //     link: ""
+      //   }, {
+      //     value: "新增采购",
+      //     icon: "iconcart",
+      //     link: ""
+      //   }, {
+      //     value: "新增采购",
+      //     icon: "iconcart",
+      //     link: ""
+      //   }, {
+      //     value: "新增采购",
+      //     icon: "iconcart",
+      //     link: ""
+      //   }]
       // }, {
-      //   value: "新增采购",
-      //   icon: "iconcart",
-      //   link: ""
-      // }, {
-      //   value: "新增采购",
-      //   icon: "iconcart",
-      //   link: ""
-      // }, {
-      //   value: "新增采购",
-      //   icon: "iconcart",
-      //   link: ""
+      //   name: "财务管理",
+      //   id: 6,
+      //   items: [{
+      //     value: "新增采购",
+      //     icon: "iconcart",
+      //     link: ""
+      //   }, {
+      //     value: "新增采购",
+      //     icon: "iconcart",
+      //     link: ""
+      //   }, {
+      //     value: "新增采购",
+      //     icon: "iconcart",
+      //     link: ""
+      //   }, {
+      //     value: "新增采购",
+      //     icon: "iconcart",
+      //     link: ""
+      //   }, {
+      //     value: "新增采购",
+      //     icon: "iconcart",
+      //     link: ""
+      //   }]
       // }
-      ]
-    }, 
-    // {
-    //   name: "资源管理",
-    //   id: 5,
-    //   items: [{
-    //     value: "新增采购",
-    //     icon: "iconcart",
-    //     link: ""
-    //   }, {
-    //     value: "新增采购",
-    //     icon: "iconcart",
-    //     link: ""
-    //   }, {
-    //     value: "新增采购",
-    //     icon: "iconcart",
-    //     link: ""
-    //   }, {
-    //     value: "新增采购",
-    //     icon: "iconcart",
-    //     link: ""
-    //   }, {
-    //     value: "新增采购",
-    //     icon: "iconcart",
-    //     link: ""
-    //   }]
-    // }, {
-    //   name: "财务管理",
-    //   id: 6,
-    //   items: [{
-    //     value: "新增采购",
-    //     icon: "iconcart",
-    //     link: ""
-    //   }, {
-    //     value: "新增采购",
-    //     icon: "iconcart",
-    //     link: ""
-    //   }, {
-    //     value: "新增采购",
-    //     icon: "iconcart",
-    //     link: ""
-    //   }, {
-    //     value: "新增采购",
-    //     icon: "iconcart",
-    //     link: ""
-    //   }, {
-    //     value: "新增采购",
-    //     icon: "iconcart",
-    //     link: ""
-    //   }]
-    // }
     ],
     load: true,
     interval: null
   },
   lifetimes: {
-    
-    ready() { 
+
+    ready() {
       let that = this
       if (app.globalData.homeMessage) {
         getMessage()
       }
-      app.watchGloabalData("homeMessage", function (value) {
+      app.watchGloabalData("homeMessage", function(value) {
         getMessage()
       })
-     
+
 
 
       function getMessage() {

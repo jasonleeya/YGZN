@@ -98,8 +98,7 @@ todo-item {
   text-align: center;
   line-height: 60rpx;
   font-size: 36rpx;
-  color: #fff;
-  padding-left: 5rpx;
+  color: #fff; 
   margin: auto;
 }
 

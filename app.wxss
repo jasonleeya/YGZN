@@ -1,7 +1,8 @@
 @import "colorui/main.wxss";
 @import "colorui/icon.wxss";
 @import "colorui/animation.wxss";
-@import "imgs/iconfont/iconfont.wxss";
+@import "imgs/iconfont/iconfont.wxss"; 
+
 
 /* 主题色背景 */
 

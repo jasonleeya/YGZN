@@ -37,7 +37,8 @@
     "pages/index/mine/customerOperate/customerOperate",
     "pages/index/mine/personalCenter/personalCenter",
     "pages/index/mine/helpCenter/helpCenter",
-    "pages/index/mine/agentBrandManage/agentBrandManage"
+    "pages/index/mine/agentBrandManage/agentBrandManage",
+    "pages/index/mine/supplierOperate/supplierOperate"
   ],
   "window": {
     "backgroundTextStyle": "light",

@@ -21,7 +21,7 @@
     <view class="todo-list-title solid-bottom">待处理事项</view>
     <view class="todo-item-wrapper">
       <view class="todo-item" wx:for="{{todoList}}" wx:key>
-        <view class="todo-icon bg-{{item.color}} cuIcon-moneybag shadow"></view>
+        <view class="todo-icon bg-{{item.color}} iconfont {{item.icon}} shadow"></view>
         <text class="todo-name">{{item.name}}</text>
         <text class="todo-count text-{{item.color}}" wx:if="{{item.count!==0}}">({{item.count}})</text>
       </view>
@@ -29,12 +29,12 @@
   </view>
   <view class="option" wx:for="{{optionList}}" wx:key>
     <view class="option-item solid-top solid-bottom" wx:for="{{item}}" wx:for-item="optionItem" wx:key bindtap="jump" data-link="{{optionItem.link}}">
-      <view class="option-icon cuIcon-peoplelist text-{{module.getColor(index)}}"></view>
+      <view class="option-icon iconfont {{optionItem.icon}} text-{{module.getColor(index)}}"></view>
       <view class="option-name">{{optionItem.name}}</view>
       <view class="arrow-right cuIcon-right"></view>
     </view>
   </view>
-  <button bindtap="logout" class="logout bg-red">退出登陆</button>
+  <!-- <button bindtap="logout" class="logout bg-red">退出登陆</button> -->
 
   <view class="toggle-account-pop-wrappper" wx:if="{{showToggleAccountPop}}">
     <view class="toggle-account-pop">

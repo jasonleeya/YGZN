@@ -40,7 +40,7 @@ height: 25vw;
   text-align: center;
   line-height: 100rpx;
   color: #fff;
-  font-size: 40rpx;
+  font-size: 60rpx;
   margin: 0 auto;
   margin-bottom: 20rpx;
 }

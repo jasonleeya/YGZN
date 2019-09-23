@@ -21,10 +21,9 @@ App({
     userAuthCodes:[]
   },
   onShow: function() {
-
+    //获取所有用户权限值并保存在全局变量中
     this.http("findLabelId").then(data => {
       this.globalData.userAuthCodes = data.list
-
     })
     let that = this
     this.globalData.interval = setInterval(function() {

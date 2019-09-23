@@ -78,7 +78,7 @@ Page({
   //新增供应商
   addSupplier() {
     wx.navigateTo({
-      url: '/pages/purchase/addSupplier/addSupplier',
+      url: '/pages/index/mine/supplierManage/supplierManage',
     })
   },
 })
