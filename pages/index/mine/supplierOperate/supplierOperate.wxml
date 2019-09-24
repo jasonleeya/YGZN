@@ -1,61 +1,93 @@
+<view class="search-header solid-bottom"  wx:if="{{operateType==='add'}}">
+  <view class="search-icon cuIcon-search"></view>
+  <input class="bg-gray" placeholder="可搜索已认证的供应商 申请后 需要用户通过" bindfocus="searchFocus" bindinput="searchInput" bindblur="searchBlur" value="{{searchInputValue}}"></input>
+  <view class="dropdowm-list" wx:if="{{showDropdown}}">
+    <view class="dropdown-item solid-bottom" wx:for="{{searchList}}" wx:key data-index="{{index}}" bindtap="chooseSearchItem">
+      <text class="dropdown-icon cuIcon-friend"></text>{{item.userName}}</view>
+  </view>
+  <view class="dropdown-mask" bindtap="hiddenMask" wx:if="{{showDropdown}}"></view>
+</view>
+
 <view class="add-supplier">
-  <form bindsubmit="addSubmit">
+  <form bindsubmit="submit">
     <view class="cell  border-bt">
       <view class="cell-name">供应商名称</view>
       <view class="cell-value">
-        <input name="company" placeholder="请填写供应商名称"></input>
+        <!-- 
+  custNo: 201902011137000002
+
+  customerNo: 
+  blNumber: 131231413
+  supplyName: 测试需求用户
+  supCompanyPhone: 14534234234
+  supContact: 阿瑟通过
+  supPhone: 1344123432
+  supAddress: 得分噶而过
+  supRemarks: 发过火e -->
+
+        <input name="supplyName" placeholder="{{operateType==='add'?'请填写供应商名称':'无'}}" value="{{formData.supplyName}}" disabled="{{!canEdit}}"></input>
       </view>
     </view>
     <view class="cell margin-bt">
       <view class="cell-name">营业执照</view>
       <view class="cell-value">
-        <input name="businessLicenseId" placeholder="请填写公司营业执照"></input>
+        <input name="blNumber" placeholder="{{operateType==='add'?'请填写公司营业执照':'无'}}" value="{{formData.blNumber}}" disabled="{{!canEdit}}"></input>
       </view>
     </view>
     <view class="cell  border-bt">
       <view class="cell-name">首要联系人</view>
       <view class="cell-value">
-        <input name="contact" placeholder="请填写首要联系人姓名"></input>
+        <input name="supContact" placeholder="{{operateType==='add'?'请填写首要联系人姓名':'无'}}" value="{{formData.supContact}}" disabled="{{!canEdit}}"></input>
       </view>
     </view>
     <view class="cell  border-bt">
       <view class="cell-name">联系人电话</view>
       <view class="cell-value">
-        <input name="cantactPhoneNumber" maxlength="11"  placeholder="请填写首要联系人电话" type="number"></input>
+        <input name="supPhone" maxlength="11" placeholder="{{operateType==='add'?'请填写首要联系人电话':'无'}}" type="number" value="{{formData.supPhone}}" disabled="{{!canEdit}}"></input>
       </view>
     </view>
     <view class="cell  border-bt">
       <view class="cell-name">公司电话</view>
       <view class="cell-value">
-        <input name="companyPhoneNumber"  maxlength="11"  placeholder="请填写公司电话电话" type="number"></input>
+        <input name="supCompanyPhone" maxlength="11" placeholder="{{operateType==='add'?'请填写公司电话电话':'无'}}" type="number" value="{{formData.supCompanyPhone}}" disabled="{{!canEdit}}"></input>
       </view>
     </view>
-
- <view class="cell border-bt">
+    <!-- 
+    <view class="cell border-bt">
       <view class="cell-name">所在地区</view>
       <view class="cell-value">
-        <picker name="region" mode="region" bindchange="regionChange" value="{{region}}">
+        <picker name="region" mode="region" bindchange="regionChange" value="{{formData.region}}" disabled="{{!canEdit}}">
           <view class="picker">
             <text wx:if="{{region!==''}}">{{region[0]}}-{{region[1]}}-{{region[2]}}</text>
-          <text class="text-gray " wx:if="{{region===''}}">请选择地区</text>
+            <text class="text-gray " wx:if="{{region===''}}">{{operateType==='add'?'请选择地区':'无'}}</text>
           </view>
         </picker>
       </view>
       <view class="cuIcon-right cell-icon "></view>
-    </view>
+    </view> -->
     <view class="cell margin-bt ">
       <view class="cell-name">详细地址</view>
       <view class="cell-value ">
-        <input name="address" placeholder="请输入详细地址 " value="{{address}}"></input>
+        <input name="supAddress" placeholder="{{operateType==='add'?'请输入详细地址':'无'}} " value="{{formData.supAddress}}" disabled="{{!canEdit}}"></input>
       </view>
     </view>
     <view class="cell  border-bt">
       <view class="cell-name">备注</view>
       <view class="cell-value">
-        <input name="remark"  placeholder="请填写备注信息" type="number"></input>
+        <input name="supRemarks" placeholder="{{operateType==='add'?'请填写备注信息':'无'}}" type="number" value="{{formData.supRemarks}}" disabled="{{!canEdit}}"></input>
       </view>
     </view>
-     <button class="theme-bgc confirm-btn"  form-type="submit">添加</button>
+    <view class="operate-btns">
+      <view class="btn-wrapper add-btn" wx:if="{{operateType==='add'}}">
+        <button class=" theme-bgc confirm-btn " form-type="submit" bindtap="add">添加</button>
+      </view>
+      <view class="btn-wrapper" wx:if="{{operateType==='edit'}}">
+        <button class="confirm-btn" form-type="submit" bindtap="delete">删除</button>
+      </view>
+      <view class="btn-wrapper" wx:if="{{operateType==='edit'}}">
+        <button class="theme-bgc confirm-btn" form-type="submit" bindtap="edit">修改</button>
+      </view>
+    </view>
   </form>
- 
+
 </view>

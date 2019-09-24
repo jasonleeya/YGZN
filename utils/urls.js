@@ -73,6 +73,7 @@ const alias = {
   searchApproveAgent: BASE_URL +"/imatchUser/user/searchApproveAgent",
   addCustomer: BASE_URL +"/imatchUser/user/addCustomer",
   findLabelId: BASE_URL +"/imatchPower/findLabelId",
+  addProvider: BASE_URL +"/imatchUser/agency/addProvider",
 }
 export default function(name) {
   return alias[name]

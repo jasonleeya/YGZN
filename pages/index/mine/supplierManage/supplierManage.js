@@ -1,9 +1,5 @@
 let app = getApp()
 Page({
-
-  /**
-   * 页面的初始数据
-   */
   data: {
     supplierList: [],
     isLoad: false,
@@ -22,7 +18,7 @@ Page({
     var pages = getCurrentPages()
     var prevPage = pages[pages.length - 2]
     var data = this.data.supplierList[e.currentTarget.dataset.index]
-     
+
   },
   searchBlur(e) {},
   searchFocus(e) {},
@@ -30,16 +26,16 @@ Page({
     this.setData({
       searchValue: e.detail.value
     })
-    if(this.data.timeOut){
+    if (this.data.timeOut) {
       clearTimeout(this.data.timeOut)
     }
     var timeOut = setTimeout(() => {
       this.getList(true)
     }, 500)
     this.setData({
-      timeOut:timeOut
+      timeOut: timeOut
     })
- 
+
   },
 
   getList(isReplace = false) {
@@ -51,13 +47,19 @@ Page({
     this.setData({
       isLoad: true,
     })
-    app.http("getPurchasingSupplyNew", { 
+    app.http("getSupplyList", {
       pageSize: 1000,
-      keyword: this.data.searchValue, 
+      keyword: this.data.searchValue,
+      pageNo:0,
+      status:"1,2"
     }).then(data => {
       if (data.list) {
+          var tempList=[]
+          data.list.forEach(item=>{
+            tempList.push(item.customer)
+          })
         this.setData({
-          supplierList: this.data.supplierList.concat(data.list),
+          supplierList: this.data.supplierList.concat(tempList),
           isLoad: false,
         })
       } else {
@@ -78,7 +80,12 @@ Page({
   //新增供应商
   addSupplier() {
     wx.navigateTo({
-      url: '/pages/index/mine/supplierManage/supplierManage',
+      url: '/pages/index/mine/supplierOperate/supplierOperate?operateType=add',
     })
   },
+  edit(e) {
+    wx.navigateTo({
+      url: '/pages/index/mine/supplierOperate/supplierOperate?operateType=edit&index=' + e.currentTarget.dataset.index,
+    })
+  }
 })
