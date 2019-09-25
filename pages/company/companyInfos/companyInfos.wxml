@@ -1,0 +1,46 @@
+<view class="tabs shadow bg-white">
+  <view class="tab {{activeTabIndex==='0'?'active':''}}" bindtap="toggleTab" data-index="0">基本资料</view>
+  <view class="tab {{activeTabIndex==='1'?'active':''}}" bindtap="toggleTab" data-index="1">收货信息</view>
+  <view class="tab {{activeTabIndex==='2'?'active':''}}" bindtap="toggleTab" data-index="2">发票信息</view>
+  <view class="tab {{activeTabIndex==='3'?'active':''}}" bindtap="toggleTab" data-index="3">企业认证</view>
+</view>
+
+<block wx:if="{{activeTabIndex==='0'}}">
+  <view class="cell border-bt">
+    <view class="cell-name">营业执照</view>
+    <view class="cell-avlue">123456789123456789</view>
+  </view>
+  <view class="cell border-bt">
+    <view class="cell-name">登录名</view>
+    <view class="cell-avlue">测试代理公司</view>
+  </view>
+  <view class="cell border-bt">
+    <view class="cell-name">公司名称</view>
+    <view class="cell-avlue">测试代理公司</view>
+  </view>
+  <view class="cell border-bt">
+    <view class="cell-name">简称</view>
+    <view class="cell-avlue">新增代理</view>
+  </view>
+  <view class="cell border-bt">
+    <view class="cell-name">绑定电话</view>
+    <view class="cell-avlue">15828419696</view>
+  </view>
+  <view class="cell border-bt">
+    <view class="cell-name">邮箱</view>
+    <view class="cell-avlue">394795277@QQ.COM</view>
+  </view>
+  <view class="cell border-bt">
+    <view class="cell-name">客服电话</view>
+    <view class="cell-avlue">132423637</view>
+  </view>
+  <view class="cell border-bt">
+    <view class="cell-name">地址</view>
+    <view class="cell-avlue">反而各色噶而过</view>
+  </view>
+  <view class="cell border-bt">
+    <view class="cell-name">备注</view>
+    <view class="cell-avlue">放大噶含丰富的</view>
+  </view>
+</block>
+<button class="theme-bgc edit-btn">修改</button>

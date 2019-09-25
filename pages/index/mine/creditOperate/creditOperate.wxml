@@ -54,7 +54,6 @@
       <view class="cell-value"></view>
       <view class="cell-icon">
         <switch class="blue sm" bindchange="changeEnableStatus" checked="{{status!==2}}" disabled="{{switchDisable}}"></switch>
-
       </view>
     </view>
     <view class="operate-btns" wx:if="{{operateType==='edit'&&status===0}}">

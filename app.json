@@ -38,7 +38,14 @@
     "pages/index/mine/personalCenter/personalCenter",
     "pages/index/mine/helpCenter/helpCenter",
     "pages/index/mine/agentBrandManage/agentBrandManage",
-    "pages/index/mine/supplierOperate/supplierOperate"
+    "pages/index/mine/supplierOperate/supplierOperate",
+    "pages/company/companyInfos/companyInfos",
+    "pages/company/receiptInfo/receiptInfo",
+    "pages/company/employeeManage/employeeManage",
+    "pages/company/positionManage/positionManage",
+    "pages/company/positionRight/positionRight",
+    "pages/company/levelManage/levelManage",
+    "pages/company/loginLogs/loginLogs"
   ],
   "window": {
     "backgroundTextStyle": "light",

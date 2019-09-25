@@ -1,0 +1,15 @@
+.tabs{
+  display: flex;
+  justify-content: space-between;
+  height: 88rpx;
+  line-height: 88rpx; 
+  padding: 0 30rpx;
+  margin-bottom: 20rpx;
+}
+.tabs .active{
+  border-bottom: 5rpx solid var(--themeColor); 
+}
+.edit-btn{
+  width: calc(100vw - 60rpx);
+  margin:100rpx 30rpx 0;
+}

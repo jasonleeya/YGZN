@@ -106,7 +106,7 @@ Component({
         }, {
           value: "销售已完成",
           icon: "iconyiwancheng",
-          link: "/pages/sales/salesOrders/salesOrders?orderStatus=090005"
+          link: "/pages/sales/salesOrders/salesOrders?orderStatus=090005",
         }, {
           value: "销售取消订单",
           icon: "iconquxiaodingdan",
@@ -118,31 +118,40 @@ Component({
           link: "/pages/sales/salesOrders/salesOrders?orderStatus=back",
         }]
       },
-      //  {
-      //   name: "公司管理",
-      //   id: 2,
-      //   items: [{
-      //     value: "新增采购",
-      //     icon: "iconcart",
-      //     link: ""
-      //   }, {
-      //     value: "新增采购",
-      //     icon: "iconcart",
-      //     link: ""
-      //   }, {
-      //     value: "新增采购",
-      //     icon: "iconcart",
-      //     link: ""
-      //   }, {
-      //     value: "新增采购",
-      //     icon: "iconcart",
-      //     link: ""
-      //   }, {
-      //     value: "新增采购",
-      //     icon: "iconcart",
-      //     link: ""
-      //   }]
-      // }, {
+      { 
+        name: "公司管理",
+        id: 2,
+        items: [{
+          value: "公司信息",
+          icon: "icongongsiguanli",
+          link: "/pages/company/companyInfos/companyInfos"
+        }, {
+          value: "收款信息",
+          icon: "iconshoukuan",
+            link: "/pages/company/receiptInfo/receiptInfo"
+        }, {
+          value: "员工管理",
+          icon: "iconyuangongguanli",
+            link: "/pages/company/employeeManage/employeeManage"
+        }, {
+          value: "职位管理",
+          icon: "iconzhiwei",
+            link: "/pages/company/positionManage/positionManage"
+        }, {
+          value: "职位权限",
+          icon: "iconquanxian",
+            link: "/pages/company/positionRight/positionRight"
+        }, {
+          value: "等级管理",
+          icon: "icondengji",
+            link: "/pages/company/levelManage/levelManage"
+        }, {
+          value: "登录日志",
+          icon: "icondenglurizhi",
+            link: "/pages/company/loginLogs/loginLogs"
+        }]
+      },
+      // {
       //   name: "统计管理",
       //   id: 3,
       //   items: [{

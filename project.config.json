@@ -72,6 +72,13 @@
 					"id": -1,
 					"name": "pages/index/mine/customerManage/customerManage",
 					"pathName": "pages/index/mine/customerManage/customerManage",
+					"query": "",
+					"scene": null
+				},
+				{
+					"id": -1,
+					"name": "pages/company/companyInfos/companyInfos",
+					"pathName": "pages/company/companyInfos/companyInfos",
 					"scene": null
 				}
 			]

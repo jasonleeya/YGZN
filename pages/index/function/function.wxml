@@ -13,7 +13,7 @@
       <view class='content-header'>
         <view class='content-title'>{{item.name}}</view>
         <navigator class="content-subtitle" url="{{item.subtitleLink}}" hover-class="nav-hover">{{item.subTitle}}
-          <text class="cuIcon-right"></text>
+          <text class="cuIcon-right" wx:if="{{item.subtitleLink}}"></text>
         </navigator>
       </view>
       <!-- 内容项 -->

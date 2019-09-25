@@ -14,7 +14,9 @@ Page({
     showDropdown: false,
     searchInputValue: "",
     searchList: [],
-    custNo:""
+    custNo: "",
+    enableStatus: "",
+    enableStatusCopy:""
   },
 
   /**
@@ -31,7 +33,9 @@ Page({
       var data = prePage.data.supplierList[options.index]
 
       this.setData({
-        formData: data
+        formData: data,
+        enableStatus: data.status,
+        enableStatusCopy:data.status
       })
     }
     if (options.operateType === "add") {
@@ -59,16 +63,16 @@ Page({
     this.setData({
       formEvent: e
     })
-     
+
   },
   add() {
     var paramas = this.data.formEvent.detail.value
-    paramas.custNo=this.data.custNo
-    paramas.customerNo=""
-    if (paramas.supplyName==="") {
+    paramas.custNo = this.data.custNo
+    paramas.customerNo = ""
+    if (paramas.supplyName === "") {
       app.showToast("请填写供应商名称")
       return
-     }
+    }
     app.http("addProvider", paramas).then(res => {
       app.showToast("添加成功")
       setTimeout(() => {
@@ -77,12 +81,60 @@ Page({
     }).catch(err => {
       app.showToast(err)
     })
-     
+
   },
   edit() {
-    console.log(this.data.formEvent)
+    if(this.data.canEdit===false){
+      this.setData({
+        canEdit:true
+      })
+      return
+    }
+    var paramas = this.data.formEvent.detail.value
+    paramas.customerNo = this.data.formData.customerNo
+    paramas.custNo = this.data.formData.custNo
+    if(this.data.enableStatus!==this.data.enableStatusCopy){
+      app.http("updateCustomerStatus", {
+        customerNo: paramas.customerNo,
+        status: this.data.enableStatus
+      }) 
+    }
+    
+    app.http("updateProvderNew", paramas).then(res => {
+      app.showToast("修改成功")
+      setTimeout(() => {
+        wx.navigateBack()
+      }, 500)
+    }).catch(err => {
+      app.showToast(err)
+    })
   },
-  delete() {},
+  delete() {
+    app.http("isExistOrderProvider",{
+      supplyNo: this.data.formData.supplyNo
+    }).then(data=>{
+        wx.showModal({
+          title: '确定要删除此供应商吗', 
+          showCancel: true, 
+          success: (res)=>{
+            if(res.cancel){
+              return
+            }
+            app.http("deleteCustomer", { customerNo: this.data.formData.customerNo }).then(()=>{
+              app.showToast("删除成功")
+              setTimeout(()=>{
+                wx.navigateBack()
+              },500)
+            }).catch(err=>{
+              app.showToast(err)
+            })
+
+          }, 
+        })
+    }).catch(err=>{
+      app.showToast(err)
+    })
+  },
   searchInput(e) {
     var value = e.detail.value
     if (value === "") {
@@ -120,8 +172,13 @@ Page({
   chooseSearchItem(e) {
     this.setData({
       showDropdown: false,
-      ['formData.supplyName']: this.data.searchList[e.target.dataset.index].userName, 
-      custNo: this.data.searchList[e.target.dataset.index].custNo,  
+      ['formData.supplyName']: this.data.searchList[e.target.dataset.index].userName,
+      custNo: this.data.searchList[e.target.dataset.index].custNo,
     })
   },
+  changeEnableStatus() {
+    this.setData({
+      enableStatus:this.data.enableStatus==='1'?'0':'1'
+    })
+  }
 })
