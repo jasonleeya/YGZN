@@ -125,31 +125,33 @@ Component({
           value: "公司信息",
           icon: "icongongsiguanli",
           link: "/pages/company/companyInfos/companyInfos"
-        }, {
-          value: "收款信息",
-          icon: "iconshoukuan",
-            link: "/pages/company/receiptInfo/receiptInfo"
-        }, {
-          value: "员工管理",
-          icon: "iconyuangongguanli",
-            link: "/pages/company/employeeManage/employeeManage"
-        }, {
-          value: "职位管理",
-          icon: "iconzhiwei",
-            link: "/pages/company/positionManage/positionManage"
-        }, {
-          value: "职位权限",
-          icon: "iconquanxian",
-            link: "/pages/company/positionRight/positionRight"
-        }, {
-          value: "等级管理",
-          icon: "icondengji",
-            link: "/pages/company/levelManage/levelManage"
-        }, {
-          value: "登录日志",
-          icon: "icondenglurizhi",
-            link: "/pages/company/loginLogs/loginLogs"
-        }]
+        }, 
+        // {
+        //   value: "收款信息",
+        //   icon: "iconshoukuan",
+        //     link: "/pages/company/receiptInfo/receiptInfo"
+        // }, {
+        //   value: "员工管理",
+        //   icon: "iconyuangongguanli",
+        //     link: "/pages/company/employeeManage/employeeManage"
+        // }, {
+        //   value: "职位管理",
+        //   icon: "iconzhiwei",
+        //     link: "/pages/company/positionManage/positionManage"
+        // }, {
+        //   value: "职位权限",
+        //   icon: "iconquanxian",
+        //     link: "/pages/company/positionRight/positionRight"
+        // }, {
+        //   value: "等级管理",
+        //   icon: "icondengji",
+        //     link: "/pages/company/levelManage/levelManage"
+        // }, {
+        //   value: "登录日志",
+        //   icon: "icondenglurizhi",
+        //     link: "/pages/company/loginLogs/loginLogs"
+        // }
+        ]
       },
       // {
       //   name: "统计管理",

@@ -77,7 +77,9 @@ const alias = {
   updateCustomerStatus: BASE_URL +"/imatchUser/agency/updateCustomerStatus",
   updateProvderNew: BASE_URL +"/imatchUser/agency/updateProvderNew",
   isExistOrderProvider: BASE_URL + "/imatchOrder/reOrder/isExistOrderProvider",
-  deleteCustomer: BASE_URL +"/imatchUser/agency/deleteCustomer"
+  deleteCustomer: BASE_URL +"/imatchUser/agency/deleteCustomer",
+  getUserAddress: BASE_URL +"/imatchUser/user/getUserAddress",
+  getAllInvoice: BASE_URL +"/imatchUser/user/getAllInvoice"
 }
 export default function(name) {
   return alias[name]

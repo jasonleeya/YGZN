@@ -3,13 +3,18 @@
   justify-content: space-between;
   height: 88rpx;
   line-height: 88rpx; 
-  padding: 0 30rpx;
-  margin-bottom: 20rpx;
+  padding: 0 30rpx; 
 }
 .tabs .active{
   border-bottom: 5rpx solid var(--themeColor); 
 }
+.base-info{ 
+  padding-top: 30rpx;
+}
 .edit-btn{
   width: calc(100vw - 60rpx);
-  margin:100rpx 30rpx 0;
+  margin:100rpx 30rpx 60rpx;
+}
+.scroll-view{
+  height: calc(100vh - 100rpx); 
 }

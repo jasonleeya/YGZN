@@ -111,7 +111,7 @@ transform: translateX(0rpx);
 .card-head {
   display: flex;
   justify-content: space-between;
-  padding: 30rpx;
+  padding: 20rpx 30rpx;
   border-bottom: 1rpx solid #eee;
 }
 
@@ -139,4 +139,7 @@ transform: translateX(0rpx);
 }
 .card-name{
   color: var(--gray);
+}
+.card-value{
+  max-width: 500rpx;
 }

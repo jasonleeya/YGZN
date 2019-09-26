@@ -1,0 +1,24 @@
+<view class="cell border-bt">
+  <view class="cell-name">名称</view>
+  <view class="cell-value">{{editData.name}}</view>
+</view>
+<view class="cell border-bt">
+  <view class="cell-name">纳税人识别号</view>
+  <view class="cell-value">{{editData.duty}}</view>
+</view>
+<view class="cell border-bt">
+  <view class="cell-name">注册地址</view>
+  <view class="cell-value">{{editData.address}}</view>
+</view>
+<view class="cell border-bt">
+  <view class="cell-name">注册电话</view>
+  <view class="cell-value">{{editData.telephone}}</view>
+</view>
+<view class="cell border-bt">
+  <view class="cell-name">开户银行</view>
+  <view class="cell-value">{{editData.openBank}}</view>
+</view>
+<view class="cell border-bt">
+  <view class="cell-name">银行账户</view>
+  <view class="cell-value">{{editData.account}}</view>
+</view>
