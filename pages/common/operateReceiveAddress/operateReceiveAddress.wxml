@@ -19,7 +19,7 @@
         <picker name="region" mode="region" bindchange="regionChange" value="{{region}}">
           <view class="picker">
             <text wx:if="{{region!==''}}">{{region[0]}}-{{region[1]}}-{{region[2]}}</text>
-          <text class="text-gray " wx:if="{{region===''}}">请选择地区</text>
+            <text class="text-gray " wx:if="{{region===''}}">请选择地区</text>
           </view>
         </picker>
       </view>
@@ -34,9 +34,21 @@
     <view class="cell">
       <view class="cell-name ">设置为默认地址</view>
       <view class="cell-value set-default">
-        <switch name="dftStatus" checked class="blue sm set-default" bindchange="setDefault" checked="{{dftStatus==='1'}}" value="{{dftStatus}}"/></view>
+        <switch name="dftStatus" checked class="blue sm set-default" bindchange="setDefault" checked="{{dftStatus==='1'}}" value="{{dftStatus}}" />
+      </view>
     </view>
-    <button class="theme-bgc confirm-btn" form-type="submit">确定 </button>
+    <!-- <button class="theme-bgc confirm-btn" form-type="submit">确定 </button> -->
+
+    <view class="operate-btns">
+      <view class="btn-wrapper" wx:if="{{operateType==='edit'}}">
+        <button class="bg-white" bindtap="delete">删除</button>
+      </view>
+      <view class="btn-wrapper">
+        <button class="theme-bgc" form-type="submit">确定 </button>
+      </view>
+    </view>
+
+
   </form>
 
 </view>

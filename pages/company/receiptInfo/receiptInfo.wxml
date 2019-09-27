@@ -1,2 +1,21 @@
-<!--pages/company/receiptInfo/receiptInfo.wxml-->
-<text>pages/company/receiptInfo/receiptInfo.wxml</text>
+<view class="card" wx:for="{{receiptList}}" wx:key>
+  <view class="card-head">
+    <view class="card-title">收款账户</view>
+    <view class="card-subtitle edit text-green" bindtap="edit" data-index="{{index}}">编辑</view>
+  </view>
+  <view class="card-content">
+    <view class="card-item">
+      <view class="card-name">开户行</view>
+      <view class="card-value">{{item.openBank}}</view>
+    </view>
+    <view class="card-item">
+      <view class="card-name">银行账户</view>
+      <view class="card-value">{{item.account}}</view>
+    </view>
+    <view class="card-item">
+      <view class="card-name">状态</view>
+      <view class="card-value">{{item.status==='0'?'已禁用':'已启用'}}</view>
+    </view>
+  </view>
+</view>
+<button class="add-btn theme-bgc" bindtap="add">新增收款账户</button>

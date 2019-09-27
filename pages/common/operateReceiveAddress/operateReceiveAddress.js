@@ -20,6 +20,9 @@ create(store, {
    */
   onLoad: function(options) {
     app.setTitle("编辑地址")
+    this.setData({
+      operateType: options.operateType
+    })
     // this.setData({
     //   store:options.store.split(".")
     // })
@@ -49,6 +52,26 @@ create(store, {
   setDefault(e) {
     this.setData({
       isDefault: e.detail.value
+    })
+  },
+  delete() {
+    wx.showModal({
+      title: '确定要删除此地址吗',
+      success: (res) => {
+        if (res.cancel) {
+          return
+        }
+        app.http("deleteAddress", {
+          tableKey: this.data.tableKey
+        }).then(() => {
+          app.showToast("删除地址成功")
+          setTimeout(() => {
+            wx.navigateBack()
+          }, 500)
+        }).catch(err => {
+          app.showToast("删除地址失败")
+        })
+      }
     })
   },
   addSubmit(e) {

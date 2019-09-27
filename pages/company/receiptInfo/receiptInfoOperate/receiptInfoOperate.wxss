@@ -1,11 +1,7 @@
-.set-default{
+.status{
   text-align: right;
-  margin-right: 20rpx;
-}
-/* .confirm-btn{
-  width: calc(100vw - 60rpx);
-  margin: 100rpx 30rpx;
-} */
+  margin-right: 30rpx;
+} 
 .operate-btns{
   display: flex; 
   margin-top: 100rpx;

@@ -1,24 +1,54 @@
-<view class="cell border-bt">
-  <view class="cell-name">名称</view>
-  <view class="cell-value">{{editData.name}}</view>
-</view>
-<view class="cell border-bt">
-  <view class="cell-name">纳税人识别号</view>
-  <view class="cell-value">{{editData.duty}}</view>
-</view>
-<view class="cell border-bt">
-  <view class="cell-name">注册地址</view>
-  <view class="cell-value">{{editData.address}}</view>
-</view>
-<view class="cell border-bt">
-  <view class="cell-name">注册电话</view>
-  <view class="cell-value">{{editData.telephone}}</view>
-</view>
-<view class="cell border-bt">
-  <view class="cell-name">开户银行</view>
-  <view class="cell-value">{{editData.openBank}}</view>
-</view>
-<view class="cell border-bt">
-  <view class="cell-name">银行账户</view>
-  <view class="cell-value">{{editData.account}}</view>
-</view>
+<form bindsubmit="submit">
+  <view class="cell border-bt">
+    <view class="cell-name">名称</view>
+    <view class="cell-value">
+      <input name="name" placeholder="{{operateType==='add'?'请填写名称':'无'}}" value="{{editData.name}}"></input>
+    </view>
+  </view>
+  <view class="cell border-bt">
+    <view class="cell-name">纳税人识别号</view>
+    <view class="cell-value">
+      <input name="duty" placeholder="{{operateType==='add'?'请填写名称':'无'}}" value="{{editData.duty}}"></input>
+    </view>
+  </view>
+  <view class="cell border-bt">
+    <view class="cell-name">注册地址</view>
+    <view class="cell-value">
+      <input name="address" placeholder="{{operateType==='add'?'请填写名称':'无'}}" value="{{editData.address}}"></input>
+    </view>
+  </view>
+  <view class="cell border-bt">
+    <view class="cell-name">注册电话</view>
+    <view class="cell-value">
+      <input name="telephone" placeholder="{{operateType==='add'?'请填写名称':'无'}}" value="{{editData.telephone}}"></input>
+    </view>
+  </view>
+  <view class="cell border-bt">
+    <view class="cell-name">开户银行</view>
+    <view class="cell-value">
+      <input name="openBank" placeholder="{{operateType==='add'?'请填写名称':'无'}}" value="{{editData.openBank}}"></input>
+    </view>
+  </view>
+  <view class="cell border-bt">
+    <view class="cell-name">银行账户</view>
+    <view class="cell-value">
+      <input name="account" placeholder="{{operateType==='add'?'请填写名称':'无'}}" value="{{editData.account}}"></input>
+    </view>
+  </view>
+  <view class="cell" wx:if="{{operateType==='edit'}}">
+    <view class="cell-name">设置为默认地址</view>
+    <view class="cell-value set-default">
+      <switch name="dftStatus" class="blue sm set-default" bindchange="setDefault" checked="{{editData.dftStatus==='1'}}" value="{{editData.dftStatus}}" />
+    </view>
+  </view>
+  <view class="operate-btns">
+    <view class="btn-wrapper" wx:if="{{operateType==='edit'}}">
+      <button class="bg-white" bindtap="delete">删除</button>
+    </view>
+    <view class="btn-wrapper">
+      <button class="theme-bgc" formType="submit">确定</button>
+    </view>
+  </view>
+
+
+</form>

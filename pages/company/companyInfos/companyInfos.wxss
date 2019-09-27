@@ -8,7 +8,7 @@
 .tabs .active{
   border-bottom: 5rpx solid var(--themeColor); 
 }
-.base-info{ 
+.base-info,.company-certification{ 
   padding-top: 30rpx;
 }
 .edit-btn{
@@ -17,4 +17,4 @@
 }
 .scroll-view{
   height: calc(100vh - 100rpx); 
-}
+} 

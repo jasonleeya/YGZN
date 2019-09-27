@@ -21,7 +21,7 @@
 		}
 	},
 	"compileType": "miniprogram",
-	"libVersion": "2.4.2",
+	"libVersion": "2.8.3",
 	"appid": "wx88c183d97ee1aad2",
 	"projectname": "YGZN",
 	"debugOptions": {
@@ -53,35 +53,7 @@
 		},
 		"miniprogram": {
 			"current": -1,
-			"list": [
-				{
-					"id": -1,
-					"name": "pages/index/mine/creditManage/creditManage",
-					"pathName": "pages/index/mine/creditManage/creditManage",
-					"query": "",
-					"scene": null
-				},
-				{
-					"id": -1,
-					"name": "pages/index/mine/creditOperate/creditOperate",
-					"pathName": "pages/index/mine/creditOperate/creditOperate",
-					"query": "",
-					"scene": null
-				},
-				{
-					"id": -1,
-					"name": "pages/index/mine/customerManage/customerManage",
-					"pathName": "pages/index/mine/customerManage/customerManage",
-					"query": "",
-					"scene": null
-				},
-				{
-					"id": -1,
-					"name": "pages/company/companyInfos/companyInfos",
-					"pathName": "pages/company/companyInfos/companyInfos",
-					"scene": null
-				}
-			]
+			"list": []
 		}
 	}
 }

@@ -1,1 +1,4 @@
-/* pages/company/receiptInfo/receiptInfo.wxss */
+.add-btn{
+  margin: 100rpx 30rpx;
+  width: calc(100vw - 60rpx)
+}

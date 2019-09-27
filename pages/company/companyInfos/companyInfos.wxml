@@ -95,6 +95,7 @@
       <view class="card-head">
         <view class="card-title">
           发票信息
+          <text class="text-green" wx:if="{{item.dftStatus==='1'}}">(默认)</text>
         </view>
         <text class="card-subtitle text-green" bindtap="editInvoiceInfo" data-index="{{index}}">编辑</text>
       </view>
@@ -118,6 +119,23 @@
       </view>
     </view>
   </view>
+
+  <view wx:if="{{activeTabIndex==='3'}}" class="company-certification">
+    <view class=" cell border-bt ">
+      <view class="cell-name ">营业执照号</view>
+      <view class="cell-value ">{{companyCertification.blNumber}}</view>
+    </view>
+    <view class=" cell border-bt ">
+      <view class="cell-name ">联系电话</view>
+      <view class="cell-value ">{{companyCertification.userPhone}}</view>
+    </view>
+    <view class=" cell border-bt ">
+      <view class="cell-name ">营业执照</view>
+      <view class="cell-value "></view>
+      <view class="cell-icon cuIcon-right" bindtap="uploadCertification"></view>
+    </view>
+  </view>
+
   <button class="theme-bgc edit-btn" wx:if="{{activeTabIndex==='0'}}" bindtap="baseInfoEdit">修改</button>
   <button class="theme-bgc edit-btn" wx:if="{{activeTabIndex==='1'}}" bindtap="addRecerveAddress">添加收货地址</button>
   <button class="theme-bgc edit-btn" wx:if="{{activeTabIndex==='2'}}" bindtap="addInvoiceInfo">新增发票信息</button>

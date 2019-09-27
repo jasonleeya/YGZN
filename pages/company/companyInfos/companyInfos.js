@@ -9,7 +9,8 @@ Page({
     activeTabIndex: '0',
     baseInfos: {},
     receiveAddress: [],
-    invoiceInfos:[]
+    invoiceInfos:[],
+    companyCertification:{},
   },
 
   /**
@@ -34,23 +35,23 @@ Page({
         invoiceInfos:data.list
       })
     })
-
+    app.http("findDataByUserId").then(data=>{
+      this.setData({
+        companyCertification: data.list[0]
+      })
+    })
   },
   toggleTab(e) {
     this.setData({
       activeTabIndex: e.currentTarget.dataset.index
     })
-    switch (e.currentTarget.dataset.index) {
-      case "0":
-
-        break
-      case "1":
-
-        break
-    }
   },
   baseInfoEdit() {
     app.showToast("暂不支持修改")
+  },
+  uploadCertification(){
+    app.showToast("暂不支持")
+
   },
   editReceeiveAddress(e) {
     var index = e.currentTarget.dataset.index

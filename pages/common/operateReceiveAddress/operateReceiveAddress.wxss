@@ -3,7 +3,8 @@
   position: relative;
 }
 .set-default{
-  text-align: right
+  text-align: right;
+  margin-right: 20rpx;
 }
 
 .info-value input {
@@ -31,6 +32,12 @@ textarea {
   height: 200rpx;
   background-color: #fff;
 }
-.set-default{
-  margin-right: 20rpx;
+ .operate-btns{
+  display: flex; 
+  margin-top: 100rpx;
+  padding-left: 30rpx;
+}
+.btn-wrapper{
+  flex: 1;
+  margin-right:30rpx
 }

@@ -79,7 +79,17 @@ const alias = {
   isExistOrderProvider: BASE_URL + "/imatchOrder/reOrder/isExistOrderProvider",
   deleteCustomer: BASE_URL +"/imatchUser/agency/deleteCustomer",
   getUserAddress: BASE_URL +"/imatchUser/user/getUserAddress",
-  getAllInvoice: BASE_URL +"/imatchUser/user/getAllInvoice"
+  getAllInvoice: BASE_URL +"/imatchUser/user/getAllInvoice",
+  updateInvoice: BASE_URL + "/imatchUser/user/updateInvoice",
+  updateInvoiceDft: BASE_URL +"/imatchUser/user/updateInvoiceDft",
+  deleteInvoice: BASE_URL +"/imatchUser/user/deleteInvoice",
+  deleteAddress: BASE_URL +"/imatchUser/user/deleteAddress",
+  findDataByUserId: BASE_URL +"/imatchUser/EnterpriseCertificationController/findDataByUserId",
+  getSupplyAccount: BASE_URL +"/imatchUser/agency/getSupplyAccount",
+  saveAccount: BASE_URL +"/imatchUser/agency/saveAccount",
+  updateAcctStatus: BASE_URL + "/imatchUser/agency/updateAcctStatus",
+  deleteAcct: BASE_URL +"/imatchUser/agency/deleteAcct"
+
 }
 export default function(name) {
   return alias[name]
