@@ -384,7 +384,7 @@ Page({
   cancelOrder() {
     wx.showModal({
       title: '确定取消订单吗',
-      success(res) {
+      success:(res)=>{
         if (res.cancel) {
           return
         }
@@ -392,6 +392,9 @@ Page({
           orderNo: this.data.infos.orderNo
         }).then(data => {
           app.showToast('取消订单成功')
+          setTimeout(()=>{
+            wx.navigateBack()
+          },500)
         }).catch(err => {
           app.showToast(err)
         })
