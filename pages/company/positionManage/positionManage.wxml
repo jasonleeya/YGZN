@@ -1,2 +1,21 @@
-<!--pages/company/positionManage/positionManage.wxml-->
-<text>pages/company/positionManage/positionManage.wxml</text>
+<view class="card">
+  <view class="card-head">
+    <view class="card-title">职位</view>
+    <view class="card-subtitle text-green">编辑</view>
+  </view>
+  <view class="card-content">
+    <view class="card-item">
+      <view class="card-name">职位名称</view>
+      <view class="card-value">管理员</view>
+    </view>
+      <view class="card-item">
+      <view class="card-name">排序</view>
+      <view class="card-value">1</view>
+    </view>
+      <view class="card-item">
+      <view class="card-name">备注</view>
+      <view class="card-value">放大噶我如果阿尔法而</view>
+    </view>
+  </view>
+</view>
+<button class="add-position theme-bgc">新增职位</button>

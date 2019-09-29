@@ -1,2 +1,28 @@
-<!--pages/company/employeeManage/employeeManage.wxml-->
-<text>pages/company/employeeManage/employeeManage.wxml</text>
+<view class="card" wx:for="{{employeeList}}" wx:key>
+  <view class="card-head">
+    <view class="card-title">员工信息</view>
+    <view class="card-subtitle text-green" bindtap="editEmployee" data-index="{{index}}">编辑</view>
+  </view>
+  <view class="card-content">
+    <view class="card-item">
+      <view class="card-name">姓名</view>
+      <view class="card-value">{{item.userName}}</view>
+    </view>
+ 
+    <view class="card-item">
+      <view class="card-name">电话</view>
+      <view class="card-value">{{item.userLoginName}}</view>
+    </view>
+ 
+    <view class="card-item">
+      <view class="card-name">职位</view>
+      <view class="card-value">{{item.position}}</view>
+    </view>
+
+    <view class="card-item">
+      <view class="card-name">库存透明度(%)</view>
+      <view class="card-value">{{item.percent}}%</view>
+    </view>
+  </view>
+</view>
+<view class="add-btn cuIcon-add shadow bg-blue" bindtap="addEmployee"></view>

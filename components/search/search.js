@@ -1,4 +1,4 @@
-// components/search/search.js
+let app=getApp()
 Component({
   /**
    * 组件的属性列表
@@ -67,10 +67,34 @@ Component({
     scan() {
       let that = this
       wx.scanCode({
-        success(res) {
-          that.setData({
-            barCode: res.result
-          })
+        success(data) { 
+          if (data.result.search(/taskId/)>-1){
+            wx.showModal({
+              title: '确定取货吗',
+              content: '',
+              success: (res)=>{
+                  if(res.cancel){
+                    app.http("notTake", { taskId: data.result.match(/taskId:(\d*)/)[1]}).then(()=>{
+                      app.showToast("取消取货成功")
+                    }).catch(err=>{
+                      app.showToast(err)
+                    })
+                  }
+                  if(res.confirm){
+                    app.http("take", { taskId: data.result.match(/taskId:(\d*)/)[1] }).then(() => {
+                      app.showToast("取货成功")
+                    }).catch(err => {
+                      app.showToast(err)
+                    })
+                  }
+              }
+            })
+          }else{
+            that.setData({
+              barCode: data.result
+            })
+          }
+        
         }
       })
     },

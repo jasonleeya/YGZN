@@ -88,7 +88,14 @@ const alias = {
   getSupplyAccount: BASE_URL +"/imatchUser/agency/getSupplyAccount",
   saveAccount: BASE_URL +"/imatchUser/agency/saveAccount",
   updateAcctStatus: BASE_URL + "/imatchUser/agency/updateAcctStatus",
-  deleteAcct: BASE_URL +"/imatchUser/agency/deleteAcct"
+  deleteAcct: BASE_URL +"/imatchUser/agency/deleteAcct",
+  queryAllSalesman: BASE_URL +"/imatchUser/user/queryAllSalesman",
+  findRoles: BASE_URL + "/imatchPower/findRoles",
+  take: BASE_URL + "/imatchOrder/taskSheet/take",
+  notTake: BASE_URL +"/imatchOrder/taskSheet/notTake",
+  insertSalesman: BASE_URL + "/imatchUser/user/insertSalesman",
+  delSalesman: BASE_URL + "/imatchUser/user/delSalesman",
+  updateSalesman: BASE_URL +"/imatchUser/user/updateSalesman"
 
 }
 export default function(name) {

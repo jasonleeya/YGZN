@@ -75,6 +75,10 @@ create({
             msg.operate = "逾期自动取消"
             msg.head = "订单取消"
           }
+          if (msg.content.search("申请取消订单") > 0) {
+            msg.operate = "申请取消订单"
+            msg.head = "申请取消"
+          }
           if (msg.content.search("申请为客户") > 0) {
             msg.operate = "申请成为我的客户"
             msg.head = "申请通知"

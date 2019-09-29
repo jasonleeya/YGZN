@@ -1,1 +1,4 @@
-/* pages/company/positionManage/positionManage.wxss */
+.add-position{
+  margin: 100rpx 30rpx 0;
+  width: calc(100vw - 60rpx)
+}

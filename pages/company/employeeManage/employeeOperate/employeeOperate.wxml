@@ -1,0 +1,58 @@
+<form bindsubmit="submit">
+  <view class="cell border-bt">
+    <view class="cell-name">姓名</view>
+    <view class="cell-value">
+      <input name="userName" placeholder="请填写员工姓名 " value="{{infos.userName}}"></input>
+    </view>
+  </view>
+  <view class="cell border-bt">
+    <view class="cell-name">职位</view>
+    <view class="cell-value"> {{positions.list[positions.active]}} </view>
+    <picker name="position" bindchange="choosePosition" value="{{positions.list[positions.active]}}" range="{{positions.list}}">
+      <view class="picker">
+        <view class="cell-icon cuIcon-right"></view>
+      </view>
+    </picker>
+  </view>
+  <view class="cell border-bt">
+    <view class="cell-name">等级</view>
+    <view class="cell-value"> {{levels.list[levels.active]}}
+    </view>
+    <view class="cell-right">
+      <picker name="level" bindchange="chooseLevel" value="{{levels.list[levels.active]}}" range="{{levels.list}}">
+        <view class="picker">
+          <view class="cell-icon cuIcon-right"></view>
+        </view>
+      </picker>
+    </view>
+  </view>
+  <view class="cell cell-gutter-bt">
+    <view class="cell-name">电话</view>
+    <view class="cell-value">
+      <input name="userLoginName" placeholder="请填写员工电话 " value="{{infos.userLoginName}}"></input>
+    </view>
+  </view>
+
+  <view class="cell">
+    <view class="cell-name">备注</view>
+    <view class="cell-value">
+      <input name="remark" placeholder="{{operateType==='edit'?'无':'请填写备注'}}" value="{{infos.remark}}"></input>
+    </view>
+  </view>
+
+  <view class="cell" wx:if="{{operateType==='edit'}}">
+  <view class="cell-name">启用状态</view>
+  <view class="cell-value status">
+    <switch name="useStatus" checked="{{infos.useStatus==='1'?true:false}}"></switch>
+  </view>
+</view> 
+
+  <view class="operate-btns">
+  <view class="btn-wrapper" wx:if="{{operateType==='edit'}}">
+    <button class="bg-white" bindtap="delete">删除</button>
+  </view>
+  <view class="btn-wrapper">
+    <button class="theme-bgc" formType="submit">确定</button>
+  </view>
+</view>
+</form>

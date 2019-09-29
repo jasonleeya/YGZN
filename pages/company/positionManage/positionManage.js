@@ -1,4 +1,4 @@
-// pages/company/positionManage/positionManage.js
+let app=getApp()
 Page({
 
   /**
@@ -12,7 +12,7 @@ Page({
    * 生命周期函数--监听页面加载
    */
   onLoad: function (options) {
-
+    app.showToast("该页面尚未完善")
   },
 
   /**
