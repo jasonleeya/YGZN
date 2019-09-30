@@ -1,66 +1,42 @@
-// pages/company/levelManage/levelManage.js
+let app = getApp()
 Page({
 
   /**
    * 页面的初始数据
    */
   data: {
-
+    levelList: [],
+    nextLevel:''
   },
 
-  /**
-   * 生命周期函数--监听页面加载
-   */
-  onLoad: function (options) {
-
+   
+  onLoad: function(options) {
+    app.setTitle("等级管理")
   },
 
-  /**
-   * 生命周期函数--监听页面初次渲染完成
-   */
-  onReady: function () {
-
+  onShow: function() {
+    app.http("queryAllGrade").then(data => {
+      var list = JSON.parse(JSON.stringify(data.list))
+      list.sort(function(a,b){
+        return parseInt(a.name.match(/\d+/)[0]) - parseInt(b.name.match(/\d+/)[0])
+      })
+      var nextLevel = parseInt(list[list.length - 1].name.match(/\d+/)[0])+1 
+      this.setData({
+        levelList: data.list,
+        nextLevel
+      })
+    })
   },
 
-  /**
-   * 生命周期函数--监听页面显示
-   */
-  onShow: function () {
-
+  editLevel(e) {
+    wx.navigateTo({
+      url: '/pages/company/levelManage/levelOperate/levelOperate?operateType=edit&editIndex='+e.currentTarget.dataset.index, 
+    })
   },
-
-  /**
-   * 生命周期函数--监听页面隐藏
-   */
-  onHide: function () {
-
-  },
-
-  /**
-   * 生命周期函数--监听页面卸载
-   */
-  onUnload: function () {
-
-  },
-
-  /**
-   * 页面相关事件处理函数--监听用户下拉动作
-   */
-  onPullDownRefresh: function () {
-
-  },
-
-  /**
-   * 页面上拉触底事件的处理函数
-   */
-  onReachBottom: function () {
-
-  },
-
-  /**
-   * 用户点击右上角分享
-   */
-  onShareAppMessage: function () {
-
+  addLevel() {
+    wx.navigateTo({
+      url: '/pages/company/levelManage/levelOperate/levelOperate?operateType=add&nextLevel=' + this.data.nextLevel
+    })
   }
+
 })

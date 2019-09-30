@@ -10,6 +10,7 @@ Page({
   },
 
   onLoad: function(options) {
+    app.setTitle("编辑收款信息")
     this.setData({
       operateType: options.operateType
     })
@@ -49,6 +50,15 @@ Page({
   },
   submit(e) {
     var infos = e.detail.value
+    if (!infos.openBank){
+      app.showToast("开户行不能为空")
+      return
+    }
+    if (!infos.account) {
+      app.showToast("账号能为空")
+      return
+    }
+
     if (this.data.operateType === 'add') {
       infos.status = '0'
       infos.tableKey = ""

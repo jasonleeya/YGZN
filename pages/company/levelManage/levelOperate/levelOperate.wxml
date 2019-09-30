@@ -1,0 +1,34 @@
+<form bindsubmit="submit">
+  <view class="cell border-bt">
+    <view class="cell-name">等级名称</view>
+    <view class="cell-value"><input name="name" placeholder="{{operateType==='edit'?'请填写等级名称':'无'}}" value="{{infos.name}}"></input></view>
+  </view>
+  <view class="cell border-bt">
+    <view class="cell-name">库存透明度%</view>
+    <view class="cell-value"><input name="percent"  placeholder="{{operateType==='edit'?'请填写库存透明度':'无'}}" value="{{infos.percent}}"></input></view>
+  </view>
+  <view class="cell border-bt">
+    <view class="cell-name">面价默认折扣</view>
+    <view class="cell-value"><input name="purchaseDiscount"  placeholder="{{operateType==='edit'?'请填写面价默认折扣':'无'}}" value="{{infos.purchaseDiscount}}"></input></view>
+  </view>
+  <view class="cell border-bt">
+    <view class="cell-name">销售价默认折扣</view>
+    <view class="cell-value"><input name="dftDiscount"  placeholder="{{operateType==='edit'?'请填写销售价默认折扣':'无'}}" value="{{infos.dftDiscount}}"></input></view>
+  </view>
+  <view class="cell border-bt">
+    <view class="cell-name">备注</view>
+    <view class="cell-value"><input name="remark"  placeholder="{{operateType==='edit'?'请填写备注':'无'}}" value="{{infos.remark}}"></input></view>
+  </view>
+  <view class="cell">
+    <view class="cell-name">默认状态</view>
+    <view class="cell-value set-dft"><switch class="blue" bindchange="setDefault" checked="{{infos.dftStatus==='1'}}"></switch></view>
+  </view>
+   <view class="operate-btns">
+    <view class="btn-wrapper" wx:if="{{operateType==='edit'}}">
+      <button class="bg-white" bindtap="delete">删除</button>
+    </view>
+    <view class="btn-wrapper">
+      <button class="theme-bgc" formType="submit">确定</button>
+    </view>
+  </view>
+</form>

@@ -1,2 +1,35 @@
-<!--pages/company/levelManage/levelManage.wxml-->
-<text>pages/company/levelManage/levelManage.wxml</text>
+<view class="card" wx:for="{{levelList}}" wx:key>
+  <view class="card-head">
+    <view class="card-title">等级
+      <text class="text-green" wx:if="{{item.dftStatus==='1'}}">(默认)</text>
+    </view>
+    <view class="card-subtitle text-green" bindtap="editLevel" data-index="{{index}}">编辑</view>
+  </view>
+  <view class="card-content">
+    <view class="card-item">
+      <view class="card-name">名称</view>
+      <view class="card-value">{{item.name}}</view>
+    </view>
+
+    <view class="card-item">
+      <view class="card-name">库存透明度%</view>
+      <view class="card-value">{{item.percent}}</view>
+    </view>
+
+    <view class="card-item">
+      <view class="card-name">面价默认折扣</view>
+      <view class="card-value">{{item.purchaseDiscount}}</view>
+    </view>
+
+    <view class="card-item">
+      <view class="card-name">销售价默认折扣</view>
+      <view class="card-value">{{item.dftDiscount}}</view>
+    </view>
+
+    <view class="card-item">
+      <view class="card-name">备注</view>
+      <view class="card-value {{item.remark?'':'text-gray'}}">{{item.remark?item.remark:'无'}}</view>
+    </view>
+  </view>
+</view>
+<button class="add bg-blue" bindtap="addLevel">新增等级</button>

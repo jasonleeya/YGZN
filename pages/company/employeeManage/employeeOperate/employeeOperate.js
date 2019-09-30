@@ -21,6 +21,7 @@ Page({
    * 生命周期函数--监听页面加载
    */
   onLoad: function(options) {
+    app.setTitle("编辑员工信息")
     this.setData({
       operateType: options.operateType
     })
@@ -91,6 +92,15 @@ Page({
         grade: this.data.levels.idList[this.data.levels.active],
         remark: e.detail.value.remark,
       }
+      if (!paramas.userName){
+        app.showToast("姓名不能为空")
+        return
+      }
+      if (!paramas.userPhone) {
+        app.showToast("电话不能为空")
+        return
+      }
+
       app.http("insertSalesman", paramas).then(() => {
         app.showToast("添加成功")
         setTimeout(() => {
@@ -111,6 +121,14 @@ Page({
         position: e.detail.value.position,
         remark: e.detail.value.remark,
         useStatus: e.detail.value.useStatus===true?'1':'0',
+      }
+      if (!paramas.userName) {
+        app.showToast("姓名不能为空")
+        return
+      }
+      if (!paramas.userPhone) {
+        app.showToast("电话不能为空")
+        return
       }
 
       app.http("updateSalesman", paramas).then(() => {

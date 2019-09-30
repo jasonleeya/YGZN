@@ -137,11 +137,13 @@ Component({
           value: "职位管理",
           icon: "iconzhiwei",
           link: "/pages/company/positionManage/positionManage"
-        }, {
-          value: "职位权限",
-          icon: "iconquanxian",
-          link: "/pages/company/positionRight/positionRight"
-        }, {
+        },
+        //  {
+        //   value: "职位权限",
+        //   icon: "iconquanxian",
+        //   link: "/pages/company/positionRight/positionRight"
+        // }, 
+        {
           value: "等级管理",
           icon: "icondengji",
           link: "/pages/company/levelManage/levelManage"

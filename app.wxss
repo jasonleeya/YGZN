@@ -52,7 +52,7 @@ switch::after, switch::before {
 }
 
 .cell-name {
-  width: 200rpx;
+  width: 240rpx;
 }
 
 .cell-value {

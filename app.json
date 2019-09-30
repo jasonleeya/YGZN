@@ -48,7 +48,9 @@
     "pages/company/loginLogs/loginLogs",
     "pages/company/companyInfos/invoiceOperate/invoiceOperate",
     "pages/company/receiptInfo/receiptInfoOperate/receiptInfoOperate",
-    "pages/company/employeeManage/employeeOperate/employeeOperate"
+    "pages/company/employeeManage/employeeOperate/employeeOperate",
+    "pages/company/positionManage/ positionOperate/ positionOperate",
+    "pages/company/levelManage/levelOperate/levelOperate"
   ],
   "window": {
     "backgroundTextStyle": "light",

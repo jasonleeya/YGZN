@@ -12,7 +12,7 @@ receiptList:[]
    * 生命周期函数--监听页面加载
    */
   onLoad: function (options) {
-
+    app.setTitle("收款信息")
   }, 
   onShow: function () {
     app.http("getSupplyAccount").then(data=>{

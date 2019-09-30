@@ -43,7 +43,7 @@
   <view class="cell" wx:if="{{operateType==='edit'}}">
   <view class="cell-name">启用状态</view>
   <view class="cell-value status">
-    <switch name="useStatus" checked="{{infos.useStatus==='1'?true:false}}"></switch>
+    <switch name="useStatus" class="blue" checked="{{infos.useStatus==='1'?true:false}}"></switch>
   </view>
 </view> 
 

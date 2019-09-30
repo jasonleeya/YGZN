@@ -2,3 +2,6 @@
   margin: 100rpx 30rpx 0;
   width: calc(100vw - 60rpx)
 }
+.cell-value input{
+  text-align: right
+}

@@ -1,2 +1,20 @@
-<!--pages/company/loginLogs/loginLogs.wxml-->
-<text>pages/company/loginLogs/loginLogs.wxml</text>
+<view class="card" wx:for="{{logList}}" wx:key>
+  <view class="card-head">
+    <view class="card-title">登录日志</view>
+  </view>
+  <view class="card-content">
+    <view class="card-item">
+      <view class="card-name">用户</view>
+      <view class="card-value">{{item.salesmanName}}</view>
+    </view>
+     <view class="card-item">
+      <view class="card-name">登录记录</view>
+      <view class="card-value">登录</view>
+    </view>
+     <view class="card-item">
+      <view class="card-name">登录日期</view>
+      <view class="card-value">{{item.insertTime}}</view>
+    </view>
+  </view>
+</view>
+<view class="cu-load bg-gray {{isLoad?'loading':'over'}}"></view>

@@ -1,1 +1,4 @@
-/* pages/company/levelManage/levelManage.wxss */
+.add{
+  margin: 100rpx 30rpx 0;
+  width: calc(100vw - 60rpx)
+}

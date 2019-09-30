@@ -12,6 +12,7 @@ Page({
    * 生命周期函数--监听页面加载
    */
   onLoad: function(options) {
+    app.setTitle("编辑发票信息")
     this.setData({
       operateType: options.operateType
     })
@@ -52,6 +53,31 @@ Page({
   },
   submit(e) {
     var formData = e.detail.value
+    if(!formData.name){
+      app.showToast("发票名称不能为空")
+      return
+    }
+    if (!formData.duty) {
+      app.showToast("纳税人识别号不能为空")
+      return
+    }
+    if (!formData.address) {
+      app.showToast("注册地址不能为空")
+      return
+    }
+    if (!formData.telephone) {
+      app.showToast("注册电话号码不能为空")
+      return
+    }
+    if (!formData.openBank) {
+      app.showToast("开户银行不能为空")
+      return
+    }
+    if (!formData.account) {
+      app.showToast("银行账户不能为空")
+      return
+    }
+
 
     if (this.data.operateType === 'edit') {
       formData.tableKey = this.data.editData.tableKey
