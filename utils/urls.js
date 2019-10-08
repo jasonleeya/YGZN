@@ -96,7 +96,10 @@ const alias = {
   updateGrade: BASE_URL +"/imatchUser/user/updateGrade",
   updateDftGrade: BASE_URL +"/imatchUser/user/updateDftGrade",
   delGrade: BASE_URL +"/imatchUser/user/delGrade",
-  queryLoginLog: BASE_URL +"/imatchUser/loginLog/queryLoginLog"
+  queryLoginLog: BASE_URL +"/imatchUser/loginLog/queryLoginLog",
+  saveWarehouse: BASE_URL +"/imatchUser/agency/saveWarehouse",
+  setDftWarehouse: BASE_URL +"/imatchUser/agency/setDftWarehouse",
+  delWarehouse: BASE_URL +'/imatchUser/agency/delWarehouse'
 
 }
 export default function(name) {

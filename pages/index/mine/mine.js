@@ -53,7 +53,13 @@ Component({
         name: '帮助中心',
         icon: 'iconbangzhu',
         link: '/pages/index/mine/helpCenter/helpCenter'
-      }],
+      },
+      //  {
+      //   name: '修改密码',
+      //   icon: 'iconpassword',
+      //   link: '/pages/index/mine/changePassword/changePassword'
+      // }, 
+      ],
       [{
         name: '供应商管理',
         icon: 'icongongyingshang1',

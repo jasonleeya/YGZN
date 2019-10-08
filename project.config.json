@@ -58,6 +58,13 @@
 					"id": -1,
 					"name": "pages/company/employeeManage/employeeManage",
 					"pathName": "pages/company/employeeManage/employeeManage",
+					"query": "",
+					"scene": null
+				},
+				{
+					"id": -1,
+					"name": "pages/product/warehouseManage/warehouseManage",
+					"pathName": "pages/product/warehouseManage/warehouseManage",
 					"scene": null
 				}
 			]

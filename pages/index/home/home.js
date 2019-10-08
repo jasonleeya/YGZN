@@ -24,22 +24,22 @@ Component({
         titleEn: 'Purchase',
         color: 'blue',
         icon: '',
-        link: '/pages/purchase/purchaseOrders/purchaseOrders?orderStatus=&isAllOrder=1'
+        link: '/pages/purchase/purchaseOrders/purchaseOrders?orderStatus=&isAllOrder=1&from=home'
       },
       {
         title: '销售',
         titleEn: 'Sales',
         color: 'cyan',
         icon: '',
-        link: '/pages/sales/salesOrders/salesOrders?orderStatus=&isAllOrder=1'
+        link: '/pages/sales/salesOrders/salesOrders?orderStatus=&isAllOrder=1&from=home'
       },
-      // {
-      //   title: '公司',
-      //   titleEn: 'Company',
-      //   color: 'mauve',
-      //   icon: '',
-      //   link: ''
-      // },
+      {
+        title: '公司',
+        titleEn: 'Company',
+        color: 'mauve',
+        icon: '',
+        link: '/pages/company/companyInfos/companyInfos'
+      },
       // {
       //   title: '统计',
       //   titleEn: 'Statistics',

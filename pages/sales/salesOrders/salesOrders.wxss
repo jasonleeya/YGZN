@@ -55,6 +55,7 @@
   display: inline-block;
   height: 100rpx;
   line-height: 100rpx;
+  flex: 1
 }
 
 .sort-name {
@@ -181,4 +182,18 @@
 .read{
   font-weight: bold;
   font-size: 30rpx;
+}
+.add-btn {
+  position: fixed;
+  right: 50rpx;
+  bottom: 50rpx;
+  width: 100rpx;
+  height: 100rpx;
+  text-align: center;
+  line-height: 100rpx;
+  border-radius: 50rpx;
+  z-index: 999;
+  font-size: 60rpx;
+  color: #fff;
+  font-weight: bold;
 }

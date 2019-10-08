@@ -1,0 +1,4 @@
+.add-warehouse {
+  margin: 100rpx 30rpx 0;
+  width: calc(100vw - 60rpx)
+} 

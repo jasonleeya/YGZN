@@ -7,8 +7,8 @@
           <previewImage  class="solid" src="{{item.imgPath}}" w="140rpx" h="140rpx" />
       </view>
       <view class="goods-info"  bindtap="goodsDetail" data-index="{{index}}">
-        <view class="goods-name">{{item.brandName}}/{{item.productName}}</view>
-        <view class="goods-type text-gray">{{item.brandCode}}</view>
+        <view class="goods-name">{{item.brandName}}/{{item.brandCode}}</view>
+        <view class="goods-type text-gray">{{item.productName}}</view>
         <view class="goods-stocks text-green">库存：{{item.stock}}（{{item.productUnit  }}）</view>
       </view>
       <view class="add-goods cuIcon-add shadow bg-blue" bindtap='showPop' data-index="{{index}}"></view>

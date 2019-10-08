@@ -1,0 +1,44 @@
+<form bindsubmit="submit">
+  <view class="cell border-bt">
+    <view class="cell-name">仓库名称</view>
+    <view class="cell-value">
+      <input name='name' placeholder="{{operateType==='add'?'请填写仓库名称':'无'}}" value="{{infos.name}}"></input>
+    </view>
+  </view>
+  <view class="cell border-bt">
+    <view class="cell-name">所在地区</view>
+    <view class="cell-value">
+      <input disabled placeholder="{{operateType==='add'?'请选择省/市/区':'无'}}" value="{{!infos.region?'':infos.region[0]+'/'+infos.region[1]+'/'+infos.region[2]}}"></input>
+    </view> 
+     <picker mode="region" name="region" bindchange="chooseRegion" value="{{infos.region}}">
+    <view class="picker">
+       <view class="cell-icon cuIcon-right"></view>
+    </view>
+  </picker>
+  </view>
+  <view class="cell border-bt">
+    <view class="cell-name">详细地址</view>
+    <view class="cell-value">
+      <input name="address" placeholder="{{operateType==='add'?'请填写详细地址':'无'}}" value="{{infos.address}}"></input>
+    </view>
+  </view>
+  <view class="cell border-bt">
+    <view class="cell-name">备注</view>
+    <view class="cell-value">
+      <input name="remark" placeholder="{{operateType==='add'?'请填写备注信息':'无'}}" value="{{infos.remark}}"></input>
+    </view>
+  </view>
+ <view class="cell" wx:if="{{operateType==='edit'}}">
+    <view class="cell-name">设为默认仓库</view>
+    <view class="cell-value set-dft"><switch class="blue" bindchange="setDefault" checked="{{infos.dftStatus==='1'}}"></switch></view>
+  </view>
+
+  <view class="operate-btns">
+    <view class="btn-wrapper" wx:if="{{operateType==='edit'}}">
+      <button class="bg-white" bindtap="delete">删除</button>
+    </view>
+    <view class="btn-wrapper">
+      <button class="theme-bgc" formType="submit">确定</button>
+    </view>
+  </view>
+</form>

@@ -186,23 +186,11 @@ Component({
             icon: "iconchanpinguanli",
             link: "/pages/product/productManage/productManage",
           },
-          // {
-          //   value: "新增采购",
-          //   icon: "iconcart",
-          //   link: ""
-          // }, {
-          //   value: "新增采购",
-          //   icon: "iconcart",
-          //   link: ""
-          // }, {
-          //   value: "新增采购",
-          //   icon: "iconcart",
-          //   link: ""
-          // }, {
-          //   value: "新增采购",
-          //   icon: "iconcart",
-          //   link: ""
-          // }
+          {
+            value: "仓库管理",
+            icon: "iconcangku",
+            link: "/pages/product/warehouseManage/warehouseManage",
+          },
         ]
       },
       // {

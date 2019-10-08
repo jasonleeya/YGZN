@@ -10,6 +10,7 @@ Page({
   },
 
   onLoad: function(options) {
+    app.setTitle("登录日志")
     this.getList()
   },
   getList() {

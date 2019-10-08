@@ -1,0 +1,25 @@
+<view class="card" wx:for="{{wareHouseList}}" wx:key>
+  <view class="card-head">
+    <view class="card-title">仓库信息<text class="text-green" wx:if="{{item.dftStatus==='1'}}">(默认仓库)</text></view>
+    <view class="card-subtitle text-green" bindtap="edit" data-index="{{index}}">编辑</view>
+  </view>
+  <view class="card-content">
+    <view class="card-item">
+      <view class="card-name">仓库名称</view>
+      <view class="card-value {{item.name?'':'text-gray'}}">{{item.name}}</view>
+    </view>
+    <view class="card-item">
+      <view class="card-name">所在地区</view>
+      <view class="card-value {{!item.province&&!item.city&&!item.area?'text-gray':''}}">{{item.region?item.region[0]+'/'+item.region[1]+'/'+item.region[2]:'无'}}</view>
+    </view>
+       <view class="card-item">
+      <view class="card-name">详细地址</view>
+      <view class="card-value {{item.address?'':'text-gray'}}">{{!item.address?'无':item.address}}</view>
+    </view>
+    <view class="card-item">
+      <view class="card-name">备注</view>
+      <view class="card-value {{item.remark?'':'text-gray'}}">{{!item.remark?'无':item.remark}}</view>
+    </view>
+  </view>
+</view>
+<button class="add-warehouse theme-bgc" bindtap="add">新增地址</button>

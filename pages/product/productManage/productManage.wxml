@@ -7,7 +7,7 @@
         <previewImage src="{{item.imgPath}}" w="{{'140rpx'}}" h="{{'140rpx'}}" />
       </view>
       <view class="product-info">
-        <view class="product-name">{{item.brandName+'/'+item.productName}}</view>
+        <view class="product-name">{{item.brandName+'/'+item.brandCode}}</view>
         <view class="product-type text-gray">{{item.description}}</view>
         <view class="product-price">
           <text class="text-gray">面价:</text>

@@ -89,3 +89,4 @@
   </view>
   <view class="cu-load  {{isLoad?'loading':'over'}}" wx:if="{{isLoad}}"></view>
 </scroll-view>
+<view class="add-btn cuIcon-add shadow bg-blue" bindtap="addProduct" wx:if="{{fromHome===true}}"></view>

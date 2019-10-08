@@ -81,7 +81,8 @@
      sortEndTime: "",
      orderStatus: "",
      timeOut: null,
-     isAllOrder: false
+     isAllOrder: false,
+     fromHome: false
    },
    onLoad(options) {
      app.setTitle("销售订单")
@@ -93,7 +94,11 @@
      this.setData({
        orderStatus: options.orderStatus
      })
-
+     if (options.from) {
+       this.setData({
+         fromHome: true
+       })
+     }
      this.getList()
 
      //分页逻辑
@@ -483,5 +488,9 @@
        url: '../orderDetail/orderDetail?orderNo=' + e.currentTarget.dataset.id 
      })
    },
-
+   addProduct() {
+     wx.navigateTo({
+       url: '/pages/purchase/newPurchase/newPurchase'
+     })
+   }
  })
