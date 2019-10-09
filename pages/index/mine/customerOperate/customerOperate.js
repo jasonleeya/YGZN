@@ -174,15 +174,15 @@ Page({
     })
   },
   confirmEdit() {
-    var paramas = this.data.formEvent.detail.value
-    paramas.customerNo = this.data.formData.customerNo
-    paramas.grade = this.data.customerLevel.value[this.data.customerLevel.index].id
-    paramas.creditLine = '0.00'
-    paramas.customerType = "1001"
-    paramas.settlementDate = "30"
-    paramas.overdraftAmount = "0"
+    var params = this.data.formEvent.detail.value
+    params.customerNo = this.data.formData.customerNo
+    params.grade = this.data.customerLevel.value[this.data.customerLevel.index].id
+    params.creditLine = '0.00'
+    params.customerType = "1001"
+    params.settlementDate = "30"
+    params.overdraftAmount = "0"
 
-    app.http("updateCustomer", paramas).then(res => {
+    app.http("updateCustomer", params).then(res => {
       app.showToast("修改成功")
       setTimeout(() => {
         wx.navigateBack()
@@ -213,15 +213,15 @@ Page({
   },
  
   add() {
-    var paramas = this.data.formEvent.detail.value
-    paramas.customerNo = ""
-    paramas.grade = this.data.customerLevel.value[this.data.customerLevel.index].id
-    paramas. creditLine= '0.00'
-    paramas.customerType = "1001"
-    paramas.settlementDate = "30"
-    paramas.overdraftAmount = "0"
-    paramas.address = "【" + paramas.region + "】" + paramas.detailAddress
-    app.http("addCustomer", paramas).then(res => {
+    var params = this.data.formEvent.detail.value
+    params.customerNo = ""
+    params.grade = this.data.customerLevel.value[this.data.customerLevel.index].id
+    params. creditLine= '0.00'
+    params.customerType = "1001"
+    params.settlementDate = "30"
+    params.overdraftAmount = "0"
+    params.address = "【" + params.region + "】" + params.detailAddress
+    app.http("addCustomer", params).then(res => {
       app.showToast("添加成功")
       setTimeout(() => {
         wx.navigateBack()

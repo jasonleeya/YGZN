@@ -26,7 +26,7 @@ Page({
 
   },
   getList(){
-    var paramas = {
+    var params = {
       itemKey: this.data.itemKey,
       wareKey: this.data.wareKey,
       startTime: this.data.timeRange.start,
@@ -36,7 +36,7 @@ Page({
       inOrOut: this.data.choosedType === "out" ? "1" : this.data.choosedType==="in"?"2":""
 
     }
-    app.http("queryStockDetail", paramas).then(data => {
+    app.http("queryStockDetail", params).then(data => {
         data.list.forEach(item=>{
           item.tranTime = item.tranTime.match(/\d{4}-\d{2}-\d{2}/)
         })

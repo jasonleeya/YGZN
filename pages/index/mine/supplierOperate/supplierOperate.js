@@ -66,14 +66,14 @@ Page({
 
   },
   add() {
-    var paramas = this.data.formEvent.detail.value
-    paramas.custNo = this.data.custNo
-    paramas.customerNo = ""
-    if (paramas.supplyName === "") {
+    var params = this.data.formEvent.detail.value
+    params.custNo = this.data.custNo
+    params.customerNo = ""
+    if (params.supplyName === "") {
       app.showToast("请填写供应商名称")
       return
     }
-    app.http("addProvider", paramas).then(res => {
+    app.http("addProvider", params).then(res => {
       app.showToast("添加成功")
       setTimeout(() => {
         wx.navigateBack()
@@ -90,17 +90,17 @@ Page({
       })
       return
     }
-    var paramas = this.data.formEvent.detail.value
-    paramas.customerNo = this.data.formData.customerNo
-    paramas.custNo = this.data.formData.custNo
+    var params = this.data.formEvent.detail.value
+    params.customerNo = this.data.formData.customerNo
+    params.custNo = this.data.formData.custNo
     if(this.data.enableStatus!==this.data.enableStatusCopy){
       app.http("updateCustomerStatus", {
-        customerNo: paramas.customerNo,
+        customerNo: params.customerNo,
         status: this.data.enableStatus
       }) 
     }
     
-    app.http("updateProvderNew", paramas).then(res => {
+    app.http("updateProvderNew", params).then(res => {
       app.showToast("修改成功")
       setTimeout(() => {
         wx.navigateBack()

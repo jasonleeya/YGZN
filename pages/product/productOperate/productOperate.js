@@ -248,7 +248,7 @@ create(store, {
     if (this.data.operateType === "add") {
       var pages = getCurrentPages()
       var storeHouseId = pages[pages.length - 2].data.selectedStoreHouseId
-      var paramas = {
+      var params = {
         itemKey: '',
         wareKey: storeHouseId,
         shelfPosition: formData.shelfPosition,
@@ -261,7 +261,7 @@ create(store, {
         innerCode: formData.innerCode,
         brandName: formData.brandName
       }
-      app.http("addWareItem", paramas).then(res => {
+      app.http("addWareItem", params).then(res => {
         if (res.success === true) {
           app.showToast("添加成功")
           setTimeout(() => { 

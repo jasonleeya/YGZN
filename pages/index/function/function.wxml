@@ -8,7 +8,7 @@
 
   <!-- 右边内容区 -->
   <scroll-view class="vertical-contents" scroll-y scroll-with-animation scroll-into-view="content-{{curContent}}" bindscroll="VerticalMain">
-    <view class="content padding-top padding-lr" wx:for="{{list}}" wx:key id="content-{{item.id}}">
+    <view class="content padding-top padding-lr {{item.id===curContent||item.id===0&&curContent===null?'active-shadow':''}}" wx:for="{{list}}" wx:key id="content-{{item.id}}">
       <!-- 内容区头部 -->
       <view class='content-header'>
         <view class='content-title'>{{item.name}}</view>

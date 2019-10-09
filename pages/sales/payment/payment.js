@@ -79,14 +79,14 @@ Page({
 
         break
       case "信用额度支付":
-        var paramas = prevPage.data.paramas
-        paramas.upperpartOrder = JSON.parse(paramas.upperpartOrder)
-        paramas.upperpartOrder[0].orderStatus = "090002"
-        paramas.upperpartOrder[0].orderTypeChoose = "03"
-        paramas.upperpartOrder = JSON.stringify(paramas.upperpartOrder)
-        // console.log(paramas)
+        var params = prevPage.data.params
+        params.upperpartOrder = JSON.parse(params.upperpartOrder)
+        params.upperpartOrder[0].orderStatus = "090002"
+        params.upperpartOrder[0].orderTypeChoose = "03"
+        params.upperpartOrder = JSON.stringify(params.upperpartOrder)
+        // console.log(params)
 
-        app.http("saveSaleOrderUpperAndLower", paramas, true).then(() => {
+        app.http("saveSaleOrderUpperAndLower", params, true).then(() => {
           app.showToast("支付成功")
           setTimeout(() => {
             wx.navigateBack({

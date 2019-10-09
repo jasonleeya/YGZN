@@ -280,7 +280,7 @@ create(store, {
 
 
 
-    var paramas = {
+    var params = {
       upperpartOrder: JSON.stringify([{
         orderNo: info.orderId,
         supplyNo: data.supplyNo,
@@ -324,13 +324,13 @@ create(store, {
     this.setData({
       isLoad: true
     })
-// console.log(paramas)
+// console.log(params)
 //     this.setData({
 //       isLoad: false
 //     })
 // return
 
-    app.http("savePurchaseOrderUpperAndLower", paramas, true).then(() => {
+    app.http("savePurchaseOrderUpperAndLower", params, true).then(() => {
         app.showToast("添加成功")
         this.setData({
           isLoad: false

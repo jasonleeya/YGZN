@@ -10,7 +10,7 @@
     <view class="cell-value">
       <input disabled placeholder="{{operateType==='add'?'请选择省/市/区':'无'}}" value="{{!infos.region?'':infos.region[0]+'/'+infos.region[1]+'/'+infos.region[2]}}"></input>
     </view> 
-     <picker mode="region" name="region" bindchange="chooseRegion" value="{{infos.region}}">
+     <picker mode="region" name="region" bindchange="chooseRegion" value="{{!infos.region?[]:infos.region}}">
     <view class="picker">
        <view class="cell-icon cuIcon-right"></view>
     </view>

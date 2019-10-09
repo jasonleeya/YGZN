@@ -24,7 +24,7 @@ Page({
     popData: {},
     editingIndex: null,
     orderStatus: null,
-    paramas: {},
+    params: {},
     formEvent: {},
   },
 
@@ -300,7 +300,7 @@ Page({
     }
 
 
-    var paramas = {
+    var params = {
       upperpartOrder: JSON.stringify([{
         orderNo: info.orderNo,
         supplyNo: info.supplyNo,
@@ -342,15 +342,15 @@ Page({
     }
 
     this.setData({
-      paramas: paramas
+      params: params
     })
     if (this.data.infos.orderStatus === "090003") {
       return
     }
 
-    // console.log(paramas)
+    // console.log(params)
 
-    app.http("savePurchaseOrderUpperAndLower", paramas, true).then(() => {
+    app.http("savePurchaseOrderUpperAndLower", params, true).then(() => {
         app.showToast("添加成功")
         this.setData({
           isLoad: false

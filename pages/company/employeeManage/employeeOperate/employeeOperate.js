@@ -84,7 +84,7 @@ Page({
 
   submit(e) {
     if (this.data.operateType === 'add') {
-      var paramas = {
+      var params = {
         roleId: "",
         userName: e.detail.value.userName,
         userPhone: e.detail.value.userLoginName,
@@ -92,16 +92,16 @@ Page({
         grade: this.data.levels.idList[this.data.levels.active],
         remark: e.detail.value.remark,
       }
-      if (!paramas.userName){
+      if (!params.userName){
         app.showToast("姓名不能为空")
         return
       }
-      if (!paramas.userPhone) {
+      if (!params.userPhone) {
         app.showToast("电话不能为空")
         return
       }
 
-      app.http("insertSalesman", paramas).then(() => {
+      app.http("insertSalesman", params).then(() => {
         app.showToast("添加成功")
         setTimeout(() => {
           wx.navigateBack()
@@ -112,7 +112,7 @@ Page({
     }
 
     if (this.data.operateType === 'edit') {
-      var paramas = {
+      var params = {
         custNo: this.data.infos.custNo,
         roleId: "",
         userName: e.detail.value.userName,
@@ -122,16 +122,16 @@ Page({
         remark: e.detail.value.remark,
         useStatus: e.detail.value.useStatus===true?'1':'0',
       }
-      if (!paramas.userName) {
+      if (!params.userName) {
         app.showToast("姓名不能为空")
         return
       }
-      if (!paramas.userPhone) {
+      if (!params.userPhone) {
         app.showToast("电话不能为空")
         return
       }
 
-      app.http("updateSalesman", paramas).then(() => {
+      app.http("updateSalesman", params).then(() => {
         app.showToast("修改成功")
         setTimeout(() => {
           wx.navigateBack()

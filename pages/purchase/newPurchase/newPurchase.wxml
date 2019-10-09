@@ -30,10 +30,7 @@
       </view>
       <view class="add-aeceive-address  border-bt">
         <view class="cell-name">收货地址</view>
-        <input name="receiveAddress" hidden type="hidden" placeholder="请选择收货地址" value="{{receiveAddress}}" disabled class="cell-value" bindtap="addAeceiveAddress"></input>
-        <view class="cell-value">
-          {{receiveAddress}}
-        </view>
+        <input name="receiveAddress" placeholder="请选择收货地址" value="{{receiveAddress}}" disabled class="cell-value"></input> 
         <view class="cuIcon-right  cell-icon" bindtap="addAeceiveAddress"></view>
       </view>
       <view class="cell border-bt">

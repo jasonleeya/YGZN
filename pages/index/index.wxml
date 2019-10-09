@@ -15,20 +15,20 @@
       <view class="cuIcon-homefill"></view> 首页
     </view>
     <view class="action  {{curTab==='function'?'theme-color':'text-gray'}}" bindtap="NavChange" data-link="function">
-      <view class="cuIcon-similar"></view> 功能
+      <view class="cuIcon-circlefill"></view> 功能
     </view>
     <view class="action text-gray add-action  {{curTab==='order'?'theme-color':'text-gray'}}" bindtap="NavChange" data-link="order">
       <view class="cu-btn cuIcon-add theme-bgc shadow"></view>
       开单
     </view>
     <view class="action  {{curTab==='message'?'theme-color':'text-gray'}}" bindtap="NavChange" data-link="message">
-      <view class="cuIcon-cart">
+      <view class="cuIcon-messagefill">
         <view class="cu-tag badge" wx:if="{{messageCount!==0}}">{{messageCount}}</view>
       </view>
       消息
     </view>
     <view class="action  {{curTab==='mine'?'theme-color':'text-gray'}}" bindtap="NavChange"  data-link="mine">
-      <view class="cuIcon-my">
+      <view class="cuIcon-myfill">
         <!-- <view class="cu-tag badge"></view> -->
       </view>
       我的

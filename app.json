@@ -53,7 +53,10 @@
     "pages/company/levelManage/levelOperate/levelOperate",
     "pages/index/mine/changePassword/changePassword",
     "pages/product/warehouseManage/warehouseManage",
-    "pages/product/warehouseOperate/warehouseOperate"
+    "pages/product/warehouseOperate/warehouseOperate",
+    "pages/product/transferManage/transferManage",
+    "pages/product/otherOutbound/otherOutbound",
+    "pages/product/otherStorage/otherStorage"
   ],
   "window": {
     "backgroundTextStyle": "light",

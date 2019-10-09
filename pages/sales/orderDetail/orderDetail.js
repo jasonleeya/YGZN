@@ -24,10 +24,9 @@
      showEditPop: false,
      popData: {},
      editingIndex: null,
-     paramas: {},
+     params: {},
      orderStatus: "",
-     formEvent: null,
-     paramas: {}, 
+     formEvent: null, 
    },
 
    /**
@@ -443,7 +442,7 @@
      }
 
 
-     var paramas = {
+     var params = {
        upperpartOrder: JSON.stringify([{
          orderNo: info.orderNo,
          custNo: info.custNo,
@@ -484,7 +483,7 @@
      }
 
      this.setData({
-       paramas: paramas
+       params: params
      })
      // if (this.data.infos.orderStatus === "090003") {
      //   return
@@ -495,10 +494,10 @@
      // this.setData({
      //   isLoad: false
      // })
-     // console.log(paramas.list)
+     // console.log(params.list)
      // return
 
-     app.http("saveSaleOrderUpperAndLower", paramas, true).then(() => {
+     app.http("saveSaleOrderUpperAndLower", params, true).then(() => {
          app.showToast("确认订单成功")
          this.setData({
            isLoad: false

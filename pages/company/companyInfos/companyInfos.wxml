@@ -5,62 +5,71 @@
   <view class="tab {{activeTabIndex==='3'?'active':''}}" bindtap="toggleTab" data-index="3">企业认证</view>
 </view>
 <scroll-view scroll-y class="scroll-view">
+<form bindsubmit="submit">
   <view wx:if="{{activeTabIndex==='0'}}" class="base-info">
     <view class="cell border-bt">
       <view class="cell-name">营业执照</view>
-      <view class="cell-avlue">
-        <input placeholder="无" value="{{baseInfos.blNumber}}" disabled></input>
+      <view class="cell-value">
+        <input name="blNumber" placeholder="无" value="{{baseInfos.blNumber}}" ></input>
       </view>
     </view>
     <view class="cell border-bt">
       <view class="cell-name">登录名</view>
-      <view class="cell-avlue">
-        <input placeholder="无" value="{{baseInfos.userLoginName}}" disabled></input>
+      <view class="cell-value">
+        <input name="userLoginName" placeholder="无" value="{{baseInfos.userLoginName}}" ></input>
       </view>
     </view>
     <view class="cell border-bt">
       <view class="cell-name">公司名称</view>
-      <view class="cell-avlue">
-        <input placeholder="无" value="{{baseInfos.custName}}" disabled></input>
+      <view class="cell-value">
+        <input name="userName" placeholder="无" value="{{baseInfos.custName}}" ></input>
       </view>
     </view>
     <view class="cell border-bt">
       <view class="cell-name">简称</view>
-      <view class="cell-avlue">
-        <input placeholder="无" value="{{baseInfos.userAlias}}" disabled></input>
+      <view class="cell-value">
+        <input name="userAlias" placeholder="无" value="{{baseInfos.userAlias}}" ></input>
       </view>
     </view>
     <view class="cell border-bt">
       <view class="cell-name">绑定电话</view>
-      <view class="cell-avlue">
-        <input placeholder="无" value="{{baseInfos.userPhone}}" disabled></input>
+      <view class="cell-value">
+        <input name="userPhone" placeholder="无" value="{{baseInfos.userPhone}}" ></input>
       </view>
-    </view>
-    <view class="cell border-bt">
-      <view class="cell-name">邮箱</view>
-      <view class="cell-avlue">
-        <input placeholder="无" value="{{baseInfos.userEmail}}" disabled></input>
-      </view>
-    </view>
+    </view> 
     <view class="cell border-bt">
       <view class="cell-name">客服电话</view>
-      <view class="cell-avlue">
-        <input placeholder="无" value="" disabled></input>
+      <view class="cell-value">
+        <input name="custName"  placeholder="无" value="{{baseInfos.custName}}" ></input>
+      </view>
+    </view>
+        <view class="cell border-bt">
+      <view class="cell-name">邮箱</view>
+      <view class="cell-value">
+        <input name="userEmail" placeholder="无" value="{{baseInfos.userEmail}}" ></input>
       </view>
     </view>
     <view class="cell border-bt">
       <view class="cell-name">地址</view>
-      <view class="cell-avlue">
-        <input placeholder="无" value="{{baseInfos.address}}" disabled></input>
+      <view class="cell-value">
+        <input name="address" placeholder="无" value="{{baseInfos.address}}" ></input>
       </view>
     </view>
-    <view class="cell">
+     <view class="cell border-bt">
+      <view class="cell-name">允许负库存</view>
+      <view class="cell-value set-dft"> 
+        <switch name="negative" class="blue" checked="{{baseInfos.negative===1}}" bindchange=""/>
+      </view>
+    </view>
+    <view class="cell print-remark">
       <view class="cell-name">打印备注</view>
-      <view class="cell-avlue">
-        <input placeholder="无" value="{{baseInfos.printRemark}}" disabled></input>
+      <view class="cell-value">
+        <textarea name="printRemark" placeholder="无" value="{{baseInfos.printRemark}}" ></textarea>
       </view>
     </view>
   </view>
+  <button class="theme-bgc edit-btn" wx:if="{{activeTabIndex==='0'}}" formType="submit">修改</button>
+   </form>
 
   <view wx:if="{{activeTabIndex==='1'}}">
     <view class="card" wx:for="{{receiveAddress}}" wx:key>
@@ -136,7 +145,6 @@
     </view>
   </view>
 
-  <button class="theme-bgc edit-btn" wx:if="{{activeTabIndex==='0'}}" bindtap="baseInfoEdit">修改</button>
   <button class="theme-bgc edit-btn" wx:if="{{activeTabIndex==='1'}}" bindtap="addRecerveAddress">添加收货地址</button>
   <button class="theme-bgc edit-btn" wx:if="{{activeTabIndex==='2'}}" bindtap="addInvoiceInfo">新增发票信息</button>
 </scroll-view>

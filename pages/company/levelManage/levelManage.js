@@ -5,8 +5,7 @@ Page({
    * 页面的初始数据
    */
   data: {
-    levelList: [],
-    nextLevel:''
+    levelList: []
   },
 
    
@@ -16,14 +15,8 @@ Page({
 
   onShow: function() {
     app.http("queryAllGrade").then(data => {
-      var list = JSON.parse(JSON.stringify(data.list))
-      list.sort(function(a,b){
-        return parseInt(a.name.match(/\d+/)[0]) - parseInt(b.name.match(/\d+/)[0])
-      })
-      var nextLevel = parseInt(list[list.length - 1].name.match(/\d+/)[0])+1 
       this.setData({
-        levelList: data.list,
-        nextLevel
+        levelList: data.list
       })
     })
   },
@@ -35,7 +28,7 @@ Page({
   },
   addLevel() {
     wx.navigateTo({
-      url: '/pages/company/levelManage/levelOperate/levelOperate?operateType=add&nextLevel=' + this.data.nextLevel
+      url: '/pages/company/levelManage/levelOperate/levelOperate?operateType=add'
     })
   }
 

@@ -13,8 +13,22 @@
 }
 .edit-btn{
   width: calc(100vw - 60rpx);
-  margin:100rpx 30rpx 60rpx;
+  margin:100rpx 30rpx 30rpx;
 }
 .scroll-view{
   height: calc(100vh - 100rpx); 
 } 
+.set-dft{
+  text-align: right;
+  margin-right: 30rpx;
+}
+.print-remark{
+  height: 200rpx;
+  overflow: hidden
+}
+.print-remark textarea{
+  padding:30rpx 30rpx 30rpx 0;
+  width: 100%;
+  line-height: 1rem;
+  height: 200rpx;
+}

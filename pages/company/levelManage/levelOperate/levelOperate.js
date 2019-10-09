@@ -6,7 +6,7 @@ Page({
    */
   data: {
     infos: {
-      name: "111",
+      name: "",
       percent: "100",
       dftDiscount: "10",
       purchaseDiscount: "10"
@@ -28,15 +28,6 @@ Page({
         dftStatusCopy: JSON.parse(JSON.stringify(infos.dftStatus))
       })
     }
-    if (options.operateType === 'add') {
-      var nL = options.nextLevel
-      if (nL < 10) {
-        nL = "0" + nL
-      }
-      this.setData({
-        ["infos.name"]: "LV" + nL
-      })
-    }
 
   },
 
@@ -45,21 +36,21 @@ Page({
   },
 
   submit(e) {
-    var paramas = e.detail.value
-    paramas.priority = ""
-    if (!paramas.name){
+    var params = e.detail.value
+    params.priority = ""
+    if (!params.name){
       app.showToast("名称不能为空")
       return
     }
-    if (!paramas.percent) {
+    if (!params.percent) {
       app.showToast("库存透明度不能为空")
       return
     }
-    if (!paramas.dftDiscount) {
+    if (!params.dftDiscount) {
       app.showToast("销售价默认折扣不能为空")
       return
     }
-    if (!paramas.purchaseDiscount) {
+    if (!params.purchaseDiscount) {
       app.showToast("面价默认折扣不能为空")
       return
     }
@@ -71,8 +62,8 @@ Page({
         }, false, false)
       }
 
-      paramas.id = this.data.infos.id
-      app.http("updateGrade", paramas).then(() => {
+      params.id = this.data.infos.id
+      app.http("updateGrade", params).then(() => {
         app.showToast("修改成功")
         setTimeout(() => {
           wx.navigateBack()
@@ -82,8 +73,8 @@ Page({
       })
     }
     if (this.data.operateType === 'add') {
-      paramas.id = ""
-      app.http("insertGrade", paramas).then(() => {
+      params.id = ""
+      app.http("insertGrade", params).then(() => {
         app.showToast("添加成功")
         setTimeout(() => {
           wx.navigateBack()

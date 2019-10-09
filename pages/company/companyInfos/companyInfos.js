@@ -9,8 +9,8 @@ Page({
     activeTabIndex: '0',
     baseInfos: {},
     receiveAddress: [],
-    invoiceInfos:[],
-    companyCertification:{},
+    invoiceInfos: [],
+    companyCertification: {},
   },
 
   /**
@@ -30,26 +30,45 @@ Page({
         receiveAddress: data.list
       })
     })
-    app.http("getAllInvoice").then(data=>{
+    app.http("getAllInvoice").then(data => {
       this.setData({
-        invoiceInfos:data.list
+        invoiceInfos: data.list
       })
     })
-    app.http("findDataByUserId").then(data=>{
+    app.http("findDataByUserId").then(data => {
       this.setData({
         companyCertification: data.list[0]
       })
     })
+  },
+  submit(e) {
+    var formData = e.detail.value
+    formData.userNo = ""
+    formData.negative = formData.negative === true ? '1' : '0'
+
+    wx.showModal({
+      title: '确定要修改吗',
+      success: (res) => {
+        if (res.cancel) {
+          return
+        }
+        app.http("updateUser", formData).then(() => {
+          app.showToast("修改成功")
+        }).catch((err) => {
+          app.showToast(err)
+        })
+      }
+    })
+
+
   },
   toggleTab(e) {
     this.setData({
       activeTabIndex: e.currentTarget.dataset.index
     })
   },
-  baseInfoEdit() {
-    app.showToast("暂不支持修改")
-  },
-  uploadCertification(){
+   
+  uploadCertification() {
     app.showToast("暂不支持")
 
   },
@@ -76,7 +95,7 @@ Page({
       url: '/pages/common/operateReceiveAddress/operateReceiveAddress?operateType=add'
     })
   },
-  addInvoiceInfo(){
+  addInvoiceInfo() {
     wx.navigateTo({
       url: '/pages/company/companyInfos/invoiceOperate/invoiceOperate?operateType=add'
     })

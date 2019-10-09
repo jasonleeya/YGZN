@@ -106,3 +106,6 @@
   color: #fff;
   font-size: 20rpx;
 }
+.active-shadow{
+  box-shadow: 0rpx 0rpx 10rpx #aaa 
+}

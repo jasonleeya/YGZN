@@ -60,7 +60,7 @@ Page({
     }
 
     if (this.data.operateType === 'add') {
-      infos.status = '0'
+      infos.status = '1'
       infos.tableKey = ""
     }
     if (this.data.operateType === 'edit') {
