@@ -100,7 +100,8 @@ const alias = {
   saveWarehouse: BASE_URL +"/imatchUser/agency/saveWarehouse",
   setDftWarehouse: BASE_URL +"/imatchUser/agency/setDftWarehouse",
   delWarehouse: BASE_URL +'/imatchUser/agency/delWarehouse',
-  updateUser: BASE_URL +"/imatchUser/user/updateUser"
+  updateUser: BASE_URL +"/imatchUser/user/updateUser",
+  selectData: BASE_URL +"/imatchOrder/tStockInMain/selectData"
 
 }
 export default function(name) {

@@ -1,1 +1,85 @@
-      
+<view class="header">
+  <view class="search solid-bt">
+    <view class="search-type theme-bgc" bindtap="toggleSearchType">{{searchType}}</view>
+    <view class="input-wrapper">
+      <text class="cuIcon-search search-icon"></text>
+      <input class="bg-gray" bindfocus="searchFocus" bindinput="searchInput" value="{{searchValue}}" placeholder="{{searchType==='订单号'?'请输入订单号':'请输入产品代码'}}"></input>
+    </view>
+    <view class="search-list" wx:if="{{showSearchList}}" bindtap="closeSearchList" >
+      <scroll-view scroll-y bindscrolltolower="searchListScorllToLower">
+        <view class="search-item solid-top" wx:for="{{searchList}}" wx:key bindtap="chooseBrandCode" data-code="{{item.brandCode}}">
+          <text class="item-name">{{item.brandName}}/{{item.brandCode}}</text>
+          <text class="item-info text-gray"> 最小包装量:{{item.minCount}}({{item.productUnit}})</text>
+        </view>
+      </scroll-view>
+    </view>
+  </view>
+  <view class="filter-methods solid" wx:if="{{searchType!=='订单号'}}">
+    <view bindtap="chooseFilterMethod" data-method='date' class="{{filterMethod==='date'?'theme-color':''}}">时间范围
+      <text class="iconfont icondown"></text>
+    </view>
+    <view bindtap="chooseFilterMethod" data-method='order' class="{{filterMethod==='order'?'theme-color':''}}">订单状态
+      <text class="iconfont icondown"></text>
+    </view>
+    <view bindtap="chooseFilterMethod" data-method='warehouse' class="{{filterMethod==='warehouse'?'theme-color':''}}">所在仓库
+      <text class="iconfont icondown"></text>
+    </view>
+    <view bindtap="chooseFilterMethod" data-method='more' class="{{filterMethod==='more'?'theme-color':''}}">更过筛选
+      <text class="iconfont icondown"></text>
+    </view>
+  </view>
+  <view class="drop-down" wx:if="{{searchType!=='订单号'}}">
+    <view class="time-range" wx:if="{{filterMethod==='date'}}">
+      <picker class="solid-right" mode="date" value="{{dateRange.start}}" bindchange="startDateChange">
+        <view class="picker">
+          开始:
+          <text class="cuIcon-calendar"></text>{{dateRange.start}}
+        </view>
+      </picker>
+      <picker mode="date" value="{{dateRange.end}}" bindchange="endDateChange">
+        <view class="picker">
+          开始:
+          <text class="cuIcon-calendar"></text>{{dateRange.end}}
+        </view>
+      </picker>
+    </view>
+    <view class="btns solid" wx:if="{{filterMethod==='order'}}">
+      <view class="btn {{orderStatus===''?'theme-bgc':'bg-gray'}}" bindtap="chooseOrderStatus" data-status="">所有</view>
+      <view class="btn {{orderStatus==='0'?'theme-bgc':'bg-gray'}}" bindtap="chooseOrderStatus" data-status="0">未提交</view>
+      <view class="btn {{orderStatus==='1'?'theme-bgc':'bg-gray'}}" bindtap="chooseOrderStatus" data-status="1">未审核</view>
+      <view class="btn {{orderStatus==='2'?'theme-bgc':'bg-gray'}}" bindtap="chooseOrderStatus" data-status="2">已提交</view>
+      <view class="btn {{orderStatus==='3'?'theme-bgc':'bg-gray'}}" bindtap="chooseOrderStatus" data-status="3">已审核</view>
+    </view>
+    <view class="btns solid" wx:if="{{filterMethod==='warehouse'}}">
+      <view class="btn {{warehouse===''?'theme-bgc':'bg-gray'}}" bindtap="chooseWarehouse" data-id="">所有</view>
+      <view class="btn {{warehouse===item.tableKey?'theme-bgc':'bg-gray'}}" bindtap="chooseWarehouse" data-id="{{item.tableKey}}" wx:for="{{warehouseList}}" wx:key>{{item.name}}</view>
+    </view>
+  </view>
+</view>
+<scroll-view scroll-y>
+  <view class="card" wx:for="{{orderList}}" wx:key>
+    <view class="card-head">
+      <view class="card-title">
+        <text class="cuIcon-text theme-color"></text>订单号:{{item.tabkey}}</view>
+      <view class="card-subtitle text-green">已审核</view>
+    </view>
+    <view class="card-content">
+      <view class="card-item">
+        <view class="card-name">仓库</view>
+        <view class="card-value">{{item.wareName}}</view>
+      </view>
+      <view class="card-item">
+        <view class="card-name">入库方式</view>
+        <view class="card-value">{{item.tranName}}</view>
+      </view>
+      <view class="card-item">
+        <view class="card-name">操作人</view>
+        <view class="card-value">{{item.creUserName}}</view>
+      </view>
+      <view class="card-item">
+        <view class="card-name">入库时间</view>
+        <view class="card-value">{{item.tranDate}}</view>
+      </view>
+    </view>
+  </view>
+</scroll-view>

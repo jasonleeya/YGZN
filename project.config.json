@@ -65,6 +65,13 @@
 					"id": -1,
 					"name": "pages/product/warehouseManage/warehouseManage",
 					"pathName": "pages/product/warehouseManage/warehouseManage",
+					"query": "",
+					"scene": null
+				},
+				{
+					"id": -1,
+					"name": "pages/product/otherOutbound/otherOutbound",
+					"pathName": "pages/product/otherOutbound/otherOutbound",
 					"scene": null
 				}
 			]
