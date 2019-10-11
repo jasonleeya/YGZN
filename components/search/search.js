@@ -65,6 +65,9 @@ Component({
   methods: {
     //二维码扫描
     scan() {
+      if (this.data.justLink) {
+        return
+      }
       let that = this
       wx.scanCode({
         success(data) { 

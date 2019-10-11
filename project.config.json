@@ -52,26 +52,13 @@
 			"list": []
 		},
 		"miniprogram": {
-			"current": -1,
+			"current": 0,
 			"list": [
 				{
 					"id": -1,
-					"name": "pages/company/employeeManage/employeeManage",
-					"pathName": "pages/company/employeeManage/employeeManage",
+					"name": "pages/product/otherOutboundAndStorage/otherOutboundAndStorage",
+					"pathName": "pages/product/otherOutboundAndStorage/otherOutboundAndStorage",
 					"query": "",
-					"scene": null
-				},
-				{
-					"id": -1,
-					"name": "pages/product/warehouseManage/warehouseManage",
-					"pathName": "pages/product/warehouseManage/warehouseManage",
-					"query": "",
-					"scene": null
-				},
-				{
-					"id": -1,
-					"name": "pages/product/otherOutbound/otherOutbound",
-					"pathName": "pages/product/otherOutbound/otherOutbound",
 					"scene": null
 				}
 			]

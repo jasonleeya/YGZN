@@ -1,0 +1,14 @@
+<view class="cell">
+  <view class="cell-name border-bt">入库单号</view>
+  <view class="value">234233562534</view>
+</view>
+<view class="cell">
+  <view class="cell-name border-bt">入库时间</view>
+  <view class="value">2019-10-11</view>
+</view>
+<view class="cell cell-gutter-bt">
+  <view class="cell-name">仓库</view>
+  <view class="value">仓库1</view>
+</view>
+<search justLink="{{true}}" bindtap="addGoods"/>
+<cart/>

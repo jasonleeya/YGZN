@@ -200,12 +200,12 @@ Component({
           {
             value: "其他出库",
             icon: "iconqitachuku",
-            link: "/pages/product/otherOutbound/otherOutbound",
+            link: "/pages/product/otherOutboundAndStorage/otherOutboundAndStorage?type=outbound",
           },
           {
             value: "其他入库",
             icon: "iconqitaruku",
-            link: "/pages/product/otherStorage/otherStorage",
+            link: "/pages/product/otherOutboundAndStorage/otherOutboundAndStorage?type=storage",
           },
         ]
       },

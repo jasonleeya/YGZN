@@ -55,8 +55,10 @@
     "pages/product/warehouseManage/warehouseManage",
     "pages/product/warehouseOperate/warehouseOperate",
     "pages/product/transferManage/transferManage",
-    "pages/product/otherOutbound/otherOutbound",
-    "pages/product/otherStorage/otherStorage"
+    "pages/product/otherOutboundAndStorage/otherOutboundAndStorage",
+    "pages/product/otherOutboundAndStorage/ordersOperate/ordersOperate",
+    "pages/common/addGoods/addGoods"
+ 
   ],
   "window": {
     "backgroundTextStyle": "light",

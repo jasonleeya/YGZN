@@ -5,9 +5,9 @@
       <text class="cuIcon-search search-icon"></text>
       <input class="bg-gray" bindfocus="searchFocus" bindinput="searchInput" value="{{searchValue}}" placeholder="{{searchType==='订单号'?'请输入订单号':'请输入产品代码'}}"></input>
     </view>
-    <view class="search-list" wx:if="{{showSearchList}}" bindtap="closeSearchList" >
+    <view class="search-list" wx:if="{{showSearchList}}" bindtap="closeSearchList">
       <scroll-view scroll-y bindscrolltolower="searchListScorllToLower">
-        <view class="search-item solid-top" wx:for="{{searchList}}" wx:key bindtap="chooseBrandCode" data-code="{{item.brandCode}}">
+        <view class="search-item solid-top" wx:for="{{searchList}}" wx:key bindtap="chooseBrandCode" data-key="{{item.productUuid}}" data-code="{{item.brandCode}}">
           <text class="item-name">{{item.brandName}}/{{item.brandCode}}</text>
           <text class="item-info text-gray"> 最小包装量:{{item.minCount}}({{item.productUnit}})</text>
         </view>
@@ -24,24 +24,30 @@
     <view bindtap="chooseFilterMethod" data-method='warehouse' class="{{filterMethod==='warehouse'?'theme-color':''}}">所在仓库
       <text class="iconfont icondown"></text>
     </view>
-    <view bindtap="chooseFilterMethod" data-method='more' class="{{filterMethod==='more'?'theme-color':''}}">更过筛选
+    <view bindtap="chooseFilterMethod" data-method='more' class="{{filterMethod==='more'?'theme-color':''}}">更多筛选
       <text class="iconfont icondown"></text>
     </view>
   </view>
   <view class="drop-down" wx:if="{{searchType!=='订单号'}}">
     <view class="time-range" wx:if="{{filterMethod==='date'}}">
-      <picker class="solid-right" mode="date" value="{{dateRange.start}}" bindchange="startDateChange">
-        <view class="picker">
-          开始:
-          <text class="cuIcon-calendar"></text>{{dateRange.start}}
-        </view>
-      </picker>
-      <picker mode="date" value="{{dateRange.end}}" bindchange="endDateChange">
-        <view class="picker">
-          开始:
-          <text class="cuIcon-calendar"></text>{{dateRange.end}}
-        </view>
-      </picker>
+      <view class="btns solid">
+        <view class="btn {{timeRangeType==='all'?'theme-bgc':'bg-gray'}}" bindtap="chooseTimeRangeType" data-type="all">所有时间</view>
+        <view class="btn {{timeRangeType==='custom'?'theme-bgc':'bg-gray'}}" bindtap="chooseTimeRangeType" data-type="custom">自定义</view>
+      </view>
+      <view class="data-pickers" wx:if="{{timeRangeType==='custom'}}">
+        <picker class="solid-right" mode="date" value="{{dateRange.start}}" bindchange="startDateChange">
+          <view class="picker">
+            开始:
+            <text class="cuIcon-calendar"></text>{{dateRange.start}}
+          </view>
+        </picker>
+        <picker mode="date" value="{{dateRange.end}}" bindchange="endDateChange">
+          <view class="picker">
+            开始:
+            <text class="cuIcon-calendar"></text>{{dateRange.end}}
+          </view>
+        </picker>
+      </view>
     </view>
     <view class="btns solid" wx:if="{{filterMethod==='order'}}">
       <view class="btn {{orderStatus===''?'theme-bgc':'bg-gray'}}" bindtap="chooseOrderStatus" data-status="">所有</view>
@@ -56,12 +62,12 @@
     </view>
   </view>
 </view>
-<scroll-view scroll-y>
+<scroll-view scroll-y class="{{searchType==='订单号'?'order-list-scroll-view':'order-list-scroll-view-2'}}" bindscrolltolower="orderListScrollToLower">
   <view class="card" wx:for="{{orderList}}" wx:key>
     <view class="card-head">
       <view class="card-title">
         <text class="cuIcon-text theme-color"></text>订单号:{{item.tabkey}}</view>
-      <view class="card-subtitle text-green">已审核</view>
+      <view class="card-subtitle {{item.status==='未提交'||item.status==='未审核'?'text-red':'text-green'}}">{{item.status}}</view>
     </view>
     <view class="card-content">
       <view class="card-item">
@@ -83,3 +89,4 @@
     </view>
   </view>
 </scroll-view>
+<view class="add-btn cuIcon-add shadow bg-blue" bindtap="addOrder"></view>

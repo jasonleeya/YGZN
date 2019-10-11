@@ -48,13 +48,13 @@
   justify-content: space-between;
 }
 
-.time-range {
+.data-pickers {
   height: 60rpx;
   line-height: 60rpx;
   display: flex;
 }
 
-.time-range picker {
+.data-pickers picker {
   width: 50vw;
   text-align: center;
 }
@@ -98,4 +98,24 @@
 
 .search-list scroll-view {
   height: 100%;
+}
+.order-list-scroll-view{
+  max-height: calc(100vh - 100rpx);
+}
+.order-list-scroll-view-2{
+  max-height: calc(100vh - 160rpx);
+}
+.add-btn {
+  position: fixed;
+  right: 50rpx;
+  bottom: 50rpx;
+  width: 100rpx;
+  height: 100rpx;
+  text-align: center;
+  line-height: 100rpx;
+  border-radius: 50rpx;
+  z-index: 999;
+  font-size: 60rpx;
+  color: #fff;
+  font-weight: bold;
 }
