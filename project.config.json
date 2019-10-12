@@ -52,13 +52,19 @@
 			"list": []
 		},
 		"miniprogram": {
-			"current": 0,
+			"current": 1,
 			"list": [
 				{
 					"id": -1,
 					"name": "pages/product/otherOutboundAndStorage/otherOutboundAndStorage",
 					"pathName": "pages/product/otherOutboundAndStorage/otherOutboundAndStorage",
 					"query": "",
+					"scene": null
+				},
+				{
+					"id": -1,
+					"name": "pages/product/otherOutboundAndStorage/ordersOperate/ordersOperate",
+					"pathName": "pages/product/otherOutboundAndStorage/ordersOperate/ordersOperate",
 					"scene": null
 				}
 			]

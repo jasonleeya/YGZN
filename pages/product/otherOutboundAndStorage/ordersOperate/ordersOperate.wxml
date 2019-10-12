@@ -8,7 +8,7 @@
 </view>
 <view class="cell cell-gutter-bt">
   <view class="cell-name">仓库</view>
-  <view class="value">仓库1</view>
+  <view class="value">仓库1{{totalAmount}}</view>
 </view>
 <search justLink="{{true}}" bindtap="addGoods"/>
-<cart/>
+<cart goodsList="{{cartList}}" priceKey="price" amountKey="qty" nameKey="productName" brandNameKey="brandName" typeKey="brandCode" picUrlKey="imgPath" bind:operate="editGoodsInfo" bind:changeAmount="goodsCountChange"/>

@@ -56,8 +56,9 @@
     "pages/product/warehouseOperate/warehouseOperate",
     "pages/product/transferManage/transferManage",
     "pages/product/otherOutboundAndStorage/otherOutboundAndStorage",
-    "pages/product/otherOutboundAndStorage/ordersOperate/ordersOperate",
-    "pages/common/addGoods/addGoods"
+    "pages/product/otherOutboundAndStorage/ordersOperate/ordersOperate", 
+    "pages/product/otherOutboundAndStorage/addGoods/addGoods"
+
  
   ],
   "window": {

@@ -167,7 +167,7 @@ Component({
     //数量input
     amountInput(e) {
       var value = parseInt(e.detail.value)
-      var index = e.target.dataset.inde
+      var index = e.target.dataset.index
       
       this.setData({
         ["goodsList[" + index + "]." + this.data.amountKey + ""]: value

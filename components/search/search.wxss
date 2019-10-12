@@ -31,7 +31,8 @@
 }
 
 .scan {
-  flex: 0.6;
+  /* flex: 0.6; */
+  width: 80rpx;
   padding-top: 10rpx;
 }
 

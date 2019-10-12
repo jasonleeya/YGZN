@@ -11,6 +11,10 @@ Component({
       type: Boolean,
       value: false
     },
+    needTypes:{
+      type:Boolean,
+      value:true
+    },
     types: {
       type: Array,
       value: [{
