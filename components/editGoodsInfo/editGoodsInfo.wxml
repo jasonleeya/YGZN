@@ -1,6 +1,6 @@
 <view class="pop-up-shadow">
   <view class="input-group">
-    <view class="input-group-title">{{popData.name}}</view>
+    <view class="input-group-title">{{popData[nameKey]}}</view>
     <view class="input-wrapper bg-gray solid">
       <view class="input-name">数量:</view>
       <input type="number" bindinput='amountInput' bindblur="amountBlur" value="{{popData[amountKey]}}"></input>
@@ -12,16 +12,23 @@
     </view>
     <view class="input-wrapper bg-gray solid">
       <view class="input-name">税率:</view>
-      <input type="digit" bindfocus='taxRateFocus'  bindblur='taxRateBlur' bindinput="textRateInput"  value='{{popData[taxKey]}}'></input>
+      <input type="digit" bindfocus='taxRateFocus' bindblur='taxRateBlur' bindinput="textRateInput" value='{{popData[taxKey]}}'></input>
     </view>
     <view class="input-wrapper bg-gray solid">
       <view class="input-name">含税价:</view>
-      <input type="digit"  bindinput='containTaxPriceInput' bindblur='containTaxPriceBlur' value="{{popData[containTaxPriceKey]}}"></input>
+      <input type="digit" bindinput='containTaxPriceInput' bindblur='containTaxPriceBlur' value="{{popData[containTaxPriceKey]}}"></input>
     </view>
-
-      <view class="input-wrapper bg-gray solid">
-      <view class="input-name">总价:</view>
-      <input type="digit" class="text-gray" disabled  bindinput='totalPriceInput' bindblur='totalPriceeBlur' value="{{popData[totalPriceKey]}}"></input>
+    <view class="input-wrapper bg-gray solid">
+      <view class="input-name">含税总价:</view>
+      <input type="digit" class="text-gray" disabled  value="{{popData[totalPriceKey]}}"></input>
+    </view>
+    <view class="input-wrapper bg-gray solid" wx:if="{{fromPage==='other'}}">
+      <view class="input-name">不含税总价:</view>
+      <input type="digit" class="text-gray" disabled value="{{popData[noTaxTotalPriceKey]}}"></input>
+    </view>
+    <view class="input-wrapper bg-gray solid" wx:if="{{fromPage==='other'}}">
+      <view class="input-name">备注:</view>
+      <input bindblur='remarkBlur' value="{{popData[remarkKey]}}"></input>
     </view>
     <view class="operation-btn solid-top">
       <view class="btn-cancel solid-right" bindtap='addCancel'>取消</view>

@@ -1,6 +1,7 @@
 {
   "usingComponents": {
     "cart": "/components/cart/cart",
-    "search": "/components/search/search"
+    "search": "/components/search/search",
+    "editGoodsInfo":"/components/editGoodsInfo/editGoodsInfo"
   }
 }

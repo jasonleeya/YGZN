@@ -115,6 +115,11 @@ Page({
     })
     this.getList(false)
   },
+  edit(e){
+    wx.navigateTo({
+      url: '/pages/product/otherOutboundAndStorage/ordersOperate/ordersOperate?operateType=edit&editId='+e.currentTarget.dataset.id 
+    })
+  },
 
   //切换搜索类型
   toggleSearchType() {

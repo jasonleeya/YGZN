@@ -1,6 +1,3 @@
-// const BASE_URL = "http://192.168.3.101:"
-// const BASE_URL = "http://47.104.86.230:"
-
 // const BASE_URL = "http://192.168.3.101:14000"
 // const BASE_URL_WX = "http://192.168.3.101:26000"
 
@@ -101,7 +98,9 @@ const alias = {
   setDftWarehouse: BASE_URL +"/imatchUser/agency/setDftWarehouse",
   delWarehouse: BASE_URL +'/imatchUser/agency/delWarehouse',
   updateUser: BASE_URL +"/imatchUser/user/updateUser",
-  selectData: BASE_URL +"/imatchOrder/tStockInMain/selectData"
+  selectData: BASE_URL +"/imatchOrder/tStockInMain/selectData",
+  saveData: BASE_URL +"/imatchOrder/tStockInMain/saveData",
+  findAllDataById: BASE_URL +"/imatchOrder/tStockInMain/findAllDataById"
 
 }
 export default function(name) {

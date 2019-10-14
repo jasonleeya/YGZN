@@ -1,4 +1,4 @@
-// 商品编辑弹框
++ // 商品编辑弹框
 
 Component({
   /**
@@ -12,6 +12,10 @@ Component({
     amountKey: {
       type: String,
       value: "goodsCount"
+    },
+    nameKey:{
+      type:String,
+      value:"name"
     },
     noTaxPriceKey: {
       type: String,
@@ -36,6 +40,18 @@ Component({
     goodsDiscountKey: {
       type: String,
       value: "goodsDiscount"
+    },
+    remarkKey: {
+      type: String,
+      value: "remark"
+    },
+    minNumsKey: {
+      type: Number,
+      value: "minNums"
+    },
+    fromPage: {
+      type: String,
+      value: ""
     },
 
   },
@@ -63,7 +79,7 @@ Component({
       var discountPrice = isNaN(this.data.popData[this.data.containTaxPriceKey]) ? "0" : this.data.popData[this.data.containTaxPriceKey]
       var NTPSingle = isNaN(this.data.popData[this.data.noTaxPriceKey]) ? "0" : this.data.popData[this.data.noTaxPriceKey]
       var taxRate = isNaN(this.data.popData[this.data.taxKey]) ? "13" : this.data.popData[this.data.taxKey]
-    //根据计算类型计算相应的数值
+      //根据计算类型计算相应的数值
       switch (type) {
         case this.data.amountKey:
           break
@@ -78,6 +94,9 @@ Component({
         case this.data.totalPriceKey:
           return (parseInt(goodsCount) * parseFloat(discountPrice)).toFixed(2)
           break
+        case this.data.noTaxTotalPriceKey:
+          return (parseInt(goodsCount) * parseFloat(NTPSingle)).toFixed(2)
+          break
       }
     },
     //数量input,数量改变总价改变
@@ -87,20 +106,24 @@ Component({
         ["popData." + this.data.amountKey]: parseInt(e.detail.value),
       })
       this.setData({
-        ["popData." + this.data.totalPriceKey]: this.compute(this.data.totalPriceKey)
-      })
-      console.log(this.data.popData[this.data.totalPriceKey])
-
+        ["popData." + this.data.totalPriceKey]: this.compute(this.data.totalPriceKey),
+        ["popData." + this.data.noTaxTotalPriceKey]: this.compute(this.data.noTaxTotalPriceKey)
+      }) 
     },
     //数量input失去焦点如果数量小于最小包装量数量边为最小包装量
-    amountBlur(e) {
+    amountBlur(e) { 
       var value = e.detail.value 
-      if (!value || parseInt(value) < parseInt(this.data.popDataCopy.minNums)) {
+      var minNums = this.data.popDataCopy[this.data.minNumsKey]
+      if (typeof minNums === 'undefined'){
+        minNums=1
+      }
+      if (!value || parseInt(value) < parseInt(minNums)) {
         this.setData({
-          ['popData.' + this.data.amountKey]: this.data.popDataCopy.minNums
+          ['popData.' + this.data.amountKey]: minNums
         })
         this.setData({
-          ["popData." + this.data.totalPriceKey]: this.compute(this.data.totalPriceKey)
+          ["popData." + this.data.totalPriceKey]: this.compute(this.data.totalPriceKey),
+          ["popData." + this.data.noTaxTotalPriceKey]: this.compute(this.data.noTaxTotalPriceKey)
         })
 
       }
@@ -108,13 +131,14 @@ Component({
     //无税价input，无税价改变含税价和总价跟着改变
     noTaxPriceInput(e) {
       this.setData({
-        ["popData." + this.data.noTaxPriceKey]:  e.detail.value,
-      })  
+        ["popData." + this.data.noTaxPriceKey]: e.detail.value,
+      })
       this.setData({
         ["popData." + this.data.containTaxPriceKey]: this.compute(this.data.containTaxPriceKey),
       })
       this.setData({
-        ["popData." + this.data.totalPriceKey]: this.compute(this.data.totalPriceKey)
+        ["popData." + this.data.totalPriceKey]: this.compute(this.data.totalPriceKey),
+        ["popData." + this.data.noTaxTotalPriceKey]: this.compute(this.data.noTaxTotalPriceKey)
       })
     },
     /**
@@ -137,7 +161,8 @@ Component({
         ["popData." + this.data.containTaxPriceKey]: this.compute(this.data.containTaxPriceKey),
       })
       this.setData({
-        ["popData." + this.data.totalPriceKey]: this.compute(this.data.totalPriceKey)
+        ["popData." + this.data.totalPriceKey]: this.compute(this.data.totalPriceKey),
+        ["popData." + this.data.noTaxTotalPriceKey]: this.compute(this.data.noTaxTotalPriceKey)
       })
 
 
@@ -162,7 +187,8 @@ Component({
         ["popData." + this.data.containTaxPriceKey]: this.compute(this.data.containTaxPriceKey),
       })
       this.setData({
-        ["popData." + this.data.totalPriceKey]: this.compute(this.data.totalPriceKey)
+        ["popData." + this.data.totalPriceKey]: this.compute(this.data.totalPriceKey),
+        ["popData." + this.data.noTaxTotalPriceKey]: this.compute(this.data.noTaxTotalPriceKey)
       })
     },
     //税率input失去焦点加上%
@@ -196,9 +222,10 @@ Component({
       })
       this.setData({
         ["popData." + this.data.noTaxPriceKey]: this.compute(this.data.noTaxPriceKey),
-      }) 
+      })
       this.setData({
-        ["popData." + this.data.totalPriceKey]: this.compute(this.data.totalPriceKey)
+        ["popData." + this.data.totalPriceKey]: this.compute(this.data.totalPriceKey),
+        ["popData." + this.data.noTaxTotalPriceKey]: this.compute(this.data.noTaxTotalPriceKey)
       })
 
     },
@@ -220,9 +247,15 @@ Component({
         ["popData." + this.data.noTaxPriceKey]: this.compute(this.data.noTaxPriceKey),
       })
       this.setData({
-        ["popData." + this.data.totalPriceKey]: this.compute(this.data.totalPriceKey)
+        ["popData." + this.data.totalPriceKey]: this.compute(this.data.totalPriceKey),
+        ["popData." + this.data.noTaxTotalPriceKey]: this.compute(this.data.noTaxTotalPriceKey)
       })
 
+    },
+    remarkBlur(e) {
+      this.setData({
+        ["popData." + this.data.remarkKey]: e.detail.value
+      })
     },
     totalPriceInput(e) {
 
@@ -237,13 +270,15 @@ Component({
     //确定改变数据并计算不含税总价，商品折扣
     addConfirm() {
       var data = this.data
-      data.popData[data.noTaxTotalPriceKey] = parseFloat(data.popData[data.noTaxPriceKey]) * parseFloat(data.popData[data.amountKey])
-      data.popData[data.goodsDiscountKey] = (parseFloat(data.popData[data.noTaxTotalPriceKey]) / parseFloat(data.popDataCopy[data.noTaxTotalPriceKey])).toFixed(2)
+      // data.popData[data.noTaxTotalPriceKey] = parseFloat(data.popData[data.noTaxPriceKey]) * parseFloat(data.popData[data.amountKey])
+      if (typeof data.popData[data.goodsDiscountKey]!=="undefined"){
+       data.popData[data.goodsDiscountKey] = (parseFloat(data.popData[data.noTaxTotalPriceKey]) / parseFloat(data.popDataCopy[data.noTaxTotalPriceKey])).toFixed(2)
+     }
       data.popData[data.taxKey] = parseFloat(parseFloat(data.popData[data.taxKey]).toFixed(2))
-      
+
       if (data.popData[data.goodsDiscountKey] > 1) {
         data.popData[data.goodsDiscountKey] = 1
-      } 
+      }
       this.triggerEvent("editedInfo", {
         data: this.data.popData
       })

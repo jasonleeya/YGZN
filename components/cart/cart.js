@@ -154,6 +154,7 @@ Component({
         totalPrice: totalPrice,
         totalAmount: totalAmount
       })
+      
     },
     // 左滑向父组件传递删除的index
     slideToDelete(e) {

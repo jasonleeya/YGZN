@@ -1,1 +1,15 @@
-/* pages/product/otherOutboundAndStorage/ordersOperate/ordersOperate.wxss */
+.storage-btn{
+  width: calc(100vw - 60rpx);
+  margin-left: 30rpx;
+  position: fixed;
+  bottom: 30rpx; 
+}
+.operate-btns{
+  display: flex; 
+  margin-top: 100rpx;
+  padding-left: 30rpx;
+}
+.btn-wrapper{
+  flex: 1;
+  margin-right:30rpx
+}

@@ -37,10 +37,7 @@
      var cartList = prePageData.cartList 
      var totalAmount = prePageData.totalAmount
      var totalPrice = prePageData.totalPrice
-    //  cartList.forEach(item => {
-    //    totalAmount = parseInt(totalAmount) + parseInt(item.qty)
-    //    totalPrice = parseFloat(totalPrice) + parseFloat(item.totalPrice)
-    //  })
+ 
      this.setData({
        cartList: cartList,
        totalPrice: totalPrice,
@@ -392,11 +389,18 @@
        } 
      })
      popData.itemKey = goods.productUuid
-     popData.productUnit = goods.productUnit
+     popData.unitCode = goods.productUnit
      popData.brandName = goods.brandName
      popData.productName = goods.productName
      popData.brandCode = goods.brandCode 
      popData.imgPath = goods.imgPath 
+     popData.taxRate = parseInt(popData.taxRate) 
+
+     popData.noTaxPrice = parseFloat(popData.noTaxPrice)
+     popData.price=parseFloat(popData.price)
+     popData.totalPrice=parseFloat(popData.totalPrice)
+     popData.noTaxTotal = parseFloat(popData.noTaxTotal) 
+     
      if (!flag) {
        cartList.push(popData)
      } else {

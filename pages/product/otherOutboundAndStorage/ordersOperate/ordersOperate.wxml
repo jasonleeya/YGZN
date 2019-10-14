@@ -1,14 +1,41 @@
-<view class="cell">
+<view class="cell" wx:if="{{operateType==='edit'}}">
   <view class="cell-name border-bt">入库单号</view>
-  <view class="value">234233562534</view>
+  <view class="value">{{editId}}</view>
 </view>
+<form bindsubmit="submit">
 <view class="cell">
   <view class="cell-name border-bt">入库时间</view>
-  <view class="value">2019-10-11</view>
+  <view class="cell-value"><input name="tranDate" disabled value="{{storageDate}}"></input></view>
+  
+    <picker mode="date" value="{{storageDate}}"  bindchange="dateChange">
+    <view class="picker">
+     <view class="cell-icon cuIcon-right"></view>
+    </view>
+  </picker>
 </view>
 <view class="cell cell-gutter-bt">
   <view class="cell-name">仓库</view>
-  <view class="value">仓库1{{totalAmount}}</view>
-</view>
+  <view class="cell-value"><input disabled value="{{warehouse.list[warehouse.index]}}"></input></view>
+   <picker name="wareKey" bindchange="warehouseChange" value="{{warehouse.index}}" range="{{warehouse.list}}">
+    <view class="picker">
+     <view class="cell-icon cuIcon-right"></view>
+    </view>
+  </picker>
+</view> 
 <search justLink="{{true}}" bindtap="addGoods"/>
-<cart goodsList="{{cartList}}" priceKey="price" amountKey="qty" nameKey="productName" brandNameKey="brandName" typeKey="brandCode" picUrlKey="imgPath" bind:operate="editGoodsInfo" bind:changeAmount="goodsCountChange"/>
+<cart goodsList="{{cartList}}" priceKey="price" totalPrice="{{totalPrice}}" amountKey="qty" nameKey="productName" brandNameKey="brandName" typeKey="brandCode" picUrlKey="imgPath" bind:operate="editGoodsInfo" bind:changeAmount="goodsCountChange"/>
+
+<view class="cells-title">备注</view>
+<textarea name="remark" class="remarke-textarea" placeholder="入库说明"></textarea> 
+
+  <view class="operate-btns">
+  <view class="btn-wrapper" wx:if="{{operateType==='edit'}}">
+      <button class="bg-white" bindtap="edit">编辑</button>
+    </view> 
+    <view class="btn-wrapper">
+      <button class="theme-bgc" formType="submit">提交</button>
+    </view>
+  </view>
+ 
+</form>
+<editGoodsInfo wx:if="{{showPop}}" fromPage="other" amountKey="qty" nameKey="productName" noTaxPriceKey="noTaxPrice" noTaxTotalPriceKey="noTaxTotal" taxKey="taxRate" containTaxPriceKey="price" totalPriceKey="totalPrice" noTaxTotalPriceKey="noTaxTotal" popData="{{popData}}" bind:editedInfo="getEditInfo"/>
