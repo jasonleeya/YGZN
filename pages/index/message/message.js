@@ -24,6 +24,7 @@ create({
 
   lifetimes: {
     ready() {
+      app.setTitle("消息")
       this.getList()
     }
   },

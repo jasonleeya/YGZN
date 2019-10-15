@@ -8,6 +8,7 @@
   display: flex; 
   margin-top: 100rpx;
   padding-left: 30rpx;
+  margin-bottom: 30rpx;
 }
 .btn-wrapper{
   flex: 1;

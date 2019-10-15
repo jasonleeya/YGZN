@@ -233,31 +233,20 @@ Component({
       //     icon: "iconcart",
       //     link: ""
       //   }]
-      // }, {
-      //   name: "财务管理",
-      //   id: 6,
-      //   items: [{
-      //     value: "新增采购",
-      //     icon: "iconcart",
-      //     link: ""
-      //   }, {
-      //     value: "新增采购",
-      //     icon: "iconcart",
-      //     link: ""
-      //   }, {
-      //     value: "新增采购",
-      //     icon: "iconcart",
-      //     link: ""
-      //   }, {
-      //     value: "新增采购",
-      //     icon: "iconcart",
-      //     link: ""
-      //   }, {
-      //     value: "新增采购",
-      //     icon: "iconcart",
-      //     link: ""
-      //   }]
-      // }
+      // }, 
+      {
+        name: "财务管理",
+        id: 6,
+        items: [{
+          value: "已收款管理",
+          icon: "iconyishoukuan",
+          link: "/pages/finance/paidManage/paidManage"
+        }, {
+          value: "已付款管理",
+            icon: "iconyifukuan",
+            link: "/pages/finance/receiptedManage/receiptedManage"
+        }, ]
+      }
     ],
     load: true,
     interval: null
@@ -265,6 +254,7 @@ Component({
   lifetimes: {
 
     ready() {
+      app.setTitle("功能")
       let that = this
       if (app.globalData.homeMessage) {
         getMessage()

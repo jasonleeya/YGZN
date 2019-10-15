@@ -13,31 +13,23 @@ Page({
       index: 0,
       list: [],
       idList: []
-    }
+    },
+    canEdit: true,
+    orderStatus: "",
+    tranCode:null
   },
-  onLoad: function(options) {
-    app.showToast("该功能尚未完善")
+  onLoad: function(options) {  
+    if (options.tranCode==='1'){
+      app.setTitle("其他出库编辑")
+    }else{
+      app.setTitle("其他入库编辑")
+    }
+    this.setData({
+      tranCode: options.tranCode
+    })
     this.setData({
       operateType: options.operateType
     })
-    if (options.operateType === "edit") {
-      this.setData({
-        editId:options.editId
-      })
-      app.http("findAllDataById", {
-        id: options.editId
-      }).then(data => {
-
-      })
-
-
-    }
-    var date = new Date()
-    var nowDate = date.getFullYear() + "-" + (date.getMonth() + 1) + "-" + (date.getDate() < 10 ? "0" + date.getDate() : date.getDate())
-    this.setData({
-      storageDate: nowDate
-    })
-
     app.http("getWarehouse").then(data => {
       var list = []
       var idList = []
@@ -50,11 +42,69 @@ Page({
         ["warehouse.idList"]: idList
       })
     })
+
+    var date
+    var storageDate
+    if (options.operateType === "edit") {
+      this.setData({
+        editId: options.editId,
+        canEdit: false
+      })
+      app.http("findAllDataById", {
+        id: options.editId
+      }).then(data => {
+        date = new Date(data.infoBody.main.tranDate)
+        storageDate = date.getFullYear() + "-" + (date.getMonth() + 1) + "-" + (date.getDate() < 10 ? "0" + date.getDate() : date.getDate())
+        this.setData({
+          storageDate,
+          remark: data.infoBody.main.remark,
+          orderStatus: data.infoBody.main.status
+        })
+
+        var warehouseIndex = data.infoBody.main.wareKey
+        this.setData({
+          ["warehouse.index"]: this.data.warehouse.idList.indexOf(warehouseIndex)
+        })
+
+        var list = []
+        var totalPrice = 0
+
+        data.infoBody.details.forEach((item) => {
+          list.push(Object.assign(item.tranDetail, {
+            brandName: item.productDetail.brandName,
+            imgPath: item.productDetail.imgPath,
+            productName: item.productDetail.productName
+          }))
+          totalPrice += parseFloat(item.tranDetail.totalPrice)
+        })
+        this.setData({
+          cartList: list,
+          totalPrice: totalPrice
+        })
+      })
+
+
+    } else {
+
+      var date = new Date()
+      storageDate = date.getFullYear() + "-" + (date.getMonth() + 1) + "-" + (date.getDate() < 10 ? "0" + date.getDate() : date.getDate())
+      this.setData({
+        storageDate
+      })
+
+
+    }
+
+
+
   },
   onShow: function() {
 
   },
   addGoods() {
+    if (!this.data.canEdit) {
+      return
+    }
     wx.navigateTo({
       url: '/pages/product/otherOutboundAndStorage/addGoods/addGoods?needTypes=false'
     })
@@ -66,7 +116,19 @@ Page({
       editIndex: e.detail.index
     })
   },
+  closePop() {
+    this.setData({
+      showPop: false
+    })
+  },
   getEditInfo(e) {
+    if (!this.data.canEdit) {
+      app.showToast("不可编辑或请先点击编辑按钮")
+      this.setData({
+        showPop: false
+      })
+      return
+    }
     this.setData({
       showPop: false,
       ["cartList[" + this.data.editIndex + "]"]: e.detail.data
@@ -82,6 +144,79 @@ Page({
     this.setData({
       totalAmount,
       totalPrice
+    })
+  },
+  edit() {
+    if (!this.data.canEdit) {
+      this.setData({
+        canEdit: true
+      })
+    } else {
+
+    }
+  },
+  submitCheck() {
+    wx.showModal({
+      title: '确定要提交吗',
+      success: (res) => {
+        if (res.cancel) {
+          return
+        }
+        app.http("updateStatus", {
+          status: 1,
+          id: this.data.editId
+        }).then(() => {
+          app.showToast("提交成功")
+          setTimeout(() => {
+            wx.navigateBack()
+          }, 500)
+        }).catch(err => {
+          app.showToast(err)
+        })
+      }
+    })
+
+  },
+  check() {
+    wx.showModal({
+      title: '确定要审核吗',
+      success: (res) => {
+        if (res.cancel) {
+          return
+        }
+        app.http("updateStatus", {
+          status: 2,
+          id: this.data.editId
+        }).then(() => {
+          app.showToast("审核成功")
+          setTimeout(() => {
+            wx.navigateBack()
+          }, 500)
+        }).catch(err => {
+          app.showToast(err)
+        })
+      }
+    })
+  },
+  abandon() {
+    wx.showModal({
+      title: '确定要弃审吗',
+      success: (res) => {
+        if (res.cancel) {
+          return
+        }
+        app.http("updateStatus", {
+          status: -1,
+          id: this.data.editId
+        }).then(() => {
+          app.showToast("弃审成功")
+          setTimeout(() => {
+            wx.navigateBack()
+          }, 500)
+        }).catch(err => {
+          app.showToast(err)
+        })
+      }
     })
   },
   dateChange(e) {
@@ -118,9 +253,13 @@ Page({
     })
   },
   submit(e) {
+    if (!this.data.canEdit) {
+      return
+    }
     var formData = e.detail.value
     var params = {}
     var cartList = this.data.cartList
+
     cartList.forEach(item => {
       delete item.imgPath
       delete item.brandName
@@ -132,13 +271,14 @@ Page({
 
     params.mainJson = JSON.stringify({
       "tranDate": formData.tranDate,
-      "tabkey": "",
+      "tabkey": this.data.operateType === 'edit' ? this.data.editId : '',
       "wareKey": formData.wareKey,
-      "tranCode": 2,
+      "tranCode": this.data.tranCode,
       "tranName": "其他入库",
       "remark": formData.remark
     })
     params.detailsJson = JSON.stringify(cartList)
+
     app.http("saveData", params).then(() => {
       app.showToast("保存成功")
       setTimeout(() => {

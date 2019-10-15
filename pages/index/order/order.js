@@ -1,3 +1,4 @@
+let app=getApp()
 import create from '../../../utils/create'
 create({
   /**
@@ -35,6 +36,7 @@ create({
    * 加号旋转为叉号
    */
   ready() {
+   
     // 开始动画
     var btnAni = wx.createAnimation({
       timingFunction: "linear"
@@ -59,7 +61,11 @@ create({
 
 
   },
-
+  pageLifetimes:{
+    hide(){
+      this.CloseOrder()
+    }
+  },
 
   methods: {
     jump(e) {

@@ -52,9 +52,10 @@
     <view class="btns solid" wx:if="{{filterMethod==='order'}}">
       <view class="btn {{orderStatus===''?'theme-bgc':'bg-gray'}}" bindtap="chooseOrderStatus" data-status="">所有</view>
       <view class="btn {{orderStatus==='0'?'theme-bgc':'bg-gray'}}" bindtap="chooseOrderStatus" data-status="0">未提交</view>
-      <view class="btn {{orderStatus==='1'?'theme-bgc':'bg-gray'}}" bindtap="chooseOrderStatus" data-status="1">未审核</view>
-      <view class="btn {{orderStatus==='2'?'theme-bgc':'bg-gray'}}" bindtap="chooseOrderStatus" data-status="2">已提交</view>
-      <view class="btn {{orderStatus==='3'?'theme-bgc':'bg-gray'}}" bindtap="chooseOrderStatus" data-status="3">已审核</view>
+      <view class="btn {{orderStatus==='1'?'theme-bgc':'bg-gray'}}" bindtap="chooseOrderStatus" data-status="1">未审核</view> 
+      <view class="btn {{orderStatus==='3'?'theme-bgc':'bg-gray'}}" bindtap="chooseOrderStatus" data-status="2">已审核</view>
+      <view class="btn {{orderStatus==='-1'?'theme-bgc':'bg-gray'}}" bindtap="chooseOrderStatus" data-status="-1">已弃审</view>
+
     </view>
     <view class="btns solid" wx:if="{{filterMethod==='warehouse'}}">
       <view class="btn {{warehouse===''?'theme-bgc':'bg-gray'}}" bindtap="chooseWarehouse" data-id="">所有</view>
@@ -67,7 +68,7 @@
     <view class="card-head">
       <view class="card-title">
         <text class="cuIcon-text theme-color"></text>订单号:{{item.tabkey}}</view>
-      <view class="card-subtitle {{item.status==='未提交'||item.status==='未审核'?'text-red':'text-green'}}">{{item.status}}</view>
+      <view class="card-subtitle {{item.status==='未提交'||item.status==='未审核'||item.status==='已弃审'?'text-red':'text-green'}}">{{item.status}}</view>
     </view>
     <view class="card-content">
       <view class="card-item">

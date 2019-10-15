@@ -24,10 +24,18 @@ Page({
     searchListTotlePage: 0,
     searchListCurPage: 1,
     searchListLoading: false,
+    tranCode:1
   },
 
-  onLoad: function (options) {
-    app.setTitle("其他出入库")
+  onLoad: function (options) { 
+    app.setTitle("其他入库")
+    console.log(options)
+    if (options.type ==='outbound'){
+      this.setData({
+        tranCode:2
+      })
+      app.setTitle("其他出库")
+    }
     var date = new Date()
     var nowDate = date.getFullYear() + "-" + (date.getMonth() + 1) + "-" + date.getDate()
     this.setData({
@@ -67,7 +75,7 @@ Page({
         status: this.data.orderStatus,
         pageNo: this.data.orderListCurPage,
         pageSize: 5,
-        tranCode: 2,
+        tranCode: this.data.tranCode,
       }
     } else {
       params = {
@@ -77,14 +85,18 @@ Page({
         status: this.data.orderStatus,
         pageNo: this.data.orderListCurPage,
         pageSize: 5,
-        tranCode: 2,
+        tranCode: this.data.tranCode,
       }
     }
     app.http("selectData", params).then(data => {
       var list = data.list
       list.forEach(item => {
-        item.tranDate = item.tranDate.match(/\d*-\d*-\d*/) + " " + item.tranDate.match(/\d*:\d*:\d*/)
+        item.tranDate = new Date(item.tranDate)
+        item.tranDate = item.tranDate .getFullYear() + "-" + (item.tranDate .getMonth() + 1) + "-" + (item.tranDate .getDate() < 10 ? "0" + item.tranDate .getDate() : item.tranDate .getDate())
         switch (item.status) {
+          case '-1':
+            item.status = '已弃审'
+            break
           case '0':
             item.status = '未提交'
             break
@@ -92,11 +104,8 @@ Page({
             item.status = '未审核'
             break
           case '2':
-            item.status = '已提交'
-            break
-          case '3':
             item.status = '已审核'
-            break
+            break 
         }
       })
       this.setData({
@@ -117,7 +126,7 @@ Page({
   },
   edit(e){
     wx.navigateTo({
-      url: '/pages/product/otherOutboundAndStorage/ordersOperate/ordersOperate?operateType=edit&editId='+e.currentTarget.dataset.id 
+      url: '/pages/product/otherOutboundAndStorage/ordersOperate/ordersOperate?operateType=edit&editId=' + e.currentTarget.dataset.id + "&tranCode=" + this.data.tranCode
     })
   },
 
@@ -295,7 +304,7 @@ Page({
   //添加订单
   addOrder(){
     wx.navigateTo({
-      url: '/pages/product/otherOutboundAndStorage/ordersOperate/ordersOperate?operateType=add' 
+      url: '/pages/product/otherOutboundAndStorage/ordersOperate/ordersOperate?operateType=add'+"&tranCode=" + this.data.tranCode
     })
   }
 })

@@ -61,7 +61,7 @@ display: none;
   height: 26rpx;
   line-height: 26rpx;
   border-radius: 13rpx;
-  margin-left: 15rpx;
+  margin-left: 5rpx; 
 }
 
 .message-ellipsis {
@@ -73,7 +73,7 @@ display: none;
 
 .message-recive-time {
   position: absolute;
-  top: 40rpx;
+  top: 50rpx;
   font-size: 22rpx;
   width: 300rpx;
   color: #888;

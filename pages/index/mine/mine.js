@@ -83,6 +83,7 @@ Component({
 
   lifetimes: {
     attached() {
+      app.setTitle("我的")
       wx.getSystemInfo({
         success: (res) => {
           if (res.system.search("iOS") > -1) {

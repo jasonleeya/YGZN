@@ -356,7 +356,7 @@
      })
 
    },
-   remarkBlur(e){
+   remarkBlur(e){ 
      this.setData({
        ["popData.remark"]: e.detail.value,
      })

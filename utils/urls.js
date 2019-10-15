@@ -100,7 +100,8 @@ const alias = {
   updateUser: BASE_URL +"/imatchUser/user/updateUser",
   selectData: BASE_URL +"/imatchOrder/tStockInMain/selectData",
   saveData: BASE_URL +"/imatchOrder/tStockInMain/saveData",
-  findAllDataById: BASE_URL +"/imatchOrder/tStockInMain/findAllDataById"
+  findAllDataById: BASE_URL +"/imatchOrder/tStockInMain/findAllDataById",
+  updateStatus: BASE_URL +"/imatchOrder/tStockInMain/updateStatus"
 
 }
 export default function(name) {

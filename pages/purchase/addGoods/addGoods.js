@@ -196,7 +196,7 @@ create(store, {
     this.load()
 
     app.http("purchaseDiscount", {
-      supplyNo: this.data.searchType === "供方仓库" ? '' : this.data.supplyNo,
+      supplyNo: this.data.searchType === "供方仓库" ?  this.data.supplyNo:'',
       productId: this.data.goodsList[index].productUuid
     }).then(data => {
       if (data.infoBody.discount === null) {

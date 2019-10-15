@@ -1,4 +1,4 @@
-<scroll-view scroll-y>
+ <scroll-view scroll-y>
   <form bindsubmit="formSubmit">
     <view class="info-list shadow">
       <view class="cell border-bt">
