@@ -81,22 +81,14 @@ Page({
           cartList: list,
           totalPrice: totalPrice
         })
-      })
-
-
-    } else {
-
+      }) 
+    } else { 
       var date = new Date()
       storageDate = date.getFullYear() + "-" + (date.getMonth() + 1) + "-" + (date.getDate() < 10 ? "0" + date.getDate() : date.getDate())
       this.setData({
         storageDate
-      })
-
-
-    }
-
-
-
+      }) 
+    } 
   },
   onShow: function() {
 
@@ -234,8 +226,7 @@ Page({
     var amount = e.detail.amount
     var cartList = this.data.cartList
     var totalAmount = 0
-    var totalPrice = 0
-
+    var totalPrice = 0 
 
     this.setData({
       ["cartList[" + index + "].qty"]: e.detail.amount,
@@ -252,6 +243,23 @@ Page({
       totalPrice
     })
   },
+  deleteGoods(e){
+    var cartList=this.data.cartList
+    var totalAmount = 0
+    var totalPrice = 0
+    cartList.splice(e.detail.index,1) 
+
+    cartList.forEach(item => {
+      totalAmount = parseInt(totalAmount) + parseInt(item.qty)
+      totalPrice = parseFloat(totalPrice) + parseFloat(item.totalPrice)
+    })
+
+    this.setData({
+      cartList,
+      totalAmount,
+      totalPrice
+    }) 
+  },
   submit(e) {
     if (!this.data.canEdit) {
       return
@@ -259,7 +267,10 @@ Page({
     var formData = e.detail.value
     var params = {}
     var cartList = this.data.cartList
-
+    if(cartList.length===0){
+      app.showToast("请添加商品")
+      return
+    }
     cartList.forEach(item => {
       delete item.imgPath
       delete item.brandName

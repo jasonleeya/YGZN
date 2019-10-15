@@ -29,7 +29,7 @@
     </picker>
   </view>
   <search justLink="{{true}}" bindtap="addGoods" />
-  <cart goodsList="{{cartList}}" priceKey="price" totalPrice="{{totalPrice}}" amountKey="qty" nameKey="productName" brandNameKey="brandName" typeKey="brandCode" picUrlKey="imgPath" bind:operate="editGoodsInfo" bind:changeAmount="goodsCountChange" editable="{{canEdit}}"
+  <cart goodsList="{{cartList}}" priceKey="price" totalPrice="{{totalPrice}}" amountKey="qty" nameKey="productName" brandNameKey="brandName" typeKey="brandCode" picUrlKey="imgPath" bind:operate="editGoodsInfo" bind:changeAmount="goodsCountChange" editable="{{canEdit}}" bind:deleteGoods="deleteGoods"
   />
 
   <view class="cells-title">备注</view>

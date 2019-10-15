@@ -113,9 +113,9 @@ Component({
         } else {
           app.showToast("不能小于最小采购量,如需删除该商品请左滑", 3000)
         }
-        //没有最小包装量时不能小于0
+        //没有最小包装量时不能小于1
       } else {
-        if (this.data.goodsList[index][this.data.amountKey] > 0) {
+        if (this.data.goodsList[index][this.data.amountKey] > 1) {
           this.setData({
             ["goodsList[" + index + "]." + this.data.amountKey]: parseInt(this.data.goodsList[index][this.data.amountKey]) - 1
           })
@@ -126,9 +126,10 @@ Component({
           this.computeTotalPriceTotalAmount()
 
         } else { //商品数量减少到0删除项
-          this.triggerEvent("deleteGoods", {
-            index: index
-          })
+          // this.triggerEvent("deleteGoods", {
+          //   index: index
+          // })
+          app.showToast("删除商品请左滑")
         }
       }
     },
@@ -169,7 +170,7 @@ Component({
     amountInput(e) {
       var value = parseInt(e.detail.value)
       var index = e.target.dataset.index
-      
+       
       this.setData({
         ["goodsList[" + index + "]." + this.data.amountKey + ""]: value
       })
@@ -188,8 +189,8 @@ Component({
       var min = parseInt(this.data.goodsList[index][this.data.minNumKey])
       
       if (value === "") {
-        value = 0
-        e.detail.value = "0"
+        value = 1
+        e.detail.value = "1"
       }
       if (!isNaN(min)) {
         if (parseInt(value) < min) {
