@@ -58,21 +58,7 @@
   width: 50vw;
   text-align: center;
 }
-
-.btns {
-  display: flex;
-  padding: 0 30rpx 20rpx;
-  flex-wrap: wrap;
-}
-
-.btns .btn {
-  height: 60rpx;
-  line-height: 60rpx;
-  margin: 20rpx 20rpx 0 0;
-  border-radius: 30rpx;
-  padding: 0 20rpx;
-}
-
+ 
 .cuIcon-text {
   font-size: 40rpx;
 }

@@ -1,0 +1,69 @@
+<view class="header">
+  <view class="search">
+    <view class="cuIcon-search search-icon"></view>
+    <input class="bg-gray" placeholder="用户名称搜索"></input>
+  </view>
+  <view class="filter-methods solid">
+    <view class="filter" bindtap="chooseFilterMethod" data-method="date">
+      日期
+      <text class="iconfont icondown"></text>
+    </view>
+    <view class="filter" bindtap="chooseFilterMethod" data-method="status">
+      状态
+      <text class="iconfont icondown"></text>
+    </view>
+  </view>
+  <view class="drop-down solid" wx:if="{{filterMethod==='date'}}">
+    <view class="btns">
+      <view class="btn {{dateRangeType==='all'?'theme-bgc':'bg-gray'}}" bindtap="chooseDateRangeType" data-type="all">全部时间</view>
+      <view class="btn {{dateRangeType==='custom'?'theme-bgc':'bg-gray'}}" bindtap="chooseDateRangeType" data-type="custom">自定义</view>
+    </view>
+    <view class="data-pickers solid" wx:if="{{dateRangeType==='custom'}}">
+      <picker class="solid-right" mode="date" value="{{dateRange.start}}" bindchange="startDateChange">
+        <view class="picker">
+          开始:
+          <text class="cuIcon-calendar"></text>{{dateRange.start}}
+        </view>
+      </picker>
+      <picker mode="date" value="{{dateRange.end}}" bindchange="endDateChange">
+        <view class="picker">
+          开始:
+          <text class="cuIcon-calendar"></text>{{dateRange.end}}
+        </view>
+      </picker>
+    </view>
+  </view>
+  <view class="drop-down solid" wx:if="{{filterMethod==='status'}}">
+    <view class="btns">
+      <view class="btn {{orderStatus==='-1'?'theme-bgc':'bg-gray'}}" bindtap="chooseStatus" data-status="-1">所有</view>
+      <view class="btn {{orderStatus==='0'?'theme-bgc':'bg-gray'}}" bindtap="chooseStatus" data-status="0">未提交</view>
+      <view class="btn {{orderStatus==='1'?'theme-bgc':'bg-gray'}}" bindtap="chooseStatus" data-status="1">已提交</view>
+      <view class="btn {{orderStatus==='2'?'theme-bgc':'bg-gray'}}" bindtap="chooseStatus" data-status="2">已审核</view>
+      <view class="btn {{orderStatus==='3'?'theme-bgc':'bg-gray'}}" bindtap="chooseStatus" data-status="3">已撤销</view>
+    </view>
+  </view>
+</view>
+<view class="card" wx:for="{{orderList}}" wx:key>
+  <view class="card-head">
+    <view class="card-title">已收款订单:{{item.bill.billno}}</view>
+    <view class="card-subtitl {{item.bill.status===0?'text-red':'text-green'}}">{{item.bill.statusStr}}</view>
+  </view>
+  <view class="card-content">
+    <view class="card-item">
+      <view class="card-name">付款方</view>
+      <view class="card-value">{{"fdadefa"}}</view>
+    </view>
+       <view class="card-item">
+      <view class="card-name">付款方式</view>
+      <view class="card-value">{{"银行"}}</view>
+    </view>
+       <view class="card-item">
+      <view class="card-name">金额</view>
+      <view class="card-value">{{"15.6"}}</view>
+    </view>
+       <view class="card-item">
+      <view class="card-name">收款日期</view>
+      <view class="card-value">{{"2019-10-16"}}</view>
+    </view>
+  </view>
+</view>
