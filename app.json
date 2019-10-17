@@ -58,7 +58,9 @@
     "pages/product/otherOutboundAndStorage/otherOutboundAndStorage",
     "pages/product/otherOutboundAndStorage/ordersOperate/ordersOperate",
     "pages/product/otherOutboundAndStorage/addGoods/addGoods",
-    "pages/finance/paidAndReceiptedManage/paidAndReceiptedManage"
+    "pages/finance/paidAndReceiptedManage/paidAndReceiptedManage",
+    "pages/finance/paidAndReceiptedManage/paidAndReceiptedOperate/paidAndReceiptedOperate",
+    "pages/finance/paidAndReceiptedManage/chooseCustomer/chooseCustomer"
   ],
   "window": {
     "backgroundTextStyle": "light",

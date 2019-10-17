@@ -9,7 +9,12 @@ Page({
       end: "",
       nowDate: ""
     },
-    orderList: []
+    orderList: [],
+    timeOut: null,
+    searchList: [],
+    showSearchList: false,
+    searchValue: "",
+    custNo: ""
   },
   onLoad: function(options) {
     var date = new Date()
@@ -25,12 +30,12 @@ Page({
   getList() {
     app.http("getAcceptBillList", {
       pageNo: 0,
-      pageSize: 10,
-      custcode: '',
-      status: -1,
+      pageSize: 1000,
+      custcode: this.data.custNo,
+      status: this.data.orderStatus,
       begtime: this.data.dateRange.start,
       endtime: this.data.dateRange.end,
-      searchstr: ''
+      searchstr: ""
     }).then(data => {
       var list = data.list
       list.forEach(item => {
@@ -42,13 +47,29 @@ Page({
             item.bill.statusStr = "已提交"
             break
           case 2:
+
             item.bill.statusStr = "已审核"
             break
           case 3:
             item.bill.statusStr = "已撤销"
-            break 
+            break
         }
+
+        switch (item.bill.billtype) {
+          case 'bank':
+            item.bill.billtypeStr = "银行"
+            break
+          case "cash":
+            item.bill.billtypeStr = "现金"
+            break
+          default:
+            item.bill.billtypeStr = "银行"
+        }
+        var date = new Date(item
+          .bill.billdate)
+        item.bill.billdate = date.getFullYear() + "-" + (date.getMonth() + 1) + "-" + date.getDate()
       })
+
       this.setData({
         orderList: list
       })
@@ -78,11 +99,13 @@ Page({
         ["dateRange.end"]: '',
       })
     }
+    this.getList()
   },
   chooseStatus(e) {
     this.setData({
       orderStatus: e.currentTarget.dataset.status
     })
+    this.getList()
   },
   startDateChange(e) {
     var d = e.detail.value
@@ -92,6 +115,7 @@ Page({
     this.setData({
       ["dateRange.start"]: d
     })
+    this.getList()
   },
   endDateChange(e) {
     var d = e.detail.value
@@ -104,6 +128,56 @@ Page({
     }
     this.setData({
       ["dateRange.end"]: d
+    })
+    this.getList()
+  },
+  searchInput(e) {
+    var timeOut = null
+    if (this.data.timeOut) {
+      clearTimeout(this.data.timeOut)
+    }
+    timeOut = setTimeout(() => {
+      if (e.detail.value === '') {
+        this.setData({
+          searchList:[],
+          custNo:""
+        })
+        this.getList()
+        return
+      }
+      app.http("queryCustomer", {
+        pageSize: 1000,
+        keyword: e.detail.value
+      }).then(data => {
+        this.setData({
+          searchList: data.list
+        })
+      })
+    }, 300)
+    this.setData({
+      timeOut
+    })
+  },
+  searchFocus(e) {
+    this.setData({
+      showSearchList: true
+    })
+  },
+  chooseCustomer(e) {
+    this.setData({
+      searchValue: e.currentTarget.dataset.name,
+      custNo: e.currentTarget.dataset.no
+    })
+    this.getList()
+  },
+  closeSearchList() {
+    this.setData({
+      showSearchList: false
+    })
+  },
+  add(){
+    wx.navigateTo({
+      url: '/pages/finance/paidAndReceiptedManage/paidAndReceiptedOperate/paidAndReceiptedOperate?operateType=add' 
     })
   },
 })

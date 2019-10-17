@@ -1,0 +1,69 @@
+<view class="cell border-bt">
+  <view class="cell-name">客户</view>
+  <view class="cell-value">
+    <input disabled placeholder="请选择客户" value="{{customerName}}"></input>
+  </view>
+  <view class="cell-icon cuIcon-right" bindtap="chooseCustomer"></view>
+</view>
+<view class="cell border-bt">
+  <view class="cell-name">付款方式</view>
+  <view class="cell-value">
+    <input disabled placeholder="请选择付款方式"></input>
+  </view>
+  <view class="cell-icon cuIcon-right"></view>
+</view>
+<view class="cell border-bt">
+  <view class="cell-name">付款金额</view>
+  <view class="cell-value">
+    <input type="number" placeholder="请输入付款金额"></input>
+  </view>
+</view>
+<view class="cell border-bt">
+  <view class="cell-name">付款用途</view>
+  <view class="cell-value">
+    <input placeholder="请输入付款用途"></input>
+  </view>
+</view>
+<view class="cell border-bt">
+  <view class="cell-name">付款银行</view>
+  <view class="cell-value">
+    <input placeholder="请输入付款银行"></input>
+  </view>
+</view>
+<view class="cell border-bt">
+  <view class="cell-name">付款账号</view>
+  <view class="cell-value">
+    <input placeholder="请输入付款账号"></input>
+  </view>
+</view>
+<view class="cell border-bt">
+  <view class="cell-name">付款人</view>
+  <view class="cell-value">
+    <input placeholder="请输入付款人"></input>
+  </view>
+</view>
+<view class="cell border-bt">
+  <view class="cell-name">票据号</view>
+  <view class="cell-value">
+    <input placeholder="请输入票据号"></input>
+  </view>
+</view>
+<view class="cell border-bt">
+  <view class="cell-name">到账日期</view>
+  <view class="cell-value">
+    <input disabled placeholder="请选择到账日期"></input>
+  </view>
+  <view class="cell-icon cuIcon-right"></view>
+</view>
+<view class="cell border-bt">
+  <view class="cell-name">收款账户</view>
+  <view class="cell-value">
+    <input placeholder="请选择收款账户"></input>
+  </view>
+</view>
+<view class="cell border-bt">
+  <view class="cell-name">收款账号</view>
+  <view class="cell-value">
+    <input placeholder="请输入收款账号"></input>
+  </view>
+</view>

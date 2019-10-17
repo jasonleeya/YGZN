@@ -1,0 +1,29 @@
+<view class="header">
+  <view class="search">
+    <view class="cuIcon-search search-icon"></view>
+    <input class="bg-gray" placeholder="用户名称搜索" bindinput="searchInput" bindfocus="searchFocus" value="{{searchValue}}"></input>
+  </view>
+</view>
+<scroll-view scroll-y class="order-list-scroll-view">
+  <view class="card" wx:for="{{customerList}}" wx:key bindtap="selectCustomer" data-no="{{item.custNo}}" data-name="{{item.customerName}}">
+    <view class="card-head">
+      <view class="card-title">{{item.customerName}}</view>
+      <view class="card-subtitl  {{item.approveStatus===1?'text-red':'text-green'}}">{{item.approveStatus===1?'线上':'自建'}}</view>
+    </view>
+    <view class="card-content">
+      <view class="card-item">
+        <view class="card-name">首要联系人</view>
+        <view class="card-value {{item.primaryContact?'':'text-gray'}}">{{item.primaryContact?item.primaryContact:'无'}}</view>
+      </view> 
+      <view class="card-item">
+        <view class="card-name">联系人电话</view>
+        <view class="card-value {{item.contactPhone?'':'text-gray'}}">{{item.contactPhone?item.contactPhone:'无'}}</view>
+      </view>
+       <view class="card-item">
+        <view class="card-name">用户等级</view>
+        <view class="card-value {{item.grade?'':'text-gray'}}">{{item.grade?item.grade:'无'}}</view>
+      </view>
+    </view>
+  </view>
+</scroll-view>
+<view class="add-btn cuIcon-add shadow bg-blue" bindtap="add"></view>

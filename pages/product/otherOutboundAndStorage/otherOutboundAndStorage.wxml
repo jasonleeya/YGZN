@@ -52,7 +52,7 @@
     <view class="btns solid" wx:if="{{filterMethod==='order'}}">
       <view class="btn {{orderStatus===''?'theme-bgc':'bg-gray'}}" bindtap="chooseOrderStatus" data-status="">所有</view>
       <view class="btn {{orderStatus==='0'?'theme-bgc':'bg-gray'}}" bindtap="chooseOrderStatus" data-status="0">未提交</view>
-      <view class="btn {{orderStatus==='1'?'theme-bgc':'bg-gray'}}" bindtap="chooseOrderStatus" data-status="1">未审核</view> 
+      <view class="btn {{orderStatus==='1'?'theme-bgc':'bg-gray'}}" bindtap="chooseOrderStatus" data-status="1">未审核</view>
       <view class="btn {{orderStatus==='3'?'theme-bgc':'bg-gray'}}" bindtap="chooseOrderStatus" data-status="2">已审核</view>
       <view class="btn {{orderStatus==='-1'?'theme-bgc':'bg-gray'}}" bindtap="chooseOrderStatus" data-status="-1">已弃审</view>
 

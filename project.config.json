@@ -52,26 +52,12 @@
 			"list": []
 		},
 		"miniprogram": {
-			"current": 2,
-			"list": [
+			"current": 4,
+			"list": [ 
 				{
 					"id": -1,
-					"name": "pages/product/otherOutboundAndStorage/otherOutboundAndStorage",
-					"pathName": "pages/product/otherOutboundAndStorage/otherOutboundAndStorage",
-					"query": "",
-					"scene": null
-				},
-				{
-					"id": -1,
-					"name": "pages/product/otherOutboundAndStorage/ordersOperate/ordersOperate",
-					"pathName": "pages/product/otherOutboundAndStorage/ordersOperate/ordersOperate",
-					"query": "",
-					"scene": null
-				},
-				{
-					"id": -1,
-					"name": "pages/finance/paidAndReceiptedManage/paidAndReceiptedManage",
-					"pathName": "pages/finance/paidAndReceiptedManage/paidAndReceiptedManage",
+					"name": "pages/finance/paidAndReceiptedManage/paidAndReceiptedOperate/paidAndReceiptedOperate",
+					"pathName": "pages/finance/paidAndReceiptedManage/paidAndReceiptedOperate/paidAndReceiptedOperate",
 					"scene": null
 				}
 			]

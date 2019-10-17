@@ -1,7 +1,12 @@
 <view class="header">
   <view class="search">
     <view class="cuIcon-search search-icon"></view>
-    <input class="bg-gray" placeholder="用户名称搜索"></input>
+    <input class="bg-gray" placeholder="用户名称搜索" bindinput="searchInput" bindfocus="searchFocus" value="{{searchValue}}"></input>
+    <view class="search-list" bindtap="closeSearchList" wx:if="{{showSearchList}}">
+      <view class="search-item solid-top" wx:for="{{searchList}}" wx:key bindtap="chooseCustomer" data-no="{{item.custNo}}" data-name="{{item.customerName}}">
+        <text class="dropdown-icon cuIcon-friend"></text>{{item.customerName}}
+      </view>
+    </view>
   </view>
   <view class="filter-methods solid">
     <view class="filter" bindtap="chooseFilterMethod" data-method="date">
@@ -43,27 +48,30 @@
     </view>
   </view>
 </view>
-<view class="card" wx:for="{{orderList}}" wx:key>
-  <view class="card-head">
-    <view class="card-title">已收款订单:{{item.bill.billno}}</view>
-    <view class="card-subtitl {{item.bill.status===0?'text-red':'text-green'}}">{{item.bill.statusStr}}</view>
+<scroll-view scroll-y class="order-list-scroll-view">
+  <view class="card" wx:for="{{orderList}}" wx:key>
+    <view class="card-head">
+      <view class="card-title">已收款订单:{{item.bill.billno}}</view>
+      <view class="card-subtitl {{item.bill.status===0?'text-red':'text-green'}}">{{item.bill.statusStr}}</view>
+    </view>
+    <view class="card-content">
+      <view class="card-item">
+        <view class="card-name">付款方</view>
+        <view class="card-value">{{item.bill.billusername}}</view>
+      </view>
+      <view class="card-item">
+        <view class="card-name">付款方式</view>
+        <view class="card-value">{{item.bill.billtypeStr}}</view>
+      </view>
+      <view class="card-item">
+        <view class="card-name">金额</view>
+        <view class="card-value">{{item.bill.amount}}</view>
+      </view>
+      <view class="card-item">
+        <view class="card-name">收款日期</view>
+        <view class="card-value">{{item.bill.billdate}}</view>
+      </view>
+    </view>
   </view>
-  <view class="card-content">
-    <view class="card-item">
-      <view class="card-name">付款方</view>
-      <view class="card-value">{{"fdadefa"}}</view>
-    </view>
-       <view class="card-item">
-      <view class="card-name">付款方式</view>
-      <view class="card-value">{{"银行"}}</view>
-    </view>
-       <view class="card-item">
-      <view class="card-name">金额</view>
-      <view class="card-value">{{"15.6"}}</view>
-    </view>
-       <view class="card-item">
-      <view class="card-name">收款日期</view>
-      <view class="card-value">{{"2019-10-16"}}</view>
-    </view>
-  </view>
-</view>
+</scroll-view>
+<view class="add-btn cuIcon-add shadow bg-blue" bindtap="add"></view>
