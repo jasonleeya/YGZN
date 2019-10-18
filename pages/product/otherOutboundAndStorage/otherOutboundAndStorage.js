@@ -92,7 +92,7 @@ Page({
       var list = data.list
       list.forEach(item => {
         item.tranDate = new Date(item.tranDate)
-        item.tranDate = item.tranDate .getFullYear() + "-" + (item.tranDate .getMonth() + 1) + "-" + (item.tranDate .getDate() < 10 ? "0" + item.tranDate .getDate() : item.tranDate .getDate())
+        item.tranDate = item.tranDate.getFullYear() + "-" + (item.tranDate.getMonth() + 1 < 10 ? '0' + (item.tranDate.getMonth() + 1) : item.tranDate.getMonth() + 1) + "-" + (item.tranDate .getDate() < 10 ? "0" + item.tranDate .getDate() : item.tranDate .getDate())
         switch (item.status) {
           case '-1':
             item.status = '已弃审'

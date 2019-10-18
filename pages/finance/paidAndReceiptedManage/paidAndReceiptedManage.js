@@ -180,4 +180,9 @@ Page({
       url: '/pages/finance/paidAndReceiptedManage/paidAndReceiptedOperate/paidAndReceiptedOperate?operateType=add' 
     })
   },
+  edit(e) {
+    wx.navigateTo({
+      url: '/pages/finance/paidAndReceiptedManage/paidAndReceiptedOperate/paidAndReceiptedOperate?operateType=edit&editIndex='+e.currentTarget.dataset.index
+    })
+  },
 })

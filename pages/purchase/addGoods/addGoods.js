@@ -196,7 +196,7 @@ create(store, {
     this.load()
 
     app.http("purchaseDiscount", {
-      supplyNo: this.data.searchType === "供方仓库" ?  this.data.supplyNo:'',
+      supplyNo: this.data.supplyNo,
       productId: this.data.goodsList[index].productUuid
     }).then(data => {
       if (data.infoBody.discount === null) {
@@ -240,8 +240,7 @@ create(store, {
       case "discountPrice":
         return (NTPSingle * (1 + (taxRate / 100))).toFixed(2)
         break
-      case "sttAmount":
-
+      case "sttAmount": 
         return (parseInt(goodsCount) * parseFloat(discountPrice)).toFixed(2)
         break
     }

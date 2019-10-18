@@ -241,11 +241,13 @@ Component({
           value: "已收款管理",
           icon: "iconyishoukuan",
           link: "/pages/finance/paidAndReceiptedManage/paidAndReceiptedManage?type=receipted"
-        }, {
-          value: "已付款管理",
-          icon: "iconyifukuan",
-          link: "/pages/finance/paidAndReceiptedManage/paidAndReceiptedManage?type=paid"
-        }, ]
+        }, 
+        // {
+        //   value: "已付款管理",
+        //   icon: "iconyifukuan",
+        //   link: "/pages/finance/paidAndReceiptedManage/paidAndReceiptedManage?type=paid"
+        // }, 
+        ]
       }
     ],
     load: true,

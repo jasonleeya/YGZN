@@ -133,7 +133,7 @@ create({
             msg.head = "订单提交"
           }
         })
-        if (parseInt(this.data.totalPage) > parseInt(this.data.curPage)) {
+        if (parseInt(this.data.totalPage) >= parseInt(this.data.curPage)) {
           this.setData({
             msgList: this.data.msgList.concat(msgList.list)
           })

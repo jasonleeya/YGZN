@@ -54,7 +54,7 @@ Page({
         id: options.editId
       }).then(data => {
         date = new Date(data.infoBody.main.tranDate)
-        storageDate = date.getFullYear() + "-" + (date.getMonth() + 1) + "-" + (date.getDate() < 10 ? "0" + date.getDate() : date.getDate())
+        storageDate = date.getFullYear() + "-" + (date.getMonth() + 1 < 10 ? '0' + (date.getMonth() + 1) : date.getMonth() + 1) + "-" + (date.getDate() < 10 ? "0" + date.getDate() : date.getDate())
         this.setData({
           storageDate,
           remark: data.infoBody.main.remark,
@@ -84,7 +84,7 @@ Page({
       }) 
     } else { 
       var date = new Date()
-      storageDate = date.getFullYear() + "-" + (date.getMonth() + 1) + "-" + (date.getDate() < 10 ? "0" + date.getDate() : date.getDate())
+      storageDate = date.getFullYear() + "-" + (date.getMonth() + 1 < 10 ? '0' + (date.getMonth() + 1) : date.getMonth() + 1) + "-" + (date.getDate() < 10 ? "0" + date.getDate() : date.getDate())
       this.setData({
         storageDate
       }) 

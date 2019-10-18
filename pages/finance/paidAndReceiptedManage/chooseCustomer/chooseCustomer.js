@@ -26,5 +26,16 @@ Page({
      customerName: e.currentTarget.dataset.name
    })
    wx.navigateBack()
+  },
+  add(){
+    wx.navigateTo({
+      url: '/pages/index/mine/customerOperate/customerOperate?operateType=add',
+    })
+  },
+  searchInput(e){
+    this.setData({
+      searchValue:e.detail.value
+    })
+    this.getList()
   }
 })

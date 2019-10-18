@@ -1,1 +1,9 @@
-/* pages/finance/paidAndReceiptedManage/paidAndReceiptedOperate/paidAndReceiptedOperate.wxss */
+.operate-btns{
+  display: flex; 
+  margin-top: 100rpx;
+  padding-left: 30rpx;
+}
+.btn-wrapper{
+  flex: 1;
+  margin-right:30rpx
+}

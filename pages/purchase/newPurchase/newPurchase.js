@@ -1,15 +1,12 @@
-import store from '../../../store'
-import create from '../../../utils/create'
-var app = getApp()
-create(store, {
+ var app = getApp()
+Page({
 
   /**
    * 页面的初始数据
    */
   data: {
     goodsList: [],
-    totalPrice: 0,
-
+    totalPrice: 0, 
     orderId: "",
     supplier: "",
     supplyNo: "",
@@ -78,8 +75,7 @@ create(store, {
     if (this.data.supplyNo === "") {
       app.showToast("请先选择供应商")
       return
-    }
-
+    } 
     wx.navigateTo({
       url: "/pages/purchase/addGoods/addGoods?store=newPurchase&supplyNo=" + this.data.supplyNo + "&wareId=" + this.data.slectedStoreHouseId,
     })
@@ -110,7 +106,7 @@ create(store, {
         slectedStoreHouseId: idList[0]
       })
     })
-    app.http("getDtfAddress", {}).then(data => {
+    app.http("getDtfAddress").then(data => {
       data.list.forEach(item => {
         if (item.dftStatus === "1") {
           this.setData({

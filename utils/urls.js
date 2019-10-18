@@ -102,7 +102,9 @@ const alias = {
   saveData: BASE_URL +"/imatchOrder/tStockInMain/saveData",
   findAllDataById: BASE_URL +"/imatchOrder/tStockInMain/findAllDataById",
   updateStatus: BASE_URL +"/imatchOrder/tStockInMain/updateStatus",
-  getAcceptBillList: BASE_URL +"/imatchOrder/acceptbill/getAcceptBillList"
+  getAcceptBillList: BASE_URL +"/imatchOrder/acceptbill/getAcceptBillList",
+  getSupplyAccount: BASE_URL +"/imatchUser/agency/getSupplyAccount",
+  acceptbillEdit: BASE_URL +"/imatchOrder/acceptbill/edit"
 
 }
 export default function(name) {
