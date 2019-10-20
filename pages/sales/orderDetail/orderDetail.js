@@ -281,15 +281,7 @@
        }
      })
    },
-   cancelOrder() {
-     app.http("cancelOrder", {
-       orderNo: this.data.infos.orderNo
-     }).then(data => {
-       app.showToast('取消订单成功')
-     }).catch(err => {
-       app.showToast(err)
-     })
-   },
+
    split() {
      app.showToast("暂不支持")
    },
@@ -315,7 +307,7 @@
    cancelOrder() {
      wx.showModal({
        title: '确定取消订单吗',
-       success(res) {
+       success:(res)=>{
          if (res.cancel) {
            return
          }

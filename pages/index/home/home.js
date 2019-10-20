@@ -1,17 +1,11 @@
 let app=getApp()
-Component({
-  /**
-   * 组件的属性列表
-   */
+Component({ 
   properties: {
 
   },
   options: {
     addGlobalClass: true,
-  },
-  /**
-   * 组件的初始数据
-   */
+  }, 
   data: { 
     userAuthCodes: [],
     monthPurchaseAmount: 0,
