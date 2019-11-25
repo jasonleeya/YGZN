@@ -47,7 +47,7 @@
   margin: 30rpx auto;
   padding-bottom: 30rpx;
   border-radius: 10rpx;
-  box-shadow: 0 10rpx 10rpx #ddd
+  box-shadow: 0 5rpx 5rpx #ccc; 
 }
 
 .supplier-header {

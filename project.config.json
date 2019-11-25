@@ -52,12 +52,33 @@
 			"list": []
 		},
 		"miniprogram": {
-			"current": 0,
+			"current": -1,
 			"list": [
 				{
 					"id": -1,
-					"name": "pages/finance/paidAndReceiptedManage/paidAndReceiptedManage",
-					"pathName": "pages/finance/paidAndReceiptedManage/paidAndReceiptedManage",
+					"name": "pages/login/login",
+					"pathName": "pages/login/login",
+					"query": "",
+					"scene": null
+				},
+				{
+					"id": -1,
+					"name": "pages/register/register",
+					"pathName": "pages/register/register",
+					"query": "",
+					"scene": null
+				},
+				{
+					"id": -1,
+					"name": "pages/index/mine/personalCenter/personalCenter",
+					"pathName": "pages/index/mine/personalCenter/personalCenter",
+					"query": "",
+					"scene": null
+				},
+				{
+					"id": -1,
+					"name": "pages/purchase/newPurchase/newPurchase",
+					"pathName": "pages/purchase/newPurchase/newPurchase",
 					"query": "",
 					"scene": null
 				}

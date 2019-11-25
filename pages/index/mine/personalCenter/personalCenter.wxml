@@ -1,2 +1,53 @@
-<!--pages/index/mine/personalCenter/personalCenter.wxml-->
-<text>pages/index/mine/personalCenter/personalCenter.wxml</text>
+<view class="tabs shadow bg-white">
+  <view class="tab {{activeTabIndex==='0'?'active':''}}" bindtap="toggleTab" data-index="0">个人资料</view>
+  <view class="tab {{activeTabIndex==='1'?'active':''}}" bindtap="toggleTab" data-index="1">业务公司</view>
+  <view class="tab {{activeTabIndex==='2'?'active':''}}" bindtap="toggleTab" data-index="2">修改密码</view>
+  <view class="tab {{activeTabIndex==='3'?'active':''}}" bindtap="toggleTab" data-index="3">申请公司</view>
+</view>
+
+<block wx-if="{{activeTabIndex==='0'}}">
+  <view class="cell border-bt">
+    <view class="cell-name">姓名</view>
+    <view class="cell-value">{{personalInfo.custName}}</view>
+  </view>
+  <view class="cell border-bt">
+    <view class="cell-name">手机号码</view>
+    <view class="cell-value">{{personalInfo.userPhone}}</view>
+  </view>
+  <view class="cell">
+    <view class="cell-name">登录名</view>
+    <view class="cell-value">{{personalInfo.userLoginName}}</view>
+  </view>
+</block>
+
+<block wx-if="{{activeTabIndex==='1'}}"  wx:for="{{companies}}" wx:key>
+  <view class="card">
+    <view class="card-head">
+      <view class="card-title">业务公司</view>
+    </view>
+    <view class="card-content">
+      <view class="card-item">
+        <view class="card-name">公司名称</view>
+        <view class="card-value">{{item[0]}}</view>
+      </view>
+    </view>
+  </view>
+</block>
+
+<view wx-if="{{activeTabIndex==='2'}}">
+<form bindsubmit="modifyPasswordSubmit">
+<view class="cell border-bt">
+    <view class="cell-name">原密码</view>
+    <view class="cell-value"><input type="password" name="origion"></input></view>
+  </view>
+  <view class="cell border-bt">
+    <view class="cell-name">新密码</view>
+    <view class="cell-value"><input type="password" name="new"></input></view>
+  </view>
+  <view class="cell">
+    <view class="cell-name">确认密码</view>
+    <view class="cell-value"><input type="password" name="confirm"></input></view>
+  </view>
+  <button class="bg-blue modify-password" formType="submit">确认修改</button>
+  </form>
+</view>

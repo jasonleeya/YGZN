@@ -22,7 +22,7 @@
     <view class="cell border-bt">
       <view class="cell-name">公司名称</view>
       <view class="cell-value">
-        <input name="userName" placeholder="无" value="{{baseInfos.custName}}" ></input>
+        <input name="userName" placeholder="无" value="{{baseInfos.userName}}" ></input>
       </view>
     </view>
     <view class="cell border-bt">

@@ -1,8 +1,8 @@
-// const BASE_URL = "http://192.168.3.101:14000"
-// const BASE_URL_WX = "http://192.168.3.101:26000"
+const BASE_URL = "http://192.168.3.101:14000"
+const BASE_URL_WX = "http://192.168.3.101:26000"
 
-const BASE_URL = "https://gateway.imatchas.com"
-const BASE_URL_WX = "https://wx.imatchas.com"
+// const BASE_URL = "https://gateway.imatchas.com"
+// const BASE_URL_WX = "https://wx.imatchas.com"
 
 const alias = {
   loginAuthenticate: BASE_URL_WX + "/netgate-user/loginAuthenticate",
@@ -104,7 +104,12 @@ const alias = {
   updateStatus: BASE_URL +"/imatchOrder/tStockInMain/updateStatus",
   getAcceptBillList: BASE_URL +"/imatchOrder/acceptbill/getAcceptBillList",
   getSupplyAccount: BASE_URL +"/imatchUser/agency/getSupplyAccount",
-  acceptbillEdit: BASE_URL +"/imatchOrder/acceptbill/edit"
+  acceptbillEdit: BASE_URL +"/imatchOrder/acceptbill/edit",
+  registered: BASE_URL + "/imatchUser/user/registered",
+  delOpenid: BASE_URL + "/imatchUser/user/delOpenid",
+  updateDftCompany: BASE_URL + "/imatchUser/user/updateDftCompany",
+  updateSalesmanPwd: BASE_URL +"/imatchUser/user/updateSalesmanPwd",
+  allotOrderPrev: BASE_URL +"/imatchOrder/reOrder/allotOrderPrev"
 
 }
 export default function(name) {

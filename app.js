@@ -1,5 +1,5 @@
 //app.js
-import urls from "./utils/urls.js" 
+import urls from "./utils/urls.js"   
 
 App({
   globalData: {
@@ -19,7 +19,7 @@ App({
     salesTotalPrice: 0,
     salesTotalAmount: 0,
     userAuthCodes:[]
-  },
+  }, 
   onShow: function() {
     //获取所有用户权限值并保存在全局变量中
     this.http("findLabelId").then(data => {
@@ -32,12 +32,12 @@ App({
       if (pages.length) {
         currPage = pages[pages.length - 1];
       }
-      if (currPage.route !== "pages/login/login" && currPage.route !== "pages/welcome/welcome") {
+      if (currPage.route !== "pages/login/login" && currPage.route !== "pages/welcome/welcome" && currPage.route !== "pages/register/register") {
         that.http("homeMessage").then(data => {
           that.globalData.homeMessage = data.list
           that.globalData.unreadMsgCount = data.infoBody
         }).catch(err => {
-          console.log(err)
+          console.log(err.msg)
           switch (err) {
             case "无效token":
               if (that.globalData.isShowModal) {
@@ -52,29 +52,29 @@ App({
                     success(res) {
                       that.globalData.isShowModal = false
                       if (res.code) {
-                        that.http("loginAuthenticate", {
+                        that.http2("loginAuthenticate", {
                           username: res.code,
                           loginType: 2
-                        }, true, false).then(data => {
+                        },false).then(data => {
                           console.log(data)
-                          if (data.success === false) {
-                            wx.showModal({
-                              title: '',
-                              content: '请先绑定/注册账号',
-                              showCancel: false,
-                              success: function(res) {
-                                wx.navigateTo({
-                                  url: '/pages/login/login?openId=' + data.info,
-                                })
-                              }
-                            })
-                          } else {
+                         
                             wx.setStorageSync("token", data.info)
                             that.globalData.token = data.info
                             wx.redirectTo({
                               url: '/pages/index/index'
                             })
-                          }
+                          
+                        }).catch(data=>{ 
+                          wx.showModal({
+                            title: '',
+                            content: '请先绑定/注册账号',
+                            showCancel: false,
+                            success: function (res) {
+                              wx.navigateTo({
+                                url: '/pages/login/login?openId=' + data.info,
+                              })
+                            }
+                          })
                         })
 
                       } else {
@@ -123,7 +123,7 @@ App({
           }
         })
       }
-    }, 5000)
+    }, 5000) 
   },
   onHide() {
     clearInterval(this.globalData.interval)
@@ -221,7 +221,11 @@ App({
             reject('服务器忙，请稍后重试');
             return;
           }
-          if (res.data.success === false && alias !== 'loginAuthenticate') {
+          // if (res.data.success === false && alias !== 'loginAuthenticate') {
+          //   reject(res.data.msg || res.data.info);
+          //   return;
+          // }
+             if (res.data.success === false) {
             reject(res.data.msg || res.data.info);
             return;
           }
@@ -230,12 +234,38 @@ App({
           }
           resolve(res.data);
         },
-        fail: function(res) {
-          reject('网络错误');
+        fail: function(err) {
+          reject(err);
         },
         complete: function(res) {}
       })
     })
   },
-
+  http2(alias, data = {}, needToken = true) {
+    if (needToken) {
+      var token = wx.getStorageSync("token")
+      data.token = token
+    }
+    return new Promise((resolve, reject)=>{
+     wx.request({
+       url: urls(alias),
+       data: data,
+       header: {
+         'content-type': 'application/x-www-form-urlencoded',
+       },
+       method: 'POST',
+       success: function (res) {
+         if (!res.data.success) {
+           reject(res.data);
+           return;
+         }
+         resolve(res.data);
+       },
+       fail: function (res) {
+         reject(res.data);
+        },
+     })
+   })
+  },
+ 
 })

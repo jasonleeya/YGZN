@@ -1,0 +1,25 @@
+<view class="register">
+  <view class="register-title">欢迎注册企业助手</view> 
+  <view class="input-wrapper {{nameError?'animation-shake error':''}}">
+    <text class="register-input-icon cuIcon-people {{activeInput==='name'?'theme-color':''}}"></text>
+    <input bindfocus="focus" data-name="name" bindinput="input" placeholder="请输入姓名"></input>
+  </view>
+   <view class="input-wrapper  {{phoneNumberError?'animation-shake error':''}}">
+    <text class="register-input-icon cuIcon-mobile {{activeInput==='phoneNumber'?'theme-color':''}}"></text>
+    <input type="number" maxlength="11"  bindfocus="focus" data-name="phoneNumber" bindinput="input" placeholder="请输入手机号"></input>
+  </view>
+   <view class="input-wrapper {{companyError?'animation-shake error':''}}">
+    <text class="register-input-icon iconfont icongongsimingcheng {{activeInput==='company'?'theme-color':''}}"></text>
+    <input bindfocus="focus" data-name="company" bindinput="input" placeholder="请输入公司名称"></input>
+  </view>
+  <view class="input-wrapper {{passwordError?'animation-shake error':''}}">
+    <text class="register-input-icon iconfont iconmima {{activeInput==='password'?'theme-color':''}}"></text>
+    <input  bindfocus="focus" data-name="password" bindinput="input" placeholder="请输入密码"></input> 
+  </view>
+  <view class="input-wrapper {{confirmPasswordError?'animation-shake error':''}}">
+    <text class="register-input-icon iconfont iconquerenmima {{activeInput==='confirmPassword'?'theme-color':''}}"></text>
+    <input  bindfocus="focus" data-name="confirmPassword" bindinput="input" placeholder="请再次输入密码"></input> 
+  </view>
+ <text class="text-blue" bindtap="toLogin">已有账号,直接登录</text>
+  <button class="theme-bgc register-btn" bindtap="register">注册</button>
+</view>

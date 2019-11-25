@@ -117,12 +117,12 @@
     <view class="cells-title">备注</view>
     <textarea name="remark" class="remark" placeholder="请填写备注" value="{{editData.remark}}" disabled="{{!canEdit}}"></textarea>
 
-    <view class="operates solid-top">
-      <view wx:if="{{canEdit}}" class="operate bg-gradual-orange save-btn">
+    <cover-view class="operates solid-top">
+      <cover-view wx:if="{{canEdit}}" class="operate bg-orange save-btn">
         <button form-type="submit">保存</button>
-      </view>
-      <view hidden="{{operateType==='view'||canEdit}}" class="operate bg-gradual-orange" bindtap="allowEdit">编辑商品</view>
-      <view hidden="{{operateType==='add'}}" class="operate bg-gradual-orange" bindtap="buySellRecord">{{orderType==="all"?"出入库明细":orderType==="purchase"?"采购记录":"销售记录"}}</view>
-    </view>
+      </cover-view>
+      <cover-view hidden="{{operateType==='view'||canEdit}}" class="operate bg-orange" bindtap="allowEdit">编辑商品</cover-view>
+      <cover-view hidden="{{operateType==='add'}}" class="operate bg-orange" bindtap="buySellRecord">{{orderType==="all"?"出入库明细":orderType==="purchase"?"采购记录":"销售记录"}}</cover-view>
+    </cover-view>
   </form>
 </scroll-view>

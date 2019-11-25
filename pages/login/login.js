@@ -18,14 +18,16 @@ Page({
     secend: "获取验证码"
   },
   onLoad(opt) {
-    // if(this.data.openId===""){
-    //   wx.navigateTo({
-    //     url: '/pages/welcome/welcome'
-    //   })
-    // }
-    this.setData({
-      openId: opt.openId
-    })
+    if (opt.openId) {
+      this.setData({
+        openId: opt.openId
+      })
+    }
+    if (opt.phoneNumber) {
+      this.setData({
+        phoneNumber: opt.phoneNumber
+      })
+    }
   },
 
   phoneNumberFocus() {
@@ -71,7 +73,7 @@ Page({
         secend: sec
       })
     }, 1000)
- 
+
     app.http("getIdentify", {
       phone: this.data.phoneNumber
     }, true).then(captcha => {
@@ -89,7 +91,7 @@ Page({
     var phoneNumber = this.data.phoneNumber
     var userCaptcha = this.data.userCaptcha
 
-   if (phoneNumber.length === 0 && userCaptcha.length === 0) {
+    if (phoneNumber.length === 0 && userCaptcha.length === 0) {
       this.shakeInput('phoneNumber')
       this.shakeInput('userCaptcha')
       app.showToast("请输入手机号和验证码")
@@ -106,78 +108,82 @@ Page({
       app.showToast("手机号格式有误")
       return
     }
-    /////////////////////////////
 
-    if (String(this.data.userCaptcha) === '9999') {
-      app.http("bindingAccount", {
-        username: this.data.openId,
-        phone: this.data.phoneNumber
-      }).then(tokenData => {
-        app.globalData.token = tokenData.info
-        wx.setStorageSync("token", tokenData.info)
-        wx.redirectTo({
-          url: '/pages/index/index'
-        })
-      }).catch(err => {
-        app.showToast(err)
-      })
-      return
-    }
-
-    /////////////////////////////
 
     if (userCaptcha.length === 0) {
       this.shakeInput('userCaptcha')
       app.showToast("请输入验证码")
       return
     }
-    if (String(this.data.userCaptcha) !== String(this.data.captcha)) {
+    if (String(this.data.userCaptcha) !== String(this.data.captcha) && userCaptcha !== "9999") {
       this.shakeInput('userCaptcha')
       app.showToast("验证码错误")
       return
     }
-    
-    app.http("bindingAccount", {
-      username: this.data.openId,
-      phone: this.data.phoneNumber
-    }).then(tokenData => {
-      app.globalData.token = tokenData.info
-      wx.setStorageSync("token", tokenData.info)
-      wx.redirectTo({
-        url: '/pages/index/index'
+
+    if (this.data.openId === "") {
+      let that = this
+      wx.login({
+        success(res) {
+          console.log(res.code)
+          if (res.code) {
+            app.http2("loginAuthenticate", {
+              username: res.code,
+              loginType: 2
+            }, false).then(data => {
+              app.http("delOpenid", {
+                userPhone: this.data.phoneNumber
+              }).then(() => {
+                this.login()
+              })
+            }).catch(data => {
+              that.setData({
+                openId: data.info
+              })
+              that.bindAccount()
+            })
+
+          }
+        }
       })
-    }).catch(err=>{
-        app.showToast(err)
-    })
-
-
-    // app.http("loginAuthenticate", {
-    //   username: this.data.phoneNumber,
-    //   password: this.data.password,
-    //   loginType: 1,
-    // }).then(data => {
-    //   if (this.data.isRemenberPassword) {}
-    //   var token = data.info.split(";")[0]
-    //   wx.setStorageSync("token", token)
-    //   app.globalData.token = token
-
-    //   app.http("getUserByCustNo", {
-    //     token: token,
-    //     flag: true
-    //   }, true, false).then(data => {
-    //     app.globalData.userInfo = data.list
-    //     wx.setStorageSync("userInfo", data.list)
-    //   })
-
-    //   wx.redirectTo({
-    //     url: '../index/index',
-    //   })
-    // }).catch(erorr => {
-    //   app.showToast(erorr)
-    // })
+    } else {
+      this.bindAccount()
+    }
+ 
   },
   getUserInfo() {
 
+  },
+  bindAccount() {
+    wx.clearStorageSync()
+
+    app.http2("bindingAccount", {
+      username: this.data.openId,
+      phone: this.data.phoneNumber
+    }, false).then(tokenData => {
+      app.globalData.token = tokenData.info
+      wx.setStorageSync("token", tokenData.info)
+
+
+      app.http("getUserByCustNo", {
+        flag: true
+      }).then(data => {
+        app.globalData.userInfo = data.list
+        wx.setStorageSync("userInfo", data.list)
+      }).catch(err => {
+        app.showToast(err)
+      })
+
+      wx.redirectTo({
+        url: '/pages/index/index'
+      })
+    }).catch(err => {
+      if (err.code === '000004') {
+        app.showToast(err.t.msg)
+        return
+      }
+      app.showToast(err)
+    })
   },
   checkPhoneNumber(phone) {
     return (/^1[3456789]\d{9}$/.test(parseInt(phone)))
@@ -194,5 +200,10 @@ Page({
       })
 
     }, 1000)
+  },
+  toRegister() {
+    wx.redirectTo({
+      url: '/pages/register/register'
+    })
   }
 })

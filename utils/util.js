@@ -14,7 +14,7 @@ const formatNumber = n => {
   return n[1] ? n : '0' + n
 }
 
-const objToUrl=(obj, url)=>{
+const objToUrl = (obj, url) => {
   if (["", null, undefined].includes(url)) {
     return ""
   }
@@ -24,7 +24,9 @@ const objToUrl=(obj, url)=>{
   }
   return url
 }
+
+
 module.exports = {
   formatTime: formatTime,
-  objToUrl: objToUrl
+  objToUrl: objToUrl 
 }

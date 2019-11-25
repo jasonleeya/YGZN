@@ -2,16 +2,21 @@
   <view class="login-title">欢迎登陆企业助手</view>
   <view class="input-wrapper  {{phoneNumberError?'animation-shake error':''}}">
     <text class="login-input-icon cuIcon-mobile {{activeInput==='phoneNumber'?'theme-color':''}}"></text>
-    <input type="number" maxlength="11"  bindfocus="phoneNumberFocus" bindinput="phoneNumberInput" placeholder="请输入手机号"></input>
+    <input type="number" maxlength="11" value="{{phoneNumber}}" bindfocus="phoneNumberFocus" bindinput="phoneNumberInput" placeholder="请输入手机号"></input>
   </view>
   <view class="input-wrapper {{userCaptchaError?'animation-shake error':''}}">
     <text class="login-input-icon cuIcon-lock {{activeInput==='password'?'theme-color':''}}"></text>
-    <input  bindfocus="passwordFocus" bindinput="passwordInput" placeholder="请输入验证码"></input>
+    <input bindfocus="passwordFocus" bindinput="passwordInput" placeholder="请输入验证码"></input>
     <text class="get-captcha theme-color" bindtap="getCaptcha">{{secend}}</text>
   </view>
-  <view class="terms text-gray">登陆即视为同意
-    <text class="text-blue">《Imatch用户协议》</text>
+  <view class="login-middle">
+    <!-- <text class="terms text-gray">
+    登陆即视为同意
+    <text class="text-blue">
+    《Imatch用户协议》
+    </text></text> -->
+    <text class=" text-blue" bindtap="toRegister">还没有账号,去注册</text>
   </view>
- 
+
   <button class="theme-bgc login-btn" bindtap="login">登陆</button>
 </view>

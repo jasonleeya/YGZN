@@ -2,11 +2,11 @@ page {
   background-color: #fff;
 }
 
-.login {
+.register {
   padding: 180rpx 80rpx;
 }
 
-.login-title {
+.register-title {
   font-size: 44rpx;
   font-weight: bold;
   margin-bottom: 30rpx;
@@ -30,46 +30,36 @@ page {
   background-color: rgba(255, 0, 0, 0.1);
 }
 
-.login-operate {
+.register-operate {
   margin: 20rpx 0 160rpx;
   display: flex;
   justify-content: space-between;
 }
 
-.login-operate label {
+.register-operate label {
   margin: 0 -10rpx;
 }
 
-.login-operate checkbox {
+.register-operate checkbox {
   transform: scale(0.6);
 }
 
-.login-input-icon,.get-captcha  {
+.register-input-icon, .get-captcha {
   line-height: 100rpx;
   font-size: 40rpx;
   margin-right: 20rpx;
 }
 
 .get-captcha {
-  font-size: 28rpx; 
+  font-size: 28rpx;
 }
 
 checkbox .wx-checkbox-input.wx-checkbox-input-checked {
   background: var(--themeColor) !important;
 }
 
-.login-btn {
+.register-btn {
   margin-top: 100rpx;
-  height:100rpx;
-  line-height: 100rpx
-}
- .register{
-   font-size: 30rpx 
- }
-.login-middle{
-  display: flex;
-  justify-content: space-between
-}
-.terms{
-  font-size: 28rpx
+  height: 100rpx;
+  line-height: 100rpx;
 }

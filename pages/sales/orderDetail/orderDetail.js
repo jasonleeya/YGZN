@@ -104,6 +104,8 @@
            ["storehouse.index"]: index
          })
        })
+     }).catch(err=>{
+       app.showToast(err)
      })
 
 

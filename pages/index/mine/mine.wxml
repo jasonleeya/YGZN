@@ -11,10 +11,10 @@
       <image class="user-avatar" src="https://ss3.bdstatic.com/70cFv8Sh_Q1YnxGkpoWK1HF6hhy/it/u=2922170376,2371336021&fm=27&gp=0.jpg"></image>
       <view class="user-info">
         <view class="user-company">{{companies[currentCompanyIndex][0]}}</view>
-        <view class="user-name">{{userInfo.custName}}</view>
+        <view class="user-name">{{userInfo.userName}}</view>
         <view class="user-id">ID:{{companies[currentCompanyIndex][1]}}</view>
       </view>
-      <button class="toggle-account theme-color" bindtap="showToggleAccountPop">切换账号</button>
+      <button class="toggle-account theme-color" bindtap="showToggleAccountPop">切换公司</button>
     </view>
   </view>
   <view class="todo-list shadow-wrap">
@@ -28,18 +28,27 @@
     </view>
   </view>
   <view class="option" wx:for="{{optionList}}" wx:key>
-    <view class="option-item solid-top solid-bottom" wx:for="{{item}}" wx:for-item="optionItem" wx:key bindtap="jump" data-link="{{optionItem.link}}">
-      <view class="option-icon iconfont {{optionItem.icon}} text-{{module.getColor(index)}}"></view>
-      <view class="option-name">{{optionItem.name}}</view>
-      <view class="arrow-right cuIcon-right"></view>
-    </view>
+    <block wx:for="{{item}}" wx:for-item="optionItem" wx:key>
+      <view class="option-item solid-top solid-bottom" wx:if="{{optionItem.link}}" bindtap="jump" data-link="{{optionItem.link}}">
+        <view class="option-icon iconfont {{optionItem.icon}} text-{{module.getColor(index)}}"></view>
+        <view class="option-name">{{optionItem.name}}</view>
+        <view class="arrow-right cuIcon-right"></view>
+      </view>
+
+      <view class="option-item solid-top solid-bottom" wx:if="{{!optionItem.link}}" bindtap="share">
+        <view class="option-icon iconfont {{optionItem.icon}} text-{{module.getColor(index)}}"></view>
+        <view class="option-name">{{optionItem.name}}</view>
+        <button open-type="share" class="share-btn"></button>
+        <view class="arrow-right cuIcon-right"></view>
+      </view>
+    </block>
   </view>
-  <!-- <button bindtap="logout" class="logout bg-red">退出登陆</button> -->
+  <button bindtap="logout" class="logout bg-red">退出登陆</button>
 
   <view class="toggle-account-pop-wrappper" wx:if="{{showToggleAccountPop}}">
     <view class="toggle-account-pop">
       <view class="pop-content">
-        <view class="pop-title">切换账号</view>
+        <view class="pop-title">切换公司</view>
         <scroll-view scroll-y>
           <view class="account bg-gray {{activeIndex===index?'active':' text-gray'}}" bindtap="toggleAccount" data-index="{{index}}" wx:for="{{companies}}" wx:key>{{item[0]}}</view>
         </scroll-view>

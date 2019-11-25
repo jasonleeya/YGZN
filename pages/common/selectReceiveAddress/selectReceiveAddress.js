@@ -17,8 +17,14 @@ Page({
     this.setData({
       addressKey: options.addressKey,
       phoneNumberKey: options.phoneNumberKey,
-      receiverKey: options.receiverKey
+      receiverKey: options.receiverKey,
     })
+    if (options.addressIdKey) {
+      this.setData({
+        addressIdKey: options.addressIdKey
+      })
+
+    }
   },
   onShow: function() {
     app.setTitle("选择地址")
@@ -41,7 +47,7 @@ Page({
   edit(e) {
     var index = e.currentTarget.dataset.index
     var address = this.data.list[index]
- wx.navigateTo({
+    wx.navigateTo({
       // url: '/pages/common/operateReceiveAddress/operateReceiveAddress?operateType=edit&consignee=' + address.consignee + '&telephone=' + address.telephone + '&region=' + address.region + '&address=' + address.address + "&dftStatus=" + address.dftStatus + "&tableKey=" + address.tableKey + "&custNo=" + address.custNo
       //对象转url
       url: util.objToUrl({
@@ -53,7 +59,7 @@ Page({
         dftStatus: address.dftStatus,
         tableKey: address.tableKey,
         custNo: address.custNo
-      },"/pages/common/operateReceiveAddress/operateReceiveAddress")
+      }, "/pages/common/operateReceiveAddress/operateReceiveAddress")
 
     })
   },
@@ -65,11 +71,17 @@ Page({
   //设置上个页面的收货信息data
   choose(e) {
     var index = e.currentTarget.dataset.index
-    getCurrentPages()[getCurrentPages().length - 2].setData({
+    var prePage = getCurrentPages()[getCurrentPages().length - 2]
+    prePage.setData({
       [this.data.addressKey]: "【" + this.data.list[index].region + "】" + this.data.list[index].address,
       [this.data.phoneNumberKey]: this.data.list[index].telephone,
       [this.data.receiverKey]: this.data.list[index].consignee,
     })
+    if (this.data.addressIdKey){
+      prePage.setData({
+        [this.data.addressIdKey]: this.data.list[index].tableKey,
+      })
+    }
     wx.navigateBack({
       delta: 1,
     })

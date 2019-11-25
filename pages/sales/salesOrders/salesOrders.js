@@ -490,7 +490,7 @@
    },
    addProduct() {
      wx.navigateTo({
-       url: '/pages/purchase/newPurchase/newPurchase'
+       url: '/pages/sales/newSales/newSales'
      })
    }
  })

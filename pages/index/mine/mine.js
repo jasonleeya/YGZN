@@ -72,11 +72,15 @@ Component({
         name: '客户管理',
         icon: 'iconkehu',
         link: '/pages/index/mine/customerManage/customerManage'
-      }, {
-        name: '代理品牌管理',
-        icon: 'icondaili',
-        link: '/pages/index/mine/agentBrandManage/agentBrandManage'
-      }]
+        }, {
+          name: '代理品牌管理',
+          icon: 'icondaili',
+          link: '/pages/index/mine/agentBrandManage/agentBrandManage'
+        }, {
+          name: '推广',
+          icon: 'iconfenxiang', 
+          type:'share'
+        },]
     ],
     isIphone: false
   },
@@ -128,9 +132,14 @@ Component({
     },
     logout() {
       wx.removeStorageSync("token")
-      wx.redirectTo({
-        url: '/pages/login/login',
+      app.http("delOpenid",{
+        userPhone:this.data.userInfo.userPhone
+      }).then(()=>{
+        wx.redirectTo({
+          url: '/pages/login/login',
+        })
       })
+      
     },
     showToggleAccountPop() {
       this.setData({
@@ -160,8 +169,52 @@ Component({
         showToggleAccountPop: false,
       })
     },
+    share(){
+   wx.showShareMenu({
+     withShareTicket: true,
+     success: function(res) {},
+     fail: function(res) {},
+     complete: function(res) {},
+   })
+      
+        // let _this = this;
+        // wx.request({
+        //   url: 'https://api.weixin.qq.com/cgi-bin/token',
+        //   data: {
+        //     grant_type: 'client_credential',
+        //     appid: 'wx88c183d97ee1aad2',  
+        //     secret: 'app秘钥'  
+        //   },
+        //   success: function (res) {
 
+        //     wx.request({
+        //       url: 'https://api.weixin.qq.com/wxa/getwxacodeunlimit?access_token=' + res.data.access_token ,
+        //       data: { 
+        //         "path": "pages/index/index", 
+        //         "width": 430,
+        //         // "scene": wx.getStorageSync('uid')
+        //       },
+        //       responseType: 'arraybuffer', // 这行很重要,转为二进制数组
+        //       header: {
+        //         'content-type': 'application/json;charset=utf-8'
+        //       },
+        //       method: 'POST',
+        //       success(res) {
+        //         //转为base64
+        //         let bin64 = wx.arrayBufferToBase64(res.data);
+
+        //         _this.setData({
+        //           　　　　　　　　　　//base 64设置到页面上
+        //           img: "data:image/png;base64," + bin64
+        //         });
+        //       }
+        //     })
+        //   }
+        // })
+  
+    },
+    
   },
-
+ 
 
 })

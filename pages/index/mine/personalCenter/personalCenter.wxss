@@ -1,1 +1,15 @@
-/* pages/index/mine/personalCenter/personalCenter.wxss */
+.tabs{
+  display: flex;
+  justify-content: space-between;
+  height: 88rpx;
+  line-height: 88rpx; 
+  padding: 0 30rpx; 
+  margin-bottom: 20rpx
+}
+.tabs .active{
+  border-bottom: 5rpx solid var(--themeColor); 
+}
+.modify-password{
+  width: calc(100vw - 60rpx);
+  margin: 60rpx 30rpx;
+}

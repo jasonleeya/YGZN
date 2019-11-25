@@ -99,11 +99,7 @@ create({
           if (msg.content.search("提交") > 0) {
             msg.operate = "新增-"
             msg.head = "新增订单"
-          }
-          if (msg.content.search("发货") > 0) {
-            msg.operate = "已发货"
-            msg.head = "订单发货"
-          }
+          } 
           if (msg.content.search("确认") > 0) {
             msg.operate = "已确认"
             msg.head = "订单确认"
@@ -111,6 +107,10 @@ create({
           if (msg.content.search("收货") > 0) {
             msg.operate = "已收货"
             msg.head = "订单收货"
+          }
+          if (msg.content.search("发货") > 0) {
+            msg.operate = "已发货"
+            msg.head = "订单发货"
           }
           if (msg.content.search("已付款") > 0) {
             msg.operate = "已付款"
@@ -159,8 +159,9 @@ create({
         })
       } else {
         wx.showModal({
-          title: "你确定要查看此" + (dataset.orderType === "sale" ? "销售" : "采购") + "单" + "吗",
-          content: dataset.orderNo,
+          title: (dataset.orderType === "sale" ? "销售" : "采购") + "订单" + dataset.orderNo,
+          content: dataset.content,
+          confirmText:"查看订单",
           success: (res) => {
             if (res.cancel) {
               return

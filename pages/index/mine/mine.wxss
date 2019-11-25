@@ -116,6 +116,7 @@ todo-item {
   height: 88rpx;
   line-height: 88rpx;
   padding: 0 40rpx;
+  position: relative
 }
 
 .option-icon {
@@ -129,7 +130,7 @@ todo-item {
 }
 
 .logout {
-  margin: 400rpx auto 150rpx;
+  margin: 120rpx auto 150rpx;
   width: 90vw;
   height: 80rpx;
   line-height: 80rpx;
@@ -252,4 +253,13 @@ todo-item {
     transform: translate3d(0, 0, 0);
     -webkit-transform: translate3d(0, 0, 0);
   }
+}
+.share-btn{
+  width: 100vw;
+  /* background-color: transparent; */
+  opacity: 0;
+  position: absolute;
+  height: 100%;
+  left: 0;
+   
 }

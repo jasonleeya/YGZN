@@ -24,10 +24,22 @@ create(store, {
     var prevPage = pages[pages.length - 2]
     var data = this.data.supplierList[e.currentTarget.dataset.index]
     prevPage.setData({
+      isAutoAssign: false,
       supplier: data.supplyName,
       supplyNo: data.supplyNo,
       customerType: data.customerType,
       approveStatus: data.approveStatus
+    })
+    wx.navigateBack()
+  },
+  autoAssign() {
+    var pages = getCurrentPages()
+    var prevPage = pages[pages.length - 2]
+    prevPage.setData({
+      isAutoAssign: true,
+      supplier: "自动分配订单",
+      supplyNo: "AUTO",
+      customerType: "", 
     })
     wx.navigateBack()
   },
@@ -37,16 +49,16 @@ create(store, {
     this.setData({
       searchValue: e.detail.value
     })
-    if(this.data.timeOut){
+    if (this.data.timeOut) {
       clearTimeout(this.data.timeOut)
     }
     var timeOut = setTimeout(() => {
       this.getList(true)
     }, 500)
     this.setData({
-      timeOut:timeOut
+      timeOut: timeOut
     })
- 
+
   },
 
   getList(isReplace = false) {
@@ -58,9 +70,9 @@ create(store, {
     this.setData({
       isLoad: true,
     })
-    app.http("getPurchasingSupplyNew", { 
+    app.http("getPurchasingSupplyNew", {
       pageSize: 1000,
-      keyword: this.data.searchValue, 
+      keyword: this.data.searchValue,
     }).then(data => {
       if (data.list) {
         this.setData({

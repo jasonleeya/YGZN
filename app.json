@@ -60,7 +60,9 @@
     "pages/product/otherOutboundAndStorage/addGoods/addGoods",
     "pages/finance/paidAndReceiptedManage/paidAndReceiptedManage",
     "pages/finance/paidAndReceiptedManage/paidAndReceiptedOperate/paidAndReceiptedOperate",
-    "pages/finance/paidAndReceiptedManage/chooseCustomer/chooseCustomer"
+    "pages/finance/paidAndReceiptedManage/chooseCustomer/chooseCustomer",
+    "pages/register/register",
+    "pages/purchase/viewSplitOrder/viewSplitOrder"
   ],
   "window": {
     "backgroundTextStyle": "light",

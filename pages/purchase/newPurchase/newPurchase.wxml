@@ -30,13 +30,13 @@
       </view>
       <view class="add-aeceive-address  border-bt">
         <view class="cell-name">收货地址</view>
-        <input name="receiveAddress" placeholder="请选择收货地址" value="{{receiveAddress}}" disabled class="cell-value"></input> 
+        <input name="receiveAddress" placeholder="请选择收货地址" value="{{receiveAddress}}" disabled class="cell-value"></input>
         <view class="cuIcon-right  cell-icon" bindtap="addAeceiveAddress"></view>
       </view>
       <view class="cell border-bt">
         <view class="cell-name">收货人</view>
         <view class="cell-value">
-          <input name="receiver" value="{{receiver}}"  placeholder="请选择收货地址或填写收货人"></input>
+          <input name="receiver" value="{{receiver}}" placeholder="请选择收货地址或填写收货人"></input>
         </view>
         <!-- <view class="cuIcon-right  cell-icon"></view> -->
       </view>
@@ -76,7 +76,7 @@
 
     <editGoodsInfo wx:if="{{showEditPop}}" popData="{{popData}}" bind:closePop="closePop" bind:editedInfo="getEditedInfo" />
 
-    <view class="title remake">备注</view>
+    <view class="title remarke">备注</view>
     <textarea name="remark" class="remarke-textarea" placeholder="请填写备注信息" />
 
     <cover-view class="operating-options">
@@ -84,11 +84,11 @@
         <button class=" bg-orange" form-type="submit" data-operate-type="save" bindtap="obtianOperateType">保存订单</button>
       </cover-view>
       <cover-view class="comfirm-order">
-        <button class=" bg-red" form-type="submit" data-operate-type="confirm" bindtap="obtianOperateType">确认订单</button>
+        <button class=" bg-red" form-type="submit" data-operate-type="confirm" bindtap="obtianOperateType">{{!isAutoAssign?'确认订单':'确认购物车'}}</button>
       </cover-view>
     </cover-view>
   </form>
   <view class='cu-load load-modal' wx:if="{{isLoad}}">
     <view class='gray-text'>请稍等...</view>
   </view>
-</scroll-view>
+</scroll-view> 
