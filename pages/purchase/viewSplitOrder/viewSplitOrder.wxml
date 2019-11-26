@@ -1,2 +1,36 @@
-<!--pages/purchase/viewSplitOrder/viewSplitOrder.wxml-->
-<text>pages/purchase/viewSplitOrder/viewSplitOrder.wxml</text>
+<view class="split-orders">
+<scroll-view scroll-y>
+ <view class="order" wx:for="{{splitData}}" wx:key>
+    <view class="order-title">
+      <text class="order-company">{{item.upp.supplyName}}</text>
+      <!-- <text class="text-blue" bindtap="viewOrder" data-id="{{item.upp.orderNo}}" wx:if="{{isSplit}}">查看订单 <text class="cuIcon-right"></text></text> -->
+    </view>
+    <view class="goods" wx:for="{{item.lows}}" wx:for-item="goods" wx:key>
+      <view class="goods-pic"> 
+         <previewImage class="solid" src="{{goods.pirctureWay}}" w="200rpx" h="200rpx" />
+      </view>
+      <view class="goods-info-wrapper">
+        <view class="goods-info">
+          <view>
+            <text>品牌:</text>{{goods.goodsBrand}}</view>
+          <view>
+            <text>型号:</text><text class="text-gray">{{goods.brandNo}}</text></view>
+          <view>
+            <text>面价:</text>
+            <text class="text-red">￥{{goods.billingAmount}}</text>
+          </view>
+        </view>
+      </view>
+      <view class="goods-count-wrapper">
+        <view class="goods-count">x{{goods.goodsCount}}</view>
+      </view>
+    </view> 
+  </view> 
+</scroll-view>
+  <view class="operate-btns" >
+    <view class="btn bg-gray" wx:if="{{!isSplit}}" bindtap="cancel">稍后采购</view>
+    <view class="btn bg-blue" wx:if="{{!isSplit}}" bindtap="confirmSplit">确定采购</view>
+    <view class="btn bg-blue" wx:if="{{isSplit}}" bindtap="viewOrder">查看订单</view>
+  </view>
+</view>
+ 

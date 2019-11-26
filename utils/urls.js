@@ -109,7 +109,8 @@ const alias = {
   delOpenid: BASE_URL + "/imatchUser/user/delOpenid",
   updateDftCompany: BASE_URL + "/imatchUser/user/updateDftCompany",
   updateSalesmanPwd: BASE_URL +"/imatchUser/user/updateSalesmanPwd",
-  allotOrderPrev: BASE_URL +"/imatchOrder/reOrder/allotOrderPrev"
+  allotOrderPrev: BASE_URL +"/imatchOrder/reOrder/allotOrderPrev",
+  allotOrderCommit: BASE_URL +"/imatchOrder/reOrder/allotOrderCommit"
 
 }
 export default function(name) {

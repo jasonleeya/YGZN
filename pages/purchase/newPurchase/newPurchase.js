@@ -31,7 +31,8 @@
      operateType: null,
      isAutoAssign: false,
      deliveryAddressId: "",
-     splitOrderData:null
+     splitOrderData:null,
+     splitOrderParams:null,
    },
    onLoad() { 
      app.setTitle("新增采购")
@@ -286,15 +287,18 @@
            number: item.goodsCount
          })
        }) 
-
-       app.http("allotOrderPrev", {
-         remark: "",
-         productInfo: JSON.stringify(productInfo),
-         deliveryTime: this.data.receiveDate,
-         deliveryAddressId: this.data.deliveryAddressId,
-         addotType: 1,
-         supplyId: "",
-       }).then(data=>{
+      var params={
+        remark: "",
+        productInfo: JSON.stringify(productInfo),
+        deliveryTime: this.data.receiveDate,
+        deliveryAddressId: this.data.deliveryAddressId,
+        addotType: 1,
+        supplyId: "",
+      }
+      this.setData({
+        splitOrderParams:params
+      })
+       app.http("allotOrderPrev", params).then(data=>{
         this.setData({
           splitOrderData:data.list
         })

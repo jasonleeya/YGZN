@@ -1,3 +1,4 @@
 <view class="preview-image" catchtap="previewImage" style="{{w?'width:'+w:''}};{{h?'height:'+h:''}};">
-  <image class="image" src="{{src}}"  mode="widthFix"  style="{{h?'max-height:'+h:''}};"></image>
+  <image class="image" src="{{src}}"  mode="widthFix"  style="{{h?'max-height:'+h:''}};" binderror="picUrlErr" wx:if="{{!isPicUrlErr}}"></image>
+  <image class="image" src="http://182.151.17.189:24000/res/File/B/NULL.jpg"  mode="widthFix"  style="{{h?'max-height:'+h:''}}" wx:if="{{isPicUrlErr}}"></image>
 </view>

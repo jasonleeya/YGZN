@@ -81,6 +81,12 @@
 					"pathName": "pages/purchase/newPurchase/newPurchase",
 					"query": "",
 					"scene": null
+				},
+				{
+					"id": -1,
+					"name": "pages/purchase/viewSplitOrder/viewSplitOrder",
+					"pathName": "pages/purchase/viewSplitOrder/viewSplitOrder",
+					"scene": null
 				}
 			]
 		}

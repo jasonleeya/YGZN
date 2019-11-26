@@ -13,7 +13,7 @@ Component({
    * 组件的初始数据
    */
   data: {
-
+    isPicUrlErr:false
   },
 
   /**
@@ -24,6 +24,18 @@ Component({
       wx.previewImage({
         urls: [this.data.src],
       })
+    },
+    picUrlErr(){
+      this.setData({
+        isPicUrlErr:true
+      })
+    }
+  },
+  lifetimes:{
+    attached(){
+      if(!this.data.src){
+        this.picUrlErr()
+      }
     }
   }
 })

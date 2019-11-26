@@ -77,6 +77,7 @@ create(store, {
     })
   },
   getSearchValue(e) {
+    console.log(e.detail)
     this.setData({
       searchKey: e.detail
     })

@@ -131,6 +131,12 @@ create(store, {
       ["customTimeRange.endDate"]: nowDate
     })
   },
+  onShow(){ 
+    this.setData({
+      orderList:[]
+    })
+    this.getList()
+  },
   getList(isReplaceList = false, isLoadMore = false) {
     if (isReplaceList) {
       this.setData({

@@ -69,9 +69,9 @@ Component({
   methods: {
     //二维码扫描
     scan() {
-      if (this.data.justLink) {
-        return
-      }
+      // if (this.data.justLink) {
+      //   return
+      // }
       let that = this
       wx.scanCode({
         success(data) { 
@@ -97,6 +97,7 @@ Component({
               }
             })
           }else{
+            that.triggerEvent("value", data.result)
             that.setData({
               barCode: data.result
             })
@@ -125,7 +126,7 @@ Component({
     //限制input触发事件,500毫秒内不能重复
     input(e) {
       clearTimeout(this.data.timer)
-      var timer = setTimeout(() => {
+      var timer = setTimeout(() => { 
         this.triggerEvent("value", e.detail.value)
       }, 500)
       this.setData({

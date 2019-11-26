@@ -56,6 +56,9 @@ create(store, {
       pageNo: 1,
       searchType: e.detail.name
     })
+    if(this.data.searchValue===''){
+      return
+    }
     this.search()
   },
 
@@ -63,17 +66,15 @@ create(store, {
     var inputValue = e.detail
     this.setData({
       pageNo: 1,
-      loadMore: false
-    })
+      loadMore: false,
+      searchValue: e.detail
+    }) 
     if (e.detail === "") {
       this.setData({
         goodsList: []
       })
       return
-    }
-    this.setData({
-      searchValue: e.detail
-    })
+    } 
     this.search()
 
   },
@@ -460,7 +461,7 @@ create(store, {
     this.setData({
       isShowPop: false,
       totalAmount: totalAmount,
-      totalPrice: totalPrice
+      totalPrice: totalPrice.toFixed(2)
     })
 
   },

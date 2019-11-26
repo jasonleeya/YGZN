@@ -76,3 +76,6 @@
   margin-right: 10rpx;
   color: var(--themeColor);
 }
+.card-head{
+  border: none;
+}
