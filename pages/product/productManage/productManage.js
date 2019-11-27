@@ -51,6 +51,9 @@ create(store, {
       brandName: "",
       stockStatus: "",
     }, true).then(data => {
+      if(data.list.length===0){
+        app.showToast("未搜索到相关产品")
+      }
       this.setData({
         productList: this.data.productList.concat(data.list),
         totalPage: data.totalPages,

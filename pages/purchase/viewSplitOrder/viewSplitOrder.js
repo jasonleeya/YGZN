@@ -18,6 +18,7 @@ Page({
   },
   confirmSplit(){
     app.http("allotOrderCommit",this.data.params).then(data=>{
+      app.showToast("订单拆分成功，请完善订单信息")
      this.setData({
        isSplit:true
      })
@@ -30,7 +31,7 @@ Page({
   },
   viewOrder(){
     wx.redirectTo({
-      url: '/pages/purchase/purchaseOrders/purchaseOrders?orderStatus=&isAllOrder=1'
+      url: '/pages/purchase/purchaseOrders/purchaseOrders?orderStatus=wait'
     })
   } 
 })

@@ -23,8 +23,7 @@ Page({
     this.setData({
       ['timeRange.satart']: '',
       ['timeRange.end']: ''
-    })
-    this.getList()
+    }) 
   },
   onShow() {
     this.getList()

@@ -12,8 +12,7 @@ Component({
   /**
    * 组件的初始数据
    */
-  data: {
-    isPicUrlErr:false
+  data: { 
   },
 
   /**
@@ -27,15 +26,8 @@ Component({
     },
     picUrlErr(){
       this.setData({
-        isPicUrlErr:true
+        src:"http://182.151.17.189:24000/res/File/B/NULL.jpg"
       })
     }
-  },
-  lifetimes:{
-    attached(){
-      if(!this.data.src){
-        this.picUrlErr()
-      }
-    }
-  }
+  } 
 })

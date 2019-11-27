@@ -125,6 +125,9 @@ create(store, {
     app.http(urlAlias, params).then(data => {
       var queryString = []
       var storeList = []
+      if (data.list.length === 0) {
+        app.showToast("未搜索到相应产品")
+      }
       data.list.forEach(item => {
         queryString.push(item.productUuid)  
         for(let key in item){

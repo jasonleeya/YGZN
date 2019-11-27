@@ -5,9 +5,9 @@
   </view>
 </view>
 <scroll-view scroll-y class="order-list-scroll-view">
-  <view class="card" wx:for="{{customerList}}" wx:key bindtap="selectCustomer" data-no="{{item.custNo}}" data-name="{{item.customerName}}">
+  <view class="card" wx:for="{{customerList}}" wx:key bindtap="selectCustomer" data-no="{{type==='payer'?item.custNo:item.supplyNo}}" data-name="{{type==='payer'?item.customerName:item.supplyName}}">
     <view class="card-head">
-      <view class="card-title">{{item.customerName}}</view>
+      <view class="card-title">{{type==='payer'?item.customerName:item.supplyName}}</view>
       <view class="card-subtitl  {{item.approveStatus===1?'text-red':'text-green'}}">{{item.approveStatus===1?'线上':'自建'}}</view>
     </view>
     <view class="card-content">

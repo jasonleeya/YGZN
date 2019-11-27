@@ -8,7 +8,7 @@
 <block wx-if="{{activeTabIndex==='0'}}">
   <view class="cell border-bt">
     <view class="cell-name">姓名</view>
-    <view class="cell-value">{{personalInfo.custName}}</view>
+    <view class="cell-value">{{personalInfo.userName}}</view>
   </view>
   <view class="cell border-bt">
     <view class="cell-name">手机号码</view>

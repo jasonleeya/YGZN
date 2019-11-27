@@ -81,7 +81,7 @@
 
     <cover-view class="operating-options">
       <cover-view class="save-order">
-        <button class=" bg-orange" form-type="submit" data-operate-type="save" bindtap="obtianOperateType">保存订单</button>
+        <button class="{{isAutoAssign?'bg-gray':'bg-orange'}}" form-type="submit" data-operate-type="save" bindtap="obtianOperateType">保存订单</button>
       </cover-view>
       <cover-view class="comfirm-order">
         <button class=" bg-red" form-type="submit" data-operate-type="confirm" bindtap="obtianOperateType">{{!isAutoAssign?'确认订单':'确认购物车'}}</button>

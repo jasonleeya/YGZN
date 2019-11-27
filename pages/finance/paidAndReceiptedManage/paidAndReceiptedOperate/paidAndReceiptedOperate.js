@@ -1,8 +1,10 @@
 let app = getApp()
 Page({
   data: {
-    custNo: "",
-    customerName: "",
+    payerNo:"",
+    payerName:"",
+    receiverNo:"",
+    receiverName:"",
     operateType: "",
     paymentMethod: {
       index: 0,
@@ -18,9 +20,9 @@ Page({
     supplyNo:"",
     infos:{}
   },
-  onLoad: function(options){
-    app.showToast("该页面尚未完善")
+  onLoad: function(options){ 
     this.setData({
+      type:options.type,
       operateType:options.operateType
     })
     if(options.operateType==="edit"){
@@ -62,6 +64,17 @@ Page({
       url: '/pages/finance/paidAndReceiptedManage/chooseCustomer/chooseCustomer'
     })
   },
+  chooseReceiver(){
+    wx.navigateTo({
+      url: '/pages/finance/paidAndReceiptedManage/chooseCustomer/chooseCustomer?type=receiver'
+    })
+  },
+  choosePayer(){
+    wx.navigateTo({
+      url: '/pages/finance/paidAndReceiptedManage/chooseCustomer/chooseCustomer?type=payer'
+    })
+  },
+
   paymentMethodChange(e) {
     this.setData({
       ["paymentMethod.index"]: e.detail.value

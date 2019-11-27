@@ -131,7 +131,7 @@ Component({
       })
     },
     logout() {
-      wx.removeStorageSync("token")
+      wx.clearStorageSync()
       app.http("delOpenid",{
         userPhone:this.data.userInfo.userPhone
       }).then(()=>{
@@ -213,7 +213,9 @@ Component({
         // })
   
     },
-    
+    tap(){
+      getApp().showToast("该功能尚未完善,敬请期待")
+    }
   },
  
 

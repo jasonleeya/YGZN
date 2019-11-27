@@ -234,12 +234,16 @@
        url: '/pages/common/selectReceiveAddress/selectReceiveAddress?addressKey=receiveAddress&phoneNumberKey=phoneNumber&receiverKey=receiver&addressIdKey=deliveryAddressId'
      })
    },
-   obtianOperateType(e) {
+   obtianOperateType(e) { 
      this.setData({
        operateType: e.target.dataset.operateType
      })
    },
    formSubmit(e) {
+     if (this.data.operateType==='save'&&this.data.isAutoAssign){
+       app.showToast("自动分配订单不能保存")
+       return
+     }
      var info = e.detail.value
      var data = this.data
      var list = app.globalData.purchaseCartList

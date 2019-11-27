@@ -1,6 +1,7 @@
 let app = getApp()
 Page({
   data: {
+    type:"收款",
     filterMethod: "",
     dateRangeType: "all",
     orderStatus: "-1",
@@ -20,9 +21,10 @@ Page({
     var date = new Date()
     var nowDate = date.getFullYear() + "-" + (date.getMonth() + 1) + "-" + date.getDate()
     this.setData({
-      ["dateRange.nowDate"]: nowDate
+      ["dateRange.nowDate"]: nowDate,
+      type:options.type
     })
-
+    app.setTitle("已"+this.data.type+"管理")
   },
   onShow: function() {
     this.getList()
@@ -54,17 +56,7 @@ Page({
             item.bill.statusStr = "已撤销"
             break
         }
-
-        switch (item.bill.billtype) {
-          case 'bank':
-            item.bill.billtypeStr = "银行"
-            break
-          case "cash":
-            item.bill.billtypeStr = "现金"
-            break
-          default:
-            item.bill.billtypeStr = "银行"
-        }
+ 
         var date = new Date(item
           .bill.billdate)
         item.bill.billdate = date.getFullYear() + "-" + (date.getMonth() + 1) + "-" + date.getDate()
@@ -177,12 +169,12 @@ Page({
   },
   add(){
     wx.navigateTo({
-      url: '/pages/finance/paidAndReceiptedManage/paidAndReceiptedOperate/paidAndReceiptedOperate?operateType=add' 
+      url: '/pages/finance/paidAndReceiptedManage/paidAndReceiptedOperate/paidAndReceiptedOperate?type='+this.data.type+'&operateType=add' 
     })
   },
   edit(e) {
     wx.navigateTo({
-      url: '/pages/finance/paidAndReceiptedManage/paidAndReceiptedOperate/paidAndReceiptedOperate?operateType=edit&editIndex='+e.currentTarget.dataset.index
+      url: '/pages/finance/paidAndReceiptedManage/paidAndReceiptedOperate/paidAndReceiptedOperate?type=' + this.data.type +'&operateType=edit&editIndex='+e.currentTarget.dataset.index
     })
   },
 })

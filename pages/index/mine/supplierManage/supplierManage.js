@@ -11,7 +11,7 @@ Page({
     app.setTitle("供应商管理")
   },
   onShow() {
-    this.getList()
+    this.getList(true)
   },
   seeDetail(e) {
     var pages = getCurrentPages()

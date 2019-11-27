@@ -69,9 +69,9 @@ Component({
   methods: {
     //二维码扫描
     scan() {
-      // if (this.data.justLink) {
-      //   return
-      // }
+      if (this.data.justLink) {
+        return
+      }
       let that = this
       wx.scanCode({
         success(data) { 
@@ -97,9 +97,10 @@ Component({
               }
             })
           }else{
-            that.triggerEvent("value", data.result)
+            var value = data.result.trim()
+            that.triggerEvent("value", value)
             that.setData({
-              barCode: data.result
+              barCode: value
             })
           }
         

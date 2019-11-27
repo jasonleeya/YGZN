@@ -121,6 +121,9 @@ create(store, {
         break
     }
     app.http(urlAlias, params).then(data => {
+      if (data.list.length === 0) {
+        app.showToast("未搜索到相应产品")
+      }
       data.list.forEach(item=>{
         for (let key in item) {
           item[key] = String(item[key]).replace(/(\<b style='color:red'\>)|\<\/b\>/g, "")

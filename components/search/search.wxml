@@ -6,7 +6,7 @@
       <text class="iconfont iconsearch"></text>
       <input class=""  placeholder="请输入搜索关键词" value="{{barCode}}" bindinput="input" bindblur="blur" bindfocus="focus" disabled="{{justLink}}"/>
     </view>
-    <view class="scan" catchtap="scan">
+    <view class="scan" bindtap="scan">
       <text class=" iconfont iconscan text-blue"></text>
     </view>
   </view>

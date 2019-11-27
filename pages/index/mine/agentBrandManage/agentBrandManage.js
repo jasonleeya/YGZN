@@ -12,7 +12,7 @@ Page({
    * 生命周期函数--监听页面加载
    */
   onLoad: function (options) {
-    getApp().showToast("该页面功能尚未完善")
+    getApp().showToast("该页面功能尚未完善,敬请期待")
   },
 
   /**

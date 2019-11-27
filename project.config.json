@@ -86,6 +86,13 @@
 					"id": -1,
 					"name": "pages/purchase/viewSplitOrder/viewSplitOrder",
 					"pathName": "pages/purchase/viewSplitOrder/viewSplitOrder",
+					"query": "",
+					"scene": null
+				},
+				{
+					"id": -1,
+					"name": "pages/finance/paidAndReceiptedManage/paidAndReceiptedManage",
+					"pathName": "pages/finance/paidAndReceiptedManage/paidAndReceiptedManage",
 					"scene": null
 				}
 			]

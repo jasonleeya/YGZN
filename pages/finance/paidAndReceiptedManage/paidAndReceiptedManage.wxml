@@ -51,21 +51,21 @@
 <scroll-view scroll-y class="order-list-scroll-view">
   <view class="card" wx:for="{{orderList}}" wx:key bindtap="edit" data-index="{{index}}">
     <view class="card-head">
-      <view class="card-title">已收款订单:{{item.bill.billno}}</view>
+      <view class="card-title">已{{type}}订单:{{item.bill.billno}}</view>
       <view class="card-subtitl {{item.bill.status===0?'text-red':'text-green'}}">{{item.bill.statusStr}}</view>
     </view>
     <view class="card-content">
       <view class="card-item">
-        <view class="card-name">付款方</view>
+        <view class="card-name">{{type==='收款'?'付款':'收款'}}方</view>
         <view class="card-value">{{item.bill.billusername}}</view>
       </view>
       <view class="card-item">
         <view class="card-name">付款方式</view>
-        <view class="card-value">{{item.bill.billtypeStr}}</view>
+        <view class="card-value">{{item.bill.rcvbank}}</view>
       </view>
       <view class="card-item">
         <view class="card-name">金额</view>
-        <view class="card-value">{{item.bill.amount}}</view>
+        <view class="card-value text-red">￥{{item.bill.amount}}</view>
       </view>
       <view class="card-item">
         <view class="card-name">收款日期</view>

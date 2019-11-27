@@ -99,7 +99,7 @@
          fromHome: true
        })
      }
-     this.getList()
+    //  this.getList()
 
      //分页逻辑
 

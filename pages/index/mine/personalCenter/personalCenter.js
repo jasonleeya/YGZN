@@ -15,7 +15,7 @@ Page({
    */
   onLoad: function (options) {
     console.log( app.globalData)
-    getApp().showToast("该页面功能尚未完善")
+    getApp().showToast("该页面功能尚未完善,敬请期待")
     app.http("getUserByCustNo",{flag:true}).then(data=>{
       this.setData({
         personalInfo: data.list[0]
