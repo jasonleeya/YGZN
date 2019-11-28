@@ -1,7 +1,7 @@
 let app = getApp()
 Page({
   data: {
-    type:"收款",
+    type: "收款",
     filterMethod: "",
     dateRangeType: "all",
     orderStatus: "-1",
@@ -15,30 +15,60 @@ Page({
     searchList: [],
     showSearchList: false,
     searchValue: "",
-    custNo: ""
+    custNo: "",
+    curPage:0,
+    totalpages:0,
+    isLoading:false
   },
   onLoad: function(options) {
+    app.showToast("该页面尚未完善,敬请期待")
     var date = new Date()
     var nowDate = date.getFullYear() + "-" + (date.getMonth() + 1) + "-" + date.getDate()
     this.setData({
       ["dateRange.nowDate"]: nowDate,
-      type:options.type
+      type: options.type
     })
-    app.setTitle("已"+this.data.type+"管理")
-  },
+    app.setTitle("已" + this.data.type + "管理") 
+  }, 
   onShow: function() {
     this.getList()
   },
+  scrollToLower: function () { 
+    if(this.data.curPage>=this.data.totalpages||this.data.isLoading){
+      return
+    } 
+    this.setData({
+      curPage:this.data.curPage+1
+    })
+    this.getList()
+  },
   getList() {
-    app.http("getAcceptBillList", {
-      pageNo: 0,
-      pageSize: 1000,
-      custcode: this.data.custNo,
-      status: this.data.orderStatus,
-      begtime: this.data.dateRange.start,
-      endtime: this.data.dateRange.end,
-      searchstr: ""
-    }).then(data => {
+    var req = null
+    this.setData({
+      isLoading:true
+    })
+    if (this.data.type === '收款') {
+      req = app.http("getAcceptBillList", {
+        pageNo: this.data.curPage,
+        pageSize: 10,
+        custcode: this.data.custNo,
+        status: this.data.orderStatus,
+        begtime: this.data.dateRange.start,
+        endtime: this.data.dateRange.end,
+        searchstr: ""
+      })
+    } else {
+      req = app.http("getAcceptBillListByCust", {
+        pageNo: this.data.curPage,
+        pageSize: 10,
+        supplyno: '',
+        status: '-1',
+        begtime: '',
+        endtime: '',
+        searchstr: '',
+      })
+    }
+    req.then(data => {
       var list = data.list
       list.forEach(item => {
         switch (item.bill.status) {
@@ -56,14 +86,16 @@ Page({
             item.bill.statusStr = "已撤销"
             break
         }
- 
+
         var date = new Date(item
           .bill.billdate)
         item.bill.billdate = date.getFullYear() + "-" + (date.getMonth() + 1) + "-" + date.getDate()
       })
 
       this.setData({
-        orderList: list
+        orderList: this.data.orderList.concat(list),
+        totalpages: parseInt(data.totalPages),
+        isLoading:false
       })
     })
   },
@@ -131,8 +163,8 @@ Page({
     timeOut = setTimeout(() => {
       if (e.detail.value === '') {
         this.setData({
-          searchList:[],
-          custNo:""
+          searchList: [],
+          custNo: ""
         })
         this.getList()
         return
@@ -167,14 +199,14 @@ Page({
       showSearchList: false
     })
   },
-  add(){
+  add() {
     wx.navigateTo({
-      url: '/pages/finance/paidAndReceiptedManage/paidAndReceiptedOperate/paidAndReceiptedOperate?type='+this.data.type+'&operateType=add' 
+      url: '/pages/finance/paidAndReceiptedManage/paidAndReceiptedOperate/paidAndReceiptedOperate?type=' + this.data.type + '&operateType=add'
     })
   },
   edit(e) {
     wx.navigateTo({
-      url: '/pages/finance/paidAndReceiptedManage/paidAndReceiptedOperate/paidAndReceiptedOperate?type=' + this.data.type +'&operateType=edit&editIndex='+e.currentTarget.dataset.index
+      url: '/pages/finance/paidAndReceiptedManage/paidAndReceiptedOperate/paidAndReceiptedOperate?type=' + this.data.type + '&operateType=edit&editIndex=' + e.currentTarget.dataset.index
     })
   },
 })

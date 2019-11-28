@@ -18,9 +18,9 @@
   </view>
 
   <view class="cell border-bt">
-    <view class="cell-name"> <text class="text-red">*</text>付款金额</view>
+    <view class="cell-name"> <text class="text-red">*</text>{{type==='收款'?'付款':'收款'}}金额</view>
     <view class="cell-value">
-      <input name="amount" type="number" placeholder="请输入付款金额"></input>
+      <input name="amount" type="number" placeholder="请输入{{type==='收款'?'付款':'收款'}}金额"></input>
     </view>
   </view>
 
@@ -30,14 +30,13 @@
       <input name="remark" placeholder="请输入备注信息"></input>
     </view>
   </view>
-
+  
   <view class="cell border-bt">
-    <view class="cell-name">付款方式</view>
+    <view class="cell-name">收款方式</view>
     <view class="cell-value">
-      <input disabled placeholder="请选择付款方式" value="{{paymentMethod.list[paymentMethod.index]}}"></input>
-      <input disabled hidden name="billtype" value="{{paymentMethod.idList[paymentMethod.index]}}"></input>
+      <input disabled placeholder="请选择收款方式" value="{{receiveMethod.list[receiveMethod.index]}}"></input> 
     </view>
-    <picker bindchange="paymentMethodChange" value="{{paymentMethod.index}}" range="{{paymentMethod.list}}">
+    <picker bindchange="receiveMethodChange" value="{{receiveMethod.index}}" range="{{receiveMethod.list}}">
       <view class="picker">
         <view class="cell-icon cuIcon-right"></view>
       </view>
@@ -45,29 +44,12 @@
   </view>
 
   <view class="cell border-bt">
-    <view class="cell-name">付款用途</view>
-    <view class="cell-value">
-      <input name="item" placeholder="请输入付款用途"></input>
+    <view class="cell-name">收款账号</view>
+    <view class="cell-value"> 
+      <input name="" placeholder="请输入收款账号" value="{{receiveMethod.idList[receiveMethod.index]}}"></input>
     </view>
   </view>
-  <view class="cell border-bt">
-    <view class="cell-name">付款银行</view>
-    <view class="cell-value">
-      <input name="billbank" placeholder="请输入付款银行"></input>
-    </view>
-  </view>
-  <view class="cell border-bt">
-    <view class="cell-name">付款账号</view>
-    <view class="cell-value">
-      <input name="billaccno" placeholder="请输入付款账号"></input>
-    </view>
-  </view>
-  <view class="cell border-bt">
-    <view class="cell-name">付款人</view>
-    <view class="cell-value">
-      <input name="billusername" placeholder="请输入付款人"></input>
-    </view>
-  </view>
+ 
   <view class="cell border-bt">
     <view class="cell-name">票据号</view>
     <view class="cell-value">
@@ -85,23 +67,23 @@
       </view>
     </picker>
   </view>
-  <view class="cell border-bt">
-    <view class="cell-name">收款账户</view>
+  
+<view class="cell border-bt">
+    <view class="cell-name">收款方式</view>
     <view class="cell-value">
-      <input placeholder="请选择收款账户" value="{{receiptAccount.list[receiptAccount.index]}}"></input>
-      <input name="rcvbank" hidden value="{{receiptAccount.idList[receiptAccount.index]}}"></input>
-      <input name="rcvaccno" hidden value="{{receiptAccount.idList[receiptAccount.index]}}"></input>
+      <input disabled placeholder="请选择收款方式" value="{{payMethod.list[payMethod.index]}}"></input> 
     </view>
-    <picker bindchange="receiptAccountChange" value="{{receiptAccount.list[receiptAccount.index]}}" range="{{receiptAccount.list}}">
+    <picker bindchange="payMethodChange" value="{{payMethod.index}}" range="{{payMethod.list}}">
       <view class="picker">
         <view class="cell-icon cuIcon-right"></view>
       </view>
     </picker>
   </view>
-  <view class="cell">
+
+  <view class="cell border-bt">
     <view class="cell-name">收款账号</view>
-    <view class="cell-value">
-      <input placeholder="请输入收款账号" value="{{receiptAccount.idList[receiptAccount.index]}}"></input>
+    <view class="cell-value"> 
+      <input name="" placeholder="请输入收款账号" value="{{payMethod.idList[payMethod.index]}}"></input>
     </view>
   </view>
 

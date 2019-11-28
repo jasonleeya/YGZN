@@ -32,7 +32,7 @@
              name: "待发货",
              status: "090002"
            }, {
-             name: "待入库",
+             name: "待收货",
              status: "090004"
            }, {
              name: "已完成",
@@ -181,7 +181,7 @@
              item.status = "待发货"
              break
            case "090004":
-             item.status = "待入库"
+             item.status = "待收货"
              break
            case "090005":
              item.status = "已完成"

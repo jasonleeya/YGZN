@@ -34,7 +34,7 @@
         <view class="cell-value">
           <!-- <input class="{{canEdit&&infos.orderStatus==='090001'&& infos.oando === 'down'?'':'text-gray'}}" disabled="{{canEdit&&infos.orderStatus==='090001'&& infos.oando === 'down'?false:true}}" name="receiver" value="{{address.consigneeName}}"></input> -->
 
-          <input class="{{(canEdit?infos.orderStatus==='090001'&& infos.oando === 'down'?false:infos.orderStatus==='090002'?false:true:true)?'text-gray':''}}" disabled="{{canEdit?infos.orderStatus==='090001'&& infos.oando === 'down'?false:infos.orderStatus==='090002'?false:true:true}}" name="receiver" value="{{address.consigneeName}}"></input>
+          <input class="{{canEdit?'':'text-gray'}}" disabled="{{!canEdit}}" name="receiver" value="{{address.consigneeName}}"></input>
         </view>
     
       </view>
@@ -42,7 +42,7 @@
       <view class="cell border-bt">
         <view class="cell-name">联系电话</view>
         <view class="cell-value">
-          <input class="{{(canEdit?infos.orderStatus==='090001'&& infos.oando === 'down'?false:infos.orderStatus==='090002'?false:true:true)?'text-gray':''}}" disabled="{{canEdit?infos.orderStatus==='090001'&& infos.oando === 'down'?false:infos.orderStatus==='090002'?false:true:true}}" name="phoneNumber" type="number" value="{{address.telephone}}" maxlength="11"></input>
+          <input class="{{canEdit?'':'text-gray'}}" disabled="{{!canEdit}}" name="phoneNumber" type="number" value="{{address.telephone}}" maxlength="11"></input>
         </view>
         <!-- <view class="cuIcon-right  cell-icon {{canEdit&&infos.orderStatus==='090001'&& infos.oando === 'down'?'':'text-gray'}}"></view> -->
       </view>
@@ -60,11 +60,11 @@
       <view class="cell border-bt">
         <view class="cell-name">收货所在地区</view>
         <view class="cell-value">
-          <input name="region" value="{{region?region[0]+'/'+region[1]+'/'+region[2]:''}}" disabled placeholder="请选择客户或选择所在地区" class="{{(canEdit?infos.orderStatus==='090001'&& infos.oando === 'down'?false:infos.orderStatus==='090002'?false:true:true)?'text-gray':''}}"></input>
+          <input name="region" value="{{region?region[0]+'/'+region[1]+'/'+region[2]:''}}" disabled placeholder="请选择客户或选择所在地区" class="{{canEdit?'':'text-gray'}}"></input>
         </view>
-        <picker mode="region" bindchange="regionChange" value="{{region}}" disabled="{{canEdit&&infos.orderStatus==='090001'&& infos.oando === 'down'?false:true}}">
+        <picker mode="region" bindchange="regionChange" value="{{region}}" disabled="{{!canEdit}}">
           <view class="picker">
-            <view class="cuIcon-right cell-icon {{canEdit&&infos.orderStatus==='090001'&& infos.oando === 'down'?'':'text-gray'}}"></view>
+            <view class="cuIcon-right cell-icon {{canEdit?'':'text-gray'}}"></view>
           </view>
         </picker>
 
@@ -72,15 +72,15 @@
       <view class="cell border-bt ">
         <view class="cell-name">收货详细地址</view>
         <view class="cell-value ">
-          <input name="addressDetail" placeholder="请输入详细地址 " value="{{addressDetail}}" disabled="{{canEdit?infos.orderStatus==='090001'&& infos.oando === 'down'?false:infos.orderStatus==='090002'?false:true:true}}" class="{{(canEdit?infos.orderStatus==='090001'&& infos.oando === 'down'?false:infos.orderStatus==='090002'?false:true:true)?'text-gray':''}}"></input>
+          <input name="addressDetail" placeholder="请输入详细地址 " value="{{addressDetail}}" disabled="{{!canEdit}}" class="{{canEdit?'':'text-gray'}}"></input>
         </view>
       </view>
 
       <view class="cell border-bt">
         <view class="cell-name">收货日期</view>
         <view class="cell-value">
-          <picker name="receiveDate" disabled="{{canEdit?infos.orderStatus==='090001'&& infos.oando === 'down'?false:infos.orderStatus==='090002'?false:true:true}}" mode="date" value="{{infos.getGoodsDate}}" start="{{infos.getGoodsDate}}" end="2100-09-01" bindchange="dateChange">
-            <view class="picker {{(canEdit?infos.orderStatus==='090001'&& infos.oando === 'down'?false:infos.orderStatus==='090002'?false:true:true)?'text-gray':''}}">
+          <picker name="receiveDate" disabled="{{!canEdit}}" mode="date" value="{{infos.getGoodsDate}}" start="{{infos.getGoodsDate}}" end="2100-09-01" bindchange="dateChange">
+            <view class="picker {{canEdit?'':'text-gray'}}">
               {{infos.getGoodsDate}}
             </view>
           </picker>

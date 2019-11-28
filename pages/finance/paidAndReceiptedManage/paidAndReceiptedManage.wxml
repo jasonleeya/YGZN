@@ -48,7 +48,7 @@
     </view>
   </view>
 </view>
-<scroll-view scroll-y class="order-list-scroll-view">
+<scroll-view scroll-y class="order-list-scroll-view" bindscrolltolower="scrollToLower">
   <view class="card" wx:for="{{orderList}}" wx:key bindtap="edit" data-index="{{index}}">
     <view class="card-head">
       <view class="card-title">已{{type}}订单:{{item.bill.billno}}</view>
@@ -61,7 +61,7 @@
       </view>
       <view class="card-item">
         <view class="card-name">付款方式</view>
-        <view class="card-value">{{item.bill.rcvbank}}</view>
+        <view class="card-value">{{m.format(item.bill.rcvbank)}}</view>
       </view>
       <view class="card-item">
         <view class="card-name">金额</view>
@@ -75,3 +75,9 @@
   </view>
 </scroll-view>
 <view class="add-btn cuIcon-add shadow bg-blue" bindtap="add"></view>
+<wxs module="m">
+  var format = function(value) {
+    return typeof value === 'undefined' || value === 'undefined' || value === null || value === 'null' || value === '' ? '无' : value;
+  }
+  module.exports.format = format;
+</wxs>

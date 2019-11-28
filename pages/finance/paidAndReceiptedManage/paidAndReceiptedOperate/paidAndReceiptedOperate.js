@@ -1,37 +1,42 @@
 let app = getApp()
 Page({
   data: {
-    payerNo:"",
-    payerName:"",
-    receiverNo:"",
-    receiverName:"",
+    payerNo: "",
+    payerName: "",
+    receiverNo: "",
+    receiverName: "",
     operateType: "",
-    paymentMethod: {
-      index: 0,
-      list: ["银行", "现金"],
-      idList: ["bank", "cash"]
-    },
-    receiptDate: "",
-    receiptAccount: {
+    payMethod: {
       index: 0,
       list: [],
       idList: []
     },
-    supplyNo:"",
-    infos:{}
+    receiveMethod: {
+      index: 0,
+      list: [],
+      idList: []
+    },
+    receiptDate: "", 
+    supplyNo: "",
+    infos: {}
   },
-  onLoad: function(options){ 
+  onLoad: function(options) {
+
     this.setData({
-      type:options.type,
-      operateType:options.operateType
+      type: options.type,
+      operateType: options.operateType
     })
-    if(options.operateType==="edit"){
-      var pages=getCurrentPages()
+
+    if (options.operateType === "edit") {
+      var pages = getCurrentPages()
       console.log(options.editIndex)
-      var infos = pages[pages.length - 2].data.orderList[options.editIndex].bill 
-        this.setData({
-          infos 
-        })  
+      var infos = pages[pages.length - 2].data.orderList[options.editIndex].bill
+      this.setData({
+        infos
+      })
+      app.setTitle("编辑" + this.data.type + "单")
+    } else {
+      app.setTitle("新增" + this.data.type + "单")
     }
     var date = new Date()
     this.setData({
@@ -44,40 +49,115 @@ Page({
         list.push(item.openBank)
         idList.push(item.account)
       })
-      this.setData({
-        ["receiptAccount.list"]: list,
-        ["receiptAccount.idList"]: idList
+      if(options.type==='收款'){
+        this.setData({
+          ["receiveMethod.list"]: list,
+          ["receiveMethod.idList"]: idList
+        })
+      }else{
+        this.setData({
+          ["payMethod.list"]: list,
+          ["payMethod.idList"]: idList
+        })
+      }
+    
+    })
+    
+    app.http("getSupplyAccount").then(data => {
+      var list = ['现金']
+      var idList = ['-'] 
+      data.list.forEach(item => {
+        list.push(item.openBank)
+        idList.push(item.account)
       }) 
+      if (options.type === '收款') {
+        this.setData({
+          ['receiveMethod.list']: list,
+          ['receiveMethod.idList']: idList,
+        }) 
+      } else {
+        this.setData({
+          ['payMethod.list']: list,
+          ['payMethod.idList']: idList,
+        }) 
+      } 
+ 
     })
-
-    app.http("getUserByCustNo",{flag:true}).then(data=>{
+    if (options.type === '收款') {   
       this.setData({
-        supplyNo: data.list[0].queryNo
+        receiverNo: wx.getStorageSync('userInfo')[0].queryNo,
+        receiverName: app.globalData.companies[wx.getStorageSync('currentCompanyIndex')][0],
       })
-    })
+    } else { 
+       this.setData({
+        payerNo: wx.getStorageSync('userInfo')[0].queryNo,
+        payerName: app.globalData.companies[wx.getStorageSync('currentCompanyIndex')][0],
+      })
+    }  
+    
   },
   onShow: function() {
-
-  },
-  chooseCustomer() {
-    wx.navigateTo({
-      url: '/pages/finance/paidAndReceiptedManage/chooseCustomer/chooseCustomer'
-    })
-  },
-  chooseReceiver(){
+    if(this.data.type==='收款'&&this.data.payerName!==''&&this.payerNo!==''){
+      app.http("getSupplyAccount",{
+        custNo:this.data.payerNo
+      }).then(data=>{
+        var list=["现金"]
+        var idList = [""] 
+        if(data.list.length===0){
+          list.unshift('其他')
+          idList.unshift("") 
+        }else{
+          data.list.forEach(item=>{
+            list.push(item.openBank)
+            idList.push(item.account)
+          })
+        }
+        this.setData({
+          ['payMethod.list']: list,
+          ['payMethod.idList']: idList
+        })
+      })
+    } else if (this.data.type === '付款' && this.data.receiverName !== '' && this.receiverNo !== ''){
+      app.http("getSupplyAccount", {
+        custNo: this.data.receiverNo
+      }).then(data => {
+        var list = this.data.receiveMethod.list
+        var idList = this.data.receiveMethod.idList 
+        if (data.list.length === 0) {
+          list.unshift('其他')
+          idList.unshift("") 
+        } else {
+          data.list.forEach(item => {
+            list.push(item.openBank)
+            idList.push(item.account)
+          })
+        }
+        this.setData({
+          ['receiveMethod.list']: list,
+          ['receiveMethod.idList']: idList
+        })
+      })
+    }
+  }, 
+  chooseReceiver() {
     wx.navigateTo({
       url: '/pages/finance/paidAndReceiptedManage/chooseCustomer/chooseCustomer?type=receiver'
     })
   },
-  choosePayer(){
+  choosePayer() {
     wx.navigateTo({
       url: '/pages/finance/paidAndReceiptedManage/chooseCustomer/chooseCustomer?type=payer'
     })
   },
-
-  paymentMethodChange(e) {
+ 
+  payMethodChange(e){
     this.setData({
-      ["paymentMethod.index"]: e.detail.value
+      ["payMethod.index"]: e.detail.value
+    })
+  },
+  receiveMethodChange(e){
+    this.setData({
+      ["receiveMethod.index"]: e.detail.value
     })
   },
   receiptDateChange(e) {
@@ -89,33 +169,34 @@ Page({
     this.setData({
       ["receiptAccount.index"]: e.detail.value
     })
-  }, 
-   
+  },
+
   submit(e) {
     var formData = e.detail.value
-    formData.tableKey = ""
-    formData.supplyNo = this.data.supplyNo
-    formData.action = "save"
-    if (!formData.custNo){
-      app.showToast("请选择客户")
-      return
-    }
-    if (!formData.amount) {
-      app.showToast("请输入金额")
-      return
-    } 
-    if (!formData.item) {
-      app.showToast("请输入用途")
-      return
-    }
+    console.log(formData)
+    // formData.tableKey = ""
+    // formData.supplyNo = this.data.supplyNo
+    // formData.action = "save"
+    // if (!formData.custNo) {
+    //   app.showToast("请选择客户")
+    //   return
+    // }
+    // if (!formData.amount) {
+    //   app.showToast("请输入金额")
+    //   return
+    // }
+    // if (!formData.item) {
+    //   app.showToast("请输入用途")
+    //   return
+    // }
 
-    app.http("acceptbillEdit",formData).then(()=>{
-      app.showToast("添加成功")
-      setTimeout(()=>{
-        wx.navigateBack()
-      },500)
-    }).catch(err=>{
-      app.showToast(err)
-    })
+    // app.http("acceptbillEdit", formData).then(() => {
+    //   app.showToast("添加成功")
+    //   setTimeout(() => {
+    //     wx.navigateBack()
+    //   }, 500)
+    // }).catch(err => {
+    //   app.showToast(err)
+    // })
   }
 })
