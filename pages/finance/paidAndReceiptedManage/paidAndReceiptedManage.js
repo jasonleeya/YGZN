@@ -40,9 +40,15 @@ Page({
     this.setData({
       curPage:this.data.curPage+1
     })
-    this.getList()
+    this.getList(false)
   },
-  getList() {
+  getList(replace=true) {
+    if(replace){
+      this.setData({
+        curPage:0,
+        totalpages:0
+      })
+    }
     var req = null
     this.setData({
       isLoading:true
@@ -91,9 +97,16 @@ Page({
           .bill.billdate)
         item.bill.billdate = date.getFullYear() + "-" + (date.getMonth() + 1) + "-" + date.getDate()
       })
-
-      this.setData({
-        orderList: this.data.orderList.concat(list),
+      if (replace){
+        this.setData({
+          orderList: list
+        })
+      }else{
+          this.setData({
+            orderList: this.data.orderList.concat(list),
+          })
+      }
+      this.setData({ 
         totalpages: parseInt(data.totalPages),
         isLoading:false
       })

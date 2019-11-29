@@ -1,10 +1,6 @@
 let app = getApp()
 Page({
   data: {
-    payerNo: "",
-    payerName: "",
-    receiverNo: "",
-    receiverName: "",
     operateType: "",
     payMethod: {
       index: 0,
@@ -18,7 +14,8 @@ Page({
     },
     receiptDate: "", 
     supplyNo: "",
-    infos: {}
+    infos: {},
+    canEdit:true
   },
   onLoad: function(options) {
 
@@ -31,13 +28,18 @@ Page({
       var pages = getCurrentPages()
       console.log(options.editIndex)
       var infos = pages[pages.length - 2].data.orderList[options.editIndex].bill
+      
       this.setData({
-        infos
+        infos,
+        canEdit:false
       })
       app.setTitle("编辑" + this.data.type + "单")
+
+
     } else {
       app.setTitle("新增" + this.data.type + "单")
     }
+
     var date = new Date()
     this.setData({
       receiptDate: date.getFullYear() + "-" + (date.getMonth() + 1 < 10 ? '0' + (date.getMonth() + 1) : date.getMonth() + 1) + "-" + (date.getDate() < 10 ? '0' + date.getDate() : date.getDate())
@@ -85,21 +87,21 @@ Page({
     })
     if (options.type === '收款') {   
       this.setData({
-        receiverNo: wx.getStorageSync('userInfo')[0].queryNo,
-        receiverName: app.globalData.companies[wx.getStorageSync('currentCompanyIndex')][0],
+        ['infos.supplyNo']: wx.getStorageSync('userInfo')[0].queryNo,
+        ['infos.supplyName']: app.globalData.companies[wx.getStorageSync('currentCompanyIndex')][0],
       })
     } else { 
        this.setData({
-        payerNo: wx.getStorageSync('userInfo')[0].queryNo,
-        payerName: app.globalData.companies[wx.getStorageSync('currentCompanyIndex')][0],
+         ['infos.billCustNo']: wx.getStorageSync('userInfo')[0].queryNo,
+         ['infos.billusername']: app.globalData.companies[wx.getStorageSync('currentCompanyIndex')][0],
       })
     }  
     
   },
   onShow: function() {
-    if(this.data.type==='收款'&&this.data.payerName!==''&&this.payerNo!==''){
+    if (this.data.type === '收款' && this.data.infos.billusername !== '' && this.data.infos.billCustNo!==''){
       app.http("getSupplyAccount",{
-        custNo:this.data.payerNo
+        custNo: this.data.infos.billCustNo
       }).then(data=>{
         var list=["现金"]
         var idList = [""] 
@@ -117,9 +119,9 @@ Page({
           ['payMethod.idList']: idList
         })
       })
-    } else if (this.data.type === '付款' && this.data.receiverName !== '' && this.receiverNo !== ''){
+    } else if (this.data.type === '付款' && this.data.infos.supplyName !== '' && this.data.infos.supplyNo !== ''){
       app.http("getSupplyAccount", {
-        custNo: this.data.receiverNo
+        custNo: this.data.infos.custNo 
       }).then(data => {
         var list = this.data.receiveMethod.list
         var idList = this.data.receiveMethod.idList 
@@ -171,32 +173,71 @@ Page({
     })
   },
 
+// tableKey:
+// supplyNo: 7cde7f044f8443a4b7c604da73329a75
+// supplyName: 测试代理公司
+// amount: 1
+// remark: 201911201316280006订单直接付款
+// item: 无
+// rcvbank: 人民银行
+// rcvaccno: 423423542
+// billbank: 其他
+// billaccno: 123
+// billusername: EWRWRWWER
+// billCustNo: 248476153919045632
+// bookno: 111111111111
+// decidedate: 2019-11 - 29
+// action: save
+
+ 
+
   submit(e) {
     var formData = e.detail.value
-    console.log(formData)
-    // formData.tableKey = ""
-    // formData.supplyNo = this.data.supplyNo
-    // formData.action = "save"
-    // if (!formData.custNo) {
-    //   app.showToast("请选择客户")
-    //   return
-    // }
-    // if (!formData.amount) {
-    //   app.showToast("请输入金额")
-    //   return
-    // }
-    // if (!formData.item) {
-    //   app.showToast("请输入用途")
-    //   return
-    // }
+    formData.tableKey =this.data.operateType==='edit'?this.data.infos.tableKey:'' 
+    formData.action = "save"
+    formData.item="无"
+    if (this.data.type === '收款' && !formData.billCustNo) {
+      app.showToast("请选择付款人")
+      return
+    }
+    if (this.data.type === '付款' && !formData.supplyName) {
+      app.showToast("请选择收款人")
+      return
+    }
+    if (!formData.amount) {
+      app.showToast("请输入金额")
+      return
+    } 
+    // console.log(formData)
+    // return
 
-    // app.http("acceptbillEdit", formData).then(() => {
-    //   app.showToast("添加成功")
-    //   setTimeout(() => {
-    //     wx.navigateBack()
-    //   }, 500)
-    // }).catch(err => {
-    //   app.showToast(err)
-    // })
+    app.http("acceptbillEdit", formData).then(() => {
+      app.showToast("添加成功")
+      setTimeout(() => {
+        wx.navigateBack()
+      }, 500)
+    }).catch(err => {
+      app.showToast(err)
+    })
+  },
+  edit(){
+    this.data.payMethod.list.forEach((item,index)=>{
+      if (item === this.data.infos.billbank){
+          this.setData({
+            ['payMethod.index']:index
+          })
+      }
+    })
+    this.data.receiveMethod.list.forEach((item, index) => {
+      if (item === this.data.infos.rcvbank) {
+        this.setData({
+          ['receiveMethod.index']: index
+        })
+      }
+    })
+    this.setData({
+      
+      canEdit:true
+    })
   }
 })

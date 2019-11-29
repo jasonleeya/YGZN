@@ -27,13 +27,13 @@ Page({
    var prePage=pages[pages.length-2]
    if(this.data.type==='payer'){
      prePage.setData({
-       payerNo: e.currentTarget.dataset.no,
-       payerName: e.currentTarget.dataset.name
+       ["infos.billCustNo"]: e.currentTarget.dataset.no,
+       ["infos.billusername"]: e.currentTarget.dataset.name
      })
    }else{
      prePage.setData({
-       receiverNo: e.currentTarget.dataset.no,
-       receiverName: e.currentTarget.dataset.name
+       ["infos.supplyNo"]: e.currentTarget.dataset.no,
+       ["infos.supplyName"]: e.currentTarget.dataset.name
      })
    }
  
