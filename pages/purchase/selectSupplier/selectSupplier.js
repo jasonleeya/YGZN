@@ -27,7 +27,7 @@ create(store, {
       isAutoAssign: false,
       supplier: data.supplyName,
       supplyNo: data.supplyNo,
-      customerType: data.customerType,
+      customerType: parseInt(data.approveStatus)===1?'up':'down',
       approveStatus: data.approveStatus
     })
     wx.navigateBack()

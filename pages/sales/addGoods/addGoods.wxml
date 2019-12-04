@@ -8,7 +8,8 @@
       </view>
       <view class="goods-info"  bindtap="goodsDetail" data-index="{{index}}">
         <view class="goods-name">{{item.brandName}}/{{item.brandCode}}</view>
-        <view class="goods-type text-gray">{{item.productName}}</view>
+        <view class="goods-type text-gray">名称:{{item.productName}}</view>
+         <view class="goods-type text-gray">参数:{{item.parameter}}</view>
         <view class="goods-stocks text-green">库存：{{item.stock}}（{{item.productUnit  }}）</view>
       </view>
       <view class="add-goods cuIcon-add shadow bg-blue" bindtap='showPop' data-index="{{index}}"></view>
@@ -32,6 +33,16 @@
       <view class="input-name">数量:</view>
       <input type="number" bindinput='amountInput' bindblur="amountBlur" value="{{popData.goodsCount}}"></input>
     </view>
+    <view class="input-wrapper bg-gray solid" wx:if="{{fromPage!=='other'}}">
+      <view class="input-name">未税面价:</view>
+      <input class="text-gray" type="digit" disabled value="{{popData.facePrice}}"></input>
+    </view>
+
+    <view class="input-wrapper bg-gray solid" wx:if="{{fromPage!=='other'}}">
+      <view class="input-name">折扣:</view>
+      <input class="text-gray" type="digit" disabled value="{{popData.goodsDiscount*10}}"></input>
+    </view>
+
 
     <view class="input-wrapper bg-gray solid">
       <view class="input-name">不含税价:</view>

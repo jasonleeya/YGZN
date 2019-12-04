@@ -67,7 +67,9 @@ Component({
   //当组件展示时计算显示的总量和总额
   pageLifetimes: {
     show() {
-      this.computeTotalPriceTotalAmount()
+      setTimeout(()=>{
+        this.computeTotalPriceTotalAmount() 
+      },100)
     }
   },
   /**

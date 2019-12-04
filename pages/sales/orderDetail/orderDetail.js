@@ -43,14 +43,14 @@
      }, false, false).then(data => {
 
        var region = ""
-       var addressDetail = ""
+       var addressDetail = data.infoBody.address.address
 
-       if (data.infoBody.address) {
-         var ad = data.infoBody.address.address
-         var reg = ad.match(/【.*】/) === null ? "" : ad.match(/【.*】/)[0]
-         region = reg.replace("【", "").replace("】", "")
-         addressDetail = ad.replace(reg, "")
-       }
+      //  if (data.infoBody.address) {
+      //    var ad = data.infoBody.address.address
+      //    var reg = ad.match(/【.*】/) === null ? "" : ad.match(/【.*】/)[0]
+      //    region = reg.replace("【", "").replace("】", "")
+      //    addressDetail = ad.replace(reg, "")
+      //  }
 
        var orderType = ''
        var infos = data.infoBody.upp
@@ -65,7 +65,7 @@
 
        this.setData({
          infos: infos,
-         region: region === "" ? "" : region.split("/"),
+        //  region: region === "" ? "" : region.split("/"),
          addressDetail: addressDetail,
          address: data.infoBody.address,
          goodsList: data.infoBody.lows,
@@ -418,7 +418,7 @@
        app.showToast("请选择仓库")
        return
      }
-     if (!formData.region || !formData.addressDetail) {
+     if (!formData.addressDetail) {
        app.showToast("请选择收货地址")
        return
      }
@@ -468,7 +468,7 @@
        tBusAddress: JSON.stringify([{
          orderNo: formData.orderId,
          consigneeName: formData.receiver,
-         address: "【" + formData.region + "】" + formData.addressDetail,
+         address:  formData.addressDetail,
          telephone: formData.phoneNumber
        }]),
        isIncreaseGoodsNum: "yes", //*

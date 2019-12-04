@@ -15,15 +15,15 @@
       </view>
       <view class="info">
         <view class="info-name text-gray">首要联系人</view>
-        <view class="info-value">{{item.primaryContact}}</view>
+        <view class="info-value">{{m.format(item.primaryContact)}}</view>
       </view>
       <view class="info">
         <view class="info-name text-gray">联系电话</view>
-        <view class="info-value">{{item.contactPhone}}</view>
+        <view class="info-value">{{m.format(item.contactPhone)}}</view>
       </view>
       <view class="info">
         <view class="info-name text-gray">信用余额</view>
-        <view class="info-value">{{item.creditLine}}</view>
+        <view class="info-value">{{m.format(item.creditLine)}}</view>
       </view>
       <!-- <view class="info">
         <view class="info-name text-gray">客户类型</view>
@@ -31,8 +31,14 @@
       </view> -->
       <view class="info">
         <view class="info-name text-gray">客户等级</view>
-        <view class="info-value">{{item.grade}}</view>
+        <view class="info-value">{{m.format(item.grade)}}</view>
       </view>
     </view>
   </view>
 </scroll-view>
+<wxs module="m">
+  var format = function(value) {
+    return typeof value === 'undefined' || value === 'undefined' || value === null || value === 'null' || value === '' ? '无' : value;
+  }
+  module.exports.format = format;
+</wxs>

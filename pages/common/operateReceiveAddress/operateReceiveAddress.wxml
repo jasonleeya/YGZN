@@ -31,7 +31,7 @@
         <input name="address" placeholder="请输入详细地址 " value="{{address}}"></input>
       </view>
     </view>
-    <view class="cell">
+    <view class="cell" wx:if="{{operateType!=='add'}}">
       <view class="cell-name ">设置为默认地址</view>
       <view class="cell-value set-default">
         <switch name="dftStatus" checked class="blue sm set-default" bindchange="setDefault" checked="{{dftStatus==='1'}}" value="{{dftStatus}}" />

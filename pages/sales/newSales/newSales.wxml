@@ -33,7 +33,7 @@
         </view>
       </view>
 
-
+<!-- 
       <view class="cell border-bt">
         <view class="cell-name">收货所在地区</view>
         <view class="cell-value">
@@ -43,9 +43,9 @@
           <view class="picker">
             <view class="cuIcon-right cell-icon "></view>
           </view>
-        </picker>
+        </picker> 
+      </view> -->
 
-      </view>
       <view class="cell border-bt ">
         <view class="cell-name">收货详细地址</view>
         <view class="cell-value ">
@@ -85,11 +85,11 @@
         </view>
 
       </view>
-        <view class="cell border-bt">
+      <view class="cell">
         <view class="cell-name">物流费用</view>
         <view class="cell-value">
-          <input name="logisticsCost" type="number"  placeholder="请填写物流费用" value="{{logisticsCost}}"></input>
-        </view> 
+          <input name="logisticsCost" type="number" placeholder="请填写物流费用" value="{{logisticsCost}}"></input>
+        </view>
       </view>
 
 
@@ -100,7 +100,7 @@
     <!-- 购物车 -->
     <!-- <cart goodsList="{{goodsList}}" totalPrice="{{totalPrice}}" bind:changeData="getChangedData" goodsListUrl="{{'/pages/purchase/addGoods/addGoods?store=newSales'}}" /> -->
     <cart goodsList="{{goodsList}}" totalPrice="{{totalPrice}}" picUrlKey="pirctureWay" nameKey="name" brandNameKey="goodsBrand" typeKey="brandCode" priceKey="discountPrice" amountKey="goodsCount" idKey="goodsNo" minNumKey="minNums" bind:changeAmount="getChangeAmount"
-        bind:operate="operate"  bind:deleteGoods="deleteGoods" bind:changeTotalPriceAndAmount="priceAmountChange" bind:goodsDetail="goodsDetail"/>
+      bind:operate="operate" bind:deleteGoods="deleteGoods" bind:changeTotalPriceAndAmount="priceAmountChange" bind:goodsDetail="goodsDetail" />
     <editGoodsInfo wx:if="{{showEditPop}}" popData="{{popData}}" bind:editedInfo="getEditedInfo" />
 
     <view class="title remake">备注</view>

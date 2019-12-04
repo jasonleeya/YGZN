@@ -3,7 +3,7 @@
     <view class="input-wrapper">
       <view class="search-icon cuIcon-search">
       </view>
-      <input class="bg-gray" placeholder="搜索业务员"></input>
+      <input class="bg-gray" placeholder="搜索业务员" bindfocus="focus"></input>
     </view>
     <view class="add-buyer" bindtap="addBuyer">新增</view>
   </view>

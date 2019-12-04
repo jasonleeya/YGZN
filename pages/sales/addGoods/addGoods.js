@@ -181,18 +181,23 @@ create(store, {
     app.http("saleDiscount", {
       custNo: this.data.custNo,
       productId: this.data.goodsList[index].productUuid
-    }).then(data => {
-      if (data.infoBody.discount === null || data.infoBody.discount === 0 || data.infoBody.discount === "") {
-        data.infoBody.discount = 10
+    }).then(data => { 
+      var discount = parseFloat(data.infoBody.discount)
+      if (isNaN(discount)) {
+        discount = 10
       }
+      discount = parseFloat(discount) / 10
+      var disPrice = parseFloat(data.infoBody.price) * discount
       this.setData({
         isShowPop: true,
         ['popData.facePrice']: data.infoBody.price.toFixed(2),
+        ['popData.goodsDiscount']: discount.toFixed(2),
         ['popData.goodsCount']: this.data.goodsList[index].minCount,
-        ["popData.NTPSingle"]: data.infoBody.price.toFixed(2),
+        ["popData.NTPSingle"]: disPrice.toFixed(2),
         ["popData.taxRate"]: '13.00%',
-        ["popData.discountPrice"]: (parseFloat(data.infoBody.price) * 1.13 ).toFixed(2),
-        ["popData.sttAmount"]: (parseFloat(data.infoBody.price) * 1.13 * parseInt(this.data.goodsList[index].minCount) ).toFixed(2)
+        ["popData.discountPrice"]: (disPrice * 1.13).toFixed(2),
+        ["popData.sttAmount"]: (disPrice * 1.13 * parseInt(this.data.goodsList[index].minCount)).toFixed(2),
+
       })
       this.setData({
         popDataCopy: JSON.parse(JSON.stringify(this.data.popData))
@@ -222,10 +227,17 @@ create(store, {
       case "discountPrice":
         return (NTPSingle * (1 + (taxRate / 100))).toFixed(2)
         break
-      case "sttAmount":
-
+      case "sttAmount": 
         return (parseInt(goodsCount) * parseFloat(discountPrice)).toFixed(2)
         break
+      case "goodsDiscount":
+        var discount = (parseFloat(NTPSingle) / parseFloat(this.data.popData.facePrice)).toFixed(2)
+        if (isNaN(discount) || discount > 1) {
+          discount = 1
+        }
+        return discount
+        break
+
     }
   },
   amountInput(e) {
@@ -263,6 +275,9 @@ create(store, {
     this.setData({
       ["popData.sttAmount"]: this.compute("sttAmount")
     })
+    this.setData({
+      ["popData.goodsDiscount"]: this.compute('goodsDiscount'),
+    })
   },
   /**
    * 无税价input失去焦点保留两位小数
@@ -286,7 +301,9 @@ create(store, {
     this.setData({
       ["popData.sttAmount"]: this.compute("sttAmount")
     })
-
+    this.setData({
+      ["popData.goodsDiscount"]: this.compute('goodsDiscount'),
+    })
 
   },
   /**
@@ -310,6 +327,7 @@ create(store, {
     this.setData({
       ["popData.sttAmount"]: this.compute("sttAmount")
     })
+    
   },
   taxRateBlur(e) {
     var value = e.detail.value
@@ -346,7 +364,9 @@ create(store, {
     this.setData({
       ["popData.sttAmount"]: this.compute("sttAmount")
     })
-
+    this.setData({
+      ["popData.goodsDiscount"]: this.compute('goodsDiscount'),
+    })
   },
   containTaxPriceBlur(e) {
     var value = e.detail.value
@@ -367,7 +387,9 @@ create(store, {
     this.setData({
       ["popData.sttAmount"]: this.compute("sttAmount")
     })
-
+    this.setData({
+      ["popData.goodsDiscount"]: this.compute('goodsDiscount'),
+    })
   },
   totalPriceInput(e) {
 

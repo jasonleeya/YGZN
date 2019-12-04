@@ -6,6 +6,16 @@
       <input type="number" bindinput='amountInput' bindblur="amountBlur" value="{{popData[amountKey]}}"></input>
     </view>
 
+    <view class="input-wrapper bg-gray solid" wx:if="{{fromPage!=='other'}}">
+      <view class="input-name">未税面价:</view>
+      <input class="text-gray" type="digit" disabled value="{{popData[facePriceKey]}}"></input>
+    </view>
+
+    <view class="input-wrapper bg-gray solid"  wx:if="{{fromPage!=='other'}}">
+      <view class="input-name">折扣:</view>
+      <input class="text-gray" type="digit" disabled value="{{popData[goodsDiscountKey]*10}}"></input>
+    </view>
+
     <view class="input-wrapper bg-gray solid">
       <view class="input-name">不含税价:</view>
       <input type="digit" bindinput='noTaxPriceInput' bindblur='noTaxPriceBlur' value="{{popData[noTaxPriceKey]}}"></input>
@@ -20,7 +30,7 @@
     </view>
     <view class="input-wrapper bg-gray solid">
       <view class="input-name">含税总价:</view>
-      <input type="digit" class="text-gray" disabled  value="{{popData[totalPriceKey]}}"></input>
+      <input type="digit" class="text-gray" disabled value="{{popData[totalPriceKey]}}"></input>
     </view>
     <view class="input-wrapper bg-gray solid" wx:if="{{fromPage==='other'}}">
       <view class="input-name">不含税总价:</view>

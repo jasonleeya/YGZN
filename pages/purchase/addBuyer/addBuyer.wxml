@@ -2,14 +2,15 @@
   <form bindsubmit="addSubmit">
     <view class="cell  border-bt">
       <view class="cell-name">职位</view>
-      <view class="cell-value">      
-        <picker name="position" bindchange="pinkPosition" value="{{position.list[position.picked]}}"   range="{{position.list}}">
-          <view class="picker">
-            {{position.picked===null?'请选择职位':position.list[position.picked]}}
-          </view>
-        </picker>
+      <view class="cell-value">
+        <input name="position" disabled value="{{position.list[position.picked]}}" placeholder="请选择职位"></input>
       </view>
-      <view class="cuIcon-right cell-icon"></view>
+      <picker  bindchange="pinkPosition" value="{{position.list[position.picked]}}" range="{{position.list}}">
+        <view class="picker">
+          <view class="cuIcon-right cell-icon"></view>
+        </view>
+      </picker>
+
     </view>
     <view class="cell border-bt">
       <view class="cell-name">业务员名称</view>
@@ -26,13 +27,13 @@
     <view class="cell  margin-bt">
       <view class="cell-name">等级</view>
       <view class="cell-value">
-        <picker name="rank" bindchange="pinkRank" value="{{rank.list[rank.picked]}}"   range="{{rank.list}}">
-          <view class="picker">
-            {{rank.picked===null?'请选择职位':rank.list[rank.picked]}}
-          </view>
-        </picker>
+        <input  name="grade"  disabled value="{{rank.list[rank.picked]}}" placeholder="请选择职位"></input>
       </view>
-      <view class="cuIcon-right cell-icon"></view>
+      <picker bindchange="pinkRank" value="{{rank.list[rank.picked]}}" range="{{rank.list}}">
+        <view class="cuIcon-right cell-icon"></view>
+        <view class="picker">
+        </view>
+      </picker>
     </view>
     <view class="remark-title">备注</view>
     <textarea name="remark" placeholder="填写备注信息"></textarea>

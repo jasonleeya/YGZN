@@ -24,16 +24,35 @@ create(store, {
     searchValue: "",
     isLoad: false,
     pageNo: 2,
-    storeList: []
+    storeList: [],
+    customerType:"",
+    selectedTypeIndex:null
   },
   onLoad(options) {
     app.setTitle("添加商品")
     this.setData({
       store: options.store,
       supplyNo: options.supplyNo,
-      wareId: options.wareId
+      wareId: options.wareId,
+      customerType: options.customerType
     })
-
+    if (options.customerType==='up'){
+      this.setData({
+        selectedTypeIndex:1,
+        searchType:"供方仓库"
+      })
+    }
+   else if (options.supplyNo === 'AUTO') {
+      this.setData({
+        selectedTypeIndex: 2,
+        searchType: "全局搜索"
+      })
+    }else{
+      this.setData({
+        selectedTypeIndex: 0,
+        searchType: "我的仓库"
+      }) 
+    }
   },
   //进入页面初始化数据
   onShow() {
@@ -115,7 +134,7 @@ create(store, {
         urlAlias = "searchProductNew"
         params = {
           catalogId: "",
-          brandName: 1,
+          // brandName: 1,
           pageIndex: this.data.pageNo,
           pageSize: 10,
           simpleSeek: this.data.searchValue,
@@ -162,13 +181,13 @@ create(store, {
           loadMore: false,
         })
       }
-    })
-      .catch(err => {
+    }).catch(err => {
         this.load(false)
         this.setData({
           loadMore: false
         })
         app.showToast(err)
+        console.log(err)
       })
 
   },
@@ -203,17 +222,22 @@ create(store, {
       supplyNo: this.data.supplyNo,
       productId: this.data.goodsList[index].productUuid
     }).then(data => {
-      if (data.infoBody.discount === null) {
-        data.infoBody.discount = 10
+      var discount = parseFloat(data.infoBody.discount) 
+      if (isNaN(discount)) {
+        discount = 10
       }
+      discount = parseFloat(discount) / 10
+      var disPrice =  parseFloat(data.infoBody.price) * discount 
       this.setData({
         isShowPop: true,
         ['popData.facePrice']: data.infoBody.price.toFixed(2),
+        ['popData.goodsDiscount']: discount.toFixed(2),
         ['popData.goodsCount']: this.data.goodsList[index].minCount,
-        ["popData.NTPSingle"]: data.infoBody.price.toFixed(2),
+        ["popData.NTPSingle"]: disPrice.toFixed(2),
         ["popData.taxRate"]: '13.00%',
-        ["popData.discountPrice"]: (parseFloat(data.infoBody.price) * 1.13).toFixed(2),
-        ["popData.sttAmount"]: (parseFloat(data.infoBody.price) * 1.13 * parseInt(this.data.goodsList[index].minCount)).toFixed(2)
+        ["popData.discountPrice"]: (disPrice* 1.13).toFixed(2),
+        ["popData.sttAmount"]: (disPrice * 1.13 * parseInt(this.data.goodsList[index].minCount)).toFixed(2),
+        
       })
 
       this.setData({
@@ -247,6 +271,14 @@ create(store, {
       case "sttAmount": 
         return (parseInt(goodsCount) * parseFloat(discountPrice)).toFixed(2)
         break
+      case "goodsDiscount":
+        var discount = (parseFloat(NTPSingle) / parseFloat(this.data.popData.facePrice)).toFixed(2)
+        if (isNaN(discount) || discount > 1) {
+          discount = 1
+        }
+        return discount
+        break
+        
     }
   },
   amountInput(e) {
@@ -284,6 +316,9 @@ create(store, {
     this.setData({
       ["popData.sttAmount"]: this.compute("sttAmount")
     })
+    this.setData({
+      ["popData.goodsDiscount"]: this.compute('goodsDiscount'),
+    })
   },
   /**
    * 无税价input失去焦点保留两位小数
@@ -307,7 +342,9 @@ create(store, {
     this.setData({
       ["popData.sttAmount"]: this.compute("sttAmount")
     })
-
+    this.setData({
+      ["popData.goodsDiscount"]: this.compute('goodsDiscount'),
+    })
 
   },
   /**
@@ -330,6 +367,9 @@ create(store, {
     })
     this.setData({
       ["popData.sttAmount"]: this.compute("sttAmount")
+    })
+    this.setData({
+      ["popData.goodsDiscount"]: this.compute('goodsDiscount'),
     })
   },
   taxRateBlur(e) {
@@ -367,7 +407,9 @@ create(store, {
     this.setData({
       ["popData.sttAmount"]: this.compute("sttAmount")
     })
-
+    this.setData({
+      ["popData.goodsDiscount"]: this.compute('goodsDiscount'),
+    })
   },
   containTaxPriceBlur(e) {
     var value = e.detail.value
@@ -388,7 +430,9 @@ create(store, {
     this.setData({
       ["popData.sttAmount"]: this.compute("sttAmount")
     })
-
+    this.setData({
+      ["popData.goodsDiscount"]: this.compute('goodsDiscount'),
+    })
   },
   totalPriceInput(e) {
 
@@ -406,10 +450,10 @@ create(store, {
     var goods = this.data.goodsList[this.data.activeIndex]
     var popData = this.data.popData
     var value = () => {
-      var goodsDiscount = (parseFloat(popData.NTPSingle) / parseFloat(this.data.popData.facePrice)).toFixed(2)
-      if (goodsDiscount > 1 || String(goodsDiscount) === 'Infinity' || isNaN(goodsDiscount)) {
-        goodsDiscount = 1
-      }
+      // var goodsDiscount = (parseFloat(popData.NTPSingle) / parseFloat(this.data.popData.facePrice)).toFixed(2)
+      // if (goodsDiscount > 1 || String(goodsDiscount) === 'Infinity' || isNaN(goodsDiscount)) {
+      //   goodsDiscount = 1
+      // }
       return {
         brandNo: goods.brandCode,
         goodsUnit: goods.productUnit,
@@ -417,7 +461,7 @@ create(store, {
         goodsName: goods.productName, // + "~" + goods.parameter,
         facePrice: this.data.popDataCopy.facePrice,
         minNums: this.data.popDataCopy.goodsCount,
-        goodsDiscount: goodsDiscount,
+        goodsDiscount: popData.goodsDiscount,
         goodsBrand: goods.brandName,
         NTP: parseFloat(popData.NTPSingle) * parseInt(popData.goodsCount),
         taxRate: parseFloat(popData.taxRate),

@@ -235,7 +235,11 @@ App({
           resolve(res.data);
         },
         fail: function(err) {
-          reject(err);
+          if (typeof err.errMsg !== 'undefined') {
+            reject(err.errMsg)
+          } else {
+            reject(err);
+          }
         },
         complete: function(res) {}
       })

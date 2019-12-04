@@ -81,7 +81,7 @@
        return
      }
      wx.navigateTo({
-       url: "/pages/purchase/addGoods/addGoods?store=newPurchase&supplyNo=" + this.data.supplyNo + "&wareId=" + this.data.slectedStoreHouseId,
+       url: "/pages/purchase/addGoods/addGoods?store=newPurchase&supplyNo=" + this.data.supplyNo + "&wareId=" + this.data.slectedStoreHouseId + "&customerType=" + this.data.customerType,
      })
 
 

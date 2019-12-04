@@ -57,7 +57,7 @@
       </view>
  -->
 
-      <view class="cell border-bt">
+      <!-- <view class="cell border-bt">
         <view class="cell-name">收货所在地区</view>
         <view class="cell-value">
           <input name="region" value="{{region?region[0]+'/'+region[1]+'/'+region[2]:''}}" disabled placeholder="请选择客户或选择所在地区" class="{{canEdit?'':'text-gray'}}"></input>
@@ -66,9 +66,9 @@
           <view class="picker">
             <view class="cuIcon-right cell-icon {{canEdit?'':'text-gray'}}"></view>
           </view>
-        </picker>
+        </picker> 
+      </view> -->
 
-      </view>
       <view class="cell border-bt ">
         <view class="cell-name">收货详细地址</view>
         <view class="cell-value ">

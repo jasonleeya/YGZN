@@ -69,7 +69,7 @@ create(store, {
       app.showToast("业务员电话填写格式有误")
       return
     }
-    if (!e.detail.value.rank) {
+    if (!e.detail.value.grade) {
       app.showToast("请选择等级")
       return
     }
@@ -78,16 +78,16 @@ create(store, {
     // findRoles: [],
     //   queryAllGrade: []
     this.data.findRoles.forEach(item=>{
-      if (item.role_name===value.rank){
+      if (item.role_name===value.position){
         value.roleId=item.role_id
       }
     })
     this.data.queryAllGrade.forEach(item => {
-      if (item.name === value.position) {
+      if (item.name === value.grade) {
         value.grade = item.id
       }
     })
-
+ 
     app.http("insertSalesman",{
       roleId: value.roleId,
       userName: value.name,

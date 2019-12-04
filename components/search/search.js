@@ -15,6 +15,10 @@ Component({
       type:Boolean,
       value:true
     },
+    selectedTypeIndex: {
+      type: Number,
+      value: 0,
+    },
     types: {
       type: Array,
       value: [{
@@ -56,7 +60,8 @@ Component({
   lifetimes: {
     attached() {
       this.setData({
-        ["searchTypes.list"]: this.data.types
+        ["searchTypes.list"]: this.data.types,
+        ["searchTypes.select"]: this.data.selectedTypeIndex
       })
     },
     ready() { 

@@ -80,7 +80,7 @@ create(store, {
         }
         var address = data.list[0]
         this.setData({
-          region: [address.province, address.city, address.area],
+          // region: [address.province, address.city, address.area],
           addressDetail: address.address
         })
       })
@@ -254,7 +254,7 @@ create(store, {
     //   app.showToast("请选择仓库")
     //   return
     // }
-    if (!info.region||!info.addressDetail) {
+    if (!info.addressDetail) {
       app.showToast("请填写收货地址")
       return
     }
@@ -303,7 +303,7 @@ create(store, {
       tBusAddress: JSON.stringify([{
         orderNo: info.orderId,
         consigneeName: info.receiver,
-        address: "【" +info.region+ "】" + info.addressDetail,
+        address: info.addressDetail,
         telephone: info.phoneNumber
       }]),
       isOrNotReduceGoodsNum: 'no',

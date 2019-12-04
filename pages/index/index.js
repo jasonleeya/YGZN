@@ -66,12 +66,13 @@ create(store, {
  
       var referrerId = app.globalData.companies[wx.getStorageSync("currentCompanyIndex")][1]
       var salesmanId = wx.getStorageSync("userInfo")[0].custNo 
+      console.log(referrerId, salesmanId)
       return {
-        title: '欢迎注册IMATCH企业助手',
+        title: '欢迎注册TOOLS ERA企业助手',
         path: '/pages/register/register?referrerId=' + referrerId + '&salesmanId=' + salesmanId,
-        imageUrl:"https://lsj97-1300009684.cos.ap-chengdu.myqcloud.com/%E5%90%AF%E5%8A%A8%E9%A1%B5.jpg",
+        imageUrl:"https://lsj97-1300009684.cos.ap-chengdu.myqcloud.com/share.jpg",
         success: function (res) {
-          console.log('成功', res)
+          console.log('分享成功', res)
         }
       }
     }

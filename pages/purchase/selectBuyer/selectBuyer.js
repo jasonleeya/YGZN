@@ -14,7 +14,10 @@ create(store, {
     })
   },
   onShow() {
-   app.http("queryAllUsingSalesman", { pageSize: 1000}).then(data=>{
+    this.setData({
+      buyerList:[]
+    })
+   app.http("queryAllUsingSalesman", { pageSize: 10000}).then(data=>{
       this.setData({
         buyerList:data.list
       }) 
@@ -48,5 +51,7 @@ create(store, {
     })
     wx.navigateBack()
   },
- 
+  focus(){
+    app.showToast("暂不支持搜索,抱歉")
+  }
 });
