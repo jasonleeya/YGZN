@@ -45,10 +45,10 @@
      var month = date.getMonth() + 1
      var day = date.getDate()
      var monthLength = new Date(year, month, 0).getDate()
-     if (day + 4 <= monthLength) {
-       day = day + 4
+     if (day + 5 <= monthLength) {
+       day = day + 5
      } else {
-       day = 4 - (monthLength - day)
+       day = 5 - (monthLength - day)
        if (month === 12) {
          month = 1
          year = year + 1
@@ -333,7 +333,7 @@
          adsalePerson: "", //*
          buyOperator: wx.getStorageSync("userInfo")[0].userName,
          auditor: "", //*
-         oando: data.customerType === "1003" ? "up" : "down",
+         oando: data.customerType,
          getGoodsDate: info.receiveDate,
          hdGoods: "", //*
          lgtNums: "", //*

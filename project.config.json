@@ -93,6 +93,14 @@
 					"id": -1,
 					"name": "pages/finance/paidAndReceiptedManage/paidAndReceiptedManage",
 					"pathName": "pages/finance/paidAndReceiptedManage/paidAndReceiptedManage",
+					"query": "",
+					"scene": null
+				},
+				{
+					"id": -1,
+					"name": "pages/common/orderLogs/orderLogs",
+					"pathName": "pages/common/orderLogs/orderLogs",
+					"query": "",
 					"scene": null
 				}
 			]

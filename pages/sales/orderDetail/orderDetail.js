@@ -33,12 +33,17 @@
     * 生命周期函数--监听页面加载
     */
 
-   onLoad: function(options) {
-     app.setTitle("销售单详情")
+   onLoad: function(options) {  
+     if (typeof options.type !== 'undefined') {
+       this.setData({
+         type: options.type
+       })
+     }
+
      app.http("viewOrder", {
        orderNo: options.orderNo
      })
-     app.http("queryByOrderNo", {
+     app.http(this.data.type !== 'snapshot' ? "queryByOrderNo" :'queryOriginalByOrderNo', {
        orderNo: options.orderNo
      }, false, false).then(data => {
 
@@ -62,6 +67,36 @@
        orderType += infos.enoughStatus === 1 ? infos.orderStatus === "090001" || infos.orderStatus === "090002" ? "A(可出货)/" : infos.orderStatus === "090004" && infos.oando === "down" ? "A(可出货)/" : '' : ''
        orderType += infos.enoughStatus === 2 ? infos.orderStatus === "090001" || infos.orderStatus === "090002" ? "P(库存不足)/" : infos.orderStatus === "090004" && infos.oando === "down" ? "P(库存不足)/" : '' : ''
        infos.orderType = orderType.slice(0, orderType.length - 1)
+
+       var statusStr = ""
+       switch (infos.orderStatus) {
+         case "wait":
+           statusStr = "待审核"
+           break
+         case "090001":
+           statusStr = "待确认"
+           break
+         case "090003":
+           statusStr = "待付款"
+           break
+         case "090002":
+           statusStr = "待发货"
+           break
+         case "090004":
+           statusStr = "待入库"
+           break
+         case "090005":
+           statusStr = "已完成"
+           break
+         case "090008":
+           statusStr = "已取消"
+           break
+       } 
+       if (this.data.type === 'snapshot') {
+         app.setTitle("销售订单快照")
+       } else {
+         app.setTitle("销售" + statusStr + "订单")
+       }
 
        this.setData({
          infos: infos,
@@ -317,6 +352,10 @@
            orderNo: this.data.infos.orderNo
          }).then(data => {
            app.showToast('取消订单成功')
+          setTimeout(()=>{ 
+            wx.navigateBack()
+          },500)
+         
          }).catch(err => {
            app.showToast(err)
          })
@@ -358,7 +397,26 @@
          if (res.cancel) {
            return
          }
-         that.submit(that.data.formEvent)
+        //  that.submit(that.data.formEvent)
+        var formData=that.data.formEvent.detail.value  
+         if (formData.storehouse === '') {
+           app.showToast('请选择仓库')
+           return
+         }
+         app.http("deliver",{
+           orderNo: formData.orderId,
+           remark: formData.remark,
+           lgtNums: formData.lgtNums,
+           wareKey: that.data.saleWarehouse
+         }).then(()=>{
+           app.showToast('出库成功')
+           setTimeout(() => {
+             wx.navigateBack()
+           }, 500)
+         }).catch(err=>{
+           app.showToast(err)
+
+         })
        }
      })
    },
@@ -373,10 +431,9 @@
    },
    payment() {
      var infos = this.data.infos
-     setTimeout(() => {
-       this.submit(this.data.formEvent)
+     setTimeout(() => { 
        wx.navigateTo({
-         url: '/pages/sales/payment/payment?supplyNo=' + infos.supplyNo + '&customerNo=' + infos.custNo + '&orderNoArr=' + infos.orderNo
+         url: '/pages/sales/payment/payment?custNo=' + infos.custNo + '&customerNo=' + infos.custNo + '&supplyNo=' + infos.supplyNo + '&orderNoArr=' + infos.orderNo + "&supplyName=" + infos.supplyName
        })
      }, 100)
    },
@@ -434,7 +491,7 @@
        app.showToast("请先添加商品")
        return
      }
-
+console.log(info)
 
      var params = {
        upperpartOrder: JSON.stringify([{
@@ -478,18 +535,10 @@
 
      this.setData({
        params: params
-     })
-     // if (this.data.infos.orderStatus === "090003") {
-     //   return
-     // }
-     if (this.data.infos.orderStatus === '090001' && this.data.infos.oando === 'up' ? true : this.data.infos.orderStatus === '090003' && this.data.infos.oando === 'down' ? true : false) {
-       return
-     }
-     // this.setData({
-     //   isLoad: false
-     // })
-     // console.log(params.list)
-     // return
+     })  
+    //  if (this.data.infos.orderStatus === '090001' && this.data.infos.oando === 'up' ? true : this.data.infos.orderStatus === '090003' && this.data.infos.oando === 'down' ? true : false) {
+    //    return
+    //  } 
 
      app.http("saveSaleOrderUpperAndLower", params, true).then(() => {
          app.showToast("确认订单成功")
@@ -511,14 +560,30 @@
          app.showToast(e)
        })
    },
+   lgtInput(e) {
+     this.setData({
+       ['infos.lgtNums']: e.detail.value
+     })
+   },
 
-
-   seeLogisticsInfo() {
+   seeLogisticsInfo() { 
      wx.navigateTo({
        url: '/pages/common/LogisticsInfo/LogisticsInfo?lgtNums=' + this.data.infos.lgtNums
      })
    },
-
+   viewOrderLogs() {
+     wx.navigateTo({
+       url: '/pages/common/orderLogs/orderLogs?orderNo=' + this.data.infos.orderNo + "&orderTypes=" + "销售"
+     })
+   },
+   viewSnapshot(){
+     wx.navigateTo({
+       url: '/pages/sales/orderDetail/orderDetail?orderNo=' + this.data.infos.orderNo + "&type=snapshot"
+     })
+   },
+   back() {
+     wx.navigateBack()
+   },
    addGoods() {
      // var list = this.data.goodsList
      // list .forEach(item=>{
@@ -534,5 +599,24 @@
      })
 
    },
+   agreeCancelOrder(){
+     wx.showModal({
+       title: '确定同意取消此订单吗', 
+       success: (res)=>{
+         if(res.cancel){return}
+         app.http("cancelOrder",{
+           orderNo:this.data.infos.orderNo,
+           flag: "true"
+         }).then(()=>{
+           app.showToast("取消订单成功")
+           setTimeout(() => {
+             wx.navigateBack()
+           }, 500)
+         }).catch(err=>{
+           app.showToast(err)
+         })
+       }, 
+     })
+   }
 
  })

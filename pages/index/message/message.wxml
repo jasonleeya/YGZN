@@ -1,4 +1,5 @@
-<scroll-view class='message-scroll' scroll-y bindscrolltolower="scrollToBottom">
+<scroll-view class='message-scroll' scroll-y bindscrolltolower="scrollToBottom" bindscrolltoupper="scrollToUpper" bindtouchstart="touchStart" bindtouchend="touchEnd" upper-threshold="{{10}}">
+<view class="read-all" wx:if="{{isShowReadAll}}" bindtap="readAll">点击全部标记为已读</view>
   <view class="empty" wx:if="{{msgList.length===0}}">暂无消息~~
   </view>
   <!-- 置顶列表 -->

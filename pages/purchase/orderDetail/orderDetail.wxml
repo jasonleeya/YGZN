@@ -1,5 +1,5 @@
- <scroll-view scroll-y>
-  <form bindsubmit="formSubmit">
+<form bindsubmit="formSubmit">
+  <scroll-view scroll-y id="content-scroll-view">
     <view class="info-list shadow">
       <view class="cell border-bt">
         <view class="cell-name">采购单号</view>
@@ -38,7 +38,7 @@
       </view>
 
       <view class="cell border-bt">
-        <view class="cell-name">联系电话</view>
+        <view class="cell-name">收货电话</view>
         <view class="cell-value">
           <input class="{{canEdit&&infos.orderStatus==='wait'?'':'text-gray'}}" disabled="{{canEdit&&infos.orderStatus==='wait'?false:true}}" name="phoneNumber" type="number" value="{{address.telephone}}" maxlength="11"></input>
         </view>
@@ -69,7 +69,7 @@
       <view class="cell border-bt">
         <view class="cell-name">订单状态</view>
         <view class="cell-value text-gray">
-             {{infos.orderType}}
+          {{infos.orderType}}
         </view>
       </view>
 
@@ -85,63 +85,83 @@
 
     </view>
     <!-- 搜索 -->
-    <search bindtap="toSearch" />
+    <search bindtap="toSearch" justLink="{{true}}" needTypes="{{false}}"/>
     <!-- 购物车 -->
     <cart goodsList="{{goodsList}}" totalPrice="{{totalPrice}}" picUrlKey="pirctureWay" nameKey="goodsName" brandNameKey="goodsBrand" typeKey="brandNo" priceKey="discountPrice" amountKey="goodsCount" idKey="goodsNo" minNumKey="minNums" bind:changeAmount="getChangeAmount"
       bind:deleteGoods="deleteGoods" bind:operate="operate" bind:changeTotalPriceAndAmount="priceAmountChange" editable="{{canEdit}}" operateType="{{infos.orderStatus === 'wait'||infos.orderStatus === '090001'&& infos.oando === 'down'?'修改':'查看'}}" bind:goodsDetail="goodsDetail"
-    />
-    <view class="title remake">备注</view>
-    <textarea name="remark" class="remarke-textarea" value="{{infos.remark}}" placeholder="请填写备注信息" />
+    />  
+ 
 
+    <view class="title remake" >备注</view>
+    <textarea name="remark" wx:if="{{!showEditPop}}" disabled="{{!canEdit}}" class="remarke-textarea" value="{{infos.remark}}" placeholder="请填写备注信息" />
 
-    <view class="operating-options">
-      <view class="option">
-        <button class="bg-gradual-orange" bindtap="edit" hidden="{{canEdit}}" wx:if="{{infos.orderStatus === 'wait'||infos.orderStatus === '090001'&& infos.oando === 'down'}}">修改订单</button>
-      </view>
+  </scroll-view>
 
-      <!-- <button class="bg-gradual-orange" wx:if="{{infos.orderStatus === 'wait'}}">添加商品</button> -->
+  <view class="operating-options" wx:if="{{type!=='snapshot'}}">
 
-      <view class="option">
-        <button class="bg-gradual-orange" wx:if="{{infos.orderStatus==='090001'&&infos.oando === 'down'}}" form-type="submit" bindtap="confirmOrder">确认订单</button>
-      </view>
-
-      <view class="option">
-        <button class="bg-gradual-orange" wx:if="{{ infos.orderStatus!=='090005'&&infos.orderStatus!=='090008'}}" hidden="{{infos.orderStatus==='090004'||infos.orderStatus==='090002'?infos.oando === 'up'?true:false:false}}" bindtap="cancelOrder">取消订单</button>
-      </view>
-
-      <view class="option">
-        <button class="bg-gradual-orange" wx:if="{{infos.orderStatus === 'wait'}}" form-type="submit" bindtap="confirmOrder">确认订单</button>
-      </view>
-
-      <view class="option">
-        <button class="bg-gradual-orange" wx:if="{{infos.orderStatus === '090002'&&infos.oando === 'down'}}" form-type="submit" bindtap="confirmSend">确认订单</button>
-      </view>
-
-      <view class="option">
-        <button class="bg-gradual-orange" wx:if="{{infos.orderStatus === '090003'}}" form-type="submit" bindtap="payment">确认付款</button>
-      </view>
-
-      <view class="option">
-        <button class="bg-gradual-orange" wx:if="{{infos.orderStatus === '090004'}}" bindtap="split">拆分</button>
-      </view>
-
-      <view class="option">
-        <button class="bg-gradual-orange" wx:if="{{infos.orderStatus === '090004'}}" form-type="submit" bindtap="confirmStorage">确认入库</button>
-      </view>
-
-      <view class="option">
-        <button class="bg-gradual-orange" wx:if="{{infos.orderStatus === '090005'}}" bindtap="returnGoods">退货</button>
-      </view>
-
-      <view class="option">
-        <button class="bg-gradual-orange" bindtap="purchaseAgain">再次采购</button>
-      </view>
-
+    <view class="option" hidden="{{canEdit}}" wx:if="{{infos.orderStatus === 'wait'||infos.orderStatus === '090001'&& infos.oando === 'down'}}">
+      <button class="bg-gradual-orange" bindtap="edit">修改订单</button>
     </view>
 
+    <!-- <button class="bg-gradual-orange" wx:if="{{infos.orderStatus === 'wait'}}">添加商品</button> -->
 
+    <!-- <view class="option">
+      <button class="bg-gradual-orange" wx:if="{{infos.orderStatus==='090001'&&infos.oando === 'down'}}" form-type="submit" bindtap="confirmOrder">确认订单</button>
+    </view> -->
 
-  </form>
+    <view class="option" wx:if="{{ infos.orderStatus!=='090005'&&infos.orderStatus!=='090008'}}" hidden="{{infos.orderStatus==='090004'||infos.orderStatus==='090002'?infos.oando === 'up'?true:false:false}}">
+      <button class="bg-gradual-orange" bindtap="cancelOrder">取消订单</button>
+    </view>
 
-</scroll-view>
-<editGoodsInfo wx:if="{{showEditPop}}" popData="{{popData}}" noTaxPriceKey="ntpsingle" noTaxTotalPriceKey="ntp" bind:editedInfo="getEditedInfo" bind:closePop="closePop" />
+    <view class="option" wx:if="{{infos.orderStatus === 'wait'}}">
+      <button class="bg-gradual-orange" form-type="submit" bindtap="confirmOrder">确认订单</button>
+    </view>
+
+    <view class="option" wx:if="{{infos.orderStatus === '090001'&&infos.oando === 'down'}}">
+      <button class="bg-gradual-orange" form-type="submit" bindtap="confirmOfflineOrder">确认线下订单</button>
+    </view>
+
+    <view class="option" wx:if="{{infos.orderStatus === '090002'&&infos.oando === 'down'}}">
+      <button class="bg-gradual-orange" form-type="submit" bindtap="confirmSend">确认订单</button>
+    </view>
+
+    <view class="option" wx:if="{{infos.orderStatus === '090003'}}">
+      <button class="bg-gradual-orange" form-type="submit" bindtap="payment">确认付款</button>
+    </view>
+    <!-- 
+    <view class="option" wx:if="{{infos.orderStatus === '090004'}}">
+      <button class="bg-gradual-orange" bindtap="split">拆分</button>
+    </view> -->
+
+    <view class="option" wx:if="{{infos.orderStatus === '090004'}}">
+      <button class="bg-gradual-orange" bindtap="confirmStorage">确认入库</button>
+    </view>
+
+    <view class="option" wx:if="{{infos.orderStatus === '090005'}}">
+      <button class="bg-gradual-orange" bindtap="returnGoods">退货</button>
+    </view>
+
+    <view class="option">
+      <button class="bg-gradual-orange" bindtap="purchaseAgain">再次采购</button>
+    </view>
+
+    <view class="option" wx:if="{{(infos.orderStatus==='090002'||infos.orderStatus==='090004')&&infos.oando==='up'&&infos.cancelApply!==1}}">
+      <button class="bg-gradual-orange" bindtap="appllyCancelOrder">申请取消</button>
+    </view>
+
+    <view class="option">
+      <button class="bg-gradual-orange" bindtap="viewOrderLogs">订单日志</button>
+    </view>
+
+    <view class="option">
+      <button class="bg-gradual-orange" bindtap="viewSnapshot">订单快照</button>
+    </view>
+
+  </view>
+  <view class="operating-options" wx:if="{{type==='snapshot'}}">
+    <view class="option">
+      <button class="bg-gradual-orange" bindtap="back">返回</button>
+    </view>
+  </view>
+</form> 
+   <editGoodsInfo wx:if="{{showEditPop}}" popData="{{popData}}" noTaxPriceKey="ntpsingle" noTaxTotalPriceKey="ntp" bind:editedInfo="getEditedInfo" bind:closePop="closePop" privateRemarkKey="sourceOrder" />

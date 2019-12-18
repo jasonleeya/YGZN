@@ -12,9 +12,8 @@
   width: 100vw;
   height: 200rpx;
   padding: 30rpx;
-  margin-bottom: 100rpx;
-  background-color: #fff;
-  z-index: -1;
+  margin-bottom: 0;
+  background-color: #fff; 
 }
 
 .save-order, .comfirm-order {
@@ -50,18 +49,24 @@
   padding: 0 30rpx;
   border-top: 1rpx solid #eee;
   display: flex;
-  justify-content: flex-end;
   align-items: center;
+  flex-direction: row-reverse;
 }
 
+.option {
+  min-width: 160rpx;
+  margin-left: 20rpx;
+}
 
 .option button {
   height: 60rpx;
   line-height: 60rpx;
   padding: 0 20rpx;
   border-radius: 30rpx;
-  margin-left: 20rpx;
   min-width: 160rpx;
   text-align: center;
   font-size: 28rpx;
+}
+#content-scroll-view{
+  height: calc(100vh - 100rpx)
 }

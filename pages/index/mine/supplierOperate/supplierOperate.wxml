@@ -1,6 +1,6 @@
 <view class="search-header solid-bottom" wx:if="{{operateType==='add'}}">
   <view class="search-icon cuIcon-search"></view>
-  <input class="bg-gray" placeholder="可搜索已认证的供应商 申请后 需要用户通过" bindfocus="searchFocus" bindinput="searchInput" bindblur="searchBlur" value="{{searchInputValue}}"></input>
+  <input class="bg-gray" placeholder="可搜索平台的用户 申请后 需要用户通过" bindfocus="searchFocus" bindinput="searchInput" bindblur="searchBlur" value="{{searchInputValue}}"></input>
   <view class="dropdowm-list" wx:if="{{showDropdown}}">
     <view class="dropdown-item solid-bottom" wx:for="{{searchList}}" wx:key data-index="{{index}}" bindtap="chooseSearchItem">
       <text class="dropdown-icon cuIcon-friend"></text>{{item.userName}}</view>
@@ -102,4 +102,24 @@
     </view>
   </form>
 
+</view>
+<view class="cu-modal {{isShowApplyDialog?'show':''}}">
+  <view class="cu-dialog">
+    <view class="cu-bar bg-white justify-end">
+      <view class="content">供应商申请</view>
+      <view class="action" bindtap="hideApplyDialog">
+        <text class="cuIcon-close text-red"></text>
+      </view>
+    </view>
+    <view class="padding-xl">
+      该用户申请成为供应商,是否通过?
+    </view>
+    <view class="cu-bar bg-white justify-end">
+      <view class="action">
+        <button class="cu-btn line-red text-red" bindtap="applyRefuse">拒绝</button>
+        <button class="cu-btn bg-blue margin-left" bindtap="applyPass">通过</button>
+
+      </view>
+    </view>
+  </view>
 </view>

@@ -42,10 +42,10 @@ create(store, {
     var month = date.getMonth() + 1
     var day = date.getDate()
     var monthLength = new Date(year, month, 0).getDate()
-    if (day + 4 <= monthLength) {
-      day = day + 4
+    if (day + 5 <= monthLength) {
+      day = day + 5
     } else {
-      day = 4 - (monthLength - day)
+      day = 5 - (monthLength - day)
       if (month === 12) {
         month = 1
         year = year + 1
@@ -62,7 +62,7 @@ create(store, {
     var cartList = app.globalData.salesCartList
     var totalPrice = 0
     cartList.forEach(item => {
-      totalPrice = parseFloat(totalPrice) + parseFloat(item.sttAmount).toFixed(2)
+      totalPrice = (parseFloat(totalPrice) + parseFloat(item.sttAmount)).toFixed(2)
     })
 
     this.setData({
@@ -79,10 +79,19 @@ create(store, {
           return
         }
         var address = data.list[0]
-        this.setData({
-          // region: [address.province, address.city, address.area],
-          addressDetail: address.address
-        })
+        function isEmpty(v){
+          return v === null || v === "null" || v === "" || typeof v === 'undefined' || v === 'undefined'
+        }
+        if (isEmpty(address.area) || isEmpty(address.city) || isEmpty(address.province)){
+          this.setData({
+            addressDetail: address.address
+          })
+        }else{
+          this.setData({
+            addressDetail: '【' + address.province +'/'+ address.area +'/'+ address.city+'】'+ address.address
+          })
+        }
+        
       })
     }
   },
@@ -231,6 +240,11 @@ create(store, {
   obtianOperateType(e) {
     this.setData({
       operateType: e.target.dataset.type
+    })
+  },
+  closePop() {
+    this.setData({
+      showEditPop: false
     })
   },
   formSubmit(e) { 

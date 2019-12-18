@@ -51,7 +51,7 @@
 <scroll-view scroll-y class="order-list-scroll-view" bindscrolltolower="scrollToLower">
   <view class="card" wx:for="{{orderList}}" wx:key bindtap="edit" data-index="{{index}}">
     <view class="card-head">
-      <view class="card-title">已{{type}}订单:{{item.bill.billno}}</view>
+      <view class="card-title">{{item.upOrDown==='up'?'线上':'线下'}}{{type}}订单：{{item.bill.billno}}</view>
       <view class="card-subtitl {{item.bill.status===0?'text-red':'text-green'}}">{{item.bill.statusStr}}</view>
     </view>
     <view class="card-content">

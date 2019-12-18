@@ -10,12 +10,12 @@
       <view class="supplier-item" wx:for="{{supplierList}}" wx:key bindtap="seeDetail" data-index="{{index}}" bindtap="edit">
         <view class="supplier-header solid-bottom">
           <text class="cuIcon-friend name-icon"></text>
-          <text class="supplier-name">{{item.supplyName}}</text>
+          <text class="supplier-name">{{item.supplyName}}<text class="text-red" wx:if="{{item.status==='2'}}">({{item.statusStr}})</text></text>
           <text class="supplier-type text-green">{{item.approveStatus?"线上":"自建"}}</text>
         </view>
         <view class="supplier-info">
           <view class="supplier-info-name text-gray">营业执照</view>
-          <view class="supplier-info-value">{{item.blNumber}}</view>
+          <view class="supplier-info-value">{{m.format(item.blNumber)}}</view>
         </view>
         <view class="supplier-info">
           <view class="supplier-info-name text-gray">客户类型</view>
@@ -23,13 +23,19 @@
         </view>
         <view class="supplier-info">
           <view class="supplier-info-name text-gray">联系人</view>
-          <view class="supplier-info-value">{{item.supContact}}</view>
+          <view class="supplier-info-value">{{m.format(item.supContact)}}</view>
         </view>
         <view class="supplier-info">
           <view class="supplier-info-name text-gray">联系电话</view>
-          <view class="supplier-info-value">{{item.supPhone}}</view>
+          <view class="supplier-info-value">{{m.format(item.supPhone)}}</view>
         </view>
       </view>
     </view>
     <view class="cu-load bg-gray {{isLoad?'loading':'over'}}"></view>
   </scroll-view>
+  <wxs module="m">
+  var format = function(value) {
+    return typeof value === 'undefined' || value === 'undefined' || value === null || value === 'null' || value === '' ? '无' : value;
+  }
+  module.exports.format = format;
+</wxs>

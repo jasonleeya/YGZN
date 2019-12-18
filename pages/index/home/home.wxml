@@ -1,6 +1,6 @@
 <view class="index">
   <!-- 头部 -->
-  <search bindtap="toProductManage" justLink="{{true}}" />
+  <search bindtap="toProductManage" justLink="{{true}}" needTypes="{{false}}" />
 
   <scroll-view scroll-y class="scroll-body">
     <view class='scroll-wrapper'>

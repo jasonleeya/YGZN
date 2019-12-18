@@ -77,7 +77,7 @@
       <input name="bookno" value="{{infos.bookno}}" placeholder="请输入票据号"></input>
     </view>
   </view>
-  <view class="cell border-bt">
+  <view class="cell">
     <view class="cell-name">到账日期</view>
     <view class="cell-value">
       <input name="decidedate" disabled placeholder="请选择到账日期" value="{{!canEdit?infos.decidedate:receiptDate}}"></input>

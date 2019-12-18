@@ -19,7 +19,10 @@ create({
     msgList: [],
     topList: [],
     curPage: 1,
-    totalPage: null
+    totalPage: null,
+    isShowReadAll: false,
+    isScrollToTop: true,
+    scrollOffsetY: {}
   },
 
   lifetimes: {
@@ -33,7 +36,7 @@ create({
    * 组件的方法列表
    */
   methods: {
-    getList() {
+    getList(replace=false) {
       this.setData({
         isLoad: true
       })
@@ -96,10 +99,18 @@ create({
             msg.operate = "申请成为供应商"
             msg.head = "申请通知"
           }
+          if (msg.content.search("通过你供应商的申请") > 0) {
+            msg.operate = "供应商申请通过"
+            msg.head = "申请通知"
+          }
+          if (msg.content.search("拒绝了你供应商的申请") > 0) {
+            msg.operate = "供应商申请未通过"
+            msg.head = "申请通知"
+          }
           if (msg.content.search("提交") > 0) {
-            msg.operate = "新增-"
+            msg.operate = "新增"
             msg.head = "新增订单"
-          } 
+          }
           if (msg.content.search("确认") > 0) {
             msg.operate = "已确认"
             msg.head = "订单确认"
@@ -132,10 +143,12 @@ create({
             msg.operate = "已提交"
             msg.head = "订单提交"
           }
+          
+
         })
         if (parseInt(this.data.totalPage) >= parseInt(this.data.curPage)) {
           this.setData({
-            msgList: this.data.msgList.concat(msgList.list)
+            msgList: replace ? msgList.list:this.data.msgList.concat(msgList.list)
           })
         }
       })
@@ -161,7 +174,7 @@ create({
         wx.showModal({
           title: (dataset.orderType === "sale" ? "销售" : "采购") + "订单" + dataset.orderNo,
           content: dataset.content,
-          confirmText:"查看订单",
+          confirmText: "查看订单",
           success: (res) => {
             if (res.cancel) {
               return
@@ -184,11 +197,48 @@ create({
         })
       }
     },
+    scrollToUpper() {
+      this.setData({
+        isScrollToTop: true
+      })
+      console.log(this.data.isScrollToTop)
+    },
+    touchStart(e) {
+      if (!this.data.isScrollToTop) {
+        return
+      }
+      this.setData({
+        ["scrollOffsetY.start"]: e.changedTouches[0].pageY
+      })
+    },
+    touchEnd(e) {
+      this.setData({
+        ["scrollOffsetY.end"]: e.changedTouches[0].pageY
+      })
+      if (this.data.scrollOffsetY.start > e.changedTouches[0].pageY) {
+        this.setData({
+          isScrollToTop: false
+        })
+      }
+      if (!this.data.isScrollToTop) {
+        return
+      }
+      if (e.changedTouches[0].pageY - this.data.scrollOffsetY.start >= 100) {
+        this.setData({
+          isShowReadAll:true
+        })
+        setTimeout(()=>{
+          this.setData({
+            isShowReadAll: false
+          })
+        },3000)
+      }
+    },
     scrollToBottom() {
       if (this.data.isLoad) {
         return
       }
-      if (parseInt(this.data.totalPage) > parseInt(this.data.curPage)) {
+      if (parseInt(this.data.totalPage) >= parseInt(this.data.curPage)) {
         this.setData({
           curPage: this.data.curPage + 1
         })
@@ -197,6 +247,15 @@ create({
       }
 
       this.getList()
+    },
+    readAll(){
+      app.http("updateAllReminderMessageType").then(data=>{
+        app.showToast("消息已全部标为已读")
+        this.getList(true)
+      }).catch(err=>{ 
+        app.showToast("消息已全部标为已读")
+        this.getList(true)
+      })
     },
     // ListTouch触摸开始
     ListTouchStart(e) {
@@ -297,8 +356,9 @@ create({
         id: e.target.dataset.id
       }).then(res => {
         app.showToast("消息已设为已读")
+        this.getList(true)
       })
-      return 
+      return
       var newMessageList = this.data.messageList
       var newTopList = this.data.topList
       if (e.target.dataset.top === "true") {

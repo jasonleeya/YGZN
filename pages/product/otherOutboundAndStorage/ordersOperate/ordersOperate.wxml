@@ -29,7 +29,7 @@
     </picker>
   </view>
   <search justLink="{{true}}" bindtap="addGoods" />
-  <cart goodsList="{{cartList}}" priceKey="price" totalPrice="{{totalPrice}}" amountKey="qty" nameKey="productName" brandNameKey="brandName" typeKey="brandCode" picUrlKey="imgPath" bind:operate="editGoodsInfo" bind:changeAmount="goodsCountChange" editable="{{canEdit}}" bind:deleteGoods="deleteGoods"
+  <cart goodsList="{{cartList}}" priceKey="price" totalPrice="{{totalPrice}}" amountKey="qty" nameKey="productName" brandNameKey="brandName" typeKey="brandCode" picUrlKey="imgPath" bind:operate="editGoodsInfo" bind:changeAmount="goodsCountChange" editable="{{canEdit}}" bind:deleteGoods="deleteGoods" facePriceKey="" goodsDiscountKey="" noTaxTotalPriceKey=""
   />
 
   <view class="cells-title">备注</view>
@@ -55,5 +55,4 @@
   </view>
 
 </form>
-<editGoodsInfo wx:if="{{showPop}}" fromPage="other" amountKey="qty" nameKey="productName" noTaxPriceKey="noTaxPrice" noTaxTotalPriceKey="noTaxTotal" taxKey="taxRate" containTaxPriceKey="price" totalPriceKey="totalPrice" noTaxTotalPriceKey="noTaxTotal"
-  popData="{{popData}}" bind:editedInfo="getEditInfo" bind:closePop="closePop" />
+<editGoodsInfo wx:if="{{showPop}}" fromPage="other" amountKey="qty" nameKey="productName" noTaxPriceKey="noTaxPrice" noTaxTotalPriceKey="noTaxTotal" taxKey="taxRate" containTaxPriceKey="price" totalPriceKey="totalPrice" noTaxTotalPriceKey="noTaxTotal" goodsDiscount="" popData="{{popData}}" bind:editedInfo="getEditInfo" bind:closePop="closePop" />

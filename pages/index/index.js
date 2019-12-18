@@ -26,6 +26,16 @@ create(store, {
 
       app.http("toggleAccount", {
         id: data.list[wx.getStorageSync("currentCompanyIndex")][1]
+      }).then(data=>{
+        app.http("getUserByCustNo", {
+          flag: true
+        }).then(data => {
+          app.globalData.userInfo = data.list
+          wx.setStorageSync("userInfo", data.list)
+        }).catch(err => {
+          app.showToast(err)
+        })
+
       })
 
     })

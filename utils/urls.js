@@ -112,6 +112,15 @@ const alias = {
   allotOrderPrev: BASE_URL +"/imatchOrder/reOrder/allotOrderPrev",
   allotOrderCommit: BASE_URL +"/imatchOrder/reOrder/allotOrderCommit",
   getAcceptBillListByCust: BASE_URL +"/imatchOrder/acceptbill/getAcceptBillListByCust", 
+  creditPayment: BASE_URL +"/imatchOrder/reOrder/creditPayment",
+  deliver: BASE_URL +"/imatchOrder/reOrder/deliver",
+  reOrderTake: BASE_URL +"/imatchOrder/reOrder/take",
+  custOrderPay: BASE_URL +"/imatchOrder/acceptbill/custOrderPay",
+  updateCustomerStatus: BASE_URL +"/imatchUser/user/updateCustomerStatus",
+  findLogginByOrder: BASE_URL +"/imatchOrder/loggin/findLogginByOrder",
+  updateAllReminderMessageType: BASE_URL_WX +"/netgate-article/updateAllReminderMessageType",
+  queryOriginalByOrderNo: BASE_URL +"/imatchOrder/traceOrder/queryOriginalByOrderNo",
+  cancelApply: BASE_URL +"/imatchOrder/reOrder/cancelApply", 
 
 }
 export default function(name) {

@@ -16,6 +16,7 @@
         </view>
         <view class="cell-value">
           <input name="customerName" placeholder="{{operateType==='edit'&&!canEdit?'无':'请输入客户名称'}}" value="{{formData.customerName}}" bindinput="customerNameInput" disabled="{{!canEdit}}"></input>
+          <input name="custNo" disabled hidden value="{{formData.custNo}}"></input>
         </view>
       </view>
       <view class="cell border-bt">
@@ -128,3 +129,25 @@
     </form>
   </view>
 </scroll-view>
+
+
+<view class="cu-modal {{isShowApplyDialog?'show':''}}">
+  <view class="cu-dialog">
+    <view class="cu-bar bg-white justify-end">
+      <view class="content">客户申请</view>
+      <view class="action" bindtap="hideApplyDialog">
+        <text class="cuIcon-close text-red"></text>
+      </view>
+    </view>
+    <view class="padding-xl">
+      该用户申请成为客户,是否通过?
+    </view>
+    <view class="cu-bar bg-white justify-end">
+      <view class="action">
+        <button class="cu-btn line-red text-red" bindtap="applyRefuse">拒绝</button>
+        <button class="cu-btn bg-blue margin-left" bindtap="applyPass">通过</button>
+
+      </view>
+    </view>
+  </view>
+</view>

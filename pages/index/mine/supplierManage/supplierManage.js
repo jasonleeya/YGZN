@@ -6,9 +6,13 @@ Page({
     currentPage: 0,
     searchValue: "",
     timeOut: null,
+    selfId:""
   },
   onLoad() { 
     app.setTitle("供应商管理")
+    this.setData({
+      selfId:wx.getStorageSync("userInfo")[0].queryNo
+    })
   },
   onShow() {
     this.getList(true)
@@ -55,8 +59,16 @@ Page({
       if (data.list) {
           var tempList=[]
           data.list.forEach(item=>{
-            tempList.push(item.customer)
-          })
+            tempList.push(item.customer) 
+          }) 
+        tempList.forEach(item=>{
+          if (this.data.selfId === item.createCompany && item.status==='2'){
+            item.statusStr="申请中"
+          }
+          if (this.data.selfId !== item.createCompany && item.status === '2'){
+            item.statusStr = "对方申请待确认"
+          }
+        })
         this.setData({
           supplierList: this.data.supplierList.concat(tempList),
           isLoad: false,

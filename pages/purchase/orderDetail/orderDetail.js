@@ -26,6 +26,8 @@ Page({
     orderStatus: null,
     params: {},
     formEvent: {},
+    isShowOrderLogPop:false,
+    type:""
   },
 
   /**
@@ -33,13 +35,18 @@ Page({
    */
 
   onLoad: function(options) {
-    app.setTitle("采购订单详情")
+    if(typeof options.type!=='undefined'){
+      this.setData({
+        type: options.type
+      })
+    }
+
     //设为已读
     app.http("viewOrder", {
       orderNo: options.orderNo
     })
- 
-    app.http("queryByOrderNo", {
+
+    app.http(this.data.type !== 'snapshot' ? "queryByOrderNo" :'queryOriginalByOrderNo', {
       orderNo: options.orderNo
     }, false, false).then(data => {
 
@@ -53,8 +60,36 @@ Page({
       orderType += infos.showPayBtn === "yes" && infos.orderStatus === "090003" ? "已汇款/" : ""
       infos.orderType = orderType.slice(0, orderType.length - 1)
 
-
-
+      var statusStr = ""
+      switch (infos.orderStatus) {
+        case "wait":
+          statusStr = "待审核"
+          break
+        case "090001":
+          statusStr = "待确认"
+          break
+        case "090003":
+          statusStr = "待付款"
+          break
+        case "090002":
+          statusStr = "待发货"
+          break
+        case "090004":
+          statusStr = "待入库"
+          break
+        case "090005":
+          statusStr = "已完成"
+          break
+        case "090008":
+          statusStr = "已取消"
+          break
+      }
+      if(this.data.type==='snapshot'){
+        app.setTitle("采购订单快照")
+      }else{
+        app.setTitle("采购" + statusStr + "订单")
+      }
+      
 
       this.setData({
         infos: infos,
@@ -86,9 +121,9 @@ Page({
           ["storehouse.index"]: index
         })
       })
-      }).catch(err => {
-        app.showToast(err)
-      })
+    }).catch(err => {
+      app.showToast(err)
+    })
 
 
 
@@ -369,6 +404,22 @@ Page({
 
   confirmOrder(e) {
     this.setData({
+      orderStatus: "090001"
+    })
+    let that = this
+    wx.showModal({
+      title: '是否确认订单?',
+      content: '',
+      success(res) {
+        if (res.cancel) {
+          return
+        }
+        that.submit(that.data.formEvent)
+      }
+    })
+  },
+  confirmOfflineOrder(e) {
+    this.setData({
       orderStatus: "090003"
     })
     let that = this
@@ -386,7 +437,7 @@ Page({
   cancelOrder() {
     wx.showModal({
       title: '确定取消订单吗',
-      success:(res)=>{
+      success: (res) => {
         if (res.cancel) {
           return
         }
@@ -394,9 +445,9 @@ Page({
           orderNo: this.data.infos.orderNo
         }).then(data => {
           app.showToast('取消订单成功')
-          setTimeout(()=>{
+          setTimeout(() => {
             wx.navigateBack()
-          },500)
+          }, 500)
         }).catch(err => {
           app.showToast(err)
         })
@@ -408,9 +459,6 @@ Page({
     app.showToast("暂不支持")
   },
   confirmStorage() {
-    this.setData({
-      orderStatus: "090005"
-    })
     let that = this
     wx.showModal({
       title: '确定入库吗?',
@@ -419,7 +467,17 @@ Page({
         if (res.cancel) {
           return
         }
-        that.submit(that.data.formEvent)
+        app.http("reOrderTake", {
+          orderNo: that.data.infos.orderNo,
+          wareKey: that.data.infos.purchaseWarehouse
+        }).then(data => {
+          app.showToast('入库成功')
+          setTimeout(() => {
+            wx.navigateBack()
+          }, 500)
+        }).catch(err => {
+          app.showToast(err)
+        })
       }
     })
   },
@@ -461,12 +519,40 @@ Page({
     })
 
   },
+  viewOrderLogs(){
+    wx.navigateTo({
+      url: '/pages/common/orderLogs/orderLogs?orderNo=' + this.data.infos.orderNo +"&orderTypes="+"采购"
+    })
+  },
+  appllyCancelOrder(){
+  wx.showModal({
+    title: '确定要申请取消该订单吗',
+    success: (res)=>{
+      if(res.cancel){return}
+      app.http("cancelApply", {
+        orderNo: this.data.infos.orderNo
+      }).then(() => {
+        app.showToast("已申请取消该订单,请等待对方确认")
+      }).catch((err) => {
+        app.showToast(err)
+      })
+    },
+  })
+  },
+  viewSnapshot(){
+    wx.navigateTo({
+      url: '/pages/purchase/orderDetail/orderDetail?orderNo=' + this.data.infos.orderNo + "&type=snapshot" 
+    })
+  },
+  back(){
+    wx.navigateBack()
+  },
   payment() {
     var infos = this.data.infos
     setTimeout(() => {
       this.submit(this.data.formEvent)
       wx.navigateTo({
-        url: '/pages/purchase/payment/payment?supplyNo=' + infos.supplyNo + '&customerNo=' + infos.custNo + '&orderNoArr=' + infos.orderNo
+        url: '/pages/purchase/payment/payment?supplyNo=' + infos.supplyNo + '&customerNo=' + infos.custNo + '&orderNoArr=' + infos.orderNo + "&supplyName=" + infos.supplyName
       })
     }, 100)
   }

@@ -8,12 +8,12 @@ Page({
   data: {
     customerLevel: {
       list: [],
-      index: null,
+      index: 0,
       value: []
     },
     salesman: {
       list: [],
-      index: null,
+      index: 0,
       value: []
     },
     formData: {},
@@ -23,13 +23,14 @@ Page({
     searchList: [],
     operateType: "",
     canEdit: false,
-    formEvent: {}
+    formEvent: {},
+    isShowApplyDialog: false
   },
   //
   /**
    * 生命周期函数--监听页面加载
    */
-  onLoad: function(options) {
+  onLoad: function (options) {
     app.setTitle("添加客户")
     this.setData({
       operateType: options.operateType
@@ -77,14 +78,56 @@ Page({
           ["customerLevel.index"]: gIndex,
           formData: infos
         })
+
+        var custNo = wx.getStorageSync('userInfo')[0].queryNo 
+        if (infos.status === '2' && infos.createCompany !== custNo) {
+          this.setData({
+            isShowApplyDialog: true
+          })
+        }
       })
+
     }
+  },
+  hideApplyDialog() {
+    this.setData({
+      isShowApplyDialog: false
+    })
+  },
+  applyRefuse() {
+    app.http("updateCustomerStatus", {
+      customerNo: this.data.formData.customerNo,
+      status: -1
+    }).then(() => {
+      app.showToast("客户申请已拒绝")
+      this.setData({
+        isShowApplyDialog: false
+      })
+      setTimeout(() => {
+        wx.navigateBack()
+      }, 500)
+    }).catch(err => {
+      app.showToast(err)
+    })
+  },
+  applyPass() {
+    app.http("updateCustomerStatus", {
+      customerNo: this.data.formData.customerNo,
+      status: 1
+    }).then(() => {
+      this.setData({
+        isShowApplyDialog: false
+      })
+      app.showToast("客户申请通过") 
+    }).catch(err => {
+      app.showToast(err)
+    })
   },
   onShow() {
 
 
   },
-  setLevel: function(e) {
+  setLevel: function (e) {
     this.setData({
       ["customerLevel.index"]: e.detail.value
     })
@@ -105,13 +148,12 @@ Page({
     var address = "【" + formData.region + "】" + formData.detailAddress
 
     formData.grade = grade
-    formData.address = address
-
+    formData.address = address 
     formData.creditLine = '0.00'
     formData.customerType = '1001'
     formData.settlementDate = '30'
     formData.overdraftAmount = '0.00'
-    formData.customerNo = ""
+    formData.customerNo = "" 
 
     app.http("addCustomer", formData)
     wx.navigateBack()
@@ -160,7 +202,8 @@ Page({
     this.setData({
       showDropdown: false,
       ['formData.customerName']: this.data.searchList[e.target.dataset.index].userName,
-      ['formData.letter']: chiniseToPinyin(this.data.searchList[e.target.dataset.index].userName)[0]
+      ['formData.letter']: chiniseToPinyin(this.data.searchList[e.target.dataset.index].userName)[0],
+      ['formData.custNo']: this.data.searchList[e.target.dataset.index].custNo
     })
   },
   customerNameInput(e) {
@@ -211,18 +254,19 @@ Page({
       }
     })
   },
- 
+
   add() {
     var params = this.data.formEvent.detail.value
     params.customerNo = ""
     params.grade = this.data.customerLevel.value[this.data.customerLevel.index].id
-    params. creditLine= '0.00'
+    params.creditLine = '0.00'
     params.customerType = "1001"
     params.settlementDate = "30"
     params.overdraftAmount = "0"
-    params.address = "【" + params.region + "】" + params.detailAddress
+    params.address = params.region===""?params.detailAddress: "【" + params.region + "】" + params.detailAddress
+     
     app.http("addCustomer", params).then(res => {
-      app.showToast("添加成功")
+      app.showToast("添加成功,等待对方确认")
       setTimeout(() => {
         wx.navigateBack()
       }, 500)

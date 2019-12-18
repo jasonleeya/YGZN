@@ -33,7 +33,7 @@
         </view>
       </view>
 
-<!-- 
+      <!-- 
       <view class="cell border-bt">
         <view class="cell-name">收货所在地区</view>
         <view class="cell-value">
@@ -67,7 +67,7 @@
 
 
       <view class="cell">
-        <view class="cell-name">收货日期</view>
+        <view class="cell-name">预计收货日期</view>
         <view class="cell-value">
           <input name="receiveDate" value="{{receiveDate}}" disabled></input>
         </view>
@@ -96,21 +96,23 @@
     </view>
     <view class="title add-goods">添加商品</view>
     <!-- 搜索 -->
-    <search bindtap="toAddGoods" justLink="{{true}}" />
+  <search bindtap="toAddGoods" justLink="{{true}}" needTypes="{{false}}" placeholder="搜索商品并添加" />
     <!-- 购物车 -->
     <!-- <cart goodsList="{{goodsList}}" totalPrice="{{totalPrice}}" bind:changeData="getChangedData" goodsListUrl="{{'/pages/purchase/addGoods/addGoods?store=newSales'}}" /> -->
-    <cart goodsList="{{goodsList}}" totalPrice="{{totalPrice}}" picUrlKey="pirctureWay" nameKey="name" brandNameKey="goodsBrand" typeKey="brandCode" priceKey="discountPrice" amountKey="goodsCount" idKey="goodsNo" minNumKey="minNums" bind:changeAmount="getChangeAmount"
-      bind:operate="operate" bind:deleteGoods="deleteGoods" bind:changeTotalPriceAndAmount="priceAmountChange" bind:goodsDetail="goodsDetail" />
-    <editGoodsInfo wx:if="{{showEditPop}}" popData="{{popData}}" bind:editedInfo="getEditedInfo" />
+    <cart goodsList="{{goodsList}}" totalPrice="{{totalPrice}}" picUrlKey="pirctureWay" nameKey="name" brandNameKey="goodsBrand" typeKey="brandCode" priceKey="discountPrice" amountKey="goodsCount" idKey="goodsNo" minNumKey="minNums" bind:changeAmount="getChangeAmount" bind:operate="operate" bind:deleteGoods="deleteGoods" bind:changeTotalPriceAndAmount="priceAmountChange" bind:goodsDetail="goodsDetail" />
+  
 
     <view class="title remake">备注</view>
-    <textarea name="remark" class="remarke-textarea" placeholder="请填写备注信息" />
+    <textarea name="remark" wx:if="{{!showEditPop}}" class="remarke-textarea" placeholder="请填写备注信息" />
 
     <cover-view class="operating-options">
-      <cover-view class="save-order bg-orange" bindtap="obtianOperateType" data-type="save">保存订单</cover-view>
+      <cover-view class="save-order">
+        <button class=" bg-red bg-orange"  form-type="submit" bindtap="obtianOperateType" data-type="save">保存订单</button>
+      </cover-view>
       <cover-view class="comfirm-order">
         <button class=" bg-red" form-type="submit" bindtap="obtianOperateType" data-type="confirm">确认订单</button>
       </cover-view>
     </cover-view>
   </form>
 </scroll-view>
+  <editGoodsInfo wx:if="{{showEditPop}}" noTaxTotalPriceKey="" bind:closePop="closePop" popData="{{popData}}" bind:editedInfo="getEditedInfo" />

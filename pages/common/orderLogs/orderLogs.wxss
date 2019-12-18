@@ -1,0 +1,36 @@
+.log {
+  width: calc(100vw - 60rpx);
+  margin: 30rpx auto;
+  background-color: #fff;
+  border-radius: 15rpx;
+}
+
+.log-title {
+  padding: 20rpx;
+  border-bottom: 1rpx solid var(--greyLight);
+}
+
+.cuIcon-calendar {
+  margin-right: 10rpx;
+  font-size: 32rpx;
+}
+
+.log-details {
+  padding: 0 30rpx 30rpx;
+}
+
+.log-item {
+  display: flex;
+  margin-top: 20rpx
+}
+
+.detail-title {
+  white-space: nowrap; 
+  min-width: 5rem; 
+} 
+.empty{
+  width: 100vw;
+  height: 100vh;
+  line-height: 100vh;
+  text-align: center;
+}

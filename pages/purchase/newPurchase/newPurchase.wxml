@@ -42,7 +42,7 @@
       </view>
 
       <view class="cell border-bt">
-        <view class="cell-name">联系电话</view>
+        <view class="cell-name">收货电话</view>
         <view class="cell-value">
           <input name="phoneNumber" type="number" value="{{phoneNumber}}" maxlength="11" placeholder="请选择收货地址或填写联系号码"></input>
         </view>
@@ -57,9 +57,9 @@
 
 
       <view class="cell">
-        <view class="cell-name">收货日期</view>
+        <view class="cell-name">期望发货日期</view>
         <view class="cell-value">
-          <input name="receiveDate" type="number" placeholder="请填写物流费用" value="{{receiveDate}}" disabled></input>
+          <input name="receiveDate" type="number" value="{{receiveDate}}" disabled></input>
         </view>
         <picker mode="date" value="{{receiveDate}}" start="{{receiveDate}}" end="2100-09-01" bindchange="dateChange">
           <!-- {{receiveDate}} -->
@@ -69,15 +69,14 @@
     </view>
     <view class="title add-goods">添加商品</view>
     <!-- 搜索 -->
-    <search bindtap="toAddGoods" justLink="{{true}}" />
+    <search bindtap="toAddGoods" justLink="{{true}}" needTypes="{{false}}" placeholder="搜索商品并添加" />
     <!-- 购物车 -->
-    <cart goodsList="{{goodsList}}" totalPrice="{{totalPrice}}" picUrlKey="pirctureWay" nameKey="name" brandNameKey="goodsBrand" typeKey="brandCode" priceKey="discountPrice" amountKey="goodsCount" idKey="goodsNo" minNumKey="minNums" bind:changeAmount="getChangeAmount"
-      bind:operate="operate" bind:deleteGoods="deleteGoods" bind:changeTotalPriceAndAmount="priceAmountChange" bind:goodsDetail="goodsDetail" />
+    <cart goodsList="{{goodsList}}" totalPrice="{{totalPrice}}" picUrlKey="pirctureWay" nameKey="name" brandNameKey="goodsBrand" typeKey="brandCode" priceKey="discountPrice" amountKey="goodsCount" idKey="goodsNo" minNumKey="minNums"  bind:changeAmount="getChangeAmount" bind:operate="operate" bind:deleteGoods="deleteGoods" bind:changeTotalPriceAndAmount="priceAmountChange" bind:goodsDetail="goodsDetail" />
 
-    <editGoodsInfo wx:if="{{showEditPop}}" popData="{{popData}}" bind:closePop="closePop" bind:editedInfo="getEditedInfo" />
+
 
     <view class="title remarke">备注</view>
-    <textarea name="remark" class="remarke-textarea" placeholder="请填写备注信息" />
+    <textarea name="remark" wx:if="{{!showEditPop}}" class="remarke-textarea" placeholder="请填写备注信息" />
 
     <cover-view class="operating-options">
       <cover-view class="save-order">
@@ -92,3 +91,4 @@
     <view class='gray-text'>请稍等...</view>
   </view>
 </scroll-view> 
+    <editGoodsInfo wx:if="{{showEditPop}}" noTaxTotalPriceKey="" popData="{{popData}}" privateRemarkKey="sourceOrder" bind:closePop="closePop" bind:editedInfo="getEditedInfo" />

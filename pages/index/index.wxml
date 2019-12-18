@@ -19,7 +19,7 @@
     </view>
     <view class="action text-gray add-action  {{curTab==='order'?'theme-color':'text-gray'}}" bindtap="NavChange" data-link="order">
       <view class="cu-btn cuIcon-add theme-bgc shadow"></view>
-      开单
+      新增
     </view>
     <view class="action  {{curTab==='message'?'theme-color':'text-gray'}}" bindtap="NavChange" data-link="message">
       <view class="cuIcon-messagefill">

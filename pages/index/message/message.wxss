@@ -63,9 +63,11 @@ display: none;
   border-radius: 13rpx;
   margin-left: 5rpx; 
 }
-
+.message-title{
+  font-size: 32rpx
+}
 .message-ellipsis {
-  font-size: 24rpx;
+  font-size: 30rpx;
   text-overflow: ellipsis;
   overflow: hidden;
   white-space: nowrap;
@@ -73,8 +75,8 @@ display: none;
 
 .message-recive-time {
   position: absolute;
-  top: 50rpx;
-  font-size: 22rpx;
+  top: 15rpx;
+  font-size: 25rpx;
   width: 300rpx;
   color: #888;
   text-align: end;
@@ -94,4 +96,11 @@ display: none;
   height: 100vh;
   line-height: 100vh;
   text-align: center;
+}
+.read-all{
+  height: 100rpx;
+  line-height: 100rpx;
+  text-align: center;
+  background-color: var(--red);
+  color: #fff
 }

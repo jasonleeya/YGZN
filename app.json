@@ -62,7 +62,8 @@
     "pages/finance/paidAndReceiptedManage/paidAndReceiptedOperate/paidAndReceiptedOperate",
     "pages/finance/paidAndReceiptedManage/chooseCustomer/chooseCustomer",
     "pages/register/register",
-    "pages/purchase/viewSplitOrder/viewSplitOrder"
+    "pages/purchase/viewSplitOrder/viewSplitOrder",
+    "pages/common/orderLogs/orderLogs"
   ],
   "window": {
     "backgroundTextStyle": "light",

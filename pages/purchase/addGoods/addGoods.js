@@ -25,8 +25,8 @@ create(store, {
     isLoad: false,
     pageNo: 2,
     storeList: [],
-    customerType:"",
-    selectedTypeIndex:null
+    customerType: "",
+    selectedTypeIndex: null
   },
   onLoad(options) {
     app.setTitle("添加商品")
@@ -36,22 +36,22 @@ create(store, {
       wareId: options.wareId,
       customerType: options.customerType
     })
-    if (options.customerType==='up'){
+    if (options.customerType === 'up') {
       this.setData({
-        selectedTypeIndex:1,
-        searchType:"供方仓库"
+        selectedTypeIndex: 1,
+        searchType: "供方仓库"
       })
     }
-   else if (options.supplyNo === 'AUTO') {
+    else if (options.supplyNo === 'AUTO') {
       this.setData({
         selectedTypeIndex: 2,
         searchType: "全局搜索"
       })
-    }else{
+    } else {
       this.setData({
         selectedTypeIndex: 0,
         searchType: "我的仓库"
-      }) 
+      })
     }
   },
   //进入页面初始化数据
@@ -75,7 +75,7 @@ create(store, {
       pageNo: 1,
       searchType: e.detail.name
     })
-    if(this.data.searchValue===''){
+    if (this.data.searchValue === '') {
       return
     }
     this.search()
@@ -87,13 +87,13 @@ create(store, {
       pageNo: 1,
       loadMore: false,
       searchValue: e.detail
-    }) 
+    })
     if (e.detail === "") {
       this.setData({
         goodsList: []
       })
       return
-    } 
+    }
     this.search()
 
   },
@@ -148,9 +148,9 @@ create(store, {
         app.showToast("未搜索到相应产品")
       }
       data.list.forEach(item => {
-        queryString.push(item.productUuid)  
-        for(let key in item){
-          item[key] = String(item[key]).replace(/(\<b style='color:red'\>)|\<\/b\>/g, "") 
+        queryString.push(item.productUuid)
+        for (let key in item) {
+          item[key] = String(item[key]).replace(/(\<b style='color:red'\>)|\<\/b\>/g, "")
         }
       })
       queryString.join(",")
@@ -182,13 +182,13 @@ create(store, {
         })
       }
     }).catch(err => {
-        this.load(false)
-        this.setData({
-          loadMore: false
-        })
-        app.showToast(err)
-        console.log(err)
+      this.load(false)
+      this.setData({
+        loadMore: false
       })
+      app.showToast(err)
+      console.log(err)
+    })
 
   },
 
@@ -222,22 +222,22 @@ create(store, {
       supplyNo: this.data.supplyNo,
       productId: this.data.goodsList[index].productUuid
     }).then(data => {
-      var discount = parseFloat(data.infoBody.discount) 
+      var discount = parseFloat(data.infoBody.discount)
       if (isNaN(discount)) {
         discount = 10
       }
-      discount = parseFloat(discount) / 10
-      var disPrice =  parseFloat(data.infoBody.price) * discount 
+      discount = parseFloat(discount) 
+      var disPrice = parseFloat(data.infoBody.price) * discount/10
       this.setData({
         isShowPop: true,
         ['popData.facePrice']: data.infoBody.price.toFixed(2),
-        ['popData.goodsDiscount']: discount.toFixed(2),
+        ['popData.goodsDiscount']: discount.toFixed(1),
         ['popData.goodsCount']: this.data.goodsList[index].minCount,
         ["popData.NTPSingle"]: disPrice.toFixed(2),
         ["popData.taxRate"]: '13.00%',
-        ["popData.discountPrice"]: (disPrice* 1.13).toFixed(2),
+        ["popData.discountPrice"]: (disPrice * 1.13).toFixed(2),
         ["popData.sttAmount"]: (disPrice * 1.13 * parseInt(this.data.goodsList[index].minCount)).toFixed(2),
-        
+
       })
 
       this.setData({
@@ -252,33 +252,38 @@ create(store, {
   },
 
   compute(type) {
-    var goodsCount = isNaN(this.data.popData.goodsCount) ? "0" : this.data.popData.goodsCount
-    var discountPrice = isNaN(this.data.popData.discountPrice) ? "0" : this.data.popData.discountPrice
-    var NTPSingle = isNaN(this.data.popData.NTPSingle) ? "0" : this.data.popData.NTPSingle
-    var taxRate = isNaN(this.data.popData.taxRate) ? "13" : this.data.popData.taxRate
-
+    var facePrice = isNaN(this.data.popData.facePrice) ? 0 : parseFloat(this.data.popData.facePrice)
+    var goodsDiscount = isNaN(this.data.popData.goodsDiscount) ? 1 : parseFloat(this.data.popData.goodsDiscount) / 10
+    var goodsCount = isNaN(this.data.popData.goodsCount) ? 0 : parseInt(this.data.popData.goodsCount)
+    var discountPrice = isNaN(this.data.popData.discountPrice) ? 0 : parseFloat(this.data.popData.discountPrice)
+    var NTPSingle = isNaN(this.data.popData.NTPSingle) ? 0 : parseFloat(this.data.popData.NTPSingle)
+    var taxRate = isNaN(this.data.popData.taxRate) ? 13 : parseFloat(this.data.popData.taxRate)
+ 
     switch (type) {
       case "goodsCount":
         break
       case "NTPSingle":
-        return (parseFloat(discountPrice) / (1 + taxRate / 100)).toFixed(2)
+        return (facePrice* goodsDiscount).toFixed(2) 
+        break
+      case "NTPSingleByDiscountPrice":
+        return (discountPrice / (1 + taxRate / 100)).toFixed(2)
         break
       case "taxRate":
         break
       case "discountPrice":
         return (NTPSingle * (1 + (taxRate / 100))).toFixed(2)
         break
-      case "sttAmount": 
-        return (parseInt(goodsCount) * parseFloat(discountPrice)).toFixed(2)
+      case "sttAmount":
+        return (goodsCount * discountPrice).toFixed(2)
         break
       case "goodsDiscount":
-        var discount = (parseFloat(NTPSingle) / parseFloat(this.data.popData.facePrice)).toFixed(2)
-        if (isNaN(discount) || discount > 1) {
-          discount = 1
+        var discount = (NTPSingle / this.data.popData.facePrice*10)
+        if (isNaN(discount)||!isFinite(discount)) {
+          discount = 10
         }
-        return discount
+        return discount.toFixed(1)
         break
-        
+
     }
   },
   amountInput(e) {
@@ -347,6 +352,41 @@ create(store, {
     })
 
   },
+
+  discountInput(e) { 
+    this.setData({
+      ["popData.goodsDiscount"]: e.detail.value
+    })
+    this.setData({
+      ["popData.NTPSingle"]: this.compute('NTPSingle'),
+    })  
+    this.setData({
+      ["popData.discountPrice"]: this.compute("discountPrice"),
+    })
+    this.setData({
+      ["popData.sttAmount"]: this.compute("sttAmount")
+    })  
+  },
+  discountBlur(e) { 
+    var value = e.detail.value 
+    if(value===""){
+      value = this.data.popDataCopy.goodsDiscount
+    }
+    this.setData({
+      ["popData.goodsDiscount"]: value 
+    })
+    this.setData({
+      ["popData.NTPSingle"]: this.compute('NTPSingle'),
+    })
+    this.setData({
+      ["popData.discountPrice"]: this.compute("discountPrice"),
+    })
+    this.setData({
+      ["popData.sttAmount"]: this.compute("sttAmount")
+    }) 
+    
+  },
+
   /**
    * 税率input失去焦点
    */
@@ -402,7 +442,7 @@ create(store, {
       ["popData.discountPrice"]: e.detail.value,
     })
     this.setData({
-      ["popData.NTPSingle"]: this.compute("NTPSingle"),
+      ["popData.NTPSingle"]: this.compute("NTPSingleByDiscountPrice"),
     }) //含税价和总价跟着改变
     this.setData({
       ["popData.sttAmount"]: this.compute("sttAmount")
@@ -425,7 +465,7 @@ create(store, {
       })
     }
     this.setData({
-      ["popData.NTPSingle"]: this.compute("NTPSingle"),
+      ["popData.NTPSingle"]: this.compute("NTPSingleByDiscountPrice"),
     })
     this.setData({
       ["popData.sttAmount"]: this.compute("sttAmount")
@@ -439,6 +479,16 @@ create(store, {
   },
   totalPriceBlur(e) {
 
+  },
+  remark(e){
+    this.setData({
+      ["popData.remark"]: e.detail.value,
+    })
+  },
+  privateRemark(e){
+    this.setData({
+      ["popData.sourceOrder"]: e.detail.value,
+    })
   },
   addCancel() {
     this.setData({
@@ -461,15 +511,15 @@ create(store, {
         goodsName: goods.productName, // + "~" + goods.parameter,
         facePrice: this.data.popDataCopy.facePrice,
         minNums: this.data.popDataCopy.goodsCount,
-        goodsDiscount: popData.goodsDiscount,
+        goodsDiscount: (parseFloat(popData.goodsDiscount) / 10).toFixed(1),
         goodsBrand: goods.brandName,
         NTP: parseFloat(popData.NTPSingle) * parseInt(popData.goodsCount),
         taxRate: parseFloat(popData.taxRate),
         billingAmount: parseFloat(this.data.popDataCopy.facePrice) * parseInt(popData.goodsCount),
         sttAmount: (parseFloat(popData.discountPrice) * popData.goodsCount).toFixed(2),
         goodsCount: popData.goodsCount,
-        remark: "",
-        sourceOrder: "",
+        remark: popData.remark,
+        sourceOrder: popData.sourceOrder,
         tableKey: "",
         pirctureWay: goods.imgPath,
         NTPSingle: popData.NTPSingle,

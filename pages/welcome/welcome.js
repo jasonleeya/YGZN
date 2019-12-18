@@ -22,15 +22,7 @@ Page({
             wx.setStorageSync("token", data.info)
             app.globalData.token = data.info
 
-            app.http("getUserByCustNo", {
-              flag: true
-            }).then(data => {
-              app.globalData.userInfo = data.list
-              wx.setStorageSync("userInfo", data.list)
-            }).catch(err => {
-              app.showToast(err)
-            })
-
+     
             wx.redirectTo({
               url: '/pages/index/index'
             })

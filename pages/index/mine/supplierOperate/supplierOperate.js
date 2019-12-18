@@ -16,7 +16,8 @@ Page({
     searchList: [],
     custNo: "",
     enableStatus: "",
-    enableStatusCopy:""
+    enableStatusCopy:"",
+    isShowApplyDialog:false
   },
 
   /**
@@ -32,6 +33,12 @@ Page({
       var prePage = pages[pages.length - 2]
       var data = prePage.data.supplierList[options.index]
 
+      var selfId = wx.getStorageSync("userInfo")[0].queryNo 
+      if (selfId !== data.createCompany && data.status==='2') { 
+          this.setData({
+            isShowApplyDialog:true
+          })
+      }
       this.setData({
         formData: data,
         enableStatus: data.status,
@@ -44,7 +51,43 @@ Page({
         canEdit: true
       })
     }
+     
   },
+  hideApplyDialog() {
+    this.setData({
+      isShowApplyDialog: false
+    })
+  },
+  applyRefuse() {
+    app.http("updateCustomerStatus", {
+      customerNo: this.data.formData.customerNo,
+      status: -1
+    }).then(() => {
+      app.showToast("供应商申请已拒绝")
+      this.setData({
+        isShowApplyDialog: false
+      })
+      setTimeout(() => {
+        wx.navigateBack()
+      }, 500)
+    }).catch(err => {
+      app.showToast(err)
+    })
+  },
+  applyPass() {
+    app.http("updateCustomerStatus", {
+      customerNo: this.data.formData.customerNo,
+      status: 1
+    }).then(() => {
+      this.setData({
+        isShowApplyDialog: false
+      })
+      app.showToast("供应商申请通过")
+    }).catch(err => {
+      app.showToast(err)
+    })
+  },
+
   regionChange(e) {
     this.setData({
       region: e.detail.value
@@ -74,7 +117,7 @@ Page({
       return
     }
     app.http("addProvider", params).then(res => {
-      app.showToast("添加成功")
+      app.showToast("添加成功,等待对方确认")
       setTimeout(() => {
         wx.navigateBack()
       }, 500)

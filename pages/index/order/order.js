@@ -24,12 +24,20 @@ create({
         name: '新增销售',
         icon: "iconkaidanxiaoshou",
         link: "/pages/sales/newSales/newSales"
+      }, {
+        name: '新增供应商',
+        icon: "iconicon03",
+        link: "/pages/index/mine/supplierOperate/supplierOperate?operateType=add"
+      }, {
+        name: '新增客户',
+        icon: "iconuserplus",
+        link: "/pages/index/mine/customerOperate/customerOperate?operateType=add"
       },
-      {
-        name: '产品管理',
-        icon: "iconkaidanchanpinguanli",
-        link: "/pages/product/productManage/productManage"
-      }
+      // {
+      //   name: '产品管理',
+      //   icon: "iconkaidanchanpinguanli",
+      //   link: "/pages/product/productManage/productManage"
+      // }
     ]
   },
   /**

@@ -15,6 +15,10 @@ Component({
       type:Boolean,
       value:true
     },
+    placeholder:{
+      type:String,
+      value:"请输入搜索关键词"
+    },
     selectedTypeIndex: {
       type: Number,
       value: 0,

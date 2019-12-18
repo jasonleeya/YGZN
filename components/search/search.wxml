@@ -4,7 +4,7 @@
     <view wx:if="{{needTypes}}" class="search-toggle bg-gray" bindtap="toggleSearchType">{{searchTypes.list[searchTypes.select].name}}</view>
     <view class="search-input bg-gray">
       <text class="iconfont iconsearch"></text>
-      <input class=""  placeholder="请输入搜索关键词" value="{{barCode}}" bindinput="input" bindblur="blur" bindfocus="focus" disabled="{{justLink}}"/>
+      <input class=""  placeholder="{{placeholder}}" value="{{barCode}}" bindinput="input" bindblur="blur" bindfocus="focus" disabled="{{justLink}}"/>
     </view>
     <view class="scan" bindtap="scan">
       <text class=" iconfont iconscan text-blue"></text>

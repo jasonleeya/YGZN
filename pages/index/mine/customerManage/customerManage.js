@@ -13,10 +13,14 @@ Page({
     timeOut: null,
     levelList: [],
     isShowLevelDropdown: false,
-    selectedLevelIndex: ""
+    selectedLevelIndex: "",
+    selfId:""
   },
   onLoad() {
     app.setTitle("选择客户")
+    this.setData({
+      selfId: wx.getStorageSync("userInfo")[0].queryNo
+    })
   },
   onShow() {
     this.getList()
@@ -37,6 +41,15 @@ Page({
       status: '1,2',
       grade: this.data.selectedLevelIndex === "" ? "" : this.data.levelList[this.data.selectedLevelIndex].id
     }).then(data => {
+    
+      data.list.forEach(item => {
+        if (this.data.selfId === item.customer.createCompany && item.customer.status === '2') {
+          item.customer.statusStr = "申请中"
+        }
+        if (this.data.selfId !== item.customer.createCompany && item.customer.status === '2') {
+          item.customer.statusStr = "对方申请待确定"
+        }
+      })
       this.setData({
         customerList: data.list
       })

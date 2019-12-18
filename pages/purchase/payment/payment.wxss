@@ -1,5 +1,5 @@
 .operate {
-  margin-top: 200rpx;
+  margin-top: 50rpx;
   display: flex;
   padding: 0 20rpx;
 }

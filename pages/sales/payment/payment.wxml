@@ -13,7 +13,7 @@
 
   <view class="cell border-bt">
     <view class="cell-name">付款方式</view>
-    <view class="cell-value {{paymentMethods.index===null?'text-gray':''}} bold">{{paymentMethods.index===null?'请选择付款方式':paymentMethods.list[paymentMethods.index]}}</view>
+    <view class="cell-value {{paymentMethods.index===null?'text-gray':''}}">{{paymentMethods.index===null?'请选择付款方式':paymentMethods.list[paymentMethods.index]}}</view>
 
     <picker bindchange="selectPaymentMethod" value="{{paymentMethods.index}}" range="{{paymentMethods.list}}">
       <view class="picker">
@@ -35,30 +35,48 @@
     </view>
     <view class="cell-value text-red bold">￥{{credits}}</view>
   </view>
-
+ 
   <view class="cell border-bt" wx:if="{{paymentMethods.index==='2'}}">
-    <view class="cell-name">收款方</view>
-     <view class="cell-value  bold">{{payee?payee:'对方暂未填写收款信息'}}</view>
-    <!-- <view class="cell-value text-gray bold">请选择收款方</view>
-    <view class="cell-icon cuIcon-right"></view> -->
+    <view class="cell-name">收款方式</view>
+    <view class="cell-value">{{receiveAccount.index===null?'对方暂未填写收款信息':receiveAccount.list[receiveAccount.index]}}</view>
+    <picker bindchange="selectReceiveAccount" value="{{receiveAccount.index}}" range="{{receiveAccount.list}}">
+      <view class="picker">
+        <view class="cell-icon cuIcon-right"></view>
+      </view> 
+    </picker>
+  </view>
+
+   <view class="cell border-bt" wx:if="{{paymentMethods.index==='2'}}">
+    <view class="cell-name">{{receiveAccount.index==='0'||receiveAccount.noAccount?'收款备注':'收款账号'}}</view> 
+   <input class="cell-value " disabled="{{receiveAccount.index!=='0'||receiveAccount.noAccount}}" placeholder="{{receiveAccount.index==='0'||receiveAccount.noAccount?'请填写支付备注':''}}" value="{{receiveAccount.accountList[receiveAccount.index]}}" bindinput="receiveAccountInput"></input>
+  </view>
+
+   <view class="cell border-bt" wx:if="{{paymentMethods.index==='2'}}">
+    <view class="cell-name">支付方式</view>
+    <view class="cell-value">{{paymentAccount.index===null?'对方暂未填写收款信息':paymentAccount.list[paymentAccount.index]}}</view>
+    <picker bindchange="selectpaymentAccount" value="{{paymentAccount.index}}" range="{{paymentAccount.list}}">
+      <view class="picker">
+        <view class="cell-icon cuIcon-right"></view>
+      </view> 
+    </picker>
   </view>
 
   <view class="cell border-bt" wx:if="{{paymentMethods.index==='2'}}">
-    <view class="cell-name">开户行</view>
-    <view class="cell-value bold">{{bank?bank:'对方暂未填写收款信息'}}</view>
+    <view class="cell-name">{{paymentAccount.index==='0'||paymentAccount.noAccount?'支付备注':'支付账号'}}</view> 
+    <input class="cell-value " disabled="{{paymentAccount.index!=='0'||paymentAccount.noAccount}}" placeholder="{{paymentAccount.index==='0'||paymentAccount.noAccount?'请填写支付备注':''}}" value="{{paymentAccount.accountList[paymentAccount.index]}}" bindinput="paymentAccountInput"></input>
   </view>
 
-  <view class="cell border-bt" wx:if="{{paymentMethods.index==='2'}}">
-    <view class="cell-name">收款账号</view>
-    <view class="cell-value bold">{{payeeAccount?payeeAccount:'对方暂未填写收款信息'}}</view>
-  </view>
-  <view class="cells-title" wx:if="{{paymentMethods.index==='2'}}">备注</view>
-  <textarea class="remarke-textarea" placeholder="请填写备注信息" wx:if="{{paymentMethods.index==='2'}}" />
+<view class="cell border-bt"  wx:if="{{paymentMethods.index==='2'}}">
+      <view class="cell-name ">审核该收款单</view>
+      <view class="cell-value checke-order">
+        <switch class="blue sm " bindchange="checkeOrder" value="{{isCheckeOrder}}" />
+      </view>
+    </view>
 
   <view class="operate">
-    <button class="text-gray">稍后支付</button>
-    <button class="theme-bgc" wx:if="{{paymentMethods.index==='2'||paymentMethods.index==='3'}}"  bindtap="pay">我已汇款</button>
-    <button class="theme-bgc" wx:if="{{paymentMethods.index==='0'||paymentMethods.index==='1'}}" bindtap="pay">我已支付</button>
+    <button class="text-gray" bindtap="back">稍后支付</button>
+    <button class="theme-bgc" wx:if="{{paymentMethods.index==='2'||paymentMethods.index==='3'}}"  bindtap="pay">已汇款 通知卖方</button>
+    <button class="theme-bgc" wx:if="{{paymentMethods.index==='0'||paymentMethods.index==='1'}}" bindtap="pay">确定支付</button>
   </view>
 
 </view>

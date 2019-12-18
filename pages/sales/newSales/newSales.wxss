@@ -32,7 +32,7 @@
   height: 100rpx;
   line-height: 100rpx;
 }
-.comfirm-order button{
+.comfirm-order button,.save-order button{
   height: 100rpx;
   line-height: 100rpx;
   border-radius: 0

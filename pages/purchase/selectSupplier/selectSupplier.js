@@ -75,6 +75,9 @@ create(store, {
       keyword: this.data.searchValue,
     }).then(data => {
       if (data.list) {
+        if(data.list.length===0){
+          app.showToast("无可选供应商或供应商申请正在审核中",2000)
+        }
         this.setData({
           supplierList: this.data.supplierList.concat(data.list),
           isLoad: false,
@@ -97,7 +100,7 @@ create(store, {
   //新增供应商
   addSupplier() {
     wx.navigateTo({
-      url: '/pages/purchase/addSupplier/addSupplier',
+      url: '/pages/index/mine/supplierOperate/supplierOperate?operateType=add',
     })
   },
 })

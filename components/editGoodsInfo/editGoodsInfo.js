@@ -1,4 +1,4 @@
-+ // 商品编辑弹框
+  + // 商品编辑弹框
 
   Component({
     /**
@@ -48,18 +48,18 @@
       minNumsKey: {
         type: Number,
         value: "minNums"
-      },
-      fromPage: {
-        type: String,
-        value: ""
-      },
+      }, 
       facePriceKey: {
         type: String,
         value: "facePrice"
       },
       goodsDiscountkey: {
         type: String,
-        value: "goodsDiscount"
+        value: ""
+      },
+      privateRemarkKey:{
+        type: String,
+        value: ""
       },
     },
     options: {
@@ -72,7 +72,11 @@
       popDataCopy: {}
     },
     lifetimes: {
-      attached() {
+      attached() { 
+        console.log(this.data.popData[this.data.goodsDiscountKey] * 10)
+        this.setData({
+          ["popData." + this.data.goodsDiscountKey]: this.data.popData[this.data.goodsDiscountKey]*10
+        })
         this.setData({
           popDataCopy: JSON.parse(JSON.stringify(this.data.popData)) //浅复制编辑前的信息
         })
@@ -82,34 +86,39 @@
     methods: {
       compute(type) {
         //这些数据可能为null..
-        var goodsCount = isNaN(this.data.popData[this.data.amountKey]) ? "0" : this.data.popData[this.data.amountKey]
-        var discountPrice = isNaN(this.data.popData[this.data.containTaxPriceKey]) ? "0" : this.data.popData[this.data.containTaxPriceKey]
-        var NTPSingle = isNaN(this.data.popData[this.data.noTaxPriceKey]) ? "0" : this.data.popData[this.data.noTaxPriceKey]
-        var taxRate = isNaN(this.data.popData[this.data.taxKey]) ? "13" : this.data.popData[this.data.taxKey]
+        var goodsCount = isNaN(this.data.popData[this.data.amountKey]) ? 0 : parseInt(this.data.popData[this.data.amountKey])
+        var discountPrice = isNaN(this.data.popData[this.data.containTaxPriceKey]) ? 0 : parseFloat(this.data.popData[this.data.containTaxPriceKey])
+        var NTPSingle = isNaN(this.data.popData[this.data.noTaxPriceKey]) ? 0 : parseFloat(this.data.popData[this.data.noTaxPriceKey])
+        var taxRate = isNaN(this.data.popData[this.data.taxKey]) ? 13 : parseFloat(this.data.popData[this.data.taxKey])
+        var facePrice = isNaN(this.data.popData[this.data.facePriceKey]) ? 0 : parseFloat(this.data.popData[this.data.facePriceKey])
+        var goodsDiscount = isNaN(this.data.popData[this.data.goodsDiscountKey]) ? 1 : parseFloat(this.data.popData[this.data.goodsDiscountKey])/10
         //根据计算类型计算相应的数值
         switch (type) {
           case this.data.amountKey:
             break
           case this.data.noTaxPriceKey:
-            return (parseFloat(discountPrice) / (1 + taxRate / 100)).toFixed(2)
-            break
+            return (facePrice * goodsDiscount).toFixed(2)
+            break 
+          case "NTPSingleByDiscountPrice":
+            return (discountPrice / (1 + taxRate / 100)).toFixed(2)
+            break 
           case this.data.taxKey:
             break
           case this.data.containTaxPriceKey:
             return (NTPSingle * (1 + (taxRate / 100))).toFixed(2)
             break
           case this.data.totalPriceKey:
-            return (parseInt(goodsCount) * parseFloat(discountPrice)).toFixed(2)
+            return (goodsCount * discountPrice).toFixed(2)
             break
           case this.data.noTaxTotalPriceKey:
-            return (parseInt(goodsCount) * parseFloat(NTPSingle)).toFixed(2)
+            return (goodsCount * NTPSingle).toFixed(2)
             break
           case this.data.goodsDiscountKey:
-            var discount = (parseFloat(NTPSingle) / parseFloat(this.data.popData[this.data.facePriceKey])).toFixed(2) 
-            if (isNaN(discount) || discount > 1) {
-              discount = 1
+            var discount = (NTPSingle / facePrice*10) 
+            if (isNaN(discount) || !isFinite(discount)) {
+              discount = 10
             }  
-            return discount
+            return discount.toFixed(1)
         }
       },
       //数量input,数量改变总价改变
@@ -153,7 +162,7 @@
           ["popData." + this.data.totalPriceKey]: this.compute(this.data.totalPriceKey),
           ["popData." + this.data.noTaxTotalPriceKey]: this.compute(this.data.noTaxTotalPriceKey),
         })
-        if (this.data.fromPage !== 'other') {
+        if (this.data.goodsDiscountkey !== "") {
           this.setData({
             ["popData." + this.data.goodsDiscountKey]: this.compute(this.data.goodsDiscountKey),
           }) 
@@ -182,13 +191,51 @@
           ["popData." + this.data.totalPriceKey]: this.compute(this.data.totalPriceKey),
           ["popData." + this.data.noTaxTotalPriceKey]: this.compute(this.data.noTaxTotalPriceKey), 
         })
-        if (this.data.fromPage !== 'other') {
+        if (this.data.goodsDiscountkey !== "") {
           this.setData({
             ["popData." + this.data.goodsDiscountKey]: this.compute(this.data.goodsDiscountKey),
           })
         }
 
       },
+
+      discountInput(e) {
+        var value = e.detail.value
+        this.setData({
+          ["popData." + this.data.goodsDiscountKey]: value
+        })
+        this.setData({
+          ["popData." + this.data.noTaxPriceKey]: this.compute(this.data.noTaxPriceKey),
+        })
+        this.setData({
+          ["popData." + this.data.containTaxPriceKey]: this.compute(this.data.containTaxPriceKey),
+        })
+        this.setData({
+          ["popData." + this.data.totalPriceKey]: this.compute(this.data.totalPriceKey)
+        })
+        console.log(this.data.popData)
+      },
+      discountBlur(e) {
+        var value = e.detail.value
+        if (value === "") {
+          value = 10
+        } 
+        this.setData({
+          ["popData." + this.data.goodsDiscountKey]: value
+        })
+        this.setData({
+          ["popData." + this.data.noTaxPriceKey]: this.compute(this.data.noTaxPriceKey),
+        })
+        this.setData({
+          ["popData." + this.data.containTaxPriceKey]: this.compute(this.data.containTaxPriceKey),
+        })
+        this.setData({
+          ["popData." + this.data.totalPriceKey]: this.compute(this.data.totalPriceKey)
+        })
+
+      },
+
+
       /**
        * 税率input失去焦点，含税价总价改变
        */
@@ -243,13 +290,13 @@
           ["popData." + this.data.containTaxPriceKey]: e.detail.value,
         })
         this.setData({
-          ["popData." + this.data.noTaxPriceKey]: this.compute(this.data.noTaxPriceKey),
+          ["popData." + this.data.noTaxPriceKey]: this.compute("NTPSingleByDiscountPrice"),
         })
         this.setData({
           ["popData." + this.data.totalPriceKey]: this.compute(this.data.totalPriceKey),
           ["popData." + this.data.noTaxTotalPriceKey]: this.compute(this.data.noTaxTotalPriceKey), 
         })
-        if (this.data.fromPage !== 'other') {
+        if (this.data.goodsDiscountkey !== "") {
           this.setData({
             ["popData." + this.data.goodsDiscountKey]: this.compute(this.data.goodsDiscountKey),
           })
@@ -270,13 +317,13 @@
           })
         }
         this.setData({
-          ["popData." + this.data.noTaxPriceKey]: this.compute(this.data.noTaxPriceKey),
+          ["popData." + this.data.noTaxPriceKey]: this.compute("NTPSingleByDiscountPrice"),
         })
         this.setData({
           ["popData." + this.data.totalPriceKey]: this.compute(this.data.totalPriceKey),
           ["popData." + this.data.noTaxTotalPriceKey]: this.compute(this.data.noTaxTotalPriceKey), 
         })
-        if (this.data.fromPage !== 'other') {
+        if (this.data.goodsDiscountkey !== "") {
           this.setData({
             ["popData." + this.data.goodsDiscountKey]: this.compute(this.data.goodsDiscountKey),
           })
@@ -285,6 +332,11 @@
       remarkBlur(e) {
         this.setData({
           ["popData." + this.data.remarkKey]: e.detail.value
+        })
+      },
+      privateRemarkBlur(e){
+        this.setData({
+          ["popData." + this.data.privateRemarkKey]: e.detail.value
         })
       },
       totalPriceInput(e) {
@@ -300,11 +352,12 @@
       //确定改变数据并计算不含税总价，商品折扣
       addConfirm() {
         var data = this.data
-        // data.popData[data.noTaxTotalPriceKey] = parseFloat(data.popData[data.noTaxPriceKey]) * parseFloat(data.popData[data.amountKey])
-        if (typeof data.popData[data.goodsDiscountKey] !== "undefined") {
-          data.popData[data.goodsDiscountKey] = (parseFloat(data.popData[data.noTaxTotalPriceKey]) / parseFloat(data.popDataCopy[data.noTaxTotalPriceKey])).toFixed(2)
-        }
+        // // data.popData[data.noTaxTotalPriceKey] = parseFloat(data.popData[data.noTaxPriceKey]) * parseFloat(data.popData[data.amountKey])
+        // if (typeof data.popData[data.goodsDiscountKey] !== "undefined") {
+        //   data.popData[data.goodsDiscountKey] = (parseFloat(data.popData[data.noTaxTotalPriceKey]) / parseFloat(data.popDataCopy[data.noTaxTotalPriceKey])).toFixed(2)
+        // }
         data.popData[data.taxKey] = parseFloat(parseFloat(data.popData[data.taxKey]).toFixed(2))
+        data.popData[data.goodsDiscountKey] = (parseFloat(data.popData[data.goodsDiscountKey]) / 10).toFixed(1)
 
         if (data.popData[data.goodsDiscountKey] > 1) {
           data.popData[data.goodsDiscountKey] = 1

@@ -1,0 +1,22 @@
+<view class="order-logs">
+<view class="empty" wx:if="{{logList.length===0}}">未查出日志记录</view>
+  <view class="log" wx:for="{{logList}}" wx:key>
+    <view class="log-title">
+      <text class="cuIcon-calendar text-blue"></text>{{item.insertDate}}
+    </view>
+    <view class="log-details">
+      <view class="log-item">
+        <view class="detail-title text-gray">{{item.supplyOrCust}}：</view>
+        <view class="detail-content text-{{item.supplyOrCust==='需求方'?'orange':'blue'}}">{{item.operationUser}}</view>
+      </view>
+      <view class="log-item">
+        <view class="detail-title text-gray">操作详情：</view>
+        <rich-text nodes="{{item.logExplain}}" class="detail-content"></rich-text>
+      </view>
+      <view class="log-item">
+        <view class="detail-title text-gray">操作人员：</view>
+        <view class="detail-content">{{item.operationEmployee }}</view>
+      </view>
+    </view>
+  </view>
+</view>

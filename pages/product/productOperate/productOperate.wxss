@@ -64,9 +64,12 @@ scroll-view {
   height: 200rpx;
   background-color: #fff;
   padding: 20rpx 30rpx;
-  margin-bottom: 100rpx
+  margin-bottom: 0
 }
 
 .scan {
   font-size: 40rpx;
+}
+#content-scroll-view{
+  height: calc(100vh - 100rpx)
 }

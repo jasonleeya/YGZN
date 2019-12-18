@@ -1,5 +1,5 @@
 .operate {
-  margin-top: 200rpx;
+  margin-top: 50rpx;
   display: flex;
   padding: 0 20rpx;
 }
@@ -7,4 +7,8 @@
 .operate button {
   width: calc((100vw - 120rpx) / 2);
   font-size: 32rpx;
+}
+.checke-order{
+  text-align: right;
+  margin-right: 30rpx;
 }

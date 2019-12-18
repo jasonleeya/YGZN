@@ -75,7 +75,7 @@
     <view class="card" wx:for="{{receiveAddress}}" wx:key>
       <view class="card-head">
         <view class="card-title">收货信息
-          <text class="text-green" wx:if="{{item.dftStatus==='1'}}">(默认)</text>
+          <text class="text-green" wx:if="{{item.dftStatus==='1'||index===0}}">(默认)</text>
         </view>
         <text class="card-subtitle text-green" bindtap="editReceeiveAddress" data-index="{{index}}">编辑</text>
       </view>

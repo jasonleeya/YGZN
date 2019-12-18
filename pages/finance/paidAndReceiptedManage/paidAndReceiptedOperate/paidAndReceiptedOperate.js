@@ -44,26 +44,26 @@ Page({
     this.setData({
       receiptDate: date.getFullYear() + "-" + (date.getMonth() + 1 < 10 ? '0' + (date.getMonth() + 1) : date.getMonth() + 1) + "-" + (date.getDate() < 10 ? '0' + date.getDate() : date.getDate())
     })
-    app.http("getSupplyAccount").then(data => {
-      var list = []
-      var idList = []
-      data.list.forEach(item => {
-        list.push(item.openBank)
-        idList.push(item.account)
-      })
-      if(options.type==='收款'){
-        this.setData({
-          ["receiveMethod.list"]: list,
-          ["receiveMethod.idList"]: idList
-        })
-      }else{
-        this.setData({
-          ["payMethod.list"]: list,
-          ["payMethod.idList"]: idList
-        })
-      }
+    // app.http("getSupplyAccount").then(data => {
+    //   var list = []
+    //   var idList = []
+    //   data.list.forEach(item => {
+    //     list.push(item.openBank)
+    //     idList.push(item.account)
+    //   })
+    //   if(options.type==='收款'){
+    //     this.setData({
+    //       ["receiveMethod.list"]: list,
+    //       ["receiveMethod.idList"]: idList
+    //     })
+    //   }else{
+    //     this.setData({
+    //       ["payMethod.list"]: list,
+    //       ["payMethod.idList"]: idList
+    //     })
+    //   }
     
-    })
+    // })
     
     app.http("getSupplyAccount").then(data => {
       var list = ['现金']

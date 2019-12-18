@@ -42,7 +42,7 @@
 
     <view class="input-wrapper bg-gray solid" wx:if="{{fromPage!=='other'}}">
       <view class="input-name">折扣:</view>
-      <input class="text-gray" type="digit" disabled value="{{popData.goodsDiscount*10}}"></input>
+      <input type="digit"  bindinput="discountInput" bindblur="discountBlur"  value="{{popData.goodsDiscount}}"></input>
     </view>
 
     <view class="input-wrapper bg-gray solid">
@@ -62,6 +62,16 @@
       <view class="input-name">总价:</view>
       <input type="digit" class="text-gray" disabled bindinput='totalPriceInput' bindblur='totalPriceeBlur' value="{{popData.sttAmount}}"></input>
     </view>
+
+     <view class="input-wrapper bg-gray solid">
+      <view class="input-name">备注:</view>
+      <input type="digit" bindinput="remark" value="{{popData.remark}}"></input>
+    </view>
+     <view class="input-wrapper bg-gray solid">
+      <view class="input-name">自见备注:</view>
+      <input type="digit" bindinput="privateRemark" value="{{popData.sourceOrder}}"></input>
+    </view>
+
     <view class="operation-btn solid-top">
       <view class="btn-cancel solid-right" bindtap='addCancel'>取消</view>
       <view class="btn-confirm text-blue light" bindtap='addConfirm'>确定</view>
