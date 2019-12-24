@@ -20,10 +20,12 @@
   </view>
 </block>
 
-<block wx-if="{{activeTabIndex==='1'}}"  wx:for="{{companies}}" wx:key>
+<block wx-if="{{activeTabIndex==='1'}}" wx:for="{{companies}}" wx:key>
   <view class="card">
     <view class="card-head">
       <view class="card-title">业务公司</view>
+      <view class="card-subtitle text-blue" wx:if="{{item[2]==='1'||companies.length===1}}">默认登录公司</view>
+      <view class="card-subtitle text-gray" wx:if="{{item[2]==='0'}}" bindtap="setDefaultLoginCompany" data-id="{{item[1]}}">设置为默认登录公司</view>
     </view>
     <view class="card-content">
       <view class="card-item">
@@ -35,19 +37,25 @@
 </block>
 
 <view wx-if="{{activeTabIndex==='2'}}">
-<form bindsubmit="modifyPasswordSubmit">
-<view class="cell border-bt">
-    <view class="cell-name">原密码</view>
-    <view class="cell-value"><input type="password" name="origion"></input></view>
-  </view>
-  <view class="cell border-bt">
-    <view class="cell-name">新密码</view>
-    <view class="cell-value"><input type="password" name="new"></input></view>
-  </view>
-  <view class="cell">
-    <view class="cell-name">确认密码</view>
-    <view class="cell-value"><input type="password" name="confirm"></input></view>
-  </view>
-  <button class="bg-blue modify-password" formType="submit">确认修改</button>
+  <form bindsubmit="modifyPasswordSubmit">
+    <view class="cell border-bt">
+      <view class="cell-name">原密码</view>
+      <view class="cell-value">
+        <input type="password" name="origion"></input>
+      </view>
+    </view>
+    <view class="cell border-bt">
+      <view class="cell-name">新密码</view>
+      <view class="cell-value">
+        <input type="password" name="new"></input>
+      </view>
+    </view>
+    <view class="cell">
+      <view class="cell-name">确认密码</view>
+      <view class="cell-value">
+        <input type="password" name="confirm"></input>
+      </view>
+    </view>
+    <button class="bg-blue modify-password" formType="submit">确认修改</button>
   </form>
 </view>

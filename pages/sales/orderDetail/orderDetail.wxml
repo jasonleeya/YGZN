@@ -196,4 +196,4 @@
   </view>
 </form>
 
-  <editGoodsInfo wx:if="{{showEditPop}}" noTaxTotalPriceKey="" popData="{{popData}}" noTaxPriceKey="ntpsingle" noTaxTotalPriceKey="ntp" bind:editedInfo="getEditedInfo" bind:closePop="closePop" />
+  <editGoodsInfo wx:if="{{showEditPop}}" popData="{{popData}}" noTaxPriceKey="ntpsingle" noTaxTotalPriceKey="ntp" bind:editedInfo="getEditedInfo" bind:closePop="closePop"  privateRemarkKey="disable"/>

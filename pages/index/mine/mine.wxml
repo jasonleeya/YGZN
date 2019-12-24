@@ -14,7 +14,7 @@
       <view class="user-info">
         <view class="user-company">{{companies[currentCompanyIndex][0]}}</view>
         <view class="user-name">{{userInfo.userName}}</view>
-        <view class="user-id">ID:{{companies[currentCompanyIndex][1]}}</view>
+        <!-- <view class="user-id">ID:{{companies[currentCompanyIndex][1]}}</view> -->
       </view>
       <button class="toggle-account theme-color" bindtap="showToggleAccountPop">切换公司</button>
     </view>
@@ -22,17 +22,17 @@
   <view class="todo-list shadow-wrap">
     <view class="todo-list-title solid-bottom">待处理事项</view>
     <view class="todo-item-wrapper">
-      <view class="todo-item" wx:for="{{todoList}}" wx:key bindtap="tap">
+      <view class="todo-item" wx:for="{{todoList}}" wx:key bindtap="todoListTap" data-link="{{item.link}}">
         <view class="todo-icon bg-{{item.color}} iconfont {{item.icon}} shadow"></view>
         <text class="todo-name">{{item.name}}</text>
-        <text class="todo-count text-{{item.color}}" wx:if="{{item.count!==0}}">({{item.count}})</text>
+        <text class="todo-count text-{{item.color}}" wx:if="{{item.count!==0}}">({{item.count>99?'99+':item.count}})</text>
       </view>
     </view>
   </view>
   <view class="option" wx:for="{{optionList}}" wx:key>
     <block wx:for="{{item}}" wx:for-item="optionItem" wx:key>
       <view class="option-item solid-top solid-bottom" wx:if="{{optionItem.link}}" bindtap="jump" data-link="{{optionItem.link}}">
-        <view class="option-icon iconfont {{optionItem.icon}} text-{{module.getColor(index)}}"></view>
+        <view class="option-icon iconfont {{optionItem.icon}} text-{{module.getColor(index)}}" bindtap="{{optionItem.method}}"></view>
         <view class="option-name">{{optionItem.name}}</view>
         <view class="arrow-right cuIcon-right"></view>
       </view>

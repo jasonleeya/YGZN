@@ -7,7 +7,8 @@ Page({
   data: {
     activeTabIndex:'0',
     personalInfo:{},
-    companies:{}
+    companies:[],
+    applyingCompanies:[]
   },
 
   /**
@@ -24,10 +25,32 @@ Page({
     this.setData({
       companies: app.globalData.companies
     })
+
+    app.http("findApplys",{
+      applyType:0
+    }).then(data=>{
+      this.setData({
+        applyingCompanies:data.list
+      })
+    })
   },  
   toggleTab(e){
     this.setData({
       activeTabIndex:e.currentTarget.dataset.index
+    })
+  },
+  setDefaultLoginCompany(e){
+    app.http("updateDftCompany",{
+      companyId:e.currentTarget.dataset.id
+    }).then(()=>{
+      app.showToast("设置成功")
+      app.http("queryCompany").then(data => {
+        this.setData({
+          companies: data.list
+        })
+      })
+    }).catch(err=>{
+      app.showToast(err)
     })
   },
   modifyPasswordSubmit(e){

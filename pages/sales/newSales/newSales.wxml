@@ -115,4 +115,4 @@
     </cover-view>
   </form>
 </scroll-view>
-  <editGoodsInfo wx:if="{{showEditPop}}" noTaxTotalPriceKey="" bind:closePop="closePop" popData="{{popData}}" bind:editedInfo="getEditedInfo" />
+  <editGoodsInfo wx:if="{{showEditPop}}" privateRemarkKey="disable" bind:closePop="closePop" popData="{{popData}}" bind:editedInfo="getEditedInfo" />

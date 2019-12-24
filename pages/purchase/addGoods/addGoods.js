@@ -26,7 +26,14 @@ create(store, {
     pageNo: 2,
     storeList: [],
     customerType: "",
-    selectedTypeIndex: null
+    selectedTypeIndex: null,
+    isShowDropDown: false,
+    isShowSearchScroll: false,
+    filters: null,
+    selectedBrand: '',
+    selectedClassify: '',
+    selectedWarehouse: '',
+    timer: null
   },
   onLoad(options) {
     app.setTitle("添加商品")
@@ -41,11 +48,10 @@ create(store, {
         selectedTypeIndex: 1,
         searchType: "供方仓库"
       })
-    }
-    else if (options.supplyNo === 'AUTO') {
+    } else if (options.supplyNo === 'AUTO') {
       this.setData({
         selectedTypeIndex: 2,
-        searchType: "全局搜索"
+        searchType: "平台产品"
       })
     } else {
       this.setData({
@@ -70,33 +76,6 @@ create(store, {
 
   },
 
-  searchTypeChange(e) {
-    this.setData({
-      pageNo: 1,
-      searchType: e.detail.name
-    })
-    if (this.data.searchValue === '') {
-      return
-    }
-    this.search()
-  },
-
-  inputValue(e) {
-    var inputValue = e.detail
-    this.setData({
-      pageNo: 1,
-      loadMore: false,
-      searchValue: e.detail
-    })
-    if (e.detail === "") {
-      this.setData({
-        goodsList: []
-      })
-      return
-    }
-    this.search()
-
-  },
   load(isLoad = true) {
     if (isLoad) {
       this.setData({
@@ -113,9 +92,15 @@ create(store, {
     if (this.data.pageNo === 1) {
       this.load()
     }
+    if (this.data.searchValue === "") {
+      this.setData({
+        goodsList: [], 
+      })
+      this.load(false)
+      return
+    }
     var urlAlias = ""
     var params = {}
-
 
     switch (this.data.searchType) {
       case "":
@@ -129,8 +114,13 @@ create(store, {
           custNo: this.data.searchType === "供方仓库" ? this.data.supplyNo : '',
           searchKey: this.data.searchValue,
         }
+        if (this.data.selectedBrand !== '' || this.data.selectedClassify !== '' || this.data.selectedWarehouse !== 0) {
+          params.brandName = this.data.selectedBrand
+          params.catalogId = this.data.selectedClassify
+          params.wareKey = this.data.searchType === "供方仓库" ? this.data.selectedWarehouse : ''
+        }
         break
-      case "全局搜索":
+      case "平台产品":
         urlAlias = "searchProductNew"
         params = {
           catalogId: "",
@@ -139,11 +129,32 @@ create(store, {
           pageSize: 10,
           simpleSeek: this.data.searchValue,
         }
+        if (this.data.selectedBrand !== '' || this.data.selectedClassify !== '') {
+          params.brandName = this.data.selectedBrand
+          params.catalogId = this.data.selectedClassify
+        }
         break
     }
     app.http(urlAlias, params).then(data => {
       var queryString = []
       var storeList = []
+      if (this.data.selectedBrand === '' && this.data.selectedClassify === '') {
+        this.setData({
+          filters: data.infoBody
+        })
+        if (this.data.searchType === '供方仓库') {
+          var filters = this.data.filters
+          app.http('getWarehouse', {
+            custNo: this.data.supplyNo
+          }).then(data => {
+            filters.warehouse = data.list
+            this.setData({
+              filters
+            })
+          })
+        }
+      }
+
       if (data.list.length === 0) {
         app.showToast("未搜索到相应产品")
       }
@@ -226,8 +237,8 @@ create(store, {
       if (isNaN(discount)) {
         discount = 10
       }
-      discount = parseFloat(discount) 
-      var disPrice = parseFloat(data.infoBody.price) * discount/10
+      discount = parseFloat(discount)
+      var disPrice = parseFloat(data.infoBody.price) * discount / 10
       this.setData({
         isShowPop: true,
         ['popData.facePrice']: data.infoBody.price.toFixed(2),
@@ -258,12 +269,12 @@ create(store, {
     var discountPrice = isNaN(this.data.popData.discountPrice) ? 0 : parseFloat(this.data.popData.discountPrice)
     var NTPSingle = isNaN(this.data.popData.NTPSingle) ? 0 : parseFloat(this.data.popData.NTPSingle)
     var taxRate = isNaN(this.data.popData.taxRate) ? 13 : parseFloat(this.data.popData.taxRate)
- 
+
     switch (type) {
       case "goodsCount":
         break
       case "NTPSingle":
-        return (facePrice* goodsDiscount).toFixed(2) 
+        return (facePrice * goodsDiscount).toFixed(2)
         break
       case "NTPSingleByDiscountPrice":
         return (discountPrice / (1 + taxRate / 100)).toFixed(2)
@@ -277,8 +288,8 @@ create(store, {
         return (goodsCount * discountPrice).toFixed(2)
         break
       case "goodsDiscount":
-        var discount = (NTPSingle / this.data.popData.facePrice*10)
-        if (isNaN(discount)||!isFinite(discount)) {
+        var discount = (NTPSingle / this.data.popData.facePrice * 10)
+        if (isNaN(discount) || !isFinite(discount)) {
           discount = 10
         }
         return discount.toFixed(1)
@@ -353,27 +364,27 @@ create(store, {
 
   },
 
-  discountInput(e) { 
+  discountInput(e) {
     this.setData({
       ["popData.goodsDiscount"]: e.detail.value
     })
     this.setData({
       ["popData.NTPSingle"]: this.compute('NTPSingle'),
-    })  
+    })
     this.setData({
       ["popData.discountPrice"]: this.compute("discountPrice"),
     })
     this.setData({
       ["popData.sttAmount"]: this.compute("sttAmount")
-    })  
+    })
   },
-  discountBlur(e) { 
-    var value = e.detail.value 
-    if(value===""){
+  discountBlur(e) {
+    var value = e.detail.value
+    if (value === "") {
       value = this.data.popDataCopy.goodsDiscount
     }
     this.setData({
-      ["popData.goodsDiscount"]: value 
+      ["popData.goodsDiscount"]: value
     })
     this.setData({
       ["popData.NTPSingle"]: this.compute('NTPSingle'),
@@ -383,8 +394,8 @@ create(store, {
     })
     this.setData({
       ["popData.sttAmount"]: this.compute("sttAmount")
-    }) 
-    
+    })
+
   },
 
   /**
@@ -480,12 +491,12 @@ create(store, {
   totalPriceBlur(e) {
 
   },
-  remark(e){
+  remark(e) {
     this.setData({
       ["popData.remark"]: e.detail.value,
     })
   },
-  privateRemark(e){
+  privateRemark(e) {
     this.setData({
       ["popData.sourceOrder"]: e.detail.value,
     })
@@ -566,4 +577,121 @@ create(store, {
     wx.navigateBack()
   },
 
+
+
+  searchTypeChange(e) {
+    this.setData({
+      pageNo: 1,
+      searchType: e.currentTarget.dataset.type,
+      isShowDropDown: false,
+      isShowPop: false,
+      filters: null,
+      selectedBrand: '',
+      selectedBrand: "",
+      selectedClassify: "",
+      selectedWarehouse: "",
+      pageNo: 1
+    })
+    if (this.data.searchValue === '') {
+      return
+    }
+    this.search()
+  },
+
+  inputValue(e) {
+    clearTimeout(this.data.timer)
+    var timer = setTimeout(() => {
+      handler()
+    }, 500)
+    this.setData({
+      timer: timer
+    })
+
+    var handler = () => {
+      var inputValue = e.detail.value
+      this.setData({
+        pageNo: 1,
+        loadMore: false,
+        searchValue: inputValue,
+        selectedBrand: ''
+      })
+      if (e.detail === "") {
+        this.setData({
+          goodsList: []
+        })
+        return
+      }
+      this.search()
+    }
+
+  },
+  showDropDown() {
+    if (this.data.isShowSearchScroll) {
+      this.setData({
+        isShowDropDown: false
+      })
+      setTimeout(() => {
+        this.setData({
+          isShowSearchScroll: false
+        })
+      }, 100)
+    } else {
+      this.setData({
+        isShowSearchScroll: true
+      })
+      setTimeout(() => {
+        this.setData({
+          isShowDropDown: true
+        })
+      }, 100)
+    }
+  },
+  chooseBrand(e) {
+    var brand = e.currentTarget.dataset.brand
+    if (brand === this.data.selectedBrand) {
+      this.setData({
+        selectedBrand: '',
+      })
+    } else {
+      this.setData({
+        selectedBrand: brand,
+        isShowDropDown: false,
+        isShowSearchScroll: false,
+        pageNo: 1
+      })
+    }
+    this.search()
+  },
+  chooseClassify(e) {
+    var classify = e.currentTarget.dataset.classify
+    if (classify === this.data.selectedClassify) {
+      this.setData({
+        selectedClassify: '',
+      })
+    } else {
+      this.setData({
+        selectedClassify: classify,
+        isShowDropDown: false,
+        isShowSearchScroll: false,
+        pageNo: 1
+      })
+    }
+    this.search()
+  },
+  chooseWarehouse(e) {
+    var warehouse = e.currentTarget.dataset.warehouse
+    if (warehouse === this.data.selectedWarehouse) {
+      this.setData({
+        selectedWarehouse: '',
+      })
+    } else {
+      this.setData({
+        selectedWarehouse: warehouse,
+        isShowDropDown: false,
+        isShowSearchScroll: false,
+        pageNo: 1
+      })
+    }
+    this.search()
+  }
 })

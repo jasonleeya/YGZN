@@ -52,14 +52,10 @@
       facePriceKey: {
         type: String,
         value: "facePrice"
-      },
-      goodsDiscountkey: {
-        type: String,
-        value: ""
-      },
+      }, 
       privateRemarkKey:{
         type: String,
-        value: ""
+        value: "sourceOrder"
       },
     },
     options: {
@@ -123,7 +119,7 @@
       },
       //数量input,数量改变总价改变
       amountInput(e) {
-        var value = e.detail.value
+        var value = e.detail.value 
         this.setData({
           ["popData." + this.data.amountKey]: parseInt(e.detail.value),
         })
@@ -131,6 +127,7 @@
           ["popData." + this.data.totalPriceKey]: this.compute(this.data.totalPriceKey),
           ["popData." + this.data.noTaxTotalPriceKey]: this.compute(this.data.noTaxTotalPriceKey)
         })
+        console.log(this.data)
       },
       //数量input失去焦点如果数量小于最小包装量数量边为最小包装量
       amountBlur(e) {

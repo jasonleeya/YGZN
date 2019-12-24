@@ -21,10 +21,8 @@ App({
     userAuthCodes:[]
   }, 
   onShow: function() {
-    //获取所有用户权限值并保存在全局变量中
-    this.http("findLabelId").then(data => {
-      this.globalData.userAuthCodes = data.list
-    })
+    //获取所有用户权限值并保存在全局变量中s
+   
     let that = this
     this.globalData.interval = setInterval(function() {
       let pages = getCurrentPages();
@@ -78,7 +76,7 @@ App({
                         })
 
                       } else {
-                        app.showToast("微信验证失败")
+                        this.showToast("微信验证失败")
                       }
                     }
                   })
@@ -129,7 +127,7 @@ App({
     clearInterval(this.globalData.interval)
   },
 
-  setTitle(pre = "") {
+  setTitle(pre = "") { 
     if (pre !== "") {
       pre = pre + "-"
     }

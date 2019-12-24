@@ -6,12 +6,12 @@
       <input type="number" bindinput='amountInput' bindblur="amountBlur" value="{{popData[amountKey]}}"></input>
     </view>
 
-    <view class="input-wrapper bg-gray solid" wx:if="{{facePriceKey!==''}}">
+    <view class="input-wrapper bg-gray solid" wx:if="{{facePriceKey!=='disable'}}">
       <view class="input-name">未税面价:</view>
       <input class="text-gray" type="digit" disabled value="{{popData[facePriceKey]}}"></input>
     </view>
 
-    <view class="input-wrapper bg-gray solid" wx:if="{{goodsDiscountKey!==''}}">
+    <view class="input-wrapper bg-gray solid" wx:if="{{goodsDiscountKey!=='disable'}}">
       <view class="input-name">折扣:</view>
       <input type="number" bindinput="discountInput" bindblur="discountBlur" value="{{popData[goodsDiscountKey]}}"></input>
     </view>
@@ -32,7 +32,7 @@
       <view class="input-name">含税总价:</view>
       <input type="digit" class="text-gray" disabled value="{{popData[totalPriceKey]}}"></input>
     </view>
-    <view class="input-wrapper bg-gray solid" wx:if="{{noTaxTotalPriceKey!==''}}">
+    <view class="input-wrapper bg-gray solid" wx:if="{{noTaxTotalPriceKey!=='disable'}}">
       <view class="input-name">不含税总价:</view>
       <input type="digit" class="text-gray" disabled value="{{popData[noTaxTotalPriceKey]}}"></input>
     </view>
@@ -41,7 +41,7 @@
       <input bindblur='remarkBlur' value="{{popData[remarkKey]}}"></input>
     </view>
 
-    <view class="input-wrapper bg-gray solid"  wx:if="{{privateRemarkKey!==''}}">
+    <view class="input-wrapper bg-gray solid"  wx:if="{{privateRemarkKey!=='disable'}}">
       <view class="input-name">自见备注:</view>
       <input bindblur='privateRemarkBlur' value="{{popData[privateRemarkKey]}}"></input>
     </view>

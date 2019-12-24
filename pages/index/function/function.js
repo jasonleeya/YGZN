@@ -37,41 +37,50 @@ Component({
         value: "新增采购",
         icon: "icondingdan",
         link: '/pages/purchase/newPurchase/newPurchase',
+        type:"",
       }, {
         value: "采购待审核",
         icon: "iconshenhe",
         link: "/pages/purchase/purchaseOrders/purchaseOrders?orderStatus=wait",
+        type:"",
       }, {
         value: "采购待确认",
         icon: "iconqueren",
         link: "/pages/purchase/purchaseOrders/purchaseOrders?orderStatus=090001",
+        type:"",
       }, {
         value: "采购待付款",
         icon: "iconfukuan",
         link: "/pages/purchase/purchaseOrders/purchaseOrders?orderStatus=090003",
+          type:"cgdfk",
         number: 0
       }, {
         value: "采购待发货",
         icon: "iconfahuo",
         link: "/pages/purchase/purchaseOrders/purchaseOrders?orderStatus=090002",
+        type:"",
       }, {
-        value: "采购待入库订单",
+        value: "采购待入库",
         icon: "iconruku",
         link: "/pages/purchase/purchaseOrders/purchaseOrders?orderStatus=090004",
+          type:"cgrk",
         number: 0
       }, {
         value: "采购已完成",
         icon: "iconyiwancheng",
         link: "/pages/purchase/purchaseOrders/purchaseOrders?orderStatus=090005",
+        type:"",
       }, {
-        value: "采购取消订单",
+        value: "采购已取消",
         icon: "iconquxiaodingdan",
         link: "/pages/purchase/purchaseOrders/purchaseOrders?orderStatus=090008",
+          type:"cgqx",
         number: 0
       }, {
         value: "采购退货列表",
         icon: "icontuihuo",
         link: "/pages/purchase/purchaseOrders/purchaseOrders?orderStatus=back",
+        type:"",
 
       }],
     }, {
@@ -83,39 +92,47 @@ Component({
         value: "新增销售",
         icon: "icondingdan",
         link: "/pages/sales/newSales/newSales",
+        type:"",
       }, {
           value: "销售订单确认",
         icon: "iconqueren",
         link: "/pages/sales/salesOrders/salesOrders?orderStatus=090001",
+          type:"xsdd",
         number: 0
       }, {
-        value: "销售待付款订单",
+        value: "销售待付款",
         icon: "iconfukuan",
         link: "/pages/sales/salesOrders/salesOrders?orderStatus=090003",
+          type:"xsdfk",
         number: 0
       }, {
-        value: "销售待发货订单",
+        value: "销售待出库",
         icon: "iconfahuo",
         link: "/pages/sales/salesOrders/salesOrders?orderStatus=090002",
+          type:"xsck",
         number: 0
       }, {
-        value: "销售待完成订单",
+        value: "销售待收货",
         icon: "iconshouhuo",
         link: "/pages/sales/salesOrders/salesOrders?orderStatus=090004",
+          type:"xsdsh",
         number: 0
       }, {
         value: "销售已完成",
         icon: "iconyiwancheng",
         link: "/pages/sales/salesOrders/salesOrders?orderStatus=090005",
+        type:"",
       }, {
-        value: "销售取消订单",
+        value: "销售已取消",
         icon: "iconquxiaodingdan",
         link: "/pages/sales/salesOrders/salesOrders?orderStatus=090008",
+          type:"xsqx",
         number: 0
       }, {
         value: "销售退货列表",
         icon: "icontuihuo",
         link: "/pages/sales/salesOrders/salesOrders?orderStatus=back",
+        type:"",
       }]
     },
     {
@@ -270,7 +287,7 @@ Component({
       function getMessage() {
         for (let i = 0; i < that.data.list[0].items.length; i++) {
           app.globalData.homeMessage.forEach(item => {
-            if (item.typeZh === that.data.list[0].items[i].value) {
+            if (item.type === that.data.list[0].items[i].type) {
               that.setData({
                 ["list[0].items[" + i + "].number"]: item.notRead
               })
@@ -279,7 +296,7 @@ Component({
         }
         for (let i = 0; i < that.data.list[1].items.length; i++) {
           app.globalData.homeMessage.forEach(item => {
-            if (item.typeZh === that.data.list[1].items[i].value) {
+            if (item.type=== that.data.list[1].items[i].type) {
               that.setData({
                 ["list[1].items[" + i + "].number"]: item.notRead
               })

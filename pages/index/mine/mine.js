@@ -20,46 +20,35 @@ Component({
     currentCompanyIndex: 0,
     activeIndex: 0,
     todoList: [{
-      name: "采购单",
+      name: "销售待确认",
       count: 0,
       color: 'green',
-      icon: 'iconkaidancaigou',
-      link: ''
+      icon: 'iconqueren',
+      link: '/pages/sales/salesOrders/salesOrders?orderStatus=090001',
+      type: "xsdd"
     }, {
-      name: "销售单",
+      name: "销售待发货",
       count: 0,
       color: 'orange',
-      icon: 'icondingdan',
-      link: ''
+      icon: 'iconfahuo',
+      link: '/pages/sales/salesOrders/salesOrders?orderStatus=090002',
+      type: "xsck"
     }, {
-      name: "调拨单",
+      name: "采购待付款",
       count: 0,
       color: 'blue',
-      icon: 'icondiaobodan  ',
-      link: ''
+      icon: 'iconfukuan',
+      link: '/pages/purchase/purchaseOrders/purchaseOrders?orderStatus=090003',
+      type: "cgdfk"
     }, {
-      name: "库存预警",
+      name: "采购待入库",
       count: 0,
       color: 'red',
-      icon: 'iconkucunyujing',
-      link: ''
+      icon: 'iconruku',
+      link: '/pages/purchase/purchaseOrders/purchaseOrders?orderStatus=090004',
+      type: "cgrk"
     }],
     optionList: [
-      [{
-        name: '个人中心',
-        icon: 'iconpersonal',
-        link: '/pages/index/mine/personalCenter/personalCenter'
-      }, {
-        name: '帮助中心',
-        icon: 'iconbangzhu',
-        link: '/pages/index/mine/helpCenter/helpCenter'
-      },
-        //  {
-        //   name: '修改密码',
-        //   icon: 'iconpassword',
-        //   link: '/pages/index/mine/changePassword/changePassword'
-        // }, 
-      ],
       [{
         name: '供应商管理',
         icon: 'icongongyingshang1',
@@ -73,14 +62,37 @@ Component({
         icon: 'iconxinyong',
         link: '/pages/index/mine/creditManage/creditManage'
       }, {
-        name: '代理品牌管理',
-        icon: 'icondaili',
-        link: '/pages/index/mine/agentBrandManage/agentBrandManage'
-      }, {
-        name: '推广',
-        icon: 'iconfenxiang',
-        type: 'share'
-      },]
+        name: '储存预警',
+        icon: 'iconkucunyujing',
+        link: '/pages/index/mine/stockWarning/stockWarning'
+      },
+        //  {
+        //   name: '修改密码',
+        //   icon: 'iconpassword',
+        //   link: '/pages/index/mine/changePassword/changePassword'
+        // }, 
+      ],
+      [
+        // {
+        //   name: '代理品牌管理',
+        //   icon: 'icondaili',
+        //   link: '/pages/index/mine/agentBrandManage/agentBrandManage'
+        // },
+        {
+          name: '个人中心',
+          icon: 'iconpersonal',
+          link: '/pages/index/mine/personalCenter/personalCenter',
+        },
+        // {
+        //   name: '帮助中心',
+        //   icon: 'iconbangzhu',
+        //   link: '/pages/index/mine/helpCenter/helpCenter'
+        // },
+        {
+          name: '推广',
+          icon: 'iconfenxiang',
+          type: 'share'
+        },]
     ],
     isIphone: false
   },
@@ -105,22 +117,24 @@ Component({
           currentCompanyIndex: wx.getStorageSync("currentCompanyIndex")
         })
       }
-
-      app.http("getUserByCustNo", {
-        flag: true
-      }).then(data => {
-        that.setData({
-          userInfo: data.list[0]
-        })
-
-        app.http("queryCompany").then(data => {
-          that.setData({
-            companies: data.list
+ 
+      this.setData({
+        userInfo:wx.getStorageSync("userInfo")[0],
+        companies: app.globalData.companies
+      })
+      var todoList = that.data.todoList
+      app.watchGloabalData("homeMessage", function (value) {
+        app.globalData.homeMessage.forEach(item => {
+          todoList.forEach(todo => {
+            if (todo.type === item.type) {
+              todo.count = item.notRead
+            }
           })
         })
+        that.setData({
+          todoList
+        })
       })
-
-
     },
   },
   methods: {
@@ -161,20 +175,22 @@ Component({
     toggleAccountConfirm() {
       app.http("toggleAccount", {
         id: this.data.companies[this.data.activeIndex][1]
-      }, true).then(()=>{
+      }, true).then(() => {
         wx.setStorageSync("currentCompanyIndex", this.data.activeIndex)
         app.setTitle()
         this.setData({
           currentCompanyIndex: this.data.activeIndex,
           showToggleAccountPop: false,
         })
-        app.http("getUserByCustNo", { flag: true }).then(data => {
+        app.http("getUserByCustNo", {
+          flag: true
+        }).then(data => {
           // console.log(data.list[0].queryNo)
-          wx.setStorageSync("userInfo", data.list) 
+          wx.setStorageSync("userInfo", data.list)
 
         })
       })
-     
+
     },
     share() {
       wx.showShareMenu({
@@ -220,9 +236,11 @@ Component({
       // })
 
     },
-    tap() {
-      getApp().showToast("该功能尚未完善,敬请期待")
-    }
+    todoListTap(e) {
+      wx.navigateTo({
+        url: e.currentTarget.dataset.link
+      })
+    },
   },
 
 

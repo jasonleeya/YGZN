@@ -20,8 +20,7 @@ Page({
     totalpages:0,
     isLoading:false
   },
-  onLoad: function(options) {
-    app.showToast("该页面尚未完善,敬请期待")
+  onLoad: function(options) { 
     var date = new Date()
     var nowDate = date.getFullYear() + "-" + (date.getMonth() + 1) + "-" + date.getDate()
     this.setData({
@@ -67,10 +66,10 @@ Page({
       req = app.http("getAcceptBillListByCust", {
         pageNo: this.data.curPage,
         pageSize: 10,
-        supplyno: '',
-        status: '-1',
-        begtime: '',
-        endtime: '',
+        supplyno: this.data.custNo,
+        status: this.data.orderStatus,
+        begtime: this.data.dateRange.start,
+        endtime: this.data.dateRange.end,
         searchstr: '',
       })
     }
@@ -81,7 +80,7 @@ Page({
           case 0:
             item.bill.statusStr = "未提交"
             break
-          case 1:
+          case 1: 
             item.bill.statusStr = "已提交"
             break
           case 2:
@@ -93,9 +92,8 @@ Page({
             break
         }
 
-        var date = new Date(item
-          .bill.billdate)
-        item.bill.billdate = date.getFullYear() + "-" + (date.getMonth() + 1) + "-" + date.getDate()
+        var date = new Date(item.bill.decidedate)
+        item.bill.decidedate = date.getFullYear() + "-" + (date.getMonth() + 1) + "-" + date.getDate()
       })
       if (replace){
         this.setData({

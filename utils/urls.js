@@ -121,6 +121,12 @@ const alias = {
   updateAllReminderMessageType: BASE_URL_WX +"/netgate-article/updateAllReminderMessageType",
   queryOriginalByOrderNo: BASE_URL +"/imatchOrder/traceOrder/queryOriginalByOrderNo",
   cancelApply: BASE_URL +"/imatchOrder/reOrder/cancelApply", 
+  delByCust: BASE_URL +"/imatchOrder/acceptbill/delByCust",
+  commitByCust: BASE_URL +"/imatchOrder/acceptbill/commitByCust",
+  authByCust: BASE_URL +"/imatchOrder/acceptbill/authByCust",
+  fetchCautionStock: BASE_URL +"/imatchProduct/stockCurrent/fetchCautionStock",
+  updateDftCompany: BASE_URL +"/imatchUser/user/updateDftCompany",
+  findApplys: BASE_URL +"/imatchUser/salesmanApply/findApplys"
 
 }
 export default function(name) {

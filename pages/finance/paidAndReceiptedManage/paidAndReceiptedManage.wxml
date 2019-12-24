@@ -69,7 +69,7 @@
       </view>
       <view class="card-item">
         <view class="card-name">收款日期</view>
-        <view class="card-value">{{item.bill.billdate}}</view>
+        <view class="card-value">{{item.bill.decidedate}}</view>
       </view>
     </view>
   </view>

@@ -1,4 +1,4 @@
-// pages/index/mine/helpCenter/helpCenter.js
+let app=getApp()
 Page({
 
   /**
@@ -11,9 +11,30 @@ Page({
   /**
    * 生命周期函数--监听页面加载
    */
-  onLoad: function (options) {
-    getApp().showToast("该页面功能尚未完善,敬请期待")
-
+  onLoad: function (options) {  
+      wx.showModal({
+        title: '请复制链接在浏览器中打开查看帮助文档',
+        content: 'http://www.imatchas.com:20000/WebHelp/indexh.htm',
+        showCancel: true,
+        cancelText: '取消',
+        cancelColor: '',
+        confirmText: '复制链接',
+        confirmColor: 'green',
+        success: function(res) {
+          if(res.cancel){
+            wx.navigateBack()
+            return}
+          wx.setClipboardData({
+            data: 'http://www.imatchas.com:20000/WebHelp/indexh.htm',
+            success: function(res) {
+                app.showToast("复制成功,请在浏览器中打开")
+                setTimeout(()=>{
+                  wx.navigateBack()
+                },1500)
+            }, 
+          })
+        } 
+      })
   },
 
   /**

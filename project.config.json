@@ -102,6 +102,20 @@
 					"pathName": "pages/common/orderLogs/orderLogs",
 					"query": "",
 					"scene": null
+				},
+				{
+					"id": -1,
+					"name": "pages/purchase/addGoods/addGoods",
+					"pathName": "pages/purchase/addGoods/addGoods",
+					"query": "",
+					"scene": null
+				},
+				{
+					"id": -1,
+					"name": "pages/purchase/newPurchase/newPurchase",
+					"pathName": "pages/purchase/newPurchase/newPurchase",
+					"query": "",
+					"scene": null
 				}
 			]
 		}

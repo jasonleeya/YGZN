@@ -91,4 +91,4 @@
     <view class='gray-text'>请稍等...</view>
   </view>
 </scroll-view> 
-    <editGoodsInfo wx:if="{{showEditPop}}" noTaxTotalPriceKey="" popData="{{popData}}" privateRemarkKey="sourceOrder" bind:closePop="closePop" bind:editedInfo="getEditedInfo" />
+    <editGoodsInfo wx:if="{{showEditPop}}"  popData="{{popData}}" bind:closePop="closePop" bind:editedInfo="getEditedInfo" />

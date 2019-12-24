@@ -2,102 +2,115 @@
   <view class="cell border-bt">
     <view class="cell-name">付款人</view>
     <view class="cell-value">
-      <input disabled name="billusername" placeholder="请选择付款人" value="{{infos.billusername}}"></input>
+      <input disabled name="billusername" class="{{canEdit?'':'text-gray'}}" placeholder="{{canEdit?'请选择付款人':'无'}}" value="{{infos.billusername}}"></input>
       <input hidden name="billCustNo" value="{{infos.billCustNo}}"></input>
     </view>
-    <view class="cell-icon cuIcon-right" bindtap="choosePayer" wx:if="{{type==='收款'}}"></view>
+    <view class="cell-icon cuIcon-right {{canEdit?'':'text-gray'}}" bindtap="choosePayer" wx:if="{{type==='收款'&&operateType==='add'}}"></view>
   </view>
 
-  
-<view class="cell border-bt">
+
+  <view class="cell border-bt">
     <view class="cell-name">付款方式</view>
     <view class="cell-value">
-      <input disabled name="billbank" placeholder="请选择付款方式" value="{{!canEdit?infos.billbank:payMethod.list[payMethod.index]}}"></input> 
+      <input disabled name="billbank" class="{{canEdit?'':'text-gray'}}" placeholder="{{canEdit?'请选择付款方式':'无'}}" value="{{infos.billusername}}" value="{{!canEdit?infos.billbank:payMethod.list[payMethod.index]}}"></input>
     </view>
-    <picker bindchange="payMethodChange" value="{{payMethod.index}}" range="{{payMethod.list}}">
+    <picker bindchange="payMethodChange" disabled="{{!canEdit}}" value="{{payMethod.index}}" range="{{payMethod.list}}">
       <view class="picker">
-        <view class="cell-icon cuIcon-right"></view>
+        <view class="cell-icon cuIcon-right {{canEdit?'':'text-gray'}}"></view>
       </view>
     </picker>
   </view>
 
   <view class="cell border-bt">
     <view class="cell-name">付款账号</view>
-    <view class="cell-value"> 
-      <input name="billaccno" placeholder="请输入付款账号" value="{{!canEdit?infos.billaccno:payMethod.idList[payMethod.index]}}"></input>
+    <view class="cell-value">
+      <input name="billaccno" class="{{canEdit?'':'text-gray'}}" disabled="{{!canEdit||payMethod.idList[payMethod.index]!==''}}" placeholder="{{canEdit?'请输入付款账号':'无'}}" value="{{!canEdit?infos.billaccno:payMethod.idList[payMethod.index]}}"></input>
     </view>
   </view>
 
   <view class="cell border-bt">
-    <view class="cell-name"> <text class="text-red">*</text>{{type==='收款'?'付款':'收款'}}金额</view>
+    <view class="cell-name">
+      <text class="text-red" wx:if="{{operateType==='add'}}">*</text>{{type==='收款'?'付款':'收款'}}金额</view>
     <view class="cell-value">
-      <input name="amount" type="number" value="{{infos.amount}}" placeholder="请输入{{type==='收款'?'付款':'收款'}}金额"></input>
+      <input name="amount" type="number" class="{{canEdit?'':'text-gray'}}" disabled="{{!canEdit}}" value="{{infos.amount}}" placeholder="请输入{{type==='收款'?'付款':'收款'}}金额"></input>
     </view>
   </view>
 
-   <view class="cell border-bt">
+  <view class="cell border-bt">
     <view class="cell-name">收款人</view>
     <view class="cell-value">
-      <input disabled name="supplyName" placeholder="请选择收款人" value="{{infos.supplyName}}"></input>
-      <input hidden name="supplyNo" value="{{infos.custNo}}"></input>
+      <input disabled name="supplyName" class="{{canEdit?'':'text-gray'}}" placeholder="{{canEdit?'请选择收款人':'无'}}" value="{{infos.supplyName}}"></input>
+      <input hidden name="supplyNo" value="{{infos.supplyNo}}"></input>
     </view>
-    <view class="cell-icon cuIcon-right" bindtap="chooseReceiver" wx:if="{{type==='付款'}}"></view>
+    <view class="cell-icon cuIcon-right {{canEdit?'':'text-gray'}}" bindtap="chooseReceiver" wx:if="{{type==='付款'&&operateType==='add'}}"></view>
   </view>
-<view class="cell border-bt">
+  <view class="cell border-bt">
 
     <view class="cell-name">收款方式</view>
     <view class="cell-value">
-      <input disabled name="rcvbank" placeholder="请选择收款方式" value="{{!canEdit?infos.rcvbank:receiveMethod.list[receiveMethod.index]}}"></input> 
+      <input disabled name="rcvbank" class="{{canEdit?'':'text-gray'}}" placeholder="{{canEdit?'请选择收款方式':'无'}}" value="{{!canEdit?infos.rcvbank:receiveMethod.list[receiveMethod.index]}}"></input>
     </view>
-    <picker bindchange="receiveMethodChange" value="{{receiveMethod.index}}" range="{{receiveMethod.list}}">
+    <picker bindchange="receiveMethodChange" disabled="{{!canEdit}}" value="{{receiveMethod.index}}" range="{{receiveMethod.list}}">
       <view class="picker">
-        <view class="cell-icon cuIcon-right"></view>
+        <view class="cell-icon cuIcon-right {{canEdit?'':'text-gray'}}"></view>
       </view>
     </picker>
   </view>
 
   <view class="cell border-bt">
     <view class="cell-name">收款账号</view>
-    <view class="cell-value"> 
-      <input name="rcvaccno" placeholder="请输入收款账号" value="{{!canEdit?infos.rcvaccno:receiveMethod.idList[receiveMethod.index]}}"></input>
+    <view class="cell-value">
+      <input name="rcvaccno" class="{{canEdit?'':'text-gray'}}" disabled="{{!canEdit||receiveMethod.idList[receiveMethod.index]!==''}}" placeholder="{{canEdit?'请输入收款账号':'无'}}" value="{{!canEdit?infos.rcvaccno:receiveMethod.idList[receiveMethod.index]}}"></input>
     </view>
   </view>
-  
- <view class="cell border-bt">
+
+  <view class="cell border-bt">
     <view class="cell-name">备注</view>
     <view class="cell-value">
-      <input name="remark" value="{{infos.remark}}" placeholder="请输入备注信息"></input>
+      <input name="remark" class="{{canEdit?'':'text-gray'}}" disabled="{{!canEdit}}" value="{{infos.remark}}" placeholder="{{canEdit?'请输入备注信息':'无'}}"></input>
     </view>
   </view>
-  
-  
+
+
   <view class="cell border-bt">
     <view class="cell-name">票据号</view>
     <view class="cell-value">
-      <input name="bookno" value="{{infos.bookno}}" placeholder="请输入票据号"></input>
+      <input name="bookno" class="{{canEdit?'':'text-gray'}}" disabled="{{!canEdit}}" value="{{infos.bookno}}" placeholder="{{canEdit?'请输入票据号':'无'}}"></input>
     </view>
   </view>
   <view class="cell">
     <view class="cell-name">到账日期</view>
     <view class="cell-value">
-      <input name="decidedate" disabled placeholder="请选择到账日期" value="{{!canEdit?infos.decidedate:receiptDate}}"></input>
+      <input name="decidedate" class="{{canEdit?'':'text-gray'}}" disabled placeholder="{{canEdit?'请选择到账日期':'无'}}" value="{{receiptDate}}"></input>
     </view>
-    <picker mode="date" value="{{receiptDate}}" bindchange="receiptDateChange">
+    <picker mode="date" disabled="{{!canEdit}}" value="{{receiptDate}}" bindchange="receiptDateChange">
       <view class="picker">
-        <view class="cell-icon cuIcon-right"></view>
+        <view class="cell-icon cuIcon-right {{canEdit?'':'text-gray'}}"></view>
       </view>
     </picker>
   </view>
 
 
   <view class="operate-btns">
-    <!-- <view class="btn-wrapper" wx:if="{{operateType==='edit'}}">
+    <view class="btn-wrapper" wx:if="{{operateType==='edit'&&(infos.status===0||infos.status===1)}}" hidden="{{infos.status===1&&type==='付款'&&infos.upOrDown!=='down'}}">
       <button class="bg-white" bindtap="delete">删除</button>
-    </view> -->
-       <view class="btn-wrapper" wx:if="{{operateType==='edit'}}">
-      <button class="bg-bgc" bindtap="edit">编辑</button>
     </view>
-    <view class="btn-wrapper">
+    <view class="btn-wrapper" wx:if="{{operateType==='edit'&&infos.status===0&&!canEdit}}">
+      <button class="bg-white" bindtap="edit">修改</button>
+    </view>
+        <view class="btn-wrapper" wx:if="{{canEdit&&operateType==='edit'}}">
+      <button class="bg-white" formType="submit">确定修改</button>
+    </view>
+    <view class="btn-wrapper" wx:if="{{operateType==='edit'&&infos.status===1&&type==='收款'}}">
+      <button class="theme-bgc" bindtap="verify">审核</button>
+    </view>
+    <view class="btn-wrapper" wx:if="{{operateType==='edit'&&infos.status===1&&type==='付款'&&infos.upOrDown==='down'}}">
+      <button class="theme-bgc" bindtap="verify">审核</button>
+    </view>
+    <view class="btn-wrapper" wx:if="{{operateType==='edit'&&infos.status===0}}">
+      <button class="theme-bgc" bindtap="sub">提交</button>
+    </view>
+    <view class="btn-wrapper" wx:if="{{operateType==='add'}}">
       <button class="theme-bgc" formType="submit">确定</button>
     </view>
   </view>

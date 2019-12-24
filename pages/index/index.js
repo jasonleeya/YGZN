@@ -12,17 +12,14 @@ create(store, {
     
   },
 
-  onLoad() {
-  
-   app.setTitle()
-
+  onLoad() { 
     app.http("queryCompany").then(data => {
       app.globalData.companies = data.list  
-      // data.list.forEach((item,index)=>{
-      //   if(item[2]==='1'){
-      //     wx.setStorageSync("currentCompanyIndex",index)
-      //   }
-      // })
+      data.list.forEach((item,index)=>{
+        if(item[2]==='1'){
+          wx.setStorageSync("currentCompanyIndex",index)
+        }
+      })
 
       app.http("toggleAccount", {
         id: data.list[wx.getStorageSync("currentCompanyIndex")][1]
@@ -38,7 +35,7 @@ create(store, {
 
       })
 
-    })
+    }) 
   },
   onShow(){ 
     let taht=this

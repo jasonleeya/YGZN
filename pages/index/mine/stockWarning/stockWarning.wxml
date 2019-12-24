@@ -1,0 +1,23 @@
+<view class="card" wx:for="{{list}}" wx:key>
+  <view class="card-head">
+    <view class="card-title">{{item.brandName==="未填写"||item.brandName===""?"":item.brandName+"/"}}{{item.productName  }}</view>
+  </view>
+  <view class="card-content">
+    <view class="card-item">
+      <view class="card-name">品牌代码</view>
+      <view class="card-value">{{item.brandCode}}</view>
+    </view>
+    <view class="card-item">
+      <view class="card-name">当前库存</view>
+      <view class="card-value text-red">{{item.curQty}}</view>
+    </view>
+    <view class="card-item">
+      <view class="card-name">预警库存</view>
+      <view class="card-value text-green">{{item.warnQty}}</view>
+    </view>
+        <view class="card-item">
+      <view class="card-name">仓库</view>
+      <view class="card-value">{{item.wareName}}</view>
+    </view>
+  </view>
+</view>

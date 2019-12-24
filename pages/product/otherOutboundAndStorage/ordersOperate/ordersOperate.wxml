@@ -55,4 +55,4 @@
   </view>
 
 </form>
-<editGoodsInfo wx:if="{{showPop}}" fromPage="other" amountKey="qty" nameKey="productName" noTaxPriceKey="noTaxPrice" noTaxTotalPriceKey="noTaxTotal" taxKey="taxRate" containTaxPriceKey="price" totalPriceKey="totalPrice" noTaxTotalPriceKey="noTaxTotal" goodsDiscount="" popData="{{popData}}" bind:editedInfo="getEditInfo" bind:closePop="closePop" />
+<editGoodsInfo wx:if="{{showPop}}" amountKey="qty" nameKey="productName" noTaxPriceKey="noTaxPrice"  taxKey="taxRate" containTaxPriceKey="price" totalPriceKey="totalPrice" noTaxTotalPriceKey="noTaxTotal" goodsDiscountKey="disable"  facePriceKey="disable" popData="{{popData}}" bind:editedInfo="getEditInfo" bind:closePop="closePop" />

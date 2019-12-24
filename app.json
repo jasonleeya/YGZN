@@ -63,7 +63,8 @@
     "pages/finance/paidAndReceiptedManage/chooseCustomer/chooseCustomer",
     "pages/register/register",
     "pages/purchase/viewSplitOrder/viewSplitOrder",
-    "pages/common/orderLogs/orderLogs"
+    "pages/common/orderLogs/orderLogs",
+    "pages/index/mine/stockWarning/stockWarning"
   ],
   "window": {
     "backgroundTextStyle": "light",

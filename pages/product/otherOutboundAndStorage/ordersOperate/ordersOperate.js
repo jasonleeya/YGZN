@@ -113,7 +113,7 @@ Page({
       showPop: false
     })
   },
-  getEditInfo(e) {
+  getEditInfo(e) { 
     if (!this.data.canEdit) {
       app.showToast("不可编辑或请先点击编辑按钮")
       this.setData({

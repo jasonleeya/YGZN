@@ -36,27 +36,32 @@ create(store, {
  
     this.initData()
 
+    // var date = new Date()
+    // var receiveDate = null
+    // var year = date.getFullYear()
+    // var month = date.getMonth() + 1
+    // var day = date.getDate()
+    // var monthLength = new Date(year, month, 0).getDate()
+    // if (day + 5 <= monthLength) {
+    //   day = day + 5
+    // } else {
+    //   day = 5 - (monthLength - day)
+    //   if (month === 12) {
+    //     month = 1
+    //     year = year + 1
+    //   } else {
+    //     month = month + 1
+    //   }
+    // }
+    // receiveDate = year + "-" + month + "-" + day
+
     var date = new Date()
-    var receiveDate = null
     var year = date.getFullYear()
     var month = date.getMonth() + 1
     var day = date.getDate()
-    var monthLength = new Date(year, month, 0).getDate()
-    if (day + 5 <= monthLength) {
-      day = day + 5
-    } else {
-      day = 5 - (monthLength - day)
-      if (month === 12) {
-        month = 1
-        year = year + 1
-      } else {
-        month = month + 1
-      }
-    }
-    receiveDate = year + "-" + month + "-" + day
     this.setData({
-      receiveDate: receiveDate
-    })
+      receiveDate: year + "-" + month + "-" + day
+    }) 
   },
   onShow() {
     var cartList = app.globalData.salesCartList
