@@ -10,20 +10,20 @@
     <view class="item" wx:for="{{customerList}}" wx:key bindtap="chooseCustomer" data-index="{{index}}">
       <view class="header solid-bottom">
         <text class="cuIcon-friend name-icon"></text>
-        <text class="name">{{item.customerName}}</text>
-        <text class="type text-green">{{item.approveStatus?"线上":"自建"}}</text>
+        <text class="name">{{item.customer.customerName}}</text>
+        <text class="type text-green">{{item.customer.approveStatus?"线上":"自建"}}</text>
       </view>
       <view class="info">
         <view class="info-name text-gray">首要联系人</view>
-        <view class="info-value">{{m.format(item.primaryContact)}}</view>
+        <view class="info-value">{{m.format(item.customer.primaryContact)}}</view>
       </view>
       <view class="info">
         <view class="info-name text-gray">联系电话</view>
-        <view class="info-value">{{m.format(item.contactPhone)}}</view>
+        <view class="info-value">{{m.format(item.customer.contactPhone)}}</view>
       </view>
       <view class="info">
         <view class="info-name text-gray">信用余额</view>
-        <view class="info-value">{{m.format(item.creditLine)}}</view>
+        <view class="info-value">{{m.format(item.customer.creditLine)}}</view>
       </view>
       <!-- <view class="info">
         <view class="info-name text-gray">客户类型</view>
@@ -31,7 +31,7 @@
       </view> -->
       <view class="info">
         <view class="info-name text-gray">客户等级</view>
-        <view class="info-value">{{m.format(item.grade)}}</view>
+        <view class="info-value">{{m.format(item.customer.grade)}}</view>
       </view>
     </view>
   </view>

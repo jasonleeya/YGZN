@@ -51,7 +51,7 @@ create(store, {
   chooseCustomer(e) {
     var pages = getCurrentPages()
     var prevPage = pages[pages.length - 2]
-    var data = this.data.customerList[e.currentTarget.dataset.index]
+    var data = this.data.customerList[e.currentTarget.dataset.index].customer
     prevPage.setData({
       customerName: data.customerName,
       customerNo: data.customerNo,

@@ -23,7 +23,8 @@ create(store, {
     searchType: "",
     searchValue: "",
     isLoad: false,
-    pageNo: 2,
+    pageNo: 1, 
+    totalPages:0,
     storeList: [],
     customerType: "",
     selectedTypeIndex: null,
@@ -138,6 +139,9 @@ create(store, {
     app.http(urlAlias, params).then(data => {
       var queryString = []
       var storeList = []
+      this.setData({
+        totalPages: data.totalPages
+      })
       if (this.data.selectedBrand === '' && this.data.selectedClassify === '') {
         this.setData({
           filters: data.infoBody
@@ -213,6 +217,10 @@ create(store, {
   //监听滑动到底部
   scrollToBottom() {
     if (this.data.loadMore) {
+      return
+    }
+    if (this.data.pageNo >= this.data.totalPages){
+      app.showToast("没有更多了")
       return
     }
     this.setData({
@@ -580,11 +588,10 @@ create(store, {
 
 
   searchTypeChange(e) {
-    this.setData({
-      pageNo: 1,
+    this.setData({ 
       searchType: e.currentTarget.dataset.type,
       isShowDropDown: false,
-      isShowPop: false,
+      isShowSearchScroll: false,
       filters: null,
       selectedBrand: '',
       selectedBrand: "",
@@ -693,5 +700,15 @@ create(store, {
       })
     }
     this.search()
-  }
+  },
+  scan() {  
+    wx.scanCode({
+      success:(data)=>{
+        var value = data.result.trim()
+        this.setData({
+          searchValue: value
+        })
+      }
+    })
+  },
 })

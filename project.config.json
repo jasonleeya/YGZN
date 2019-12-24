@@ -116,6 +116,26 @@
 					"pathName": "pages/purchase/newPurchase/newPurchase",
 					"query": "",
 					"scene": null
+				},
+				{
+					"id": -1,
+					"name": "pages/sales/newSales/newSales",
+					"pathName": "pages/sales/newSales/newSales",
+					"query": "",
+					"scene": null
+				},
+				{
+					"id": -1,
+					"name": "pages/sales/newSales/newSales",
+					"pathName": "pages/sales/newSales/newSales",
+					"query": "",
+					"scene": null
+				},
+				{
+					"id": -1,
+					"name": "pages/sales/addGoods/addGoods",
+					"pathName": "pages/sales/addGoods/addGoods",
+					"scene": null
 				}
 			]
 		}

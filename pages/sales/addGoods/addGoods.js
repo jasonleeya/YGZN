@@ -22,19 +22,27 @@ create(store, {
     searchTypeList: [{
       name: "我的仓库"
     }, {
-      name: "全局搜索"
+      name: "品台产品"
     }],
     isLoad: false,
     pageNo: 2,
-
+    totalPages:0,
+    isShowDropDown: false,
+    isShowSearchScroll: false,
+    filters: null,
+    selectedBrand: '',
+    selectedClassify: '',
+    selectedWarehouse: '',
+    timer: null
   },
   onLoad(options) {
     app.setTitle("添加商品")
     this.setData({
       custNo: options.custNo,
-      wareId: options.wareId
+      wareId: options.wareId,
+      searchType:"我的仓库"
     })
- 
+
   },
   //进入页面初始化数据
   onShow() {
@@ -52,33 +60,8 @@ create(store, {
 
   },
 
-  searchTypeChange(e) {
-    this.setData({
-      pageNo: 1,
-      searchType: e.detail.name
-    })
-    if (this.data.searchValue === '') {
-      return
-    }
-    this.search()
-  },
-
-  inputValue(e) {
-    var inputValue = e.detail
-    this.setData({
-      pageNo: 1,
-      loadMore: false,
-      searchValue: e.detail
-    })
-    if (e.detail === "") {
-      this.setData({
-        goodsList: []
-      })
-      return
-    } 
-    this.search()
-
-  },
+  
+  
   load(isLoad = true) {
     if (isLoad) {
       this.setData({
@@ -99,7 +82,7 @@ create(store, {
     var params = {}
     switch (this.data.searchType) {
       case "":
-      case "供方仓库":
+      case "我的仓库":
         urlAlias = "searchStockProduct"
         params = {
           wareKey: "",
@@ -108,8 +91,12 @@ create(store, {
           custNo: "",
           searchKey: this.data.searchValue,
         }
+        if (this.data.selectedBrand !== '' || this.data.selectedClassify !== '') {
+          params.brandName = this.data.selectedBrand
+          params.catalogId = this.data.selectedClassify
+        }
         break
-      case "全局搜索":
+      case "平台产品":
         urlAlias = "searchProductNew"
         params = {
           catalogId: "",
@@ -118,11 +105,23 @@ create(store, {
           pageSize: 10,
           simpleSeek: this.data.searchValue,
         }
+        if (this.data.selectedBrand !== '' || this.data.selectedClassify !== '') {
+          params.brandName = this.data.selectedBrand
+          params.catalogId = this.data.selectedClassify
+        }
         break
     }
     app.http(urlAlias, params).then(data => {
+      this.setData({
+        totalPages: data.totalPages
+      })
       if (data.list.length === 0) {
         app.showToast("未搜索到相应产品")
+      }
+      if (this.data.selectedBrand === '' && this.data.selectedClassify === '') {
+        this.setData({
+          filters: data.infoBody
+        })
       }
       data.list.forEach(item=>{
         for (let key in item) {
@@ -162,6 +161,10 @@ create(store, {
   //监听滑动到底部
   scrollToBottom() {
     if (this.data.loadMore) {
+      return
+    }
+    if (this.data.pageNo >= this.data.totalPages){
+      app.showToast("没有更多了")
       return
     }
     this.setData({
@@ -517,4 +520,130 @@ create(store, {
     wx.navigateBack()
   },
 
+  searchTypeChange(e) {
+    this.setData({
+      pageNo: 1,
+      searchType: e.currentTarget.dataset.type,
+      isShowDropDown: false,
+      isShowSearchScroll: false,
+      filters: null,
+      selectedBrand: '',
+      selectedBrand: "",
+      selectedClassify: "",
+      selectedWarehouse: "",
+      pageNo: 1
+    })
+    if (this.data.searchValue === '') {
+      return
+    }
+    this.search()
+  },
+
+
+  inputValue(e) {
+    clearTimeout(this.data.timer)
+    var timer = setTimeout(() => {
+      handler()
+    }, 500)
+    this.setData({
+      timer: timer
+    })
+
+    var handler = () => {
+      var inputValue = e.detail.value
+      this.setData({
+        pageNo: 1,
+        loadMore: false,
+        searchValue: inputValue,
+        selectedBrand: ''
+      })
+      if (e.detail === "") {
+        this.setData({
+          goodsList: []
+        })
+        return
+      }
+      this.search()
+    }
+
+  },
+  showDropDown() {
+    if (this.data.isShowSearchScroll) {
+      this.setData({
+        isShowDropDown: false
+      })
+      setTimeout(() => {
+        this.setData({
+          isShowSearchScroll: false
+        })
+      }, 100)
+    } else {
+      this.setData({
+        isShowSearchScroll: true
+      })
+      setTimeout(() => {
+        this.setData({
+          isShowDropDown: true
+        })
+      }, 100)
+    }
+  },
+  chooseBrand(e) {
+    var brand = e.currentTarget.dataset.brand
+    if (brand === this.data.selectedBrand) {
+      this.setData({
+        selectedBrand: '',
+      })
+    } else {
+      this.setData({
+        selectedBrand: brand,
+        isShowDropDown: false,
+        isShowSearchScroll: false,
+        pageNo: 1
+      })
+    }
+    this.search()
+  },
+  chooseClassify(e) {
+    var classify = e.currentTarget.dataset.classify
+    if (classify === this.data.selectedClassify) {
+      this.setData({
+        selectedClassify: '',
+      })
+    } else {
+      this.setData({
+        selectedClassify: classify,
+        isShowDropDown: false,
+        isShowSearchScroll: false,
+        pageNo: 1
+      })
+    }
+    this.search()
+  },
+  chooseWarehouse(e) {
+    var warehouse = e.currentTarget.dataset.warehouse
+    if (warehouse === this.data.selectedWarehouse) {
+      this.setData({
+        selectedWarehouse: '',
+      })
+    } else {
+      this.setData({
+        selectedWarehouse: warehouse,
+        isShowDropDown: false,
+        isShowSearchScroll: false,
+        pageNo: 1
+      })
+    }
+    this.search()
+  },
+  scan() {
+    wx.scanCode({
+      success: (data) => {
+        var value = data.result.trim()
+        this.setData({
+          searchValue: value
+        })
+      }
+    })
+  },
 })

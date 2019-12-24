@@ -1,4 +1,52 @@
-<search bind:value="inputValue" bind:searchType="searchTypeChange" justLink="{{false}}" types="{{searchTypeList}}" />
+<view class="header">
+  <view class="search  solid-bottom">
+    <view class="search-input-wrapper">
+      <view class="search-icon iconfont iconsearch"></view>
+      <input class="search-input bg-gray" bindinput="inputValue" value="{{searchValue}}" placeholder="请输入关键词进行搜索"></input>
+    </view>
+    <view class="search-scan iconfont iconscan" bindtap="scan"></view>
+  </view>
+  <view class="search-types solid-bottom">
+    <view class="search-type {{searchType==='我的仓库'?'theme-bgc':'bg-gray'}}" bindtap="searchTypeChange" data-type="我的仓库">
+      我的仓库
+    </view> 
+    <view class="search-type {{searchType==='平台产品'?'theme-bgc':'bg-gray'}}" bindtap="searchTypeChange" data-type="平台产品">
+      平台产品
+    </view>
+    <view class="filter-btn  {{filters?'':'text-gray'}}" bindtap="showDropDown">筛选
+      <text class="{{isShowDropDown?'cuIcon-unfold':'cuIcon-fold'}}"></text>
+    </view>
+  </view>
+  <view class="drop-downs">
+    <scroll-view class="search-scroll" scroll-y wx:if="{{isShowSearchScroll}}">
+      <view class="drop-down-wrapper" style="top: {{isShowDropDown?'0':'-100vh'}}">
+
+        <view class="drop-down solid-bottom" wx:if="{{filters.warehouse}}">
+          <view class="drop-down-title">所属仓库</view>
+          <view class="drop-down-btns">
+            <view class="drop-down-btn {{selectedWarehouse===item.tableKey?'theme-bgc':'bg-gray'}}" bindtap="chooseWarehouse" data-warehouse="{{item.tableKey}}" wx:for="{{filters.warehouse}}" wx:key>{{item.name}}</view>
+          </view>
+        </view>
+
+        <view class="drop-down solid-bottom" wx:if="{{filters.brand_name&&filters.brand_name.length!==0}}">
+          <view class="drop-down-title">产品品牌</view>
+          <view class="drop-down-btns">
+            <view class="drop-down-btn {{selectedBrand===item.name?'theme-bgc':'bg-gray'}}" bindtap="chooseBrand" data-brand="{{item.name}}" wx:for="{{filters.brand_name}}" wx:key>{{item.name}}</view>
+          </view>
+        </view>
+
+        <view class="drop-down solid-bottom" wx:if="{{filters.series_code&&filters.series_code.length!==0}}">
+          <view class="drop-down-title ">产品分类</view>
+          <view class="drop-down-btns">
+            <view class="drop-down-btn {{selectedClassify===item.catalogId?'theme-bgc':'bg-gray'}}" bindtap="chooseClassify" wx:for="{{filters.series_code}}" data-classify="{{item.catalogId}}" wx:key>{{item.catalogName}}</view>
+          </view>
+        </view>
+      </view>
+      <view class="drop-downs-mask" wx:if="{{isShowDropDown}}">
+      </view>
+    </scroll-view>
+  </view>
+</view>
 <scroll-view scroll-y bindscrolltolower="scrollToBottom">
   <view class="empty text-gray" wx:if="{{goodsList.length===0}}">请先搜索产品信息再进行添加~</view>
   <view class="goods-list">

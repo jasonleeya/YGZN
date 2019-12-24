@@ -2,9 +2,9 @@
   <view class="search  solid-bottom">
     <view class="search-input-wrapper">
       <view class="search-icon iconfont iconsearch"></view>
-      <input class="search-input bg-gray" bindinput="inputValue" placeholder="请输入关键词进行搜索"></input>
+      <input class="search-input bg-gray" bindinput="inputValue" value="{{searchValue}}" placeholder="请输入关键词进行搜索"></input>
     </view>
-    <view class="search-scan iconfont iconscan"></view>
+    <view class="search-scan iconfont iconscan" bindtap="scan"></view>
   </view>
   <view class="search-types solid-bottom">
     <view class="search-type {{searchType==='我的仓库'?'theme-bgc':'bg-gray'}}" bindtap="searchTypeChange" data-type="我的仓库">
