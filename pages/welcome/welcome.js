@@ -4,6 +4,9 @@ Page({
 
   },
   onLoad: function(options) {
+    if(options.type){ 
+      wx.setStorageSync('enterByShare', options)
+    }
     this.login()
 
   },

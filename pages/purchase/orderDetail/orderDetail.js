@@ -27,8 +27,7 @@ Page({
     params: {},
     formEvent: {},
     isShowOrderLogPop: false,
-    type: "",
-    viewByShare: false
+    type: "" 
   },
 
   /**
@@ -40,28 +39,7 @@ Page({
       this.setData({
         type: options.type
       })
-    }
-
-    if (options.companyId) {
-      app.checkLogin().catch(()=>{  
-        var route = '/' + 'pages/sales/orderDetail/orderDetail' + '?orderNo=' + options.orderNo+'&companyId='+options.companyId
-        wx.setStorageSync('pageBeforeLogin', route) 
-      }) 
-       
-      if(!wx.getStorageSync('token')){
-        return
-      }
-      this.setData({
-        viewByShare: true
-      })
-      if (options.companyId == wx.getStorageSync('userInfo')[0].queryNo) { 
-        
-        wx.redirectTo({
-          url: '/pages/sales/orderDetail/orderDetail?orderNo=' + options.orderNo
-        })
-        return
-      }
-    }
+    } 
 
     //设为已读
     app.http("viewOrder", {
@@ -111,16 +89,7 @@ Page({
       } else {
         app.setTitle("采购" + statusStr + "订单")
       }
-      if (this.data.viewByShare && infos.custNo !== wx.getStorageSync('userInfo')[0].queryNo) {
-        wx.showModal({
-          content: '您无权访问该订单',
-          showCancel: false,
-          success: (result) => {
-            wx.navigateBack()
-          },
-        })
-        return
-      }
+      
       data.infoBody.lows.forEach(item=>{
         item.pirctureWay=item.productInfo.imgPath
       })
@@ -592,7 +561,7 @@ Page({
   onShareAppMessage(res) {
     return {
       title: '订单分享',
-      path: '/pages/sales/orderDetail/orderDetail?orderNo=' + this.data.infos.orderNo + "&companyId=" + wx.getStorageSync('userInfo')[0].queryNo,
+      path: '/pages/welcome/welcome?type=orderDetail&orderNo=' + this.data.infos.orderNo + "&custNo=" + this.data.infos.custNo+"&supplyNo="+this.data.infos.supplyNo,
       success: function (res) { }
     }
   }

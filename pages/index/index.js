@@ -16,6 +16,29 @@ create(store, {
 
     app.http("queryCompany").then(data => {
       app.globalData.companies = data.list
+
+      var pageInfo = wx.getStorageSync('enterByShare')
+          if (pageInfo) { 
+            switch (pageInfo.type) {
+              case "orderDetail":
+                var companyId=data.msg 
+                if(companyId!==pageInfo.supplyNo&&companyId!==pageInfo.custNo){
+                    wx.showModal({  
+                      content: '您无权访问改订单'
+                    })
+                  return
+                }
+                wx.navigateTo({
+                  url: '/pages/' + (companyId === pageInfo.custNo ? 'purchase' : 'sales') + '/orderDetail/orderDetail?orderNo=' + pageInfo.orderNo,
+                  success: (result) => {
+                    wx.removeStorageSync('enterByShare')
+                  },
+                })
+                break
+            }
+          }
+
+
       data.list.forEach((item, index) => {
         if (item[2] === '1') {
           wx.setStorageSync("currentCompanyIndex", index)
@@ -27,22 +50,17 @@ create(store, {
       }).then(data => {
         app.http("getUserByCustNo", {
           flag: true
-        }).then(data => {
-          app.globalData.userInfo = data.list
-          wx.setStorageSync("userInfo", data.list)
+        }).then(infos => {
+          app.globalData.userInfo = infos.list
+          wx.setStorageSync("userInfo", infos.list)
+ 
+
         }).catch(err => {
           app.showToast(err)
+
         })
 
       })
-      if (wx.getStorageSync('pageBeforeLogin')) {  
-        wx.redirectTo({
-          url: wx.getStorageSync('pageBeforeLogin'), 
-          success: (res) => {
-            wx.removeStorageSync('pageBeforeLogin')
-          },
-        })
-      }
     })
   },
   onShow() {

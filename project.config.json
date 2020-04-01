@@ -179,6 +179,13 @@
 					"pathName": "pages/sales/orderDetail/orderDetail",
 					"query": "companyId=7cde7f044f8443a4b7c604da73329a75&orderNo=202001191553130030",
 					"scene": null
+				},
+				{
+					"id": 18,
+					"name": "pages/welcome/welcome",
+					"pathName": "pages/welcome/welcome",
+					"query": "type=orderDetail&orderNo=202001181800400000&custNo=201908231642520003&supplyNo=7cde7f044f8443a4b7c604da73329a75",
+					"scene": null
 				}
 			]
 		}

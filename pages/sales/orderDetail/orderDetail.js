@@ -26,8 +26,7 @@ Page({
     editingIndex: null,
     params: {},
     orderStatus: "",
-    formEvent: null,
-    viewByShare:false
+    formEvent: null, 
   },
 
   /**
@@ -40,25 +39,8 @@ Page({
         type: options.type
       })
     }
-    if (options.companyId) {
-      app.checkLogin().catch(()=>{  
-        var route = '/' + 'pages/sales/orderDetail/orderDetail' + '?orderNo=' + options.orderNo+'&companyId='+options.companyId
-        wx.setStorageSync('pageBeforeLogin', route) 
-      }) 
-      this.setData({
-        viewByShare:true
-      })
-      if (options.companyId == wx.getStorageSync('userInfo')[0].queryNo) { 
 
-        wx.redirectTo({
-          url: '/pages/purchase/orderDetail/orderDetail?orderNo=' + options.orderNo
-        })
-        return
-      }
-    }
-    app.http("viewOrder", {
-      orderNo: options.orderNo
-    })
+  
     app.http(this.data.type !== 'snapshot' ? "queryByOrderNo" : 'queryOriginalByOrderNo', {
       orderNo: options.orderNo
     }, false, false).then(data => {
@@ -113,17 +95,7 @@ Page({
       } else {
         app.setTitle("销售" + statusStr + "订单")
       }
-      if (this.data.viewByShare&&infos.supplyNo !== wx.getStorageSync('userInfo')[0].queryNo) {
-       console.log(infos.supplyNo,wx.getStorageSync('userInfo')[0].queryNo)
-        wx.showModal({
-          content: '您无权访问该订单',
-          showCancel: false,
-          success: (result) => {
-            wx.navigateBack()
-          },
-        })
-        return
-      }
+     
       data.infoBody.lows.forEach(item=>{
         item.pirctureWay=item.productInfo.imgPath
       })
@@ -655,7 +627,7 @@ Page({
   onShareAppMessage(res) {
     return {
       title: '订单分享',
-      path: '/pages/purchase/orderDetail/orderDetail?orderNo=' + this.data.infos.orderNo + "&companyId=" + wx.getStorageSync('userInfo')[0].queryNo,
+      path: '/pages/welcome/welcome?type=orderDetail&orderNo=' + this.data.infos.orderNo + "&custNo=" + this.data.infos.custNo+"&supplyNo="+this.data.infos.supplyNo,
       success: function (res) { }
     }
   }
