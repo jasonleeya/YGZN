@@ -20,7 +20,7 @@
   </view>
 </block>
 
-<block wx-if="{{activeTabIndex==='1'}}" wx:for="{{companies}}" wx:key>
+<block wx-if="{{activeTabIndex==='1'}}" wx:for="{{companies}}" wx:key='index'>
   <view class="card">
     <view class="card-head">
       <view class="card-title">业务公司</view>
@@ -59,3 +59,19 @@
     <button class="bg-blue modify-password" formType="submit">确认修改</button>
   </form>
 </view>
+ 
+ <view wx:if="{{applyingCompanies.length===0&&activeTabIndex==='3'}}" class="empty">暂无申请公司</view>
+  <view class="card" wx-if="{{activeTabIndex==='3'}}" wx:for="{{applyingCompanies}}" wx:key='index'>
+    <view class="card-head">
+      <view class="card-title">公司申请</view>
+      <view class="card-subtitle">
+      <view class="text-red" bindtap="applyRefuse" data-index="{{index}}">拒绝</view>
+      <view class="text-blue" bindtap="applyAgree" data-index="{{index}}">同意</view></view>
+    </view>
+    <view class="card-content">
+      <view class="card-item">
+        <view class="card-name">公司名称</view>
+        <view class="card-value">{{item.companyName}}</view>
+      </view>
+    </view>
+  </view> 

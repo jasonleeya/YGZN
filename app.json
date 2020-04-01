@@ -64,7 +64,9 @@
     "pages/register/register",
     "pages/purchase/viewSplitOrder/viewSplitOrder",
     "pages/common/orderLogs/orderLogs",
-    "pages/index/mine/stockWarning/stockWarning"
+    "pages/index/mine/stockWarning/stockWarning",
+    "pages/product/warehouseProduct/warehouseProduct",
+    "pages/product/warehouseProduct/productOperate/productOperate"
   ],
   "window": {
     "backgroundTextStyle": "light",

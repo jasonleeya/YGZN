@@ -140,7 +140,7 @@ create(store, {
       var queryString = []
       var storeList = []
       this.setData({
-        totalPages: data.totalPages
+        totalPages: this.data.searchType === "平台产品" ? data.maxPage:data.totalPages
       })
       if (this.data.selectedBrand === '' && this.data.selectedClassify === '') {
         this.setData({

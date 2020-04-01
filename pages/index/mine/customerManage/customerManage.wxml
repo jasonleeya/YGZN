@@ -9,14 +9,14 @@
   </view>
   <view class="level-dropdown solid-top solid-bottom" wx:if="{{isShowLevelDropdown}}">
     <view class="level {{selectedLevelIndex===''?'theme-bgc':'bg-gray'}}" data-index="all" bindtap="selectLevel">所有等级</view> 
-    <view class="level {{selectedLevelIndex===index?'theme-bgc':'bg-gray'}}" wx:for="{{levelList}}" data-index="{{index}}" bindtap="selectLevel" wx:key>{{item.name}}</view> 
+    <view class="level {{selectedLevelIndex===index?'theme-bgc':'bg-gray'}}" wx:for="{{levelList}}" data-index="{{index}}" bindtap="selectLevel" wx:key='index'>{{item.name}}</view> 
   </view>
 </view>
 
 
-<scroll-view scroll-y class="scroll-view">
+<scroll-view scroll-y class="scroll-view" bindscrolltolower="scrollToLower">
   <view class="list">
-    <view class="item" wx:for="{{customerList}}" wx:key bindtap="chooseCustomer" data-index="{{index}}" bindtap="seeDetail" data-id="{{item.customer.customerNo}}">
+    <view class="item" wx:for="{{customerList}}" wx:key='index' bindtap="chooseCustomer" data-index="{{index}}" bindtap="seeDetail" data-id="{{item.customer.customerNo}}">
       <view class="card-header solid-bottom">
         <text class="cuIcon-friend name-icon"></text>
         <text class="name">{{item.customer.customerName}} <text class="text-red" wx:if="{{item.customer.status==='2'}}">({{item.customer.statusStr}})</text></text>
@@ -44,6 +44,7 @@
       </view>
     </view>
   </view>
+    <view class="cu-load bg-gray {{isLoad?'loading':''}}"></view> 
 </scroll-view>
 
 <wxs module="m">

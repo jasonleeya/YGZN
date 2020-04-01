@@ -12,7 +12,7 @@ Page({
    * 生命周期函数--监听页面加载
    */
   onLoad: function(options) {
-    app.setTitle("员工信息")
+    app.setTitle("员工管理")
   },
   onShow: function() {
     app.http("queryAllSalesman", {

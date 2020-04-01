@@ -126,7 +126,12 @@ const alias = {
   authByCust: BASE_URL +"/imatchOrder/acceptbill/authByCust",
   fetchCautionStock: BASE_URL +"/imatchProduct/stockCurrent/fetchCautionStock",
   updateDftCompany: BASE_URL +"/imatchUser/user/updateDftCompany",
-  findApplys: BASE_URL +"/imatchUser/salesmanApply/findApplys"
+  findApplys: BASE_URL +"/imatchUser/salesmanApply/findApplys",
+  getProductsByBrandName: BASE_URL +"/imatchProduct/product/getProductsByBrandName",
+  createSimpleProduct: BASE_URL+"/imatchProduct/product/createSimpleProduct",
+  searchHome: BASE_URL+"/imatchProduct/product/searchHome",
+  updateApply: BASE_URL+"/imatchUser/salesmanApply/updateApply",
+  logOut: BASE_URL +"/imatchUser/user/loginOut",
 
 }
 export default function(name) {

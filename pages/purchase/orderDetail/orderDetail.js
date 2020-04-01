@@ -26,19 +26,41 @@ Page({
     orderStatus: null,
     params: {},
     formEvent: {},
-    isShowOrderLogPop:false,
-    type:""
+    isShowOrderLogPop: false,
+    type: "",
+    viewByShare: false
   },
 
   /**
    * 生命周期函数--监听页面加载
    */
 
-  onLoad: function(options) {
-    if(typeof options.type!=='undefined'){
+  onLoad: function (options) {
+    if (typeof options.type !== 'undefined') {
       this.setData({
         type: options.type
       })
+    }
+
+    if (options.companyId) {
+      app.checkLogin().catch(()=>{  
+        var route = '/' + 'pages/sales/orderDetail/orderDetail' + '?orderNo=' + options.orderNo+'&companyId='+options.companyId
+        wx.setStorageSync('pageBeforeLogin', route) 
+      }) 
+       
+      if(!wx.getStorageSync('token')){
+        return
+      }
+      this.setData({
+        viewByShare: true
+      })
+      if (options.companyId == wx.getStorageSync('userInfo')[0].queryNo) { 
+        
+        wx.redirectTo({
+          url: '/pages/sales/orderDetail/orderDetail?orderNo=' + options.orderNo
+        })
+        return
+      }
     }
 
     //设为已读
@@ -46,7 +68,7 @@ Page({
       orderNo: options.orderNo
     })
 
-    app.http(this.data.type !== 'snapshot' ? "queryByOrderNo" :'queryOriginalByOrderNo', {
+    app.http(this.data.type !== 'snapshot' ? "queryByOrderNo" : 'queryOriginalByOrderNo', {
       orderNo: options.orderNo
     }, false, false).then(data => {
 
@@ -84,13 +106,24 @@ Page({
           statusStr = "已取消"
           break
       }
-      if(this.data.type==='snapshot'){
+      if (this.data.type === 'snapshot') {
         app.setTitle("采购订单快照")
-      }else{
+      } else {
         app.setTitle("采购" + statusStr + "订单")
       }
-      
-
+      if (this.data.viewByShare && infos.custNo !== wx.getStorageSync('userInfo')[0].queryNo) {
+        wx.showModal({
+          content: '您无权访问该订单',
+          showCancel: false,
+          success: (result) => {
+            wx.navigateBack()
+          },
+        })
+        return
+      }
+      data.infoBody.lows.forEach(item=>{
+        item.pirctureWay=item.productInfo.imgPath
+      })
       this.setData({
         infos: infos,
         address: data.infoBody.address,
@@ -133,7 +166,7 @@ Page({
   /**
    * 生命周期函数--监听页面初次渲染完成
    */
-  onReady: function() {
+  onReady: function () {
 
   },
 
@@ -142,7 +175,7 @@ Page({
       url: '/pages/purchase/orderLogs/orderLogs',
     })
   },
-  selectStorehouse: function(e) {
+  selectStorehouse: function (e) {
     this.setData({
       ["storehouse.index"]: e.detail.value,
       purchaseWarehouse: this.data.storehouse.idList[e.detail.value]
@@ -388,15 +421,15 @@ Page({
     // console.log(params)
 
     app.http("savePurchaseOrderUpperAndLower", params, true).then(() => {
-        app.showToast("添加成功")
-        this.setData({
-          isLoad: false
-        })
-
-        wx.redirectTo({
-          url: '/pages/purchase/orderDetail/orderDetail?orderNo=' + info.orderNo + "&orderTypeStr=" + this.data.orderTypeStr,
-        })
+      app.showToast("添加成功")
+      this.setData({
+        isLoad: false
       })
+
+      wx.redirectTo({
+        url: '/pages/purchase/orderDetail/orderDetail?orderNo=' + info.orderNo + "&orderTypeStr=" + this.data.orderTypeStr,
+      })
+    })
       .catch((e) => {
         app.showToast(e)
       })
@@ -519,32 +552,32 @@ Page({
     })
 
   },
-  viewOrderLogs(){
+  viewOrderLogs() {
     wx.navigateTo({
-      url: '/pages/common/orderLogs/orderLogs?orderNo=' + this.data.infos.orderNo +"&orderTypes="+"采购"
+      url: '/pages/common/orderLogs/orderLogs?orderNo=' + this.data.infos.orderNo + "&orderTypes=" + "采购"
     })
   },
-  appllyCancelOrder(){
-  wx.showModal({
-    title: '确定要申请取消该订单吗',
-    success: (res)=>{
-      if(res.cancel){return}
-      app.http("cancelApply", {
-        orderNo: this.data.infos.orderNo
-      }).then(() => {
-        app.showToast("已申请取消该订单,请等待对方确认")
-      }).catch((err) => {
-        app.showToast(err)
-      })
-    },
-  })
-  },
-  viewSnapshot(){
-    wx.navigateTo({
-      url: '/pages/purchase/orderDetail/orderDetail?orderNo=' + this.data.infos.orderNo + "&type=snapshot" 
+  appllyCancelOrder() {
+    wx.showModal({
+      title: '确定要申请取消该订单吗',
+      success: (res) => {
+        if (res.cancel) { return }
+        app.http("cancelApply", {
+          orderNo: this.data.infos.orderNo
+        }).then(() => {
+          app.showToast("已申请取消该订单,请等待对方确认")
+        }).catch((err) => {
+          app.showToast(err)
+        })
+      },
     })
   },
-  back(){
+  viewSnapshot() {
+    wx.navigateTo({
+      url: '/pages/purchase/orderDetail/orderDetail?orderNo=' + this.data.infos.orderNo + "&type=snapshot"
+    })
+  },
+  back() {
     wx.navigateBack()
   },
   payment() {
@@ -552,8 +585,15 @@ Page({
     setTimeout(() => {
       this.submit(this.data.formEvent)
       wx.navigateTo({
-        url: '/pages/purchase/payment/payment?supplyNo=' + infos.supplyNo + '&customerNo=' + infos.custNo + '&orderNoArr=' + infos.orderNo + "&supplyName=" + infos.supplyName
+        url: '/pages/purchase/payment/payment?supplyNo=' + infos.supplyNo + '&customerNo=' + infos.custNo + '&orderNoArr=' + infos.orderNo + "&supplyName=" + infos.supplyName + "&oando=" + this.data.infos.oando
       })
     }, 100)
+  },
+  onShareAppMessage(res) {
+    return {
+      title: '订单分享',
+      path: '/pages/sales/orderDetail/orderDetail?orderNo=' + this.data.infos.orderNo + "&companyId=" + wx.getStorageSync('userInfo')[0].queryNo,
+      success: function (res) { }
+    }
   }
 })

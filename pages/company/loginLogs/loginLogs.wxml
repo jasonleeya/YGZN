@@ -1,4 +1,4 @@
-<view class="card" wx:for="{{logList}}" wx:key>
+<view class="card" wx:for="{{logList}}" wx:key='index'>
   <view class="card-head">
     <view class="card-title">登录日志</view>
   </view>

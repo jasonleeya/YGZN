@@ -1,0 +1,48 @@
+<view class="warehouse-product">
+	<view class="header">
+		<view class="search">
+			<view class="search-icon iconfont iconsearch"></view>
+			<input placeholder="请输入关键词" value="{{searchText}}" bindinput="searchInput"></input>
+		</view>
+		<view class="scan iconfont iconscan text-blue"></view>
+		<view class="filter-sidebar-btn iconfont iconego-menu text-blue" bindtap="toggleFilterDropdown"></view>
+	</view>
+	<view class="filter-sidebar-dropdown" wx:if="{{isShowFilterDropdown}}">
+		<view class="dropdown-item">
+    <view class="name">商品排序</view>
+    
+    </view>	<view class="dropdown-item">
+    <view class="name">商品排序</view>
+    
+    </view>	<view class="dropdown-item">
+    <view class="name">商品排序</view>
+    
+    </view>	<view class="dropdown-item">
+    <view class="name">商品排序</view>
+    
+    </view>	<view class="dropdown-item">
+    <view class="name">商品排序</view>
+    
+    </view>	<view class="dropdown-item">
+    <view class="name">商品排序</view>
+    
+    </view>
+	</view>
+	<view class="total">合计:{{count}}条</view>
+	<scroll-view class="product-scroll" scroll-y bindscrolltolower="scrollToLower">
+		<view class="product" wx:for="{{productList}}" wx:key="index" bindtap="seeDetail" data-index="{{index}}">
+			<previewImage src="{{item.imgUrl}}" w="{{'200rpx'}}" h="{{'200rpx'}}" />
+			<view class="product-infos">
+				<view class="product-name">{{item.brandName}}/{{item.brandCode}}</view>
+				<view class="product-param">名称:{{item.productName}}</view>
+				<view class="product-param">参数:{{item.description}}</view>
+				<view class="product-price">
+					<view class="price">面价:<text class="text-red">{{item.price}}</text></view>
+					<view class="price">销售价:<text class="text-red">{{item.sellPrice===null?0:item.sellPrice}}</text></view>
+					<view class="status {{item.flag===0?'text-green':'text-red'}}">{{item.flag===0?'上架':'下架'}}</view>
+				</view>
+			</view>
+		</view>
+	</scroll-view>
+</view>
+<view class="add-btn cuIcon-add shadow bg-blue" bindtap="addProduct"></view>

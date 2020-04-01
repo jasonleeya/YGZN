@@ -75,5 +75,37 @@ Page({
     }).catch(err=>{
       app.showToast(err)
     })
+  },
+  applyRefuse(e){
+console.log(e.currentTarget.dataset.index)
+wx.showModal({  
+  showCancel: true,
+  title: '确定要拒绝此申请吗', 
+  success: (result) => {
+    if(result.cancel){
+      return
+    }
+    var id=this.data.applyingCompanies[e.currentTarget.dataset.index].id
+    app.http("updateApply",{
+      id: id,
+      applyType: -1
+    }).then(data=>{
+      app.showToast("已拒绝申请")
+    }).catch(err=>{
+      app.showToast(err)
+    }) 
+  },
+})
+  },
+  applyAgree(e){
+    var id=this.data.applyingCompanies[e.currentTarget.dataset.index].id
+    app.http("updateApply",{
+      id: id,
+      applyType: 1 
+    }).then(data=>{
+      app.showToast("已同意申请")
+    }).catch(err=>{
+      app.showToast(err) 
+    })
   }
 })

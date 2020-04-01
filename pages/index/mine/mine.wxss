@@ -28,7 +28,7 @@
 .user-info {
   flex: 1;
   color: #fff;
-  padding-left: 20rpx;
+  padding-left: 30rpx;
   width: calc(100vw - 300rpx);
 }
 
@@ -38,6 +38,7 @@
   white-space: nowrap;
   overflow: hidden;
   text-overflow: ellipsis;
+  display: flex ;
 }
 
 .uesr-name {
@@ -98,8 +99,8 @@ todo-item {
   text-align: center;
   line-height: 60rpx;
   font-size: 36rpx;
-  color: #fff; 
-  margin: auto;
+  color: #fff;
+  margin: 10rpx auto;
 }
 
 .todo-name, .todo-count {
@@ -116,7 +117,7 @@ todo-item {
   height: 88rpx;
   line-height: 88rpx;
   padding: 0 40rpx;
-  position: relative
+  position: relative;
 }
 
 .option-icon {
@@ -254,12 +255,28 @@ todo-item {
     -webkit-transform: translate3d(0, 0, 0);
   }
 }
-.share-btn{
+
+.share-btn {
   width: 100vw;
   /* background-color: transparent; */
   opacity: 0;
   position: absolute;
   height: 100%;
   left: 0;
-   
+}
+
+.iconrenzhengpeizhi {
+  font-size: 34rpx; 
+  color: rgb(223, 222, 222);  
+  margin-left: 5rpx; 
+  padding-top: 6rpx;
+  position: absolute;
+  left: 135rpx;
+  top: 30rpx
+} 
+.iconrenzhengpeizhi.approved{
+  color: var(--yellow)
+}
+.toggle-account-scroll{
+  max-height: 50vh;
 }

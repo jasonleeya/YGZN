@@ -52,7 +52,7 @@
   </view>
   <scroll-view class="scroll-view" scroll-y bindscrolltolower="scrollToLower">
     <view class="customer-list">
-      <view class="card" wx:for="{{customerList}}" wx:key bindtap="toEdit" data-index="{{index}}">
+      <view class="card" wx:for="{{customerList}}" wx:key='index' bindtap="toEdit" data-index="{{index}}">
         <view class="card-head">
           <view class="card-title">
             <text class="card-icon cuIcon-cart"></text>{{item.custname}}</view>
@@ -79,6 +79,6 @@
       </view>
     </view>
     
-<view class="cu-load  {{isLoad?'loading':'over'}}" wx:if="{{isLoad}}"></view>
+<view class="cu-load  {{isLoad?'loading':''}}" wx:if="{{isLoad}}"></view>
   </scroll-view>
 </view>

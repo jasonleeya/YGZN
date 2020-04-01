@@ -26,6 +26,7 @@ Page({
    * 生命周期函数--监听页面加载
    */
   onLoad: function(options) {
+    app.setTitle("编辑信用信息")
     switch (options.operateType) {
       case "add":
         this.setData({

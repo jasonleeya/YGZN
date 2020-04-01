@@ -11,6 +11,6 @@
     </view>
   </view>
   <view class="dorp-down" hidden="{{!isShowDorpdown||justLink}}">
-  <view class="search-type {{searchTypes.select===index?'theme-bgc':'bg-gray'}}" wx:for="{{searchTypes.list}}" wx:key data-index="{{index}}" bindtap="selectSearchType">{{item.name}}</view>
+  <view class="search-type {{searchTypes.select===index?'theme-bgc':'bg-gray'}}" wx:for="{{searchTypes.list}}" wx:key='index' data-index="{{index}}" bindtap="selectSearchType">{{item.name}}</view>
   </view>
 </view>

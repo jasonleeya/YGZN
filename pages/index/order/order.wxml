@@ -1,6 +1,6 @@
  <view class="order">
   <view class='order-list' animation="{{listAni}}">
-    <view class='order-item' wx:for="{{orderList}}" wx:key bindtap="jump" data-link="{{item.link}}">
+    <view class='order-item' wx:for="{{orderList}}" wx:key='index' bindtap="jump" data-link="{{item.link}}">
       <view class='order-icon iconfont {{item.icon}} shadow bg-gradual-{{module.getColor(index)}}'></view>
       <view class='order-name'>{{item.name}}</view>
     </view>

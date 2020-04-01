@@ -30,7 +30,7 @@
     <view class="cell-value text-red bold">￥{{preDeposit}}</view>
   </view>
 
-  <view class="cell border-bt" wx:if="{{paymentMethods.index==='1'}}">
+  <view class="cell border-bt" wx:if="{{paymentMethods.index==='1'&&oando==='up'}}">
     <view class="cell-name">信用余额
     </view>
     <view class="cell-value text-red bold">￥{{credits}}</view>
@@ -74,7 +74,7 @@
   </view>
   <view class="operate">
     <button class="text-gray" bindtap="back">稍后支付</button>
-    <button class="theme-bgc" wx:if="{{paymentMethods.index==='2'||paymentMethods.index==='3'}}" bindtap="pay">已汇款 通知卖方</button>
+    <button class="theme-bgc" wx:if="{{paymentMethods.index==='2'||paymentMethods.index==='3'}}" bindtap="pay">确定付款</button>
     <button class="theme-bgc" wx:if="{{paymentMethods.index==='0'||paymentMethods.index==='1'}}" bindtap="pay">确定支付</button>
   </view>
 

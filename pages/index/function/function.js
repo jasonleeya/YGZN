@@ -171,38 +171,35 @@ Component({
       }
       ]
     },
-    // {
-    //   name: "统计管理",
-    //   id: 3,
-    //   items: [{
-    //     value: "新增采购",
-    //     icon: "iconcart",
-    //     link: ""
-    //   }, {
-    //     value: "新增采购",
-    //     icon: "iconcart",
-    //     link: ""
-    //   }, {
-    //     value: "新增采购",
-    //     icon: "iconcart",
-    //     link: ""
-    //   }, {
-    //     value: "新增采购",
-    //     icon: "iconcart",
-    //     link: ""
-    //   }, {
-    //     value: "新增采购",
-    //     icon: "iconcart",
-    //     link: ""
-    //   }]
-    // }, 
+    {
+      name: "资源管理",
+      id: 3,
+      items: [{
+        value: '供应商管理',
+        icon: 'icongongyingshang1',
+        link: '/pages/index/mine/supplierManage/supplierManage'
+      }, {
+        value: '客户管理',
+        icon: 'iconkehu',
+        link: '/pages/index/mine/customerManage/customerManage'
+      }, {
+        value: '信用管理',
+        icon: 'iconxinyong',
+        link: '/pages/index/mine/creditManage/creditManage'
+      }]
+    }, 
     {
       name: "产品管理",
       id: 4,
       items: [{
-        value: "产品管理",
+        value: "仓库产品管理",
         icon: "iconchanpinguanli",
         link: "/pages/product/productManage/productManage",
+      },{
+        value: "产品管理",
+        icon: "iconchanpinguanli",
+        link: "/pages/product/warehouseProduct/warehouseProduct",
+        authCode:"productManage"
       },
       {
         value: "仓库管理",
@@ -268,11 +265,17 @@ Component({
     }
     ],
     load: true,
-    interval: null
+    interval: null,
+    userAuthCodes:[]
   },
   lifetimes: {
 
     ready() {
+
+      this.setData({
+        userAuthCodes: wx.getStorageSync('userAuthCodes')
+      })
+      
       app.setTitle("功能")
       let that = this
       if (app.globalData.homeMessage) {

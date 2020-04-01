@@ -117,9 +117,9 @@ Component({
           currentCompanyIndex: wx.getStorageSync("currentCompanyIndex")
         })
       }
- 
+
       this.setData({
-        userInfo:wx.getStorageSync("userInfo")[0],
+        userInfo: wx.getStorageSync("userInfo")[0],
         companies: app.globalData.companies
       })
       var todoList = that.data.todoList
@@ -145,13 +145,16 @@ Component({
       })
     },
     logout() {
-      wx.clearStorageSync()
       app.http("delOpenid", {
         userPhone: this.data.userInfo.userPhone
       }).then(() => {
         wx.redirectTo({
           url: '/pages/login/login',
         })
+        wx.removeStorage('token')
+        wx.removeStorage('userInfo')
+        wx.removeStorage('userAuthCodes')
+        wx.removeStorage('currentCompanyIndex') 
       })
 
     },
@@ -186,9 +189,12 @@ Component({
           flag: true
         }).then(data => {
           // console.log(data.list[0].queryNo)
-          wx.setStorageSync("userInfo", data.list)
-
+          wx.setStorageSync("userInfo", data.list) 
         })
+        app.http("findLabelId").then(data => { 
+          wx.setStorageSync('userAuthCodes', data.list)
+        })
+
       })
 
     },

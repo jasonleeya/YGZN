@@ -6,9 +6,9 @@ Page({
    */
   data: {
     customerList: [],
-    // isLoad: true,
-    // currentPage: 0,
-    // totalPage:null
+    isLoad: true,
+    curPage: 0,
+    totalPages:null,
     searchValue: "",
     timeOut: null,
     levelList: [],
@@ -30,14 +30,19 @@ Page({
       })
     })
   },
-  getList() {
+  getList(replace=true) {
+    if(replace){
+      this.setData({
+        customerList: []
+      })
+    }
     this.setData({
-      customerList: []
+      isLoad:true
     })
     app.http("getCustomerList", {
       keyword: this.data.searchValue,
-      pageNo: 0,
-      pageSize: 10000,
+      pageNo: this.data.curPage,
+      pageSize: 10,
       status: '1,2',
       grade: this.data.selectedLevelIndex === "" ? "" : this.data.levelList[this.data.selectedLevelIndex].id
     }).then(data => {
@@ -51,7 +56,9 @@ Page({
         }
       })
       this.setData({
-        customerList: data.list
+        customerList: this.data.customerList.concat(data.list),
+        isLoad: false,
+        totalPages:data.totalPages
       })
     })
   },
@@ -70,6 +77,19 @@ Page({
       isShowLevelDropdown: !this.data.isShowLevelDropdown
     })
     this.getList()
+  },
+  scrollToLower(){
+    if (this.data.isLoad) { 
+      return
+    }
+    if (this.data.curPage >= parseInt(this.data.totalPages)){
+      app.showToast("没有更多了")
+      returns
+    }
+    this.setData({
+      curPage:this.data.curPage+1
+    })
+    this.getList(false)
   },
   searchBlur(e) {},
   searchFocus(e) {},

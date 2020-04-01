@@ -1,11 +1,11 @@
 <view class="split-orders">
 <scroll-view scroll-y>
- <view class="order" wx:for="{{splitData}}" wx:key>
+ <view class="order" wx:for="{{splitData}}" wx:key='index'>
     <view class="order-title">
       <text class="order-company">{{item.upp.supplyName}}</text>
       <!-- <text class="text-blue" bindtap="viewOrder" data-id="{{item.upp.orderNo}}" wx:if="{{isSplit}}">查看订单 <text class="cuIcon-right"></text></text> -->
     </view>
-    <view class="goods" wx:for="{{item.lows}}" wx:for-item="goods" wx:key>
+    <view class="goods" wx:for="{{item.lows}}" wx:for-item="goods" wx:for-index="gIndex" wx:key='gIndex'>
       <view class="goods-pic"> 
          <previewImage class="solid" src="{{goods.pirctureWay}}" w="200rpx" h="200rpx" />
       </view>

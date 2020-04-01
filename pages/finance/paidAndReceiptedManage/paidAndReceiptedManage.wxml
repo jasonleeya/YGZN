@@ -3,7 +3,7 @@
     <view class="cuIcon-search search-icon"></view>
     <input class="bg-gray" placeholder="用户名称搜索" bindinput="searchInput" bindfocus="searchFocus" value="{{searchValue}}"></input>
     <view class="search-list" bindtap="closeSearchList" wx:if="{{showSearchList}}">
-      <view class="search-item solid-top" wx:for="{{searchList}}" wx:key bindtap="chooseCustomer" data-no="{{item.custNo}}" data-name="{{item.customerName}}">
+      <view class="search-item solid-top" wx:for="{{searchList}}" wx:key='index' bindtap="chooseCustomer" data-no="{{item.custNo}}" data-name="{{item.customerName}}">
         <text class="dropdown-icon cuIcon-friend"></text>{{item.customerName}}
       </view>
     </view>
@@ -49,7 +49,7 @@
   </view>
 </view>
 <scroll-view scroll-y class="order-list-scroll-view" bindscrolltolower="scrollToLower">
-  <view class="card" wx:for="{{orderList}}" wx:key bindtap="edit" data-index="{{index}}">
+  <view class="card" wx:for="{{orderList}}" wx:key='index' bindtap="edit" data-index="{{index}}">
     <view class="card-head">
       <view class="card-title">{{item.upOrDown==='up'?'线上':'线下'}}{{type}}订单：{{item.bill.billno}}</view>
       <view class="card-subtitl {{item.bill.status===0?'text-red':'text-green'}}">{{item.bill.statusStr}}</view>

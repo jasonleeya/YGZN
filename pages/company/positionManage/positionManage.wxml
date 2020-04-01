@@ -1,4 +1,4 @@
-<view class="card" wx:for="{{positionList}}" wx:key>
+<view class="card" wx:for="{{positionList}}" wx:key='index'>
   <view class="card-head">
     <view class="card-title">职位</view>
     <view class="card-subtitle text-green" bindtap="edit" data-index="{{index}}">编辑</view>

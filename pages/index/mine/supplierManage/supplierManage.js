@@ -4,14 +4,15 @@ Page({
     supplierList: [],
     isLoad: false,
     currentPage: 0,
+    totalPages: 0,
     searchValue: "",
     timeOut: null,
-    selfId:""
+    selfId: ""
   },
-  onLoad() { 
+  onLoad() {
     app.setTitle("供应商管理")
     this.setData({
-      selfId:wx.getStorageSync("userInfo")[0].queryNo
+      selfId: wx.getStorageSync("userInfo")[0].queryNo
     })
   },
   onShow() {
@@ -23,8 +24,8 @@ Page({
     var data = this.data.supplierList[e.currentTarget.dataset.index]
 
   },
-  searchBlur(e) {},
-  searchFocus(e) {},
+  searchBlur(e) { },
+  searchFocus(e) { },
   searchInput(e) {
     this.setData({
       searchValue: e.detail.value
@@ -51,27 +52,28 @@ Page({
       isLoad: true,
     })
     app.http("getSupplyList", {
-      pageSize: 1000,
+      pageSize: 10,
       keyword: this.data.searchValue,
-      pageNo:0,
-      status:"1,2"
+      pageNo: this.data.currentPage,
+      status: "1,2"
     }).then(data => {
       if (data.list) {
-          var tempList=[]
-          data.list.forEach(item=>{
-            tempList.push(item.customer) 
-          }) 
-        tempList.forEach(item=>{
-          if (this.data.selfId === item.createCompany && item.status==='2'){
-            item.statusStr="申请中"
+        var tempList = []
+        data.list.forEach(item => {
+          tempList.push(item.customer)
+        })
+        tempList.forEach(item => {
+          if (this.data.selfId === item.createCompany && item.status === '2') {
+            item.statusStr = "申请中"
           }
-          if (this.data.selfId !== item.createCompany && item.status === '2'){
+          if (this.data.selfId !== item.createCompany && item.status === '2') {
             item.statusStr = "对方申请待确认"
           }
         })
         this.setData({
           supplierList: this.data.supplierList.concat(tempList),
           isLoad: false,
+          totalPages: data.totalPages
         })
       } else {
         this.setData({
@@ -81,12 +83,17 @@ Page({
     })
   },
   scrollToBottom() {
-    // if (!this.data.isLoad) {
-    //   this.setData({
-    //     currentPage: this.data.currentPage + 1
-    //   })
-    //   this.getList()
-    // }
+    if (this.data.isLoad) {
+      return
+    }
+    if (this.data.currentPage >= parseInt(this.data.totalPages)) {
+      app.showToast("没有更多了")
+      return
+    }
+    this.setData({
+      currentPage: this.data.currentPage + 1
+    })
+    this.getList()
   },
   //新增供应商
   addSupplier() {

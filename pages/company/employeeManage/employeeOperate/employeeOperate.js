@@ -21,7 +21,7 @@ Page({
    * 生命周期函数--监听页面加载
    */
   onLoad: function(options) {
-    app.setTitle("编辑员工信息")
+    app.setTitle("编辑员工管理")
     this.setData({
       operateType: options.operateType
     })

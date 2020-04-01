@@ -1,0 +1,135 @@
+.header {
+  height: 100rpx;
+  display: flex;
+  background-color: #fff;
+  position: relative;
+}
+
+.search {
+  flex: 1;
+  position: relative;
+}
+
+.search-icon {
+  position: absolute;
+  left: 45rpx;
+  top: 50%;
+  transform: translateY(-50%);
+  color: var(--gray);
+  font-size: 30rpx;
+}
+
+.search input {
+  height: 60rpx;
+  line-height: 60rpx;
+  background-color: var(--grayLight);
+  border-radius: 30rpx;
+  margin: 20rpx 30rpx;
+  padding-left: 60rpx;
+}
+
+.filter-sidebar-btn,
+.scan {
+  height: 100rpx;
+  line-height: 100rpx;
+  width: 80rpx;
+  font-size: 50rpx;
+}
+
+.filter-sidebar-btn {
+  font-size: 52rpx;
+}
+
+.filter-sidebar-dropdown {
+  position: fixed;
+  right: 0;
+  top: 100rpx;
+  padding: 10px;
+  border: 1px solid var(--gray);
+  height: 400rpx;
+  z-index: 999;
+  background-color: #fff;
+  margin-right: 15px;
+  border-radius: 10rpx;
+  border-top-right-radius: 0;
+}
+
+.filter-sidebar-dropdown::before {
+  content: "";
+  display: block;
+  width: 0;
+  height: 0;
+  border: 10px solid transparent;
+  border-left-color: var(--gray);
+  position: absolute;
+  right: -11px;
+  top: -10px;
+  transform: rotate(45deg);
+}
+
+.filter-sidebar-dropdown::after {
+  content: "";
+  display: block;
+  width: 0;
+  height: 0;
+  position: absolute;
+  right: -10px;
+  top: -8px;
+  border: 10px solid transparent;
+  border-left-color: #fff;
+  transform: rotate(45deg);
+
+}
+
+.total {
+  height: 60rpx;
+  line-height: 60rpx;
+  padding-left: 30rpx;
+  background-color: #fff;
+}
+
+.product-scroll {
+  height: calc(100vh - 160rpx);
+}
+
+.product {
+  background-color: #fff;
+  border-top: 1rpx solid var(--grayLight);
+  padding: 30rpx;
+  display: flex;
+}
+
+.product-name {
+  font-size: 36rpx;
+}
+
+.product-param {
+  color: var(--gray);
+}
+
+.product-price {
+  display: flex;
+  margin-top: 30rpx;
+}
+.product-price view{
+  margin-right: 20rpx;
+}
+
+.product-infos {
+  margin-left: 30rpx;
+}
+
+.add-btn {
+  position: fixed;
+  right: 50rpx;
+  bottom: 50rpx;
+  width: 100rpx;
+  height: 100rpx;
+  text-align: center;
+  line-height: 100rpx;
+  border-radius: 50rpx;
+  z-index: 999;
+  font-size: 60rpx;
+  color: #fff;
+  font-weight: bold;
+}

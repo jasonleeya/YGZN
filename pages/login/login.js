@@ -154,8 +154,7 @@ Page({
   getUserInfo() {
 
   },
-  bindAccount() {
-    wx.clearStorageSync()
+  bindAccount() { 
 
     app.http2("bindingAccount", {
       username: this.data.openId,
@@ -174,6 +173,9 @@ Page({
         app.showToast(err)
       })
 
+      app.http("findLabelId").then(data => { 
+        wx.setStorageSync('userAuthCodes', data.list)
+      })
       wx.redirectTo({
         url: '/pages/index/index'
       })

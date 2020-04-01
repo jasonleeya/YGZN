@@ -1,5 +1,5 @@
 <view class="login">
-  <view class="login-title">欢迎登陆企业助手</view>
+  <view class="login-title">欢迎登录企业助手</view>
   <view class="input-wrapper  {{phoneNumberError?'animation-shake error':''}}">
     <text class="login-input-icon cuIcon-mobile {{activeInput==='phoneNumber'?'theme-color':''}}"></text>
     <input type="number" maxlength="11" value="{{phoneNumber}}" bindfocus="phoneNumberFocus" bindinput="phoneNumberInput" placeholder="请输入手机号"></input>

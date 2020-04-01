@@ -33,7 +33,7 @@
     </view>
   </view>
 
-  <view class="cell">
+  <view class="cell border-bt">
     <view class="cell-name">备注</view>
     <view class="cell-value">
       <input name="remark" placeholder="{{operateType==='edit'?'无':'请填写备注'}}" value="{{infos.remark}}"></input>

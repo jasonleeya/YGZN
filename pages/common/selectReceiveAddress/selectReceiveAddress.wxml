@@ -1,6 +1,6 @@
 <scroll-view scroll-y>
   <view class="select-receive-address">
-    <view class="adress" wx:for="{{list}}" wx:key catchtap="choose" data-index="{{index}}">
+    <view class="adress" wx:for="{{list}}" wx:key='index' catchtap="choose" data-index="{{index}}">
       <view class="address-header solid-bottom">
         <view class="header-title">
           <text class="title-icon theme-color cuIcon-mail"></text>

@@ -4,14 +4,14 @@
     <view class="iconfont iconsearch " bindtap="search"></view>
   </view>
   <view class="sort-methods solid">
-    <text class="sort-method {{item.name==='订单状态'&&!isAllOrder?'text-gray':''}} {{selectingMothod===index?'theme-color':''}}" bindtap="chooseSortMethod" wx:for="{{sortMethodsList}}" wx:key data-index="{{index}}"><text class="sort-name">{{item.name}}  </text>
+    <text class="sort-method {{item.name==='订单状态'&&!isAllOrder?'text-gray':''}} {{selectingMothod===index?'theme-color':''}}" bindtap="chooseSortMethod" wx:for="{{sortMethodsList}}" wx:key='index' data-index="{{index}}"><text class="sort-name">{{item.name}}  </text>
     <text class="iconfont icondown"></text>
     </text>
   </view>
   <!-- 时间范围选择 -->
   <view class="drop-down solid" wx:if="{{selectingMothod===0}}">
     <view class="sort-options ">
-      <view wx:for="{{sortMethodsList[selectingMothod].options}}" bindtap="chooseTimeRange" wx:key class="bg-gray sort-option {{sortMethodsList[selectingMothod].activeOption===index?'theme-bgc':''}}" data-index="{{index}}">{{item}}</view>
+      <view wx:for="{{sortMethodsList[selectingMothod].options}}" bindtap="chooseTimeRange" wx:key='index' class="bg-gray sort-option {{sortMethodsList[selectingMothod].activeOption===index?'theme-bgc':''}}" data-index="{{index}}">{{item}}</view>
     </view>
     <view class="date-picker" wx:if="{{customTimeRange.isShow}}">
       <picker mode="date" class=" solid-top solid-right" value="{{customTimeRange.startDate}}"   end="{{customTimeRange.endDate}}" bindchange="startDateChange">
@@ -31,14 +31,14 @@
   <!-- 订单状态选择 -->
   <view class="drop-down solid" wx:if="{{selectingMothod===1}}">
     <view class="sort-options ">
-      <view wx:for="{{sortMethodsList[selectingMothod].options}}" bindtap="chooseOrderStatus" wx:key class="bg-gray sort-option {{sortMethodsList[selectingMothod].activeOption===index?'theme-bgc':''}}" data-index="{{index}}">{{item.name}}</view>
+      <view wx:for="{{sortMethodsList[selectingMothod].options}}" bindtap="chooseOrderStatus" wx:key='index' class="bg-gray sort-option {{sortMethodsList[selectingMothod].activeOption===index?'theme-bgc':''}}" data-index="{{index}}">{{item.name}}</view>
     </view>
   </view>
 
   <!-- 收款状态选择 -->
   <view class="drop-down solid" wx:if="{{selectingMothod===2}}">
     <view class="sort-options ">
-      <view wx:for="{{sortMethodsList[selectingMothod].options}}" bindtap="chooseReceiptStatus" wx:key class="bg-gray sort-option {{sortMethodsList[selectingMothod].activeOption===index?'theme-bgc':''}}" data-index="{{index}}">{{item}}</view>
+      <view wx:for="{{sortMethodsList[selectingMothod].options}}" bindtap="chooseReceiptStatus" wx:key='index' class="bg-gray sort-option {{sortMethodsList[selectingMothod].activeOption===index?'theme-bgc':''}}" data-index="{{index}}">{{item}}</view>
     </view>
   </view>
 
@@ -47,7 +47,7 @@
     <view class="sort-options ">
       <view bindtap="choosePerson" class="bg-gray sort-option {{chooseAllPerson===true?'theme-bgc':''}}" data-id="all">全部业务人员</view>
 
-      <view wx:for="{{sortMethodsList[selectingMothod].options}}" bindtap="choosePerson" wx:key class="bg-gray sort-option {{sortMethodsList[selectingMothod].activeOption===item.id?'theme-bgc':''}}" data-id="{{item.id}}">{{item.name}}</view>
+      <view wx:for="{{sortMethodsList[selectingMothod].options}}" bindtap="choosePerson" wx:key='index' class="bg-gray sort-option {{sortMethodsList[selectingMothod].activeOption===item.id?'theme-bgc':''}}" data-id="{{item.id}}">{{item.name}}</view>
     </view>
     <view class="person-change-page solid-top">
       <text class="pre-page cuIcon-back" bindtap="prePage"> 上一页</text>
@@ -61,7 +61,7 @@
 <scroll-view class="content" scroll-y>
 <view class="empty" wx:if="{{orderList.length===0}}">暂无订单~</view>
   <view class="order-list">
-    <view class="order-item" wx:for="{{orderList}}" wx:key bindtap="seeDetail" data-id="{{item.orderNo}}">
+    <view class="order-item" wx:for="{{orderList}}" wx:key='index' bindtap="seeDetail" data-id="{{item.orderNo}}">
       <view class="order-header solid-bottom">
         <text class="order-id-icon cuIcon-text theme-color"></text>
         <text class="order-id {{item.isRead?'':'read'}}">订单号：{{item.orderNo}}</text>

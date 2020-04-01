@@ -72,7 +72,7 @@
    </form>
 
   <view wx:if="{{activeTabIndex==='1'}}">
-    <view class="card" wx:for="{{receiveAddress}}" wx:key>
+    <view class="card" wx:for="{{receiveAddress}}" wx:key='index'>
       <view class="card-head">
         <view class="card-title">收货信息
           <text class="text-green" wx:if="{{item.dftStatus==='1'||index===0}}">(默认)</text>
@@ -100,7 +100,7 @@
     </view>
   </view>
   <view wx:if="{{activeTabIndex==='2'}}">
-    <view class="card" wx:for="{{invoiceInfos}}" wx:key>
+    <view class="card" wx:for="{{invoiceInfos}}" wx:key='index'>
       <view class="card-head">
         <view class="card-title">
           发票信息

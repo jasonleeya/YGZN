@@ -113,7 +113,7 @@ create(store, {
     }
     app.http(urlAlias, params).then(data => {
       this.setData({
-        totalPages: data.totalPages
+        totalPages: this.data.searchType === "平台产品" ? data.maxPage : data.totalPages
       })
       if (data.list.length === 0) {
         app.showToast("未搜索到相应产品")

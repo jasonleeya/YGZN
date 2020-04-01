@@ -1,4 +1,4 @@
-<view class="card" wx:for="{{wareHouseList}}" wx:key>
+<view class="card" wx:for="{{wareHouseList}}" wx:key='index'>
   <view class="card-head">
     <view class="card-title">仓库信息<text class="text-green" wx:if="{{item.dftStatus==='1'}}">(默认仓库)</text></view>
     <view class="card-subtitle text-green" bindtap="edit" data-index="{{index}}">编辑</view>

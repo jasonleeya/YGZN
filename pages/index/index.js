@@ -9,21 +9,22 @@ create(store, {
     curTab: "home",
     messageCount: 0,
     interval: null,
-    
+
   },
 
-  onLoad() { 
+  onLoad() {
+
     app.http("queryCompany").then(data => {
-      app.globalData.companies = data.list  
-      data.list.forEach((item,index)=>{
-        if(item[2]==='1'){
-          wx.setStorageSync("currentCompanyIndex",index)
+      app.globalData.companies = data.list
+      data.list.forEach((item, index) => {
+        if (item[2] === '1') {
+          wx.setStorageSync("currentCompanyIndex", index)
         }
       })
 
       app.http("toggleAccount", {
         id: data.list[wx.getStorageSync("currentCompanyIndex")][1]
-      }).then(data=>{
+      }).then(data => {
         app.http("getUserByCustNo", {
           flag: true
         }).then(data => {
@@ -34,18 +35,25 @@ create(store, {
         })
 
       })
-
-    }) 
+      if (wx.getStorageSync('pageBeforeLogin')) {  
+        wx.redirectTo({
+          url: wx.getStorageSync('pageBeforeLogin'), 
+          success: (res) => {
+            wx.removeStorageSync('pageBeforeLogin')
+          },
+        })
+      }
+    })
   },
-  onShow(){ 
-    let taht=this
-     
-    app.watchGloabalData("unreadMsgCount", function (value) {  
+  onShow() {
+    let taht = this
+
+    app.watchGloabalData("unreadMsgCount", function (value) {
       taht.setData({
         messageCount: app.globalData.unreadMsgCount
       })
     })
-  
+
   },
   //  切换tab
   NavChange(e) {
@@ -60,24 +68,24 @@ create(store, {
 
     }
   },
-  onShareAppMessage: function (res) { 
+  onShareAppMessage: function (res) {
     // app.globalData.companies = data.list
 
     // app.http("toggleAccount", {
     //   id: data.list[wx.getStorageSync("currentCompanyIndex")][1]
     // })
-  
+
     if (res.from === 'button') {
       console.log(wx.getStorageInfoSync())
       console.log(wx.getStorageSync("userInfo"))
- 
+
       var referrerId = app.globalData.companies[wx.getStorageSync("currentCompanyIndex")][1]
-      var salesmanId = wx.getStorageSync("userInfo")[0].custNo 
+      var salesmanId = wx.getStorageSync("userInfo")[0].custNo
       console.log(referrerId, salesmanId)
       return {
         title: '欢迎注册TOOLS ERA企业助手',
         path: '/pages/register/register?referrerId=' + referrerId + '&salesmanId=' + salesmanId,
-        imageUrl:"https://lsj97-1300009684.cos.ap-chengdu.myqcloud.com/share.jpg",
+        imageUrl: "http://182.151.17.189:24000/res/File/B/wx_share.jpg",
         success: function (res) {
           console.log('分享成功', res)
         }

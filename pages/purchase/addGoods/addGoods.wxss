@@ -1,5 +1,5 @@
 .goods-list {
-  height: calc(100vh - 200rpx);
+  height: calc(100vh - 300rpx + 5rpx);
 }
 
 .goods-item {

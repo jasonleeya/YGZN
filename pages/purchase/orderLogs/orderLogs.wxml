@@ -1,6 +1,6 @@
 <scroll-view scroll-y>
   <view class="order-logs">
-    <view class="log" wx:for="{{logs}}" wx:key>
+    <view class="log" wx:for="{{logs}}" wx:key='index'>
       <view class="log-header solid-bottom ">
         <view class="log-date-icon cuIcon-calendar theme-color"></view>
         <view class="log-date">{{item.time}}</view>

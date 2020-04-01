@@ -21,7 +21,7 @@
 		}
 	},
 	"compileType": "miniprogram",
-	"libVersion": "2.8.3",
+	"libVersion": "2.10.1",
 	"appid": "wx88c183d97ee1aad2",
 	"projectname": "YGZN",
 	"debugOptions": {
@@ -135,6 +135,49 @@
 					"id": -1,
 					"name": "pages/sales/addGoods/addGoods",
 					"pathName": "pages/sales/addGoods/addGoods",
+					"query": "",
+					"scene": null
+				},
+				{
+					"id": -1,
+					"name": "pages/product/warehouseProduct/warehouseProduct",
+					"pathName": "pages/product/warehouseProduct/warehouseProduct",
+					"query": "",
+					"scene": null
+				},
+				{
+					"id": -1,
+					"name": "pages/product/warehouseProduct/productOperate/productOperate",
+					"pathName": "pages/product/warehouseProduct/productOperate/productOperate",
+					"query": "",
+					"scene": null
+				},
+				{
+					"id": -1,
+					"name": "pages/index/mine/personalCenter/personalCenter",
+					"pathName": "pages/index/mine/personalCenter/personalCenter",
+					"query": "",
+					"scene": null
+				},
+				{
+					"id": 15,
+					"name": "pages/sales/salesOrders/salesOrders",
+					"pathName": "pages/sales/salesOrders/salesOrders",
+					"query": "orderStatus=&isAllOrder=1",
+					"scene": null
+				},
+				{
+					"id": -1,
+					"name": "pages/purchase/orderDetail/orderDetail",
+					"pathName": "pages/purchase/orderDetail/orderDetail",
+					"query": "orderNo=202001181800400000&companyId=7cde7f044f8443a4b7c604da73329a75",
+					"scene": null
+				},
+				{
+					"id": 17,
+					"name": "pages/sales/orderDetail/orderDetail",
+					"pathName": "pages/sales/orderDetail/orderDetail",
+					"query": "companyId=7cde7f044f8443a4b7c604da73329a75&orderNo=202001191553130030",
 					"scene": null
 				}
 			]

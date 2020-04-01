@@ -1,13 +1,10 @@
  var app = getApp()
- Page({
 
-   /**
-    * 页面的初始数据
-    */
+ Page({ 
    data: {
      goodsList: [],
      totalPrice: 0,
-     orderId: "",
+     orderNo: "",
      supplier: "",
      supplyNo: "",
      customerType: "",
@@ -59,12 +56,10 @@
     //  receiveDate = year + "-" + month + "-" + day
 
 
-     var date = new Date() 
-     var year = date.getFullYear()
-     var month = date.getMonth() + 1
-     var day = date.getDate() 
+    //这里的receiveDate改为期望发货日期
+     var date = new Date()  
      this.setData({
-       receiveDate: year + "-" + month + "-" + day
+       receiveDate: date.getFullYear() + "-" + (date.getMonth() + 1) + "-" + date.getDate()
      })
    },
    onShow() {
@@ -98,7 +93,7 @@
 
      app.http("getOrderNo").then(data => {
        this.setData({
-         orderId: data
+         orderNo: data
        })
      })
      app.http("getWarehouse").then(data => {
@@ -321,7 +316,7 @@
 
      var params = {
        upperpartOrder: JSON.stringify([{
-         orderNo: info.orderId,
+         orderNo: info.orderNo,
          supplyNo: data.supplyNo,
          supplyName: info.supplier,
          buySalesMan: info.buyer,
@@ -347,11 +342,11 @@
          orderTypeChoose: "01", //*
          consignee: info.receiver,
          reflect: 0, //
-         logisticsCost: parseFloat(info.logisticsCost).toFixed(2)
+         logisticsCost: parseFloat(info.logisticsCost===""?0:info.logisticsCost).toFixed(2)
        }]),
        list: JSON.stringify(list),
        tBusAddress: JSON.stringify([{
-         orderNo: info.orderId,
+         orderNo: info.orderNo,
          consigneeName: info.receiver,
          address: info.receiveAddress,
          telephone: info.phoneNumber
@@ -380,7 +375,7 @@
          app.globalData.purchaseTotalAmount = 0
 
          wx.redirectTo({
-           url: '/pages/purchase/orderDetail/orderDetail?orderNo=' + this.data.orderId,
+           url: '/pages/purchase/orderDetail/orderDetail?orderNo=' + this.data.orderNo,
          })
        })
        .catch((e) => {

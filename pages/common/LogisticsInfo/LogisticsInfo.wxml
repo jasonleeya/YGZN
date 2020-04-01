@@ -1,7 +1,20 @@
 <view class="logistics-info" wx:if="{{list.length>0}}">
   <view class="head">
     <view class="head-pic">
-      <image src="https://ss3.bdstatic.com/yrwDcj7w0QhBkMak8IuT_XF5ehU5bvGh7c50/logopic/28eeb387da1855b111c2cbf2a213d3e7_fullsize.jpg@s_1,w_484,h_484"></image>
+     <image wx:if="{{expName==='顺丰快递'}}" src="https://ss3.bdstatic.com/yrwDcj7w0QhBkMak8IuT_XF5ehU5bvGh7c50/logopic/28eeb387da1855b111c2cbf2a213d3e7_fullsize.jpg@s_1,w_484,h_484"></image>
+
+			<image wx:if="{{expName==='韵达快递'}}" src="https://ss1.bdstatic.com/70cFvXSh_Q1YnxGkpoWK1HF6hhy/it/u=1494493075,1045457100&fm=26&gp=0.jpg"></image>
+
+			<image wx:if="{{expName==='申通快递'}}" src="https://ss2.bdstatic.com/70cFvnSh_Q1YnxGkpoWK1HF6hhy/it/u=3806574981,1868611509&fm=26&gp=0.jpg"></image>
+
+			<image wx:if="{{expName==='圆通快递'}}" src="https://ss3.bdstatic.com/70cFv8Sh_Q1YnxGkpoWK1HF6hhy/it/u=705337310,1473695851&fm=26&gp=0.jpg"></image>
+
+			<image wx:if="{{expName==='中通快递'}}" src="https://ss2.bdstatic.com/70cFvnSh_Q1YnxGkpoWK1HF6hhy/it/u=3185944686,3438435870&fm=26&gp=0.jpg"></image>
+
+			<image wx:if="{{expName==='德邦快递'}}" src="https://ss2.bdstatic.com/70cFvnSh_Q1YnxGkpoWK1HF6hhy/it/u=571879915,1186547101&fm=26&gp=0.jpg"></image>
+      
+			<image wx:if="{{expName==='百世汇通'}}" src="https://ss2.bdstatic.com/70cFvnSh_Q1YnxGkpoWK1HF6hhy/it/u=571879915,1186547101&fm=26&gp=0.jpg"></image>
+     
     </view>
     <view class="head-info">
       <view class="delivery-status">物流状态
@@ -16,7 +29,7 @@
       本数据由{{expName}}提供
     </view>
     <view class="list">
-      <view class="item" wx:for="{{list}}" wx:key>
+      <view class="item" wx:for="{{list}}" wx:key='index'>
         <view class="date">
           <view class="day">{{item.dayStr}}</view>
           <view class="time">{{item.timeStr}}</view>

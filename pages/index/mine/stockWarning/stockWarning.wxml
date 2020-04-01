@@ -1,4 +1,4 @@
-<view class="card" wx:for="{{list}}" wx:key>
+<view class="card" wx:for="{{list}}" wx:key='index'>
   <view class="card-head">
     <view class="card-title">{{item.brandName==="未填写"||item.brandName===""?"":item.brandName+"/"}}{{item.productName  }}</view>
   </view>

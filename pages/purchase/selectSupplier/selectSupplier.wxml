@@ -13,7 +13,7 @@
         <view class="card-subtitle cuIcon-right"></view>
       </view>
     </view>
-    <view class="supplier-item" wx:for="{{supplierList}}" wx:key bindtap="chooseSupplier" data-index="{{index}}">
+    <view class="supplier-item" wx:for="{{supplierList}}" wx:key='index' bindtap="chooseSupplier" data-index="{{index}}">
       <view class="supplier-header solid-bottom">
         <text class="cuIcon-friend name-icon"></text>
         <text class="supplier-name">{{item.supplyName}}</text>

@@ -20,6 +20,7 @@ Page({
 
   },
   onLoad(options) {
+    app.setTitle("信用管理")
     this.setData({
       ['timeRange.satart']: '',
       ['timeRange.end']: ''
@@ -54,7 +55,7 @@ Page({
         break
     }
     app.http("getCustCreditList", {
-      pageNo: 0,
+      pageNo: this.data.currPage,
       pageSize: 10,
       custname: "",
       custcode: this.data.custNo,
@@ -153,7 +154,7 @@ Page({
     if (this.data.isLoad) {
       return
     }
-    if (parseInt(this.data.totalPages) === parseInt(this.data.currPage) + 1) {
+    if (parseInt(this.data.totalPages)<=parseInt(this.data.currPage)) {
       app.showToast("没有更多客户了")
       this.setData({
         isLoad: false

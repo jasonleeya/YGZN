@@ -15,16 +15,16 @@
 
       <view class="cell border-bt">
         <view class="cell-name">销售员</view>
-        <input name="sellSalesMan" disabled class="cell-value {{canEdit?'':'text-gray'}}" placeholder="请选择采购员" value="{{infos.sellSalesMan}}"></input>
+        <input name="sellSalesMan" disabled class="cell-value {{canEdit?'':'text-gray'}}" placeholder="请选择销售员" value="{{infos.sellSalesMan}}"></input>
         <view class="cuIcon-right  cell-icon {{canEdit?'':'text-gray'}}" bindtap="selectBuyer"></view>
       </view>
 
       <view class="cell border-bt">
         <view class="cell-name">仓库</view>
-        <input name="storehouse" disabled class="cell-value {{infos.orderStatus==='090002'&&canEdit?'':'text-gray'}}" placeholder="请选择仓库" value="{{storehouse.list[storehouse.index]}}"></input>
+        <input name="storehouse" disabled class="cell-value {{canEdit||infos.orderStatus==='090002'?'':'text-gray'}}" placeholder="请选择仓库" value="{{storehouse.list[storehouse.index]}}"></input>
         <picker bindchange="selectStorehouse" disabled="{{!canEdit||!infos.orderStatus==='090002'}}" value="{{storehouse.index}}" range="{{storehouse.list}}">
           <view class="picker">
-            <view class="cuIcon-right  cell-icon {{infos.orderStatus==='090002'&&canEdit?'':'text-gray'}}"></view>
+            <view class="cuIcon-right  cell-icon {{canEdit||infos.orderStatus==='090002'?'':'text-gray'}}"></view>
           </view>
         </picker>
       </view>
@@ -169,7 +169,7 @@
       <button class="bg-gradual-orange" bindtap="confirmSend" form-type="submit">确认出库</button>
     </view>
 
-    <view class="option" wx:if="{{infos.orderStatus === '090001'&&infos.oando === 'up'?true:infos.orderStatus === '090003'&&infos.oando === 'down'?true:false}}">
+    <view class="option" wx:if="{{infos.orderStatus === '090001'&&infos.oando === 'up'?true:infos.orderStatus === '090003'?true:false}}">
       <button class="bg-gradual-orange" bindtap="payment">收款</button>
     </view>
 

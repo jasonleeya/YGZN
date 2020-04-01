@@ -26,7 +26,8 @@ Page({
       accountList: [],
       index: '0'
     },
-    isCheckeOrder:false
+    isCheckeOrder:false,
+    oando:""
   },
   onLoad: function (options) {
     app.setTitle("收款")
@@ -35,7 +36,8 @@ Page({
       customerNo: options.customerNo,
       orderNo: options.orderNoArr,
       orderNoArr: "," + options.orderNoArr,
-      supplyName: options.supplyName
+      supplyName: options.supplyName,
+      oando:options.oando
     })
     app.http("getOrderPayByOrderNoCost", {
       supplyNo: options.supplyNo,
@@ -66,7 +68,7 @@ Page({
       } else {
         this.setData({
           ["receiveAccount.list"]: ['现金', ' 其他'],
-          ["paymentAccount.noAccount"]: true
+          ["receiveAccount.noAccount"]: true
         })
 
       }
@@ -115,7 +117,11 @@ Page({
     var prevPage = pages[pages.length - 2];
 
     switch (this.data.paymentMethods.list[this.data.paymentMethods.index]) {
-      case "预存款支付":
+      case "预存款支付": 
+        if(parseFloat(this.data.orderAmount)>parseFloat(this.data.preDeposit)){
+          app.showToast("预存款不足,请用其他方式支付")
+          return
+        } 
         app.http("orderPayByOrderNo", {
           supplyNo: this.data.supplyNo,
           customerNo: this.data.customerNo,
@@ -139,6 +145,10 @@ Page({
         // params.upperpartOrder[0].orderTypeChoose = "03"
         // params.upperpartOrder = JSON.stringify(params.upperpartOrder)
         // // console.log(params)
+        if(parseFloat(this.data.orderAmount)>parseFloat(this.data.credits)&&this.data.oando==='up'){
+          app.showToast("信用额度不足,请用其他方式支付")
+          return
+        }
 
         app.http("creditPayment", {
           orderNo: this.data.orderNo

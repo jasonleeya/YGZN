@@ -1,6 +1,6 @@
-<view class="card" wx:for="{{employeeList}}" wx:key>
+<view class="card" wx:for="{{employeeList}}" wx:key='index'>
   <view class="card-head">
-    <view class="card-title">员工信息</view>
+    <view class="card-title">员工管理</view>
     <view class="card-subtitle text-green" bindtap="editEmployee" data-index="{{index}}">编辑</view>
   </view>
   <view class="card-content">

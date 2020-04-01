@@ -17,20 +17,9 @@ Page({
       pageSize: 1000,
       keyword: this.data.searchValue
     }).then(data=>{
-      
-      if (this.data.type==='payer'){
-        var list = []
-          data.list.forEach(item=>{
-            list.push(item.customer)
-        })
-        this.setData({
-          customerList: list
-        })
-      }else{
-        this.setData({
-          customerList: data.list
-        })
-      }
+      this.setData({
+        customerList: data.list
+      })
     
     })
   },

@@ -1,7 +1,7 @@
 <search types="{{storeHouseList}}" bind:searchType="searchType" bind:value="getSearchValue" />
 <scroll-view scroll-y class="product-manage-scroll" bindscrolltolower="reachBottom">
   <view class="product-list cu-list">
-    <view class="product-item solid-bottom cu-item {{modalName=='move-box-'+ index?'move-cur':''}}" wx:for="{{productList}}" wx:key bindtap="editProductInfo" data-index="{{index}}" bindtouchstart="ListTouchStart" bindtouchmove="ListTouchMove" bindtouchend="ListTouchEnd"
+    <view class="product-item solid-bottom cu-item {{modalName=='move-box-'+ index?'move-cur':''}}" wx:for="{{productList}}" wx:key='index' bindtap="editProductInfo" data-index="{{index}}" bindtouchstart="ListTouchStart" bindtouchmove="ListTouchMove" bindtouchend="ListTouchEnd"
       data-target="move-box-{{index}}">
       <view class="product-pic">
         <previewImage src="{{item.imgPath}}" w="{{'140rpx'}}" h="{{'140rpx'}}" />

@@ -77,7 +77,7 @@ Component({
     app.setTitle("首页")
     //将用户权限值保存于当前页面
     this.setData({
-      userAuthCodes: app.globalData.userAuthCodes
+      userAuthCodes: wx.getStorageSync('userAuthCodes')
     })
     //首页数据
     app.http("fetchOrderAggregate").then(data=>{

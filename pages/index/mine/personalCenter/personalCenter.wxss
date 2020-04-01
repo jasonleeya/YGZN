@@ -13,3 +13,14 @@
   width: calc(100vw - 60rpx);
   margin: 60rpx 30rpx;
 }
+.card-subtitle{
+  display: flex;
+}
+.card-subtitle view{
+  margin-left: 30rpx;
+}
+.empty{
+  width: 100vw;
+  text-align: center;
+  margin-top: 200rpx;
+}

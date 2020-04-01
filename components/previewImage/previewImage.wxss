@@ -5,5 +5,6 @@
 .image {
   position: absolute;
   top: 50%;
-  transform: translateY(-50%)
+  transform: translateY(-50%);
+  line-height: 0;
 }

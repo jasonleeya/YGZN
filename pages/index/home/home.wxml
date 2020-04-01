@@ -28,7 +28,7 @@
       <!-- 项目列表 -->
       <view class="project-list">
 
-        <view class=" project-item bg-{{item.color}} " wx:for="{{projectData}}" wx:key bindtap="jump" data-link="{{item.link}}">
+        <view class=" project-item bg-{{item.color}} " wx:for="{{projectData}}" wx:key='index' bindtap="jump" data-link="{{item.link}}">
           <view class="project-title">{{item.title}}</view>
           <view class="project-title-en">{{item.titleEn}}</view>
           <view class="project-icon iconfont iconcaigouoff"></view>

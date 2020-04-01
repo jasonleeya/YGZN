@@ -22,8 +22,8 @@ Page({
             wx.setStorageSync("token", data.info)
             app.globalData.token = data.info
 
-            app.http("findLabelId").then(data => {
-              app.globalData.userAuthCodes = data.list
+            app.http("findLabelId").then(data => { 
+              wx.setStorageSync('userAuthCodes', data.list)
             })
             wx.redirectTo({
               url: '/pages/index/index'

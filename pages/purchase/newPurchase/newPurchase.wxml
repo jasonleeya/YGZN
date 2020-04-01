@@ -3,7 +3,7 @@
     <view class="info-list shadow">
       <view class="cell border-bt">
         <view class="cell-name">采购单号</view>
-        <input name="orderId" class="text-gray" disabled value="{{orderId}}"></input>
+        <input name="orderNo" class="text-gray" disabled value="{{orderNo}}"></input>
       </view>
 
       <view class="cell border-bt">

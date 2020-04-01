@@ -1,4 +1,4 @@
-<view class="card" wx:for="{{levelList}}" wx:key>
+<view class="card" wx:for="{{levelList}}" wx:key='index'>
   <view class="card-head">
     <view class="card-title">等级
       <text class="text-green" wx:if="{{item.dftStatus==='1'}}">(默认)</text>

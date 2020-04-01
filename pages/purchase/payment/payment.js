@@ -25,7 +25,8 @@ Page({
       list: [],
       accountList: [],
       index: '0'
-    }
+    },
+    oando:""
   },
   onLoad: function (options) {
     app.setTitle("支付")
@@ -34,7 +35,8 @@ Page({
       customerNo: options.customerNo,
       orderNo: options.orderNoArr,
       orderNoArr: "," + options.orderNoArr,
-      supplyName: options.supplyName
+      supplyName: options.supplyName,
+      oando:options.oando
     })
     app.http("getOrderPayByOrderNoCost", {
       supplyNo: options.supplyNo,
@@ -52,7 +54,7 @@ Page({
     app.http("getSupplyAccount", {
       custNo: options.supplyNo
     }).then(data => {
-      if (data.list.length > 0) {
+      if (data.list.length !== 0) {
         var nameList = ["现金"]
         var accountList = [""]
 
@@ -67,13 +69,13 @@ Page({
       } else {
         this.setData({
           ["receiveAccount.list"]: ['现金', ' 其他'],
-          ["paymentAccount.noAccount"]: true
+          ["receiveAccount.noAccount"]: true
         })
 
       }
     })
     app.http("getSupplyAccount").then(data => {
-      if (data.list.length > 0) {
+      if (data.list.length!== 0) {
         var nameList = ["现金"]
         var accountList = [""]
 
@@ -115,6 +117,11 @@ Page({
     var pages = getCurrentPages();
     var prevPage = pages[pages.length - 2];
 
+    if(parseFloat(this.data.orderAmount)>parseFloat(this.data.preDeposit)){
+      app.showToast("预存款不足,请用其他方式支付")
+      return
+    }
+
     switch (this.data.paymentMethods.list[this.data.paymentMethods.index]) {
       case "预存款支付":
         app.http("orderPayByOrderNo", {
@@ -140,7 +147,10 @@ Page({
         // params.upperpartOrder[0].orderTypeChoose = "03"
         // params.upperpartOrder = JSON.stringify(params.upperpartOrder)
         // // console.log(params)
-
+        if(parseFloat(this.data.orderAmount)>parseFloat(this.data.credits)&&this.data.oando==='up'){
+          app.showToast("信用额度不足,请用其他方式支付")
+          return
+        }
         app.http("creditPayment", {
           orderNo: this.data.orderNo
         }, true).then(() => {

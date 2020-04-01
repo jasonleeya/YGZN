@@ -2,7 +2,7 @@
   <view class="search-icon cuIcon-search"></view>
   <input class="bg-gray" placeholder="可搜索已认证的客户 申请后 需要用户通过" bindfocus="searchFocus" bindinput="searchInput" bindblur="searchBlur" value="{{searchInputValue}}"></input>
   <view class="dropdowm-list" wx:if="{{showDropdown}}">
-    <view class="dropdown-item solid-bottom" wx:for="{{searchList}}" wx:key data-id="{{item.id}}" bindtap="chooseSearchItem">
+    <view class="dropdown-item solid-bottom" wx:for="{{searchList}}" wx:key='index' data-id="{{item.id}}" bindtap="chooseSearchItem">
       <text class="dropdown-icon cuIcon-friend"></text>{{item.name}}</view>
   </view>
   <view class="dropdown-mask" bindtap="hiddenMask" wx:if="{{showDropdown}}"></view>

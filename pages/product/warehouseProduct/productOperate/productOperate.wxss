@@ -1,0 +1,76 @@
+scroll-view {
+  width: 100vw;
+  height: 100vh;
+}
+
+.product-pic {
+  padding: 30rpx;
+  background-color: #fff;
+  display: flex;
+}
+
+.add-pic-btn {
+  width: 100rpx;
+  height: 100rpx;
+  border: 1rpx dashed var(--themeColor);
+  color: var(--themeColor);
+  text-align: center;
+  line-height: 100rpx;
+  font-size: 40rpx;
+  border-radius: 10rpx;
+  margin-right: 20rpx;
+}
+
+.product-pic .pic {
+  margin-right: 30rpx;
+  position: relative;
+}
+
+.operates {
+  display: flex;
+  position: fixed;
+  width: 100vw;
+  bottom: 0;
+  justify-content: flex-end;
+  height: 100rpx;
+  background-color: #fff;
+  z-index: 999;
+  border-top: 1rpx solid rgba(0, 0, 0, 0.1)
+}
+
+.operate {
+  height: 60rpx;
+  border-radius: 30rpx;
+  line-height: 60rpx;
+  padding: 0 30rpx;
+  margin: 20rpx 30rpx 0 0;
+  font-size: 28rpx;
+}
+
+.save-btn {
+  padding: 0;
+}
+
+.save-btn button {
+  font-size: 28rpx;
+  height: 60rpx;
+  line-height: 60rpx;
+  padding: 0 30rpx;
+  background-color: transparent;
+  color: #fff;
+}
+
+.remark {
+  width: 100vw;
+  height: 200rpx;
+  background-color: #fff;
+  padding: 20rpx 30rpx;
+  margin-bottom: 0
+}
+
+.scan {
+  font-size: 40rpx;
+}
+#content-scroll-view{
+  height: calc(100vh - 100rpx)
+}

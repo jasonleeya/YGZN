@@ -1,7 +1,13 @@
 var authCodes = {
   homePurchseInfo: "SLgYooXaLKAZi7D",
-  homeSaleInfo: "Bcu4C1vdReW1TMA"
+  homeSaleInfo: "Bcu4C1vdReW1TMA",
+  productManage:"insetBrandProductEGO"
 }
 module.exports.verify = function(userAuthCodes, authName) {
+  if(!authName){ 
+    return true
+  }
+  // console.log(authName,userAuthCodes.indexOf(authCodes[authName]) > -1) 
+
   return userAuthCodes.indexOf(authCodes[authName]) > -1
 }

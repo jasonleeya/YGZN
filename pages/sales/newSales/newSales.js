@@ -314,7 +314,7 @@ create(store, {
         saleWarehouse: data.slectedStoreHouseId, //---
         invoice: '0003', //
         orderTypeChoose: '01', //
-        logisticsCost: parseFloat(info.logisticsCost).toFixed(2), //
+        logisticsCost: parseFloat(info.logisticsCost===""?0:info.logisticsCost).toFixed(2), //
         consignor: '', //
         reflect: '0' //
       }]),
