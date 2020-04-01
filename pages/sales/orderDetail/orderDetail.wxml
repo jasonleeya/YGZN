@@ -1,53 +1,53 @@
 <form bindsubmit="formSubmit">
-  <scroll-view scroll-y id="content-scroll-view">
-    <view class="info-list shadow">
-      <view class="cell border-bt">
-        <view class="cell-name">销售单号</view>
-        <input name="orderId" class="text-gray" disabled value="{{infos.orderNo}}"></input>
-      </view>
+	<scroll-view scroll-y id="content-scroll-view">
+		<view class="info-list shadow">
+			<view class="cell border-bt">
+				<view class="cell-name">销售单号</view>
+				<input name="orderId" class="text-gray" disabled value="{{infos.orderNo}}"></input>
+			</view>
 
-      <view class="cell border-bt">
-        <view class="cell-name">客户</view>
-        <view></view>
-        <input name="custName" disabled class="cell-value text-gray" placeholder="请选择供应商/或添加供应商" value="{{infos.custName}}"></input>
-        <view class="cuIcon-right  cell-icon text-gray"></view>
-      </view>
+			<view class="cell border-bt">
+				<view class="cell-name">客户</view>
+				<view></view>
+				<input name="custName" disabled class="cell-value text-gray" placeholder="请选择供应商/或添加供应商" value="{{infos.custName}}"></input>
+				<view class="cuIcon-right  cell-icon text-gray"></view>
+			</view>
 
-      <view class="cell border-bt">
-        <view class="cell-name">销售员</view>
-        <input name="sellSalesMan" disabled class="cell-value {{canEdit?'':'text-gray'}}" placeholder="请选择销售员" value="{{infos.sellSalesMan}}"></input>
-        <view class="cuIcon-right  cell-icon {{canEdit?'':'text-gray'}}" bindtap="selectBuyer"></view>
-      </view>
+			<view class="cell border-bt">
+				<view class="cell-name">销售员</view>
+				<input name="sellSalesMan" disabled class="cell-value {{canEdit?'':'text-gray'}}" placeholder="请选择销售员" value="{{infos.sellSalesMan}}"></input>
+				<view class="cuIcon-right  cell-icon {{canEdit?'':'text-gray'}}" bindtap="selectBuyer"></view>
+			</view>
 
-      <view class="cell border-bt">
-        <view class="cell-name">仓库</view>
-        <input name="storehouse" disabled class="cell-value {{canEdit||infos.orderStatus==='090002'?'':'text-gray'}}" placeholder="请选择仓库" value="{{storehouse.list[storehouse.index]}}"></input>
-        <picker bindchange="selectStorehouse" disabled="{{!canEdit||!infos.orderStatus==='090002'}}" value="{{storehouse.index}}" range="{{storehouse.list}}">
-          <view class="picker">
-            <view class="cuIcon-right  cell-icon {{canEdit||infos.orderStatus==='090002'?'':'text-gray'}}"></view>
-          </view>
-        </picker>
-      </view>
+			<view class="cell border-bt">
+				<view class="cell-name">仓库</view>
+				<input name="storehouse" disabled class="cell-value {{canEdit?'':'text-gray'}}" placeholder="请选择仓库" value="{{storehouse.list[storehouse.index]}}"></input>
+				<picker bindchange="selectStorehouse" disabled="{{!canEdit}}" value="{{storehouse.index}}" range="{{storehouse.list}}">
+					<view class="picker">
+						<view class="cuIcon-right  cell-icon {{canEdit?'':'text-gray'}}"></view>
+					</view>
+				</picker>
+			</view>
 
-      <view class="cell border-bt">
-        <view class="cell-name">收货人</view>
-        <view class="cell-value">
-          <!-- <input class="{{canEdit&&infos.orderStatus==='090001'&& infos.oando === 'down'?'':'text-gray'}}" disabled="{{canEdit&&infos.orderStatus==='090001'&& infos.oando === 'down'?false:true}}" name="receiver" value="{{address.consigneeName}}"></input> -->
+			<view class="cell border-bt">
+				<view class="cell-name">收货人</view>
+				<view class="cell-value">
+					<!-- <input class="{{canEdit&&infos.orderStatus==='090001'&& infos.oando === 'down'?'':'text-gray'}}" disabled="{{canEdit&&infos.orderStatus==='090001'&& infos.oando === 'down'?false:true}}" name="receiver" value="{{address.consigneeName}}"></input> -->
 
-          <input class="{{canEdit?'':'text-gray'}}" disabled="{{!canEdit}}" name="receiver" value="{{address.consigneeName}}"></input>
-        </view>
+					<input class="{{canEdit?'':'text-gray'}}" disabled="{{!canEdit}}" name="receiver" value="{{address.consigneeName}}"></input>
+				</view>
 
-      </view>
+			</view>
 
-      <view class="cell border-bt">
-        <view class="cell-name">联系电话</view>
-        <view class="cell-value">
-          <input class="{{canEdit?'':'text-gray'}}" disabled="{{!canEdit}}" name="phoneNumber" type="number" value="{{address.telephone}}" maxlength="11"></input>
-        </view>
-        <!-- <view class="cuIcon-right  cell-icon {{canEdit&&infos.orderStatus==='090001'&& infos.oando === 'down'?'':'text-gray'}}"></view> -->
-      </view>
+			<view class="cell border-bt">
+				<view class="cell-name">联系电话</view>
+				<view class="cell-value">
+					<input class="{{canEdit?'':'text-gray'}}" disabled="{{!canEdit}}" name="phoneNumber" type="number" value="{{address.telephone}}" maxlength="11"></input>
+				</view>
+				<!-- <view class="cuIcon-right  cell-icon {{canEdit&&infos.orderStatus==='090001'&& infos.oando === 'down'?'':'text-gray'}}"></view> -->
+			</view>
 
-      <!-- <view class="add-aeceive-address  border-bt">
+			<!-- <view class="add-aeceive-address  border-bt">
         <view class="cell-name">收货地址</view>
         <input class="{{canEdit&&infos.orderStatus==='090001'&& infos.oando === 'down'?'':'text-gray'}}" name="receiveAddress" hidden type="hidden" value="{{address.address}}" disabled class="cell-value" bindtap="addAeceiveAddress"></input>
         <view class="cell-value {{canEdit&&infos.orderStatus==='090001'&& infos.oando === 'down'?'':'text-gray'}}">
@@ -57,7 +57,7 @@
       </view>
  -->
 
-      <!-- <view class="cell border-bt">
+			<!-- <view class="cell border-bt">
         <view class="cell-name">收货所在地区</view>
         <view class="cell-value">
           <input name="region" value="{{region?region[0]+'/'+region[1]+'/'+region[2]:''}}" disabled placeholder="请选择客户或选择所在地区" class="{{canEdit?'':'text-gray'}}"></input>
@@ -69,50 +69,50 @@
         </picker> 
       </view> -->
 
-      <view class="cell border-bt ">
-        <view class="cell-name">收货详细地址</view>
-        <view class="cell-value ">
-          <input name="addressDetail" placeholder="请输入详细地址 " value="{{addressDetail}}" disabled="{{!canEdit}}" class="{{canEdit?'':'text-gray'}}"></input>
-        </view>
-      </view>
+			<view class="cell border-bt ">
+				<view class="cell-name">收货详细地址</view>
+				<view class="cell-value ">
+					<input name="addressDetail" placeholder="请输入详细地址 " value="{{addressDetail}}" disabled="{{!canEdit}}" class="{{canEdit?'':'text-gray'}}"></input>
+				</view>
+			</view>
 
-      <view class="cell border-bt">
-        <view class="cell-name">收货日期</view>
-        <view class="cell-value">
-          <picker name="receiveDate" disabled="{{!canEdit}}" mode="date" value="{{infos.getGoodsDate}}" start="{{infos.getGoodsDate}}" end="2100-09-01" bindchange="dateChange">
-            <view class="picker {{canEdit?'':'text-gray'}}">
-              {{infos.getGoodsDate}}
-            </view>
-          </picker>
-        </view>
-        <!-- <view class="cuIcon-right  cell-icon {{canEdit&&infos.orderStatus==='090001'&& infos.oando === 'down'?'':'text-gray'}}"></view> -->
-      </view>
+			<view class="cell border-bt">
+				<view class="cell-name">收货日期</view>
+				<view class="cell-value">
+					<picker name="receiveDate" disabled="{{!canEdit}}" mode="date" value="{{infos.getGoodsDate}}" start="{{infos.getGoodsDate}}" end="2100-09-01" bindchange="dateChange">
+						<view class="picker {{canEdit?'':'text-gray'}}">
+							{{infos.getGoodsDate}}
+						</view>
+					</picker>
+				</view>
+				<!-- <view class="cuIcon-right  cell-icon {{canEdit&&infos.orderStatus==='090001'&& infos.oando === 'down'?'':'text-gray'}}"></view> -->
+			</view>
 
-      <view class="cell border-bt">
-        <view class="cell-name">订单状态</view>
-        <view class="cell-value text-gray">
-          {{infos.orderType}}
-        </view>
-      </view>
-    </view>
-
-
-    <view class="cell border-bt" hidden="{{infos.orderStatus==='wait'||infos.orderStatus==='090001'||infos.orderStatus==='090003'}}">
-      <view class="cell-name">物流单号</view>
-      <view class="cell-value">
-        <input name="lgtNums" disabled="{{infos.orderStatus!=='090002'}}" id="lgt-nums" type="lgtNums" value="{{infos.lgtNums}}" placeholder="出库时请输入物流订单号" bindinput="lgtInput"></input>
-      </view>
-      <view class="cell-icon cuIcon-right {{canEdit&&infos.orderStatus==='wait'?'':'text-gray'}}" bindtap="seeLogisticsInfo"></view>
-    </view>
+			<view class="cell border-bt">
+				<view class="cell-name">订单状态</view>
+				<view class="cell-value text-gray">
+					{{infos.orderType}}
+				</view>
+			</view>
+		</view>
 
 
-    <view class="cell">
-      <view class="cell-name">物流费用</view>
-      <view class="cell-value">
-        <input name="logisticsCost" class="{{infos.orderStatus==='090001'?'text-gray':''}}" disabled="{{infos.orderStatus==='090001'}}" type="number" placeholder="请填写物流费用" value="{{infos.logisticsCost}}"></input>
-      </view>
-    </view>
-    <!-- <view class="cell border-bt">
+		<view class="cell border-bt" hidden="{{infos.orderStatus==='wait'||infos.orderStatus==='090001'||infos.orderStatus==='090003'}}">
+			<view class="cell-name">物流单号</view>
+			<view class="cell-value">
+				<input name="lgtNums" disabled="{{infos.orderStatus!=='090002'}}" id="lgt-nums" type="lgtNums" value="{{infos.lgtNums}}" placeholder="出库时请输入物流订单号" bindinput="lgtInput"></input>
+			</view>
+			<view class="cell-icon cuIcon-right {{canEdit&&infos.orderStatus==='wait'?'':'text-gray'}}" bindtap="seeLogisticsInfo"></view>
+		</view>
+
+
+		<view class="cell">
+			<view class="cell-name">物流费用</view>
+			<view class="cell-value">
+				<input name="logisticsCost" class="{{infos.orderStatus==='090001'?'text-gray':''}}" disabled="{{infos.orderStatus==='090001'}}" type="number" placeholder="请填写物流费用" value="{{infos.logisticsCost}}"></input>
+			</view>
+		</view>
+		<!-- <view class="cell border-bt">
       <view class="cell-name">物流单号</view>
       <view class="cell-value text-gray">
         出库时请输入物流订单号
@@ -120,28 +120,42 @@
       <view class="cell-icon cuIcon-right {{canEdit&&infos.orderStatus==='090001'&& infos.oando === 'down'?'':'text-gray'}}"></view>
     </view> -->
 
-    <!-- <view class="cell border-bt cell-gutter-bt">
+		<!-- <view class="cell border-bt cell-gutter-bt">
       <view class="cell-name">物流费用</view>
       <view class="cell-value">
         <input name="logisticsCost" type="number" placeholder="请填写物流费用" value="{{logisticsCost}}" class="{{canEdit&&infos.orderStatus==='090001'&& infos.oando === 'down'?'':'text-gray'}}" disabled="{{canEdit&&infos.orderStatus==='090001'&& infos.oando === 'down'?false:true}}"></input>
       </view>
     </view> -->
 
-    <!-- 搜索 -->
-    <search bindtap="addGoods" justLink="{{true}}" needTypes="{{false}}" wx:if="{{canEdit&&infos.orderStatus==='090001'&& infos.oando === 'down'}}" />
-    <!-- 购物车 -->
-    <cart goodsList="{{goodsList}}" totalPrice="{{totalPrice}}" picUrlKey="pirctureWay" nameKey="goodsName" brandNameKey="goodsBrand" typeKey="brandNo" priceKey="discountPrice" amountKey="goodsCount" idKey="goodsNo" minNumKey="minNums" bind:changeAmount="getChangeAmount"
-      bind:deleteGoods="deleteGoods" bind:operate="operate" bind:changeTotalPriceAndAmount="priceAmountChange" editable="{{canEdit}}" operateType="{{infos.orderStatus === 'wait'||infos.orderStatus === '090001'&& infos.oando === 'down'?'修改':'查看'}}" bind:goodsDetail="goodsDetail"
-    />
-  
-    
-    <view class="title remake">备注</view>
-    <textarea name="remark" wx:if="{{!showEditPop}}" disabled="{{!canEdit}}" class="remarke-textarea" placeholder="请填写备注信息" />
-  </scroll-view>
+		<!-- 搜索 -->
+		<search bindtap="addGoods" justLink="{{true}}" needTypes="{{false}}" wx:if="{{canEdit&&infos.orderStatus==='090001'&& infos.oando === 'down'}}" />
+		<!-- 购物车 -->
+		<cart goodsList="{{goodsList}}" totalPrice="{{totalPrice}}" picUrlKey="pirctureWay" nameKey="goodsName" brandNameKey="goodsBrand" typeKey="brandNo" priceKey="discountPrice" amountKey="goodsCount" idKey="goodsNo" minNumKey="minNums" bind:changeAmount="getChangeAmount" bind:deleteGoods="deleteGoods" bind:operate="operate" bind:changeTotalPriceAndAmount="priceAmountChange" editable="{{canEdit}}" operateType="{{infos.orderStatus === 'wait'||infos.orderStatus === '090001'&& infos.oando === 'down'?'修改':'查看'}}" bind:goodsDetail="goodsDetail" />
+
+
+		<view class="title remake">备注</view>
+		<textarea name="remark" wx:if="{{!showEditPop}}" disabled="{{!canEdit}}" class="remarke-textarea" placeholder="请填写备注信息" />
+		</scroll-view>
 
   <view class="operating-options">
     <view class="option" wx:if="{{infos.orderStatus === '090001'}}">
       <button class="bg-gradual-orange" form-type="submit" bindtap="confirmOrder" data-type="confirm">确认订单</button>
+    </view>
+
+    <view class="option" hidden="{{canEdit}}" wx:if="{{infos.orderStatus === '090001'||infos.orderStatus==='090002'}}">
+      <button class="bg-gradual-orange" bindtap="edit">修改订单</button>
+    </view> 
+  
+    <view class="option" wx:if="{{infos.orderStatus === '090001'&&canEdit}}">
+      <button class="bg-gradual-orange" form-type="submit" bindtap="saveOrder">保存订单</button>
+    </view>
+
+    <view class="option" hidden="{{canEdit}}" wx:if="{{infos.orderStatus ==='090003'&&infos.oando==='up'&&infos.showPayBtn===null}}">
+      <button class="bg-gradual-orange" bindtap="edit">修改订单</button>
+    </view> 
+  
+    <view class="option" hidden="{{!canEdit}}"  wx:if="{{infos.orderStatus === '090003'&&infos.oando==='up'&&infos.showPayBtn===null}}">
+      <button class="bg-gradual-orange" form-type="submit" bindtap="saveOrderBeforePay">保存订单</button>
     </view>
 
     <view class="option">
@@ -155,11 +169,7 @@
     <!-- 
     <view class="option" hidden="{{infos.orderStatus === '090004'||infos.orderStatus === '090005'}}">
       <button class="bg-gradual-orange" bindtap="splitOrder">拆分订单</button>
-    </view> -->
-
-    <view class="option" hidden="{{canEdit}}" wx:if="{{infos.orderStatus === '090001'||infos.orderStatus==='090002'}}">
-      <button class="bg-gradual-orange" bindtap="edit">修改订单</button>
-    </view>
+    </view> --> 
 
     <view class="option" wx:if="{{infos.orderStatus === '090004'&&infos.oando === 'down'}}">
       <button class="bg-gradual-orange" bindtap="confirmStorage" form-type="submit">手动收货</button>

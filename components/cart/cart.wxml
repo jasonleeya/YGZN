@@ -29,9 +29,9 @@
       <view class="choosed-amount">
        <view class="operate-btn"  bindtap="operate" data-index="{{index}}">{{operateType}}</view>
         <view class="choosed-amount-wrapper solid" wx:if="{{editable===true}}">
-          <view class="plus-amount bg-gray" bindtap="plusGoods" data-index="{{index}}" data-id="{{item[idKey]}}">+</view>
-          <input type="number" class="amount" value="{{item[amountKey]}}" data-index="{{index}}" data-id="{{item[idKey]}}" bindinput="amountInput" bindblur="amountBlur"></input>
           <view class="minus-amount bg-gray" bindtap="minusGoods" data-index="{{index}}" data-id="{{item[idKey]}}">-</view>
+          <input type="number" class="amount" value="{{item[amountKey]}}" data-index="{{index}}" data-id="{{item[idKey]}}" bindinput="amountInput" bindblur="amountBlur"></input> 
+          <view class="plus-amount bg-gray" bindtap="plusGoods" data-index="{{index}}" data-id="{{item[idKey]}}">+</view>
         </view>
         <view class="amount-show" wx:if="{{editable===false}}">
           <text class="cuIcon-close"></text>{{item[amountKey]}}</view>

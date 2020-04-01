@@ -3,7 +3,7 @@ Page({
   data: {
     paymentMethods: {
       // list: ["预存款支付", "信用额度支付", "转账支付", "现金支付"],
-      list: ["预存款支付", "信用额度支付", "其他支付"],
+      list: ["预存款支付", "信用额度支付", "线下支付"],
       index: null,
     },
     supplyNo: null,
@@ -163,7 +163,7 @@ Page({
           app.showToast(err)
         })
         break
-      case "其他支付":
+      case "线下支付":
         var preData = prevPage.data.infos
         console.log(prevPage.data.infos)
         var p = {
@@ -185,8 +185,8 @@ Page({
             remark: preData.orderNo + '订单直接付款'
           }])
         }   
-        app.http("custOrderPay", p).then(() => {
-          app.showToast("支付成功")
+        app.http("custOrderPay", p).then((data) => {
+          app.showToast(data.msg)
           setTimeout(() => {
             wx.navigateBack({
               delta: 3

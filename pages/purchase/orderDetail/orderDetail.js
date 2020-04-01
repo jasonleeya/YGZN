@@ -93,6 +93,7 @@ Page({
       data.infoBody.lows.forEach(item=>{
         item.pirctureWay=item.productInfo.imgPath
       })
+     
       this.setData({
         infos: infos,
         address: data.infoBody.address,
@@ -101,6 +102,15 @@ Page({
         beforeWareHouse: JSON.parse(JSON.stringify(data.infoBody.upp.purchaseWarehouse)),
         totalPrice: data.infoBody.upp.sttAmount
       })
+      if(infos.orderStatus==='wait'){
+        // app.globalData.purchaseCartList=this.data.goodsList
+        var goodsList=this.data.goodsList
+        goodsList.forEach((item,index)=>{
+          item.NTP=item.ntp,
+          item.NTPSingle=item.ntpsingle,
+        app.globalData.purchaseCartList=goodsList
+        })
+      }
 
       app.http("getWarehouse").then(wareHouse => {
         var list = []
@@ -126,12 +136,27 @@ Page({
     }).catch(err => {
       app.showToast(err)
     })
-
-
-
-
+ 
   },
-
+  onShow(){
+    if(this.data.infos.orderStatus==='wait'){
+      var goodsList=app.globalData.purchaseCartList
+      var totalPrice=0
+      var totalAmount=0
+      goodsList.forEach(item => {
+        totalAmount = parseInt(totalAmount) + parseInt(item.goodsCount)
+        totalPrice = parseFloat(totalPrice) + parseFloat(item.sttAmount)
+      })
+      this.setData({
+        goodsList,
+        totalPrice,
+        totalAmount
+      })
+      this.setData({
+        goodsList,
+      })
+    }
+  },
   /**
    * 生命周期函数--监听页面初次渲染完成
    */
@@ -420,6 +445,22 @@ Page({
       }
     })
   },
+  saveOrder(e) {
+    this.setData({
+      orderStatus: "wait"
+    })
+    let that = this
+    wx.showModal({
+      title: '是否保存订单?',
+      content: '',
+      success(res) {
+        if (res.cancel) {
+          return
+        }
+        that.submit(that.data.formEvent)
+      }
+    })
+  },
   confirmOfflineOrder(e) {
     this.setData({
       orderStatus: "090003"
@@ -557,6 +598,11 @@ Page({
         url: '/pages/purchase/payment/payment?supplyNo=' + infos.supplyNo + '&customerNo=' + infos.custNo + '&orderNoArr=' + infos.orderNo + "&supplyName=" + infos.supplyName + "&oando=" + this.data.infos.oando
       })
     }, 100)
+  },
+  toSearch(){
+    wx.navigateTo({
+      url: "/pages/purchase/addGoods/addGoods?supplyNo=" + this.data.infos.supplyNo + "&wareId=" + this.data.storehouse.idList[this.data.storehouse.index] + "&customerType=" + this.data.infos.oando,
+    })
   },
   onShareAppMessage(res) {
     return {

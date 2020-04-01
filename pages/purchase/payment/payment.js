@@ -117,13 +117,13 @@ Page({
     var pages = getCurrentPages();
     var prevPage = pages[pages.length - 2];
 
-    if(parseFloat(this.data.orderAmount)>parseFloat(this.data.preDeposit)){
-      app.showToast("预存款不足,请用其他方式支付")
-      return
-    }
-
+   
     switch (this.data.paymentMethods.list[this.data.paymentMethods.index]) {
       case "预存款支付":
+        if(parseFloat(this.data.orderAmount)>parseFloat(this.data.preDeposit)){
+          app.showToast("预存款不足,请用其他方式支付")
+          return
+        } 
         app.http("orderPayByOrderNo", {
           supplyNo: this.data.supplyNo,
           customerNo: this.data.customerNo,

@@ -39,7 +39,9 @@ Page({
         type: options.type
       })
     }
-
+    app.http("viewOrder", {
+      orderNo: options.orderNo
+    })
   
     app.http(this.data.type !== 'snapshot' ? "queryByOrderNo" : 'queryOriginalByOrderNo', {
       orderNo: options.orderNo
@@ -132,11 +134,13 @@ Page({
           list.push(item.name)
           idList.push(item.tableKey)
 
-          if (item.tableKey === this.data.saleWarehouse) {
-
+          if (item.tableKey === this.data.saleWarehouse) { 
             index = wareHouse.list.indexOf(item)
           }
         })
+        if(!this.data.saleWarehouse){
+          index=0
+        }
         this.setData({
           ["storehouse.list"]: list,
           ["storehouse.idList"]: idList
@@ -185,13 +189,11 @@ Page({
       saleWarehouse: this.data.storehouse.idList[e.detail.value]
     })
   },
-  edit() {
-    if (this.data.infos.orderStatus === "090001" || this.data.infos.orderStatus === '090002') {
+  edit() { 
       this.setData({
         canEdit: true
-      })
-    }
-  },
+      })  
+  }, 
   // {{(canEdit&&infos.orderStatus==='wait')||(canEdit&&infos.orderStatus==='090001'&&infos.oando==='down')?'':'text-gray'}}
   selectBuyer() {
     if (!this.data.canEdit) {
@@ -324,7 +326,38 @@ Page({
       }
     })
   },
-
+  saveOrder(e){
+    this.setData({
+      orderStatus: "090001"
+    })
+    let that = this
+    wx.showModal({
+      title: '是否保存订单',
+      content: '',
+      success(res) {
+        if (res.cancel) {
+          return
+        }
+        that.submit(that.data.formEvent)
+      }
+    })
+  },
+  saveOrderBeforePay(){
+    this.setData({
+      orderStatus: "090003"
+    })
+    let that = this
+    wx.showModal({
+      title: '是否保存订单',
+      content: '',
+      success(res) {
+        if (res.cancel) {
+          return
+        }
+        that.submit(that.data.formEvent)
+      }
+    })
+  },
   split() {
     app.showToast("暂不支持")
   },

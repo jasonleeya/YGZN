@@ -75,8 +75,8 @@
 
   <view class="operate">
     <button class="text-gray" bindtap="back">稍后支付</button>
-    <button class="theme-bgc" wx:if="{{paymentMethods.index==='2'||paymentMethods.index==='3'}}"  bindtap="pay">确定付款</button>
-    <button class="theme-bgc" wx:if="{{paymentMethods.index==='0'||paymentMethods.index==='1'}}" bindtap="pay">确定支付</button>
+    <button class="theme-bgc" wx:if="{{paymentMethods.index==='2'||paymentMethods.index==='3'}}"  bindtap="pay">提交收款单</button>
+    <button class="theme-bgc" wx:if="{{paymentMethods.index==='0'||paymentMethods.index==='1'}}" bindtap="pay">稍后收款</button>
   </view>
 
 </view>

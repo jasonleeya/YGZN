@@ -182,10 +182,12 @@ App({
         },
         success: function (res) {
           if (res.statusCode != 200) { 
+            console.log(alias,res.statusCode)
             reject(res.statusCode);
             return;
           } 
-          if (!res.data.success) {
+          if (res.data.success===false) {
+            console.log(alias,res.data.msg || res.data.info) 
             reject(res.data.msg || res.data.info);
             return;
           }
@@ -195,6 +197,7 @@ App({
           resolve(res.data);
         },
         fail: function (err) {
+          console.log(alias,err)
           if (typeof err.errMsg !== 'undefined') {
             reject(err.errMsg)
           } else {
